@@ -37,6 +37,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.splitter4 = new System.Windows.Forms.Splitter();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.SuspendLayout();
             // 
             // splitter1
@@ -88,6 +89,7 @@
             this.button1.Size = new System.Drawing.Size(54, 30);
             this.button1.TabIndex = 1;
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.Button1_Click);
             // 
             // splitter3
             // 
@@ -153,5 +155,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Splitter splitter4;
         private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }

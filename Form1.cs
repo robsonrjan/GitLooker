@@ -14,7 +14,7 @@ namespace GitLooker
         public Form1()
         {
             InitializeComponent();
-            semaphore = new SemaphoreSlim(5, 5);
+            semaphore = new SemaphoreSlim(2);
         }
 
         private void SetWorkingPathToolStripMenuItem_Click(object sender, EventArgs e)

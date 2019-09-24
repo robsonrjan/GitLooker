@@ -5,6 +5,6 @@ namespace GitLooker
 {
     public interface IPowersShell
     {
-        Collection<PSObject> Execute(string command);
+        Collection<PSObject> Execute(string command, bool closeConnectionAfter = true);
     }
 }

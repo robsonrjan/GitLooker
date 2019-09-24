@@ -11,27 +11,14 @@ namespace GitLooker
 {
     public class PowersShell : IPowersShell
     {
-        private WSManConnectionInfo connectionInfo;
         private PowerShell powerShell;
         private bool isInitialized;
-
-        public PowersShell()
-        {
-            connectionInfo = new WSManConnectionInfo();
-            connectionInfo.SkipRevocationCheck = true;
-            connectionInfo.SkipCNCheck = true;
-        }
+        private Pipeline pipeLine;
 
         private void InitializeConnection()
         {
             powerShell = PowerShell.Create();
-
-            if (powerShell.Runspace != null)
-            {
-                powerShell.Runspace.Dispose();
-            }
-            powerShell.Runspace = RunspaceFactory.CreateRunspace(connectionInfo);
-            powerShell.Runspace.Open();
+            pipeLine = powerShell.Runspace.CreatePipeline();
             isInitialized = true;
         }
 
@@ -39,18 +26,14 @@ namespace GitLooker
         {
             if (powerShell != null)
             {
-                if (powerShell.Runspace != null)
-                {
-                    powerShell.Runspace.Close();
-                    powerShell.Runspace.Dispose();
-                }
+                pipeLine.Stop();
                 powerShell.Dispose();
                 powerShell = null;
             }
             isInitialized = false;
         }
 
-        public Collection<PSObject> Execute(string command)
+        public Collection<PSObject> Execute(string command, bool closeConnectionAfter = true)
         {
             if (!isInitialized)
                 InitializeConnection();
@@ -58,12 +41,17 @@ namespace GitLooker
             try
             {
                 powerShell.Streams.Error.Clear();
-                powerShell.Commands.Clear();
+                pipeLine.Commands.Clear();
 
-                powerShell.AddScript(command);
-                return powerShell.Invoke();
+                pipeLine.Commands.AddScript(command);
+                var returnValue = pipeLine.Invoke();
+
+                if (closeConnectionAfter)
+                    DisposePowersShell();
+
+                return returnValue;
             }
-            catch (Exception)
+            catch (Exception err)
             {
                 DisposePowersShell();
             }
