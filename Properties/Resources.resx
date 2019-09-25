@@ -130,4 +130,10 @@
   <data name="agt_update-product" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\agt_update-product.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="agt_update_recommended_up" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\agt_update_recommended_up.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="agt_update_recommended_xup" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\agt_update_recommended_xup.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

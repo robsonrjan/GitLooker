@@ -118,5 +118,11 @@
   <ItemGroup>
     <None Include="Resources\agt_update-product.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\agt_update_recommended_up.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\agt_update_recommended_xup.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

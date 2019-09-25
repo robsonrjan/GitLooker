@@ -79,7 +79,9 @@ namespace GitLooker
                     {
                         this.button2.BackgroundImage = global::GitLooker.Properties.Resources.button_cancel;
                         this.Invoke(new Action(() => { this.SendToBack(); }), null);
-                    }
+                    }                     
+                    else if (returnValue.Any(rtn => rtn.Contains("git push") || rtn.Contains("git add") || rtn.Contains("git checkout ")))
+                        this.button2.BackgroundImage = global::GitLooker.Properties.Resources.agt_update_recommended_xup;
                     else
                     {
                         this.button2.BackgroundImage = global::GitLooker.Properties.Resources.agt_action_success;
