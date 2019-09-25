@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
+using System.Drawing;
 using System.IO;
-using System.Management.Automation;
-using System.Management.Automation.Runspaces;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -23,12 +21,11 @@ namespace GitLooker
         private readonly IPowersShell powerShell;
         private readonly SemaphoreSlim semaphore;
         private TimeSpan waitingTime = TimeSpan.FromMinutes(30);
-        private DateTime lastTime;
         private string currentRespond;
         private string branchOn = "Pull current branch";
 
-        private bool isLoaded;
-        delegate void SetTextCallback(string text);
+        private delegate void SetTextCallback(string text);
+        private SetTextCallback tipDelegate;
 
         public RepoControl(string repoPath, SemaphoreSlim semaphore, IPowersShell powerShell)
         {
@@ -36,72 +33,69 @@ namespace GitLooker
             this.label1.Text = this.repoPath = repoPath;
             this.powerShell = powerShell;
 
-            lastTime = DateTime.UtcNow;
             workingDir = new DirectoryInfo(repoPath);
             this.label1.Text = workingDir.Name;
             this.semaphore = semaphore;
+
+            tipDelegate = new SetTextCallback(SetToolTipText);
         }
 
         private void RepoControl_Load(object sender, EventArgs e)
         {
-            this.timer1.Interval = 300000;
-            this.timer1.Enabled = isLoaded = true;
-            Timer1_Tick(null, null);           
+            UpdateRepoInfo();
         }
 
         private void Label1_MouseEnter(object sender, EventArgs e)
         {
-            //this.label1.BorderStyle = BorderStyle.Fixed3D;
+            
         }
 
         private void Label1_MouseLeave(object sender, EventArgs e)
         {
-            //this.label1.BorderStyle = BorderStyle.None;
-        }
-
-        private void Timer1_Tick(object sender, EventArgs e)
-        {
-            if (!isLoaded) return;
-
-            if (DateTime.UtcNow > lastTime)
-                lastTime = DateTime.UtcNow.Add(waitingTime);
-            else
-                return;
-
-            UpdateRepoInfo();
+   
         }
 
         private void SetToolTipText(string text)
-        {
-            this.toolTip1.SetToolTip(this.button1, text);
-        }
+            => this.toolTip1.SetToolTip(this.button1, text);
 
-        private void UpdateRepoInfo(bool noRespound = false)
+        public void UpdateRepoInfo(bool noRespound = false)
         {
             Task.Factory.StartNew(() =>
             {
-                var returnValue = CheckRepo();
-
-                if (returnValue.Any(rtn => rtn.StartsWith("On branch")))
+                semaphore.Wait();
+                try
                 {
-                    branchOn = string.Format("Pull {0}", returnValue.FirstOrDefault(x => x.StartsWith("On branch")));
-                    var tipDelegate = new SetTextCallback(SetToolTipText);
-                    this.Invoke(tipDelegate, new object[] { branchOn });
-                }
+                    this.Invoke(new Action(() => { this.label1.ForeColor = Color.DarkGreen; }), null);
+                    var returnValue = CheckRepo();
 
-                if (returnValue.Any(rtn => rtn.Contains("branch is behind")))
-                {
-                    this.button2.BackgroundImage = global::GitLooker.Properties.Resources.button_cancel;
-                    this.SendToBack();
-                }
-                else
-                {
-                    this.button2.BackgroundImage = global::GitLooker.Properties.Resources.agt_action_success;
-                    this.BringToFront();
-                }
+                    if (returnValue.Any(rtn => rtn.StartsWith("On branch")))
+                    {
+                        branchOn = string.Format("Pull {0}", returnValue.FirstOrDefault(x => x.StartsWith("On branch")));
+                        
+                        this.Invoke(tipDelegate, new object[] { branchOn });
+                    }
 
-                if (!noRespound)
-                    currentRespond = string.Join(Environment.NewLine, returnValue.ToArray());
+                    if (returnValue.Any(rtn => rtn.Contains("branch is behind")))
+                    {
+                        this.button2.BackgroundImage = global::GitLooker.Properties.Resources.button_cancel;
+                        this.Invoke(new Action(() => { this.SendToBack(); }), null);
+                    }
+                    else
+                    {
+                        this.button2.BackgroundImage = global::GitLooker.Properties.Resources.agt_action_success;
+                        this.Invoke(new Action(() => { this.BringToFront(); }), null);
+                    }
+
+                    if (!noRespound)
+                        currentRespond = string.Join(Environment.NewLine, returnValue.ToArray());
+
+                    this.Invoke(new Action(() => { this.label1.ForeColor = Color.Navy; }), null);
+                }
+                catch (Exception err)
+                {
+                    currentRespond = err.Message;
+                }
+                semaphore.Release();
             });
         }
 
@@ -115,6 +109,12 @@ namespace GitLooker
             commandUpdate
         });
 
+        private string GenerateUpdateWithStatusCommand => string.Join(Environment.NewLine, new[] {
+            string.Format(commandPath, workingDir.FullName),
+            commandUpdate,
+            commandStatus
+        });
+
         private string GeneratePullCommand => string.Join(Environment.NewLine, new[] {
             string.Format(commandPath, workingDir.FullName),
             commandPull
@@ -122,10 +122,7 @@ namespace GitLooker
 
         private IEnumerable<string> CheckRepo()
         {
-            semaphore.Wait();
-            powerShell.Execute(GenerateUpdateCommand);
-            var rtn = powerShell.Execute(GenerateStatusCommand);
-            semaphore.Release();
+            var rtn = powerShell.Execute(GenerateUpdateWithStatusCommand);
             return rtn.Select(x => x.BaseObject.ToString());            
         }
 
@@ -145,6 +142,12 @@ namespace GitLooker
                 currentRespond = string.Join(Environment.NewLine, rtn.ToArray());
                 UpdateRepoInfo(true);
             });            
+        }
+
+        private void Button2_Click(object sender, EventArgs e)
+        {
+            var status = new Status(currentRespond);
+            status.ShowDialog();
         }
     }
 }

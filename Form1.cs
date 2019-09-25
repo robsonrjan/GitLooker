@@ -57,5 +57,12 @@ namespace GitLooker
             repo.Dock = DockStyle.Top;
             this.panel1.Controls.Add(repo);
         }
+
+        private void CheckToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            foreach(var cntr in panel1.Controls)
+                if(cntr is RepoControl)
+                    ((RepoControl)cntr).UpdateRepoInfo();
+        }
     }
 }
