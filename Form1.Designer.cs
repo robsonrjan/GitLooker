@@ -95,7 +95,7 @@
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.MaximumSize = new System.Drawing.Size(500, 800);
             this.Name = "Form1";
-            this.Text = "Git Loker";
+            this.Text = "Git branch changes looker";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
