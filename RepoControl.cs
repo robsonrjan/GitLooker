@@ -91,7 +91,10 @@ namespace GitLooker
                 }
 
                 if (returnValue.Any(rtn => rtn.Contains("branch is behind")))
+                {
                     this.button2.BackgroundImage = global::GitLooker.Properties.Resources.button_cancel;
+                    this.SendToBack();
+                }
                 else
                     this.button2.BackgroundImage = global::GitLooker.Properties.Resources.agt_action_success;
 
