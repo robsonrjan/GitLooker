@@ -46,18 +46,17 @@ namespace GitLooker
         {
             this.timer1.Interval = 300000;
             this.timer1.Enabled = isLoaded = true;
-            Timer1_Tick(null, null);
-           
+            Timer1_Tick(null, null);           
         }
 
         private void Label1_MouseEnter(object sender, EventArgs e)
         {
-            this.label1.BorderStyle = BorderStyle.Fixed3D;
+            //this.label1.BorderStyle = BorderStyle.Fixed3D;
         }
 
         private void Label1_MouseLeave(object sender, EventArgs e)
         {
-            this.label1.BorderStyle = BorderStyle.None;
+            //this.label1.BorderStyle = BorderStyle.None;
         }
 
         private void Timer1_Tick(object sender, EventArgs e)
@@ -65,7 +64,7 @@ namespace GitLooker
             if (!isLoaded) return;
 
             if (DateTime.UtcNow > lastTime)
-                lastTime = lastTime.Add(waitingTime);
+                lastTime = DateTime.UtcNow.Add(waitingTime);
             else
                 return;
 
@@ -96,7 +95,10 @@ namespace GitLooker
                     this.SendToBack();
                 }
                 else
+                {
                     this.button2.BackgroundImage = global::GitLooker.Properties.Resources.agt_action_success;
+                    this.BringToFront();
+                }
 
                 if (!noRespound)
                     currentRespond = string.Join(Environment.NewLine, returnValue.ToArray());
