@@ -63,16 +63,6 @@ namespace GitLooker.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap agt_action_success {
-            get {
-                object obj = ResourceManager.GetObject("agt_action_success", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap agt_update_misc {
             get {
                 object obj = ResourceManager.GetObject("agt_update_misc", resourceCulture);
@@ -83,9 +73,9 @@ namespace GitLooker.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap agt_update_product {
+        internal static System.Drawing.Bitmap button_ok {
             get {
-                object obj = ResourceManager.GetObject("agt_update-product", resourceCulture);
+                object obj = ResourceManager.GetObject("button_ok", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -93,9 +83,9 @@ namespace GitLooker.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap agt_update_recommended_up {
+        internal static System.Drawing.Bitmap checkmark {
             get {
-                object obj = ResourceManager.GetObject("agt_update_recommended_up", resourceCulture);
+                object obj = ResourceManager.GetObject("checkmark", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -103,19 +93,9 @@ namespace GitLooker.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap agt_update_recommended_xup {
+        internal static System.Drawing.Bitmap move_task_up {
             get {
-                object obj = ResourceManager.GetObject("agt_update_recommended_xup", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap button_cancel {
-            get {
-                object obj = ResourceManager.GetObject("button_cancel", resourceCulture);
+                object obj = ResourceManager.GetObject("move_task_up", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

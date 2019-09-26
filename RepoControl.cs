@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Linq;
+using System;
 
 namespace GitLooker
 {
@@ -14,18 +14,17 @@ namespace GitLooker
         private const string commandUpdate = "git remote update";
         private const string commandStatus = "git status";
         private const string commandPull = "git pull";
+        private const string commandReset = "git reset --hard";
+        private const string commandClean = "git clean -df";
         private const string commandPath = "cd \"{0}\"";
 
         private readonly string repoPath;
         private readonly DirectoryInfo workingDir;
         private readonly IPowersShell powerShell;
         private readonly SemaphoreSlim semaphore;
-        private TimeSpan waitingTime = TimeSpan.FromMinutes(30);
         private string currentRespond;
         private string branchOn = "Pull current branch";
-
-        private delegate void SetTextCallback(string text);
-        private SetTextCallback tipDelegate;
+        private bool canReset;
 
         public RepoControl(string repoPath, SemaphoreSlim semaphore, IPowersShell powerShell)
         {
@@ -36,8 +35,6 @@ namespace GitLooker
             workingDir = new DirectoryInfo(repoPath);
             this.label1.Text = workingDir.Name;
             this.semaphore = semaphore;
-
-            tipDelegate = new SetTextCallback(SetToolTipText);
         }
 
         private void RepoControl_Load(object sender, EventArgs e)
@@ -45,52 +42,47 @@ namespace GitLooker
             UpdateRepoInfo();
         }
 
-        private void Label1_MouseEnter(object sender, EventArgs e)
-        {
-            
-        }
-
-        private void Label1_MouseLeave(object sender, EventArgs e)
-        {
-   
-        }
-
-        private void SetToolTipText(string text)
-            => this.toolTip1.SetToolTip(this.button1, text);
-
-        public void UpdateRepoInfo(bool noRespound = false)
+        public void UpdateRepoInfo()
         {
             Task.Factory.StartNew(() =>
             {
                 semaphore.Wait();
                 try
                 {
+                    canReset = false;
                     this.Invoke(new Action(() => { this.label1.ForeColor = Color.DarkGreen; }), null);
                     var returnValue = CheckRepo();
 
-                    if (returnValue.Any(rtn => rtn.StartsWith("On branch")))
+                    if (returnValue.Any(rtn => rtn.StartsWith("on branch")))
                     {
-                        branchOn = string.Format("Pull {0}", returnValue.FirstOrDefault(x => x.StartsWith("On branch")));
-                        
-                        this.Invoke(tipDelegate, new object[] { branchOn });
+                        branchOn = string.Format("Working {0}", returnValue.FirstOrDefault(x => x.StartsWith("on branch")));
+                        this.Invoke(new Action(() =>
+                        {
+                            this.toolTip1.SetToolTip(this.button1, branchOn);
+                            this.label2.Text = branchOn;
+                        }), null);
                     }
 
                     if (returnValue.Any(rtn => rtn.Contains("branch is behind")))
                     {
-                        this.button2.BackgroundImage = global::GitLooker.Properties.Resources.button_cancel;
+                        this.button2.BackgroundImage = global::GitLooker.Properties.Resources.checkmark;
                         this.Invoke(new Action(() => { this.SendToBack(); }), null);
-                    }                     
+                    }
                     else if (returnValue.Any(rtn => rtn.Contains("git push") || rtn.Contains("git add") || rtn.Contains("git checkout ")))
-                        this.button2.BackgroundImage = global::GitLooker.Properties.Resources.agt_update_recommended_xup;
+                    {
+                        this.Invoke(new Action(() =>
+                        {
+                            this.button2.BackgroundImage = global::GitLooker.Properties.Resources.move_task_up;
+                        }));
+                        canReset = true;
+                    }
                     else
                     {
-                        this.button2.BackgroundImage = global::GitLooker.Properties.Resources.agt_action_success;
+                        this.button2.BackgroundImage = global::GitLooker.Properties.Resources.button_ok;
                         this.Invoke(new Action(() => { this.BringToFront(); }), null);
                     }
 
-                    if (!noRespound)
-                        currentRespond = string.Join(Environment.NewLine, returnValue.ToArray());
-
+                    currentRespond += string.Join(Environment.NewLine, returnValue.ToArray());
                     this.Invoke(new Action(() => { this.label1.ForeColor = Color.Navy; }), null);
                 }
                 catch (Exception err)
@@ -122,33 +114,53 @@ namespace GitLooker
             commandPull
         });
 
+        private string GenerateResetCommand => string.Join(Environment.NewLine, new[] {
+            string.Format(commandPath, workingDir.FullName),
+            commandClean,
+            commandReset
+        });
+
         private IEnumerable<string> CheckRepo()
         {
             var rtn = powerShell.Execute(GenerateUpdateWithStatusCommand);
-            return rtn.Select(x => x.BaseObject.ToString());            
+            return rtn.Select(x => x.BaseObject.ToString().ToLower());            
         }
 
         private IEnumerable<string> PullRepo()
         {
-            semaphore.Wait();
             var rtn = powerShell.Execute(GeneratePullCommand);
-            semaphore.Release();
-            return rtn.Select(x => x.BaseObject.ToString());
+            return rtn.Select(x => x.BaseObject.ToString().ToLower());
+        }
+
+        private IEnumerable<string> ResetRepo()
+        {
+            var rtn = powerShell.Execute(GenerateResetCommand);
+            return rtn.Select(x => x.BaseObject.ToString().ToLower());
         }
 
         private void Button1_Click(object sender, EventArgs e)
         {
+            currentRespond = string.Empty;
             Task.Factory.StartNew(() =>
             {
                 var rtn = PullRepo();
                 currentRespond = string.Join(Environment.NewLine, rtn.ToArray());
-                UpdateRepoInfo(true);
+                UpdateRepoInfo();
             });            
         }
 
         private void Button2_Click(object sender, EventArgs e)
         {
-            var status = new Status(currentRespond);
+            var status = new Status(currentRespond, () =>
+            {
+                currentRespond = string.Empty;
+                Task.Factory.StartNew(() =>
+                {
+                    var rtn = ResetRepo();
+                    currentRespond = string.Join(Environment.NewLine, rtn.ToArray());
+                    UpdateRepoInfo();
+                });
+            }, canReset);
             status.ShowDialog();
         }
     }

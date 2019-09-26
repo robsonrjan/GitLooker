@@ -24,10 +24,15 @@ namespace GitLooker
 
             var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
             folderBrowserDialog1.ShowDialog();
-            chosenPath = folderBrowserDialog1.SelectedPath;
-            config.AppSettings.Settings.Remove("GirLookerPath");
-            config.AppSettings.Settings.Add("GirLookerPath", chosenPath);
-            config.Save();
+            var path = folderBrowserDialog1.SelectedPath;
+            if (!string.IsNullOrEmpty(path) && (chosenPath != path))
+            {
+                chosenPath = path;
+                config.AppSettings.Settings.Remove("GirLookerPath");
+                config.AppSettings.Settings.Add("GirLookerPath", chosenPath);
+                config.Save();
+                CheckForGitRepo(chosenPath);
+            }
         }
 
         private void Form1_Load(object sender, EventArgs e)
