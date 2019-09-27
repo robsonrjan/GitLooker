@@ -74,7 +74,7 @@ namespace GitLooker
                         {
                             this.button2.BackgroundImage = global::GitLooker.Properties.Resources.move_task_up;
                         }));
-                        canReset = true;
+                        canReset = true && branchOn.EndsWith("master");
                     }
                     else
                     {
