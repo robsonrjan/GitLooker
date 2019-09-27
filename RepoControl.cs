@@ -60,6 +60,7 @@ namespace GitLooker
                         {
                             this.toolTip1.SetToolTip(this.button1, branchOn);
                             this.label2.Text = branchOn;
+                            this.button1.Enabled = true;
                         }), null);
                     }
 
@@ -73,6 +74,7 @@ namespace GitLooker
                         this.Invoke(new Action(() =>
                         {
                             this.button2.BackgroundImage = global::GitLooker.Properties.Resources.move_task_up;
+                            this.button1.Enabled = false;
                         }));
                         canReset = true && branchOn.EndsWith("master");
                     }
