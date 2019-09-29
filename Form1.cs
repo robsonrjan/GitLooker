@@ -1,4 +1,6 @@
-﻿using System;
+﻿using GitLooker.CommandProcessor;
+using GitLooker.Configuration;
+using System;
 using System.Configuration;
 using System.IO;
 using System.Linq;
@@ -11,6 +13,10 @@ namespace GitLooker
     {
         private string chosenPath = string.Empty;
         private readonly SemaphoreSlim semaphore;
+        private IRepoControlConfiguration repoConfiguration;
+        private IPowersShell powerShell;
+        private ICommandProcessor controlConfiguration;
+
         public Form1()
         {
             InitializeComponent();
@@ -58,7 +64,10 @@ namespace GitLooker
 
         private void CheckRepo(string repoDdir)
         {
-            var repo = new RepoControl(repoDdir, semaphore, new PowersShell());
+            repoConfiguration = new RepoControlConfiguration(repoDdir, semaphore);
+            powerShell = new PowersShell();
+            controlConfiguration = new CommandProcessor.CommandProcessor(powerShell);
+            var repo = new RepoControl(repoConfiguration, controlConfiguration);
             repo.Dock = DockStyle.Top;
             this.panel1.Controls.Add(repo);
         }
