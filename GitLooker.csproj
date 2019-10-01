@@ -122,5 +122,8 @@
   <ItemGroup>
     <None Include="Resources\move_task_up.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\uo_st - Copy.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -34,7 +34,7 @@ namespace GitLooker
 
         private void RepoControl_Load(object sender, EventArgs e)
         {
-            UpdateRepoInfo();
+            //UpdateRepoInfo();
         }
 
         public void UpdateRepoInfo()
@@ -102,6 +102,7 @@ namespace GitLooker
         private void Button1_Click(object sender, EventArgs e)
         {
             currentRespond = string.Empty;
+            this.label1.ForeColor = Color.DarkGreen;
             Task.Factory.StartNew(() =>
             {
                 var rtn = commandProcessor.PullRepo(workingDir.FullName);
@@ -117,6 +118,7 @@ namespace GitLooker
                 currentRespond = string.Empty;
                 Task.Factory.StartNew(() =>
                 {
+                    this.label1.ForeColor = Color.DarkGreen;
                     var rtn = commandProcessor.ResetRepo(workingDir.FullName);
                     currentRespond = string.Join(Environment.NewLine, rtn.ToArray());
                     UpdateRepoInfo();

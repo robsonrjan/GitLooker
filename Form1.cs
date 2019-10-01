@@ -5,6 +5,7 @@ using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace GitLooker
@@ -16,11 +17,12 @@ namespace GitLooker
         private IRepoControlConfiguration repoConfiguration;
         private IPowersShell powerShell;
         private ICommandProcessor controlConfiguration;
+        private const int repoProcessingCount = 3;
 
         public Form1()
         {
             InitializeComponent();
-            semaphore = new SemaphoreSlim(3);
+            semaphore = new SemaphoreSlim(repoProcessingCount);
         }
 
         private void SetWorkingPathToolStripMenuItem_Click(object sender, EventArgs e)
@@ -37,7 +39,7 @@ namespace GitLooker
                 config.AppSettings.Settings.Remove("GirLookerPath");
                 config.AppSettings.Settings.Add("GirLookerPath", chosenPath);
                 config.Save();
-                CheckForGitRepo(chosenPath);
+                GenerateAndUpdateRepos();
             }
         }
 
@@ -46,8 +48,13 @@ namespace GitLooker
             chosenPath = ConfigurationManager.AppSettings["GirLookerPath"];
 
             if (!string.IsNullOrEmpty(chosenPath))
-                CheckForGitRepo(chosenPath);
+                GenerateAndUpdateRepos();
+        }
 
+        private void GenerateAndUpdateRepos()
+        {
+            CheckForGitRepo(chosenPath);
+            CheckToolStripMenuItem_Click(null, null);
         }
 
         private void CheckForGitRepo(string chosenPath)
@@ -74,9 +81,27 @@ namespace GitLooker
 
         private void CheckToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            foreach(var cntr in panel1.Controls)
+            toolStripMenuItem1.Visible = true;
+            Application.DoEvents();
+            Application.DoEvents();
+            checkToolStripMenuItem.Enabled = false;
+            foreach (var cntr in panel1.Controls)
                 if(cntr is RepoControl)
                     ((RepoControl)cntr).UpdateRepoInfo();
+
+            Task.Run(() =>
+            {
+                System.Threading.Thread.Sleep(2000);
+
+                while (repoConfiguration.Semaphore.CurrentCount < repoProcessingCount)
+                    System.Threading.Thread.Sleep(50);
+
+                this.Invoke(new Action(() =>
+                {
+                    checkToolStripMenuItem.Enabled = true;
+                    toolStripMenuItem1.Visible = false;
+                }), null);
+            }); 
         }
     }
 }
