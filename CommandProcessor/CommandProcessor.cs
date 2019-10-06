@@ -14,6 +14,7 @@ namespace GitLooker.CommandProcessor
         private const string commandReset = "git reset --hard";
         private const string commandClean = "git clean -df";
         private const string commandPath = "cd \"{0}\"";
+        private const string commandCheckRepo = "git ls-remote -q";
 
         private readonly IPowersShell powerShell;
 
@@ -42,22 +43,34 @@ namespace GitLooker.CommandProcessor
             commandReset
         });
 
+        private string GenerateCheckCommand(string workingDir) => string.Join(Environment.NewLine, new[] {
+            string.Format(commandPath, workingDir),
+            commandCheckRepo
+        });
+
         public IEnumerable<string> CheckRepo(string workingDir)
         {
             var rtn = powerShell.Execute(GenerateUpdateWithStatusCommand(workingDir));
-            return rtn.Select(x => x.BaseObject.ToString().ToLower());
+            return rtn.Select(x => x.ToLower());
+        }
+
+        public IEnumerable<string> CheckRemoteRepo(string workingDir)
+        {
+            var command = GenerateCheckCommand(workingDir);
+            var rtn = powerShell.Execute(command);
+            return rtn.Select(x => x.ToLower());
         }
 
         public IEnumerable<string> PullRepo(string workingDir)
         {
             var rtn = powerShell.Execute(GeneratePullCommand(workingDir));
-            return rtn.Select(x => x.BaseObject.ToString().ToLower());
+            return rtn.Select(x => x.ToLower());
         }
 
         public IEnumerable<string> ResetRepo(string workingDi)
         {
             var rtn = powerShell.Execute(GenerateResetCommand(workingDi));
-            return rtn.Select(x => x.BaseObject.ToString().ToLower());
+            return rtn.Select(x => x.ToLower());
         }
     }
 }

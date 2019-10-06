@@ -46,10 +46,17 @@ namespace GitLooker
                 {
                     canReset = false;
                     this.Invoke(new Action(() => { this.label1.ForeColor = Color.DarkGreen; }), null);
-                    var returnValue = commandProcessor.CheckRepo(workingDir.FullName);
 
-                    CheckCurrentBranch(returnValue);
-                    CheckStatus(returnValue);
+                    if (workingDir.FullName.EndsWith("test"))
+                        currentRespond = "";
+
+                    var returnValue = commandProcessor.CheckRemoteRepo(workingDir.FullName);
+                    if (CheckIfExist(returnValue))
+                    {
+                        returnValue = commandProcessor.CheckRepo(workingDir.FullName);
+                        CheckCurrentBranch(returnValue);
+                        CheckStatus(returnValue);
+                    }
 
                     currentRespond += string.Join(Environment.NewLine, returnValue.ToArray());
                     this.Invoke(new Action(() => { this.label1.ForeColor = Color.Navy; }), null);
@@ -62,12 +69,30 @@ namespace GitLooker
             });
         }
 
+        private bool CheckIfExist(IEnumerable<string> responseValue)
+        {
+            bool returnValue = true;
+            if (responseValue.Any(respound => respound.ToLower().Contains("repository not found")))
+            {
+                returnValue = false;
+                this.Invoke(new Action(() =>
+                {
+                    this.button2.BackgroundImage = global::GitLooker.Properties.Resources.agt_action_fail;
+                    this.button1.Enabled = false;
+                    this.SendToBack();
+                }), null);
+            }
+            return returnValue;
+        }
+
         private void CheckStatus(IEnumerable<string> returnValue)
         {
             if (returnValue.Any(rtn => rtn.Contains("branch is behind")))
             {
-                this.button2.BackgroundImage = global::GitLooker.Properties.Resources.checkmark;
-                this.Invoke(new Action(() => { this.SendToBack(); }), null);
+                this.Invoke(new Action(() => {
+                    this.button2.BackgroundImage = global::GitLooker.Properties.Resources.checkmark;
+                    this.SendToBack();
+                }), null);
             }
             else if (returnValue.Any(rtn => rtn.Contains("git push") || rtn.Contains("git add") || rtn.Contains("git checkout ")))
             {
@@ -79,9 +104,11 @@ namespace GitLooker
                 canReset = true && branchOn.EndsWith("master");
             }
             else
-            {
-                this.button2.BackgroundImage = global::GitLooker.Properties.Resources.button_ok;
-                this.Invoke(new Action(() => { this.BringToFront(); }), null);
+            {                
+                this.Invoke(new Action(() => {
+                    this.button2.BackgroundImage = global::GitLooker.Properties.Resources.button_ok;
+                    this.BringToFront();
+                }), null);
             }
         }
 

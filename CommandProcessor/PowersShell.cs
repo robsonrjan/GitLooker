@@ -33,7 +33,7 @@ namespace GitLooker
             isInitialized = false;
         }
 
-        public Collection<PSObject> Execute(string command, bool closeConnectionAfter = true)
+        public IEnumerable<string> Execute(string command, bool closeConnectionAfter = true)
         {
             if (!isInitialized)
                 InitializeConnection();
@@ -42,9 +42,13 @@ namespace GitLooker
             {
                 powerShell.Streams.Error.Clear();
                 pipeLine.Commands.Clear();
+                IEnumerable<string> returnValue;
 
                 pipeLine.Commands.AddScript(command);
-                var returnValue = pipeLine.Invoke();
+                returnValue = pipeLine.Invoke()?.Select(p => p.ToString());
+
+                if (pipeLine.HadErrors)
+                    returnValue = pipeLine.Error.ReadToEnd().Select(err => err.ToString());
 
                 if (closeConnectionAfter)
                     DisposePowersShell();
