@@ -50,10 +50,10 @@ namespace GitLooker
                     if (workingDir.FullName.EndsWith("test"))
                         currentRespond = "";
 
-                    var returnValue = commandProcessor.CheckRemoteRepo(workingDir.FullName);
+                    var returnValue = commandProcessor.CheckRepo(workingDir.FullName);
                     if (CheckIfExist(returnValue))
                     {
-                        returnValue = commandProcessor.CheckRepo(workingDir.FullName);
+                        
                         CheckCurrentBranch(returnValue);
                         CheckStatus(returnValue);
                     }

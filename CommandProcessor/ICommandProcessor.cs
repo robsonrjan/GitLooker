@@ -7,6 +7,5 @@ namespace GitLooker.CommandProcessor
         IEnumerable<string> CheckRepo(string workingDir);
         IEnumerable<string> PullRepo(string workingDir);
         IEnumerable<string> ResetRepo(string workingDi);
-        IEnumerable<string> CheckRemoteRepo(string workingDir);
     }
 }
