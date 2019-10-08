@@ -134,7 +134,7 @@ namespace GitLooker
             Task.Factory.StartNew(() =>
             {
                 List<string> rtn = new List<string>();
-                if (currentBranch == "...")
+                if (currentBranch != "...")
                     rtn = commandProcessor.PullRepo(workingDir.FullName).ToList();
                 currentRespond = string.Join(Environment.NewLine, rtn.ToArray());
                 UpdateRepoInfo();
