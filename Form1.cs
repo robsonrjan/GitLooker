@@ -86,7 +86,7 @@ namespace GitLooker
             Application.DoEvents();
             checkToolStripMenuItem.Enabled = false;
             foreach (var cntr in panel1.Controls)
-                if(cntr is RepoControl)
+                if (cntr is RepoControl)
                     ((RepoControl)cntr).UpdateRepoInfo();
 
             Task.Run(() =>
@@ -101,7 +101,7 @@ namespace GitLooker
                     checkToolStripMenuItem.Enabled = true;
                     toolStripMenuItem1.Visible = false;
                 }), null);
-            }); 
+            });
         }
     }
 }

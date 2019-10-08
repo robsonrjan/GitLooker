@@ -128,7 +128,7 @@
         {
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_79373B320D9C4A17B608AF3EF19D7BDA"
             {
-            "SourcePath" = "8:..\\..\\..\\icons\\icon\\icony_xp\\xp-icons\\wi0009-48.ico"
+            "SourcePath" = "8:C:\\icons\\icon\\icony_xp\\xp-icons\\wi0009-48.ico"
             "TargetName" = "8:wi0009-48.ico"
             "Tag" = "8:"
             "Folder" = "8:_6D20888006D14ECE86A73683A047E42A"
@@ -202,15 +202,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:GitLookerSetup"
-        "ProductCode" = "8:{747AE519-8452-43BE-A22D-4F3547E4E5D2}"
-        "PackageCode" = "8:{A1D2688A-0F3D-4E62-A3FC-579D6B2BBBAF}"
+        "ProductCode" = "8:{7E25917B-75DC-4BDB-B05C-6EB398D01F34}"
+        "PackageCode" = "8:{6D4DA17E-E505-4861-9B4F-A988D9CCC230}"
         "UpgradeCode" = "8:{E0F1D824-8150-4EA3-BA55-357639F8A869}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:1.0.5"
+        "ProductVersion" = "8:1.0.6"
         "Manufacturer" = "8:Robert Janda"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:https://github.com/robsonrjan/GitLooker"
@@ -738,7 +738,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_3A6E8D23D1FE4ED0A43538D4D03AF153"
             {
-            "SourcePath" = "8:"
+            "SourcePath" = "8:..\\obj\\Release\\GitLooker.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_6D20888006D14ECE86A73683A047E42A"

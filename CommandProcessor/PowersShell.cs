@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Management.Automation;
 using System.Management.Automation.Runspaces;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GitLooker
 {
@@ -42,20 +39,24 @@ namespace GitLooker
             {
                 powerShell.Streams.Error.Clear();
                 pipeLine.Commands.Clear();
-                IEnumerable<string> returnValue;
+
+                IEnumerable<string> errors = default(IEnumerable<string>);
 
                 pipeLine.Commands.AddScript(command);
-                returnValue = pipeLine.Invoke()?.Select(p => p.ToString());
+                IEnumerable<string> returnValue = pipeLine.Invoke()?.Select(p => p.ToString());
 
                 if (pipeLine.HadErrors)
-                    returnValue = pipeLine.Error.ReadToEnd().Select(err => err.ToString());
+                    errors = pipeLine.Error.ReadToEnd().Select(err => err.ToString()).ToList(); ;
+
+                if ((errors != default(IEnumerable<string>)) && errors.Any())
+                    returnValue = returnValue.Union(errors);
 
                 if (closeConnectionAfter)
                     DisposePowersShell();
 
                 return returnValue;
             }
-            catch (Exception err)
+            catch (Exception)
             {
                 DisposePowersShell();
             }

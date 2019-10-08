@@ -1,13 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using GitLooker.CommandProcessor;
+using GitLooker.Configuration;
+using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Linq;
-using System;
-using GitLooker.Configuration;
-using GitLooker.CommandProcessor;
 
 namespace GitLooker
 {
@@ -47,13 +47,9 @@ namespace GitLooker
                     canReset = false;
                     this.Invoke(new Action(() => { this.label1.ForeColor = Color.DarkGreen; }), null);
 
-                    if (workingDir.FullName.EndsWith("test"))
-                        currentRespond = "";
-
                     var returnValue = commandProcessor.CheckRepo(workingDir.FullName);
                     if (CheckIfExist(returnValue))
                     {
-                        
                         CheckCurrentBranch(returnValue);
                         CheckStatus(returnValue);
                     }
@@ -91,7 +87,8 @@ namespace GitLooker
         {
             if (returnValue.Any(rtn => rtn.Contains("branch is behind")))
             {
-                this.Invoke(new Action(() => {
+                this.Invoke(new Action(() =>
+                {
                     this.button2.BackgroundImage = global::GitLooker.Properties.Resources.checkmark;
                     this.SendToBack();
                 }), null);
@@ -106,8 +103,9 @@ namespace GitLooker
                 canReset = true && branchOn.EndsWith("master");
             }
             else
-            {                
-                this.Invoke(new Action(() => {
+            {
+                this.Invoke(new Action(() =>
+                {
                     this.button2.BackgroundImage = global::GitLooker.Properties.Resources.button_ok;
                     this.BringToFront();
                 }), null);
@@ -132,12 +130,15 @@ namespace GitLooker
         {
             currentRespond = string.Empty;
             this.label1.ForeColor = Color.DarkGreen;
+            var currentBranch = label1.Text;
             Task.Factory.StartNew(() =>
             {
-                var rtn = commandProcessor.PullRepo(workingDir.FullName);
+                List<string> rtn = new List<string>();
+                if (currentBranch == "...")
+                    rtn = commandProcessor.PullRepo(workingDir.FullName).ToList();
                 currentRespond = string.Join(Environment.NewLine, rtn.ToArray());
                 UpdateRepoInfo();
-            });            
+            });
         }
 
         private void Button2_Click(object sender, EventArgs e)
