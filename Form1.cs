@@ -49,6 +49,8 @@ namespace GitLooker
 
             if (!string.IsNullOrEmpty(chosenPath))
                 GenerateAndUpdateRepos();
+
+            this.Text += $"    ver.{AppVersion.AssemblyVersion}";
         }
 
         private void GenerateAndUpdateRepos()
