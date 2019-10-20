@@ -20,6 +20,7 @@ namespace GitLooker
         private string currentRespond;
         private string branchOn = "Pull current branch";
         private bool canReset;
+        private bool isConfigured;
 
         public RepoControl(IRepoControlConfiguration repoConfiguration, ICommandProcessor commandProcessor)
         {
@@ -46,6 +47,7 @@ namespace GitLooker
                 {
                     canReset = false;
                     this.Invoke(new Action(() => { this.label1.ForeColor = Color.DarkGreen; }), null);
+                    GetRepoConfiguraion();
 
                     var returnValue = commandProcessor.CheckRepo(workingDir.FullName);
                     if (CheckIfExist(returnValue))
@@ -63,6 +65,17 @@ namespace GitLooker
                 }
                 semaphore.Release();
             });
+        }
+
+        private void GetRepoConfiguraion()
+        {
+            if (!isConfigured)
+            {
+                var repoConfig = commandProcessor.RemoteConfig(workingDir.FullName);
+                if (!string.IsNullOrEmpty(repoConfig))
+                    Form1.RepoRemoteList.Add(repoConfig);
+                isConfigured = true;
+            }
         }
 
         private bool CheckIfExist(IEnumerable<string> responseValue)

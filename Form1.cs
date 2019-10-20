@@ -1,6 +1,7 @@
 ﻿using GitLooker.CommandProcessor;
 using GitLooker.Configuration;
 using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
 using System.Linq;
@@ -18,11 +19,13 @@ namespace GitLooker
         private IPowersShell powerShell;
         private ICommandProcessor controlConfiguration;
         private const int repoProcessingCount = 3;
+        internal static List<string> RepoRemoteList;
 
         public Form1()
         {
             InitializeComponent();
             semaphore = new SemaphoreSlim(repoProcessingCount);
+            RepoRemoteList = new List<string>();
         }
 
         private void SetWorkingPathToolStripMenuItem_Click(object sender, EventArgs e)
@@ -91,19 +94,28 @@ namespace GitLooker
                 if (cntr is RepoControl)
                     ((RepoControl)cntr).UpdateRepoInfo();
 
-            Task.Run(() =>
+            Task.Run(() => CheckStatusProgress());
+        }
+
+        private void CheckStatusProgress()
+        {
+            System.Threading.Thread.Sleep(2000);
+
+            while (repoConfiguration.Semaphore.CurrentCount < repoProcessingCount)
+                System.Threading.Thread.Sleep(50);
+
+            this.Invoke(new Action(() =>
             {
-                System.Threading.Thread.Sleep(2000);
+                checkToolStripMenuItem.Enabled = true;
+                toolStripMenuItem1.Visible = false;
+            }), null);
+        }
 
-                while (repoConfiguration.Semaphore.CurrentCount < repoProcessingCount)
-                    System.Threading.Thread.Sleep(50);
-
-                this.Invoke(new Action(() =>
-                {
-                    checkToolStripMenuItem.Enabled = true;
-                    toolStripMenuItem1.Visible = false;
-                }), null);
-            });
+        private void remoteReposConfigToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            RepoList repoList = new RepoList();
+            repoList.repoText.Lines = RepoRemoteList.ToArray();
+            repoList.ShowDialog();
         }
     }
 }

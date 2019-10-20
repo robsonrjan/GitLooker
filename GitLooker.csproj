@@ -43,6 +43,7 @@
     <Reference Include="System.Management.Automation, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>packages\Microsoft.PowerShell.5.ReferenceAssemblies.1.1.0\lib\net4\System.Management.Automation.dll</HintPath>
     </Reference>
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -79,6 +80,12 @@
     <Compile Include="RepoControl.Designer.cs">
       <DependentUpon>RepoControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="RepoList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RepoList.Designer.cs">
+      <DependentUpon>RepoList.cs</DependentUpon>
+    </Compile>
     <Compile Include="Status.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -95,6 +102,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="RepoControl.resx">
       <DependentUpon>RepoControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RepoList.resx">
+      <DependentUpon>RepoList.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Status.resx">
       <DependentUpon>Status.cs</DependentUpon>

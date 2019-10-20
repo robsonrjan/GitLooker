@@ -12,6 +12,7 @@ namespace GitLooker.CommandProcessor
         private const string commandReset = "git reset --hard";
         private const string commandClean = "git clean -df";
         private const string commandPath = "cd \"{0}\"";
+        private const string commandRemoteConfig = "git remote -v";
 
         private readonly IPowersShell powerShell;
 
@@ -34,6 +35,11 @@ namespace GitLooker.CommandProcessor
             commandPull
         });
 
+        private string GenerateRemoteConfig(string workingDir) => string.Join(Environment.NewLine, new[] {
+            string.Format(commandPath, workingDir),
+            commandRemoteConfig
+        });
+
         private string GenerateResetCommand(string workingDir) => string.Join(Environment.NewLine, new[] {
             string.Format(commandPath, workingDir),
             commandClean,
@@ -50,6 +56,16 @@ namespace GitLooker.CommandProcessor
         {
             var rtn = powerShell.Execute(GeneratePullCommand(workingDir));
             return rtn.Select(x => x.ToLower());
+        }
+
+        public string RemoteConfig(string workingDir)
+        {
+            var rtn = powerShell.Execute(GenerateRemoteConfig(workingDir));
+            var result = rtn.FirstOrDefault(x => x.Contains("(push)")).Replace('\t',' ').Split(' ');
+            if (result.Length > 2)
+                return result[result.Length - 2];
+            else
+                return string.Empty;
         }
 
         public IEnumerable<string> ResetRepo(string workingDi)

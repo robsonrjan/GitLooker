@@ -40,6 +40,8 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.configurationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.remoteReposConfigToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -49,7 +51,8 @@
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
             this.checkToolStripMenuItem,
-            this.toolStripMenuItem1});
+            this.toolStripMenuItem1,
+            this.configurationToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(9, 3, 0, 3);
@@ -117,6 +120,22 @@
             this.panel2.Size = new System.Drawing.Size(484, 2);
             this.panel2.TabIndex = 2;
             // 
+            // configurationToolStripMenuItem
+            // 
+            this.configurationToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.remoteReposConfigToolStripMenuItem});
+            this.configurationToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.configurationToolStripMenuItem.Name = "configurationToolStripMenuItem";
+            this.configurationToolStripMenuItem.Size = new System.Drawing.Size(105, 23);
+            this.configurationToolStripMenuItem.Text = "Configuration";
+            // 
+            // remoteReposConfigToolStripMenuItem
+            // 
+            this.remoteReposConfigToolStripMenuItem.Name = "remoteReposConfigToolStripMenuItem";
+            this.remoteReposConfigToolStripMenuItem.Size = new System.Drawing.Size(204, 24);
+            this.remoteReposConfigToolStripMenuItem.Text = "Remote repos config";
+            this.remoteReposConfigToolStripMenuItem.Click += new System.EventHandler(this.remoteReposConfigToolStripMenuItem_Click);
+            // 
             // Form1
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -152,6 +171,8 @@
         private System.Windows.Forms.ToolStripMenuItem checkToolStripMenuItem;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem configurationToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem remoteReposConfigToolStripMenuItem;
     }
 }
 
