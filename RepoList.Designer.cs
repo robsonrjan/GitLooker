@@ -39,6 +39,7 @@
             this.repoText.Location = new System.Drawing.Point(0, 0);
             this.repoText.Multiline = true;
             this.repoText.Name = "repoText";
+            this.repoText.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.repoText.Size = new System.Drawing.Size(658, 388);
             this.repoText.TabIndex = 0;
             // 

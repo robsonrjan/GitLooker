@@ -61,7 +61,7 @@ namespace GitLooker.CommandProcessor
         public string RemoteConfig(string workingDir)
         {
             var rtn = powerShell.Execute(GenerateRemoteConfig(workingDir));
-            var result = rtn.FirstOrDefault(x => x.ToLower().Contains("(push)")).Replace('\t',' ').Split(' ');
+            var result = rtn.FirstOrDefault(x => x.ToLower().Contains("(push)")).Replace('\t', ' ').Split(' ');
             if (result.Length > 2)
                 return result[result.Length - 2];
             else

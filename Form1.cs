@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
 using System.Linq;
+using System.Runtime.Serialization.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -13,12 +14,14 @@ namespace GitLooker
 {
     public partial class Form1 : Form
     {
+        private const int repoProcessingCount = 3;
+        private const string repoFileConfigurationName = "repos.json";
+
         private string chosenPath = string.Empty;
         private readonly SemaphoreSlim semaphore;
         private IRepoControlConfiguration repoConfiguration;
         private IPowersShell powerShell;
         private ICommandProcessor controlConfiguration;
-        private const int repoProcessingCount = 3;
         internal static List<string> RepoRemoteList;
         internal static List<string> ExpectedRemoteList;
 
@@ -55,7 +58,19 @@ namespace GitLooker
             if (!string.IsNullOrEmpty(chosenPath))
                 GenerateAndUpdateRepos();
 
+            ReadRepositoriumConfiguration();
+
             this.Text += $"    ver.{AppVersion.AssemblyVersion}";
+        }
+
+        private static void ReadRepositoriumConfiguration()
+        {
+            if (File.Exists(repoFileConfigurationName))
+            {
+                var jsonserializer = new DataContractJsonSerializer(typeof(List<string>));
+                using (var stream = File.OpenRead(repoFileConfigurationName))
+                    ExpectedRemoteList = (List<string>)jsonserializer.ReadObject(stream);
+            }
         }
 
         private void GenerateAndUpdateRepos()
@@ -110,7 +125,17 @@ namespace GitLooker
             {
                 checkToolStripMenuItem.Enabled = true;
                 toolStripMenuItem1.Visible = false;
+                AddMissingRepositoriums();
             }), null);
+        }
+
+        private bool NotInRepoConfig(string config) => !RepoRemoteList.Contains(config);
+        private void AddMissingRepositoriums()
+        {
+            ExpectedRemoteList.Where(NotInRepoConfig).ToList().ForEach(config =>
+            {
+                var x = config;
+            });
         }
 
         private void remoteReposConfigToolStripMenuItem_Click(object sender, EventArgs e)
@@ -120,13 +145,22 @@ namespace GitLooker
             repoList.ShowDialog();
         }
 
+        private string ToLower(string text) => text.ToLower();
+
         private void expectedReposConfigToolStripMenuItem_Click(object sender, EventArgs e)
         {
             RepoList repoList = new RepoList();
             repoList.repoText.Lines = ExpectedRemoteList.ToArray();
             repoList.ShowDialog();
-            ExpectedRemoteList = repoList.repoText.Lines.ToList();
 
+            if (File.Exists(repoFileConfigurationName))
+                File.Delete(repoFileConfigurationName);
+
+            ExpectedRemoteList = repoList.repoText.Lines.Select(ToLower).Distinct().ToList();
+            var jsonserializer = new DataContractJsonSerializer(typeof(List<string>));
+
+            using (var stream = File.OpenWrite(repoFileConfigurationName))
+                jsonserializer.WriteObject(stream, ExpectedRemoteList);
 
         }
     }

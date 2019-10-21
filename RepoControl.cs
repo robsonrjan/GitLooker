@@ -22,6 +22,8 @@ namespace GitLooker
         private bool canReset;
         private bool isConfigured;
 
+        internal string RepoConfiguration { get; private set; }
+
         public RepoControl(IRepoControlConfiguration repoConfiguration, ICommandProcessor commandProcessor)
         {
             InitializeComponent();
@@ -73,7 +75,7 @@ namespace GitLooker
             {
                 var repoConfig = commandProcessor.RemoteConfig(workingDir.FullName);
                 if (!string.IsNullOrEmpty(repoConfig))
-                    Form1.RepoRemoteList.Add(repoConfig);
+                    Form1.RepoRemoteList.Add((RepoConfiguration = repoConfig.ToLower()));
                 isConfigured = true;
             }
         }
