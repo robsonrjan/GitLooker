@@ -20,12 +20,14 @@ namespace GitLooker
         private ICommandProcessor controlConfiguration;
         private const int repoProcessingCount = 3;
         internal static List<string> RepoRemoteList;
+        internal static List<string> ExpectedRemoteList;
 
         public Form1()
         {
             InitializeComponent();
             semaphore = new SemaphoreSlim(repoProcessingCount);
             RepoRemoteList = new List<string>();
+            ExpectedRemoteList = new List<string>();
         }
 
         private void SetWorkingPathToolStripMenuItem_Click(object sender, EventArgs e)
@@ -116,6 +118,16 @@ namespace GitLooker
             RepoList repoList = new RepoList();
             repoList.repoText.Lines = RepoRemoteList.ToArray();
             repoList.ShowDialog();
+        }
+
+        private void expectedReposConfigToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            RepoList repoList = new RepoList();
+            repoList.repoText.Lines = ExpectedRemoteList.ToArray();
+            repoList.ShowDialog();
+            ExpectedRemoteList = repoList.repoText.Lines.ToList();
+
+
         }
     }
 }

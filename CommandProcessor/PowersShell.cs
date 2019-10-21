@@ -40,10 +40,10 @@ namespace GitLooker
                 powerShell.Streams.Error.Clear();
                 pipeLine.Commands.Clear();
 
-                IEnumerable<string> errors = default(IEnumerable<string>);
+                var errors = default(IEnumerable<string>);
 
                 pipeLine.Commands.AddScript(command);
-                IEnumerable<string> returnValue = pipeLine.Invoke()?.Select(p => p.ToString());
+                var returnValue = pipeLine.Invoke()?.Select(p => p.ToString()) ?? default(IEnumerable<string>);
 
                 if (pipeLine.HadErrors)
                     errors = pipeLine.Error.ReadToEnd().Select(err => err.ToString()).ToList(); ;
@@ -56,11 +56,11 @@ namespace GitLooker
 
                 return returnValue;
             }
-            catch (Exception)
+            catch (Exception err)
             {
                 DisposePowersShell();
+                return new[] { err.Message };
             }
-            return null;
         }
     }
 }
