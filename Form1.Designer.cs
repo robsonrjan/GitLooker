@@ -43,6 +43,7 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -53,7 +54,8 @@
             this.fileToolStripMenuItem,
             this.checkToolStripMenuItem,
             this.toolStripMenuItem1,
-            this.configurationToolStripMenuItem});
+            this.configurationToolStripMenuItem,
+            this.toolStripMenuItem2});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(9, 3, 0, 3);
@@ -145,6 +147,19 @@
             this.panel2.Size = new System.Drawing.Size(484, 2);
             this.panel2.TabIndex = 2;
             // 
+            // toolStripMenuItem2
+            // 
+            this.toolStripMenuItem2.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.toolStripMenuItem2.AutoToolTip = true;
+            this.toolStripMenuItem2.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+            this.toolStripMenuItem2.Padding = new System.Windows.Forms.Padding(40, 0, 4, 0);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(92, 23);
+            this.toolStripMenuItem2.Text = "Clone";
+            this.toolStripMenuItem2.ToolTipText = "Check for updates";
+            this.toolStripMenuItem2.Visible = false;
+            this.toolStripMenuItem2.Click += new System.EventHandler(this.toolStripMenuItem2_Click);
+            // 
             // Form1
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -184,6 +199,7 @@
         private System.Windows.Forms.ToolStripMenuItem configurationToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem remoteReposConfigToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem expectedReposConfigToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
     }
 }
 

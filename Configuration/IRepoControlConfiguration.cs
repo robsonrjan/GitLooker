@@ -6,5 +6,6 @@ namespace GitLooker.Configuration
     {
         string RepoPath { get; }
         SemaphoreSlim Semaphore { get; }
+        string NewRepo { get; }
     }
 }

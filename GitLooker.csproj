@@ -142,6 +142,7 @@
     <None Include="Resources\agt_action_fail.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\cancel.png" />
     <Content Include="wi0009-48.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

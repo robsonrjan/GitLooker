@@ -19,9 +19,12 @@ namespace GitLooker
         private readonly SemaphoreSlim semaphore;
         private string currentRespond;
         private string branchOn = "Pull current branch";
+        private string newRepoConfiguration;
         private bool canReset;
         private bool isConfigured;
+        private string newRepoName = default(string);
 
+        internal bool IsNew { get; private set; }
         internal string RepoConfiguration { get; private set; }
 
         public RepoControl(IRepoControlConfiguration repoConfiguration, ICommandProcessor commandProcessor)
@@ -33,15 +36,40 @@ namespace GitLooker
             workingDir = new DirectoryInfo(repoPath);
             this.label1.Text = workingDir.Name;
             this.semaphore = repoConfiguration.Semaphore;
+            newRepoConfiguration = repoConfiguration.NewRepo;
+            IsNew = !string.IsNullOrEmpty(newRepoConfiguration);
+            if (IsNew)
+                ConfigureAsToClone();
         }
 
-        private void RepoControl_Load(object sender, EventArgs e)
+        public string GetNewRepoName
         {
-            //UpdateRepoInfo();
+            get
+            {
+                if (newRepoName == default(string))
+                {
+                    var parts = newRepoConfiguration.Split('/');
+                    newRepoName = parts[parts.Length - 1].Replace(".git", "");
+                }
+                return newRepoName;
+            }
+        }
+
+        private void ConfigureAsToClone()
+        {
+            this.button2.BackgroundImage = global::GitLooker.Properties.Resources.cancel;
+            this.button1.BackgroundImage = global::GitLooker.Properties.Resources.cancel;
+            this.button1.Enabled = false;
+            this.button2.Enabled = false;
+            this.toolTip1.SetToolTip(this.button1, "repo to clone");
+            this.label1.Text = GetNewRepoName;
+            RepoConfiguration = newRepoConfiguration;
         }
 
         public void UpdateRepoInfo()
         {
+            if (IsNew) return;
+
             Task.Factory.StartNew(() =>
             {
                 semaphore.Wait();
@@ -134,7 +162,7 @@ namespace GitLooker
                 branchOn = string.Format("Working {0}", returnValue.FirstOrDefault(x => x.StartsWith("on branch")));
                 this.Invoke(new Action(() =>
                 {
-                    this.toolTip1.SetToolTip(this.button1, branchOn);
+                    this.toolTip1.SetToolTip(this.button1, "pull");
                     this.label2.Text = branchOn;
                     this.button1.Enabled = true;
                 }), null);

@@ -150,7 +150,6 @@
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.Name = "RepoControl";
             this.Size = new System.Drawing.Size(543, 34);
-            this.Load += new System.EventHandler(this.RepoControl_Load);
             this.ResumeLayout(false);
 
         }

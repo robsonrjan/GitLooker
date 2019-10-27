@@ -14,23 +14,24 @@ namespace GitLooker
 {
     public partial class Form1 : Form
     {
-        private const int repoProcessingCount = 3;
         private const string repoFileConfigurationName = "repos.json";
 
+        private int repoProcessingCount = 3;
         private string chosenPath = string.Empty;
-        private readonly SemaphoreSlim semaphore;
+        private SemaphoreSlim semaphore;
         private IRepoControlConfiguration repoConfiguration;
         private IPowersShell powerShell;
-        private ICommandProcessor controlConfiguration;
+        private ICommandProcessor commandProcessor;
+        private List<RepoControl> allReposControl;
         internal static List<string> RepoRemoteList;
         internal static List<string> ExpectedRemoteList;
 
         public Form1()
         {
             InitializeComponent();
-            semaphore = new SemaphoreSlim(repoProcessingCount);
             RepoRemoteList = new List<string>();
             ExpectedRemoteList = new List<string>();
+            allReposControl = new List<RepoControl>();
         }
 
         private void SetWorkingPathToolStripMenuItem_Click(object sender, EventArgs e)
@@ -54,6 +55,8 @@ namespace GitLooker
         private void Form1_Load(object sender, EventArgs e)
         {
             chosenPath = ConfigurationManager.AppSettings["GirLookerPath"];
+            int.TryParse(ConfigurationManager.AppSettings["repoProcessingCount"], out repoProcessingCount);
+            semaphore = new SemaphoreSlim(repoProcessingCount);
 
             if (!string.IsNullOrEmpty(chosenPath))
                 GenerateAndUpdateRepos();
@@ -91,14 +94,16 @@ namespace GitLooker
                 });
         }
 
-        private void CheckRepo(string repoDdir)
+        private RepoControl CheckRepo(string repoDdir, string newRepo = default(string))
         {
-            repoConfiguration = new RepoControlConfiguration(repoDdir, semaphore);
+            repoConfiguration = new RepoControlConfiguration(repoDdir, semaphore, newRepo);
             powerShell = new PowersShell();
-            controlConfiguration = new CommandProcessor.CommandProcessor(powerShell);
-            var repo = new RepoControl(repoConfiguration, controlConfiguration);
+            commandProcessor = new CommandProcessor.CommandProcessor(powerShell);
+            var repo = new RepoControl(repoConfiguration, commandProcessor);
             repo.Dock = DockStyle.Top;
+            allReposControl.Add(repo);
             this.panel1.Controls.Add(repo);
+            return repo;
         }
 
         private void CheckToolStripMenuItem_Click(object sender, EventArgs e)
@@ -107,11 +112,16 @@ namespace GitLooker
             Application.DoEvents();
             Application.DoEvents();
             checkToolStripMenuItem.Enabled = false;
-            foreach (var cntr in panel1.Controls)
-                if (cntr is RepoControl)
-                    ((RepoControl)cntr).UpdateRepoInfo();
 
+            CheackAndRemovedNewRepos();
+            allReposControl.ForEach(cntr => cntr.UpdateRepoInfo());
             Task.Run(() => CheckStatusProgress());
+        }
+
+        private void CheackAndRemovedNewRepos()
+        {
+            foreach (var ctrRepo in allReposControl.Where(repo => repo.IsNew && !ExpectedRemoteList.Contains(repo.RepoConfiguration)))
+                ctrRepo.Dispose();
         }
 
         private void CheckStatusProgress()
@@ -129,13 +139,15 @@ namespace GitLooker
             }), null);
         }
 
-        private bool NotInRepoConfig(string config) => !RepoRemoteList.Contains(config);
+        private bool NotInRepoConfig(string config) => !RepoRemoteList.Contains(config) && !allReposControl.Any(ctr => ctr.RepoConfiguration == config);
         private void AddMissingRepositoriums()
         {
-            ExpectedRemoteList.Where(NotInRepoConfig).ToList().ForEach(config =>
-            {
-                var x = config;
-            });
+            ExpectedRemoteList.Where(NotInRepoConfig).ToList()
+                .ForEach(config =>
+                {
+                    CheckRepo(chosenPath, config);
+                    toolStripMenuItem2.Visible = true;
+                });
         }
 
         private void remoteReposConfigToolStripMenuItem_Click(object sender, EventArgs e)
@@ -162,6 +174,27 @@ namespace GitLooker
             using (var stream = File.OpenWrite(repoFileConfigurationName))
                 jsonserializer.WriteObject(stream, ExpectedRemoteList);
 
+        }
+
+        private void toolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            var pwShell = new PowersShell();
+            var commandProc = new CommandProcessor.CommandProcessor(powerShell);
+
+            allReposControl.Where(ctr => ctr.IsNew).ToList()
+                .ForEach(ctr =>
+               {
+                   var result = commandProc.ClonRepo(chosenPath, ctr.RepoConfiguration);
+                   var repoPath = $@"{chosenPath}\{ctr.GetNewRepoName}";
+                   if (Directory.Exists(repoPath))
+                   {
+                       var repo = CheckRepo(repoPath);
+                       ctr.Dispose();
+                       repo.UpdateRepoInfo();
+                   }
+               });
+
+            toolStripMenuItem2.Visible = false;
         }
     }
 }

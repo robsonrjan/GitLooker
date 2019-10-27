@@ -13,6 +13,7 @@ namespace GitLooker.CommandProcessor
         private const string commandClean = "git clean -df";
         private const string commandPath = "cd \"{0}\"";
         private const string commandRemoteConfig = "git remote -v";
+        private const string commandCloneRepo = "git clone {0}";
 
         private readonly IPowersShell powerShell;
 
@@ -23,6 +24,11 @@ namespace GitLooker.CommandProcessor
 
             this.powerShell = powerShell;
         }
+
+        private string GenerateCloneCommand(string workingDir, string repoConfig) => string.Join(Environment.NewLine, new[] {
+            string.Format(commandPath, workingDir),
+            string.Format(commandCloneRepo, repoConfig)
+        });
 
         private string GenerateUpdateWithStatusCommand(string workingDir) => string.Join(Environment.NewLine, new[] {
             string.Format(commandPath, workingDir),
@@ -49,6 +55,12 @@ namespace GitLooker.CommandProcessor
         public IEnumerable<string> CheckRepo(string workingDir)
         {
             var rtn = powerShell.Execute(GenerateUpdateWithStatusCommand(workingDir));
+            return rtn.Select(x => x.ToLower());
+        }
+
+        public IEnumerable<string> ClonRepo(string workingDir, string repoConfig)
+        {
+            var rtn = powerShell.Execute(GenerateCloneCommand(workingDir, repoConfig));
             return rtn.Select(x => x.ToLower());
         }
 
