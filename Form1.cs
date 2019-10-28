@@ -15,8 +15,8 @@ namespace GitLooker
     public partial class Form1 : Form
     {
         private const string repoFileConfigurationName = "repos.json";
-
-        private int repoProcessingCount = 3;
+        private const int maxPandingGitOperations = 3;
+        private int repoProcessingCount;
         private string chosenPath = string.Empty;
         private SemaphoreSlim semaphore;
         private IRepoControlConfiguration repoConfiguration;
@@ -55,7 +55,8 @@ namespace GitLooker
         private void Form1_Load(object sender, EventArgs e)
         {
             chosenPath = ConfigurationManager.AppSettings["GirLookerPath"];
-            int.TryParse(ConfigurationManager.AppSettings["repoProcessingCount"], out repoProcessingCount);
+            if (!int.TryParse(ConfigurationManager.AppSettings["repoProcessingCount"], out repoProcessingCount))
+                repoProcessingCount = maxPandingGitOperations;
             semaphore = new SemaphoreSlim(repoProcessingCount);
 
             if (!string.IsNullOrEmpty(chosenPath))
