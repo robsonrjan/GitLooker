@@ -176,25 +176,31 @@ namespace GitLooker
 
         }
 
-        private void toolStripMenuItem2_Click(object sender, EventArgs e)
+        private async void toolStripMenuItem2_Click(object sender, EventArgs e)
         {
             var pwShell = new PowersShell();
             var commandProc = new CommandProcessor.CommandProcessor(powerShell);
 
-            allReposControl.Where(ctr => ctr.IsNew).ToList()
-                .ForEach(ctr =>
-               {
-                   var result = commandProc.ClonRepo(chosenPath, ctr.RepoConfiguration);
-                   var repoPath = $@"{chosenPath}\{ctr.GetNewRepoName}";
-                   if (Directory.Exists(repoPath))
-                   {
-                       var repo = CheckRepo(repoPath);
-                       ctr.Dispose();
-                       repo.UpdateRepoInfo();
-                   }
-               });
+            await CloneNewRepo(commandProc);
 
             toolStripMenuItem2.Visible = false;
+        }
+
+        private Task CloneNewRepo(CommandProcessor.CommandProcessor commandProc)
+        {
+            allReposControl.Where(ctr => ctr.IsNew).ToList()
+                .ForEach(ctr =>
+                {
+                    var result = commandProc.ClonRepo(chosenPath, ctr.RepoConfiguration);
+                    var repoPath = $@"{chosenPath}\{ctr.GetNewRepoName}";
+                    if (Directory.Exists(repoPath))
+                    {
+                        var repo = CheckRepo(repoPath);
+                        ctr.Dispose();
+                        repo.UpdateRepoInfo();
+                    }
+                });
+            return Task.CompletedTask;
         }
     }
 }
