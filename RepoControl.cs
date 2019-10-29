@@ -70,6 +70,9 @@ namespace GitLooker
         {
             if (IsNew) return;
 
+            if (!Directory.Exists(workingDir.FullName))
+                this.Dispose();
+
             Task.Factory.StartNew(() =>
             {
                 semaphore.Wait();
