@@ -57,6 +57,7 @@ namespace GitLooker
             chosenPath = ConfigurationManager.AppSettings["GirLookerPath"];
             if (!int.TryParse(ConfigurationManager.AppSettings["repoProcessingCount"], out repoProcessingCount))
                 repoProcessingCount = maxPandingGitOperations;
+
             semaphore = new SemaphoreSlim(repoProcessingCount);
 
             if (!string.IsNullOrEmpty(chosenPath))

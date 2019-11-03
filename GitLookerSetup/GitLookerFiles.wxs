@@ -1,0 +1,883 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+    <Fragment>
+        <DirectoryRef Id="INSTALLFOLDER">
+            <Component Id="cmp550270A9B9ACD6B76E32B241A666C5B2" Guid="{BE30162A-8DC7-4D50-9226-AB27421D6008}">
+                <File Id="filEA3B415D5468712BEE81BC85CBC89825" KeyPath="yes" Source="$(var.BasePath)\GitLooker.deps.json" />
+            </Component>
+            <Component Id="cmp682A264DBBFF2B01B88CFFE64605733F" Guid="{3BBCB3DC-150E-4E15-A1CD-63B7A8904837}">
+                <File Id="fil77CF0237BEB93F71F8EF0EBFF9CAADE5" KeyPath="yes" Source="$(var.BasePath)\GitLooker.dll" />
+            </Component>
+            <Component Id="cmpE2237F73C1CD15428C1850E5F6AB79E3" Guid="{D235B570-ECE2-48CA-A792-4A098542FE7D}">
+                <File Id="fil3DBCAF57438A93124DCD66C1D27ADD2B" KeyPath="yes" Source="$(var.BasePath)\GitLooker.dll.config" />
+            </Component>
+            <Component Id="cmp7F3981F86BB577E4337964CF861E27A2" Guid="{0830B1E2-FABC-4FD5-930A-46DFCF512183}">
+                <File Id="fil068920E93BF5CD5387CD0DD31D44C2B5" KeyPath="yes" Source="$(var.BasePath)\GitLooker.exe" />
+            </Component>
+            
+            <Component Id="cmpF5E9714D238558D2E5F87493B589A02E" Guid="{0945FD66-BDA4-4567-949F-E16E3985DF5B}">
+                <File Id="filDABB1959261FF010AB3D5C5E0AF7D6DF" KeyPath="yes" Source="$(var.BasePath)\GitLooker.runtimeconfig.dev.json" />
+            </Component>
+            <Component Id="cmpC22F38E3D56F67B957226A039502D973" Guid="{62D978B8-C5CE-4978-BAA6-83ABBC0905C0}">
+                <File Id="fil62A6EEB00313E5FFA3D9C5D8EE8130CD" KeyPath="yes" Source="$(var.BasePath)\GitLooker.runtimeconfig.json" />
+            </Component>
+            <Component Id="cmp2D4E264A037FA2F6B87E99BED18F7B8C" Guid="{4EFAAEA1-E0B7-4C73-A4DF-3A380820EA68}">
+                <File Id="fil4A6991B0027E8AF3FA665EAD42EA5ADF" KeyPath="yes" Source="$(var.BasePath)\Markdig.Signed.dll" />
+            </Component>
+            <Component Id="cmpC74E6335A099467B85B5E878A54BF0CA" Guid="{AA398C92-069A-46BC-97DE-FA7AEE244F1F}">
+                <File Id="fil860D97C110A4D3C94924D5034771E30E" KeyPath="yes" Source="$(var.BasePath)\Microsoft.ApplicationInsights.dll" />
+            </Component>
+            <Component Id="cmp036A680CF94E7627338001F023402FC5" Guid="{B13755C7-70FE-46F4-99DD-85CB15E1F08A}">
+                <File Id="filF343B9BE9F35AB3EFA290E974129327B" KeyPath="yes" Source="$(var.BasePath)\Microsoft.CodeAnalysis.CSharp.dll" />
+            </Component>
+            <Component Id="cmpC721F41377E85E493F0DF0733B2DF311" Guid="{93757BB2-689D-4C50-84C4-9BCAB3604945}">
+                <File Id="filC3BC362F988527D89F828BB4F6BC62E0" KeyPath="yes" Source="$(var.BasePath)\Microsoft.CodeAnalysis.dll" />
+            </Component>
+            <Component Id="cmpBC4FC00A26E7D32479D42D3411317FC5" Guid="{4C3C9BD9-7313-4E0F-ACFF-CB3879898190}">
+                <File Id="fil90A8AAD9FC612906D405476D61CEA3F4" KeyPath="yes" Source="$(var.BasePath)\Newtonsoft.Json.dll" />
+            </Component>
+            <Component Id="cmp7DAAB7CB097BB649D0BA383E73F2CDD7" Guid="{A0D1C99A-FB96-41F8-9743-AADF93EBC2B4}">
+                <File Id="filFD56E4A3C67DBE048CAF8FAB0D4B7433" KeyPath="yes" Source="$(var.BasePath)\NJsonSchema.dll" />
+            </Component>
+            <Component Id="cmpB2F9EBAF385E9E29B5A93F58B0D73177" Guid="{B5E7BE1B-F190-46AC-81E4-92B5191A1250}">
+                <File Id="filA39AFD83E426A11FDBCFCA1B11CFEE01" KeyPath="yes" Source="$(var.BasePath)\System.Management.dll" />
+            </Component>
+            <Component Id="cmp3C5190B580EDFB87D0BC5E835BB950DE" Guid="{03231F38-4C73-410A-9024-97D198FC3257}">
+                <File Id="fil0B6369FF78F990F18A525D5F0CC6D1AB" KeyPath="yes" Source="$(var.BasePath)\System.ServiceProcess.ServiceController.dll" />
+            </Component>
+            <Directory Id="dirB15F4604371D144EAEEAD44FE901D873" Name="cs">
+                <Component Id="cmp7330BE2FF6BC4376AECA56BA3335BC5E" Guid="{571CCEA1-2D87-4145-BE60-5056D4F036B5}">
+                    <File Id="filB6A8624C7FD9C8FF4F204CB995E53A78" KeyPath="yes" Source="$(var.BasePath)\cs\Microsoft.CodeAnalysis.CSharp.resources.dll" />
+                </Component>
+                <Component Id="cmp567E1D848FA3F3C2D261218B840CB447" Guid="{9EFF079C-BB05-41E4-97A7-63065E4A7200}">
+                    <File Id="filCFAF6FF5D100D6F038C9521D4D7FD811" KeyPath="yes" Source="$(var.BasePath)\cs\Microsoft.CodeAnalysis.resources.dll" />
+                </Component>
+            </Directory>
+            <Directory Id="dir242DC17B8DFC53C13CAF172FC08B730A" Name="de">
+                <Component Id="cmp85D8AE1A380C35C1F931FDA83B69C206" Guid="{706E1460-67E3-48ED-87ED-789A534451E8}">
+                    <File Id="filCE0C89FF31EAD3BF9935BF006F5CAD7D" KeyPath="yes" Source="$(var.BasePath)\de\Microsoft.CodeAnalysis.CSharp.resources.dll" />
+                </Component>
+                <Component Id="cmp9D0FF61921F53533FB2FB9D10155662D" Guid="{DE13E23C-454A-4D0A-B80D-4892D4DA8AE9}">
+                    <File Id="fil65C236B5FA1C6644B72F37C9AEFF5125" KeyPath="yes" Source="$(var.BasePath)\de\Microsoft.CodeAnalysis.resources.dll" />
+                </Component>
+            </Directory>
+            <Directory Id="dir9AE38F4F5CB5E565E774521E138F44FD" Name="es">
+                <Component Id="cmpA138D05BA7C9460CAD63D20A63C165EE" Guid="{2C88516C-9F1B-4457-9275-BE5DE2D85388}">
+                    <File Id="fil76F5AFA1A037F85887E20AF6AC590F18" KeyPath="yes" Source="$(var.BasePath)\es\Microsoft.CodeAnalysis.CSharp.resources.dll" />
+                </Component>
+                <Component Id="cmp64EADCD00A83038F25D1F27C60A7FF51" Guid="{BD2ABC6C-5AE3-4CEF-BD98-D847A6F62CC4}">
+                    <File Id="fil47E055E9BF97B6AB9583D96126F9CFFF" KeyPath="yes" Source="$(var.BasePath)\es\Microsoft.CodeAnalysis.resources.dll" />
+                </Component>
+            </Directory>
+            <Directory Id="dirB55DFDA91FEE7CCCBC65CA7493B75748" Name="fr">
+                <Component Id="cmp02F007F6E349BF1E45B754BBDA475E79" Guid="{18D41FFA-0CC6-43F6-B4A7-CBC0BA26A8C5}">
+                    <File Id="fil4C566A839CE3DA3AF03FB80953F187A5" KeyPath="yes" Source="$(var.BasePath)\fr\Microsoft.CodeAnalysis.CSharp.resources.dll" />
+                </Component>
+                <Component Id="cmp3E836866A5CFF75D04105DFA16D35F67" Guid="{534B0634-924D-4883-917D-6BCF9C3C9ACB}">
+                    <File Id="fil8E6C6826A5551ABB89A4218262299B25" KeyPath="yes" Source="$(var.BasePath)\fr\Microsoft.CodeAnalysis.resources.dll" />
+                </Component>
+            </Directory>
+            <Directory Id="dir45DE18DD71F3E8DD6BE4A0E2B48778C8" Name="it">
+                <Component Id="cmp102B5DCE898C00C320BA06B659830D47" Guid="{F88FB6FD-AA8B-4818-8F97-F2C9B21BF268}">
+                    <File Id="filBD921359BF23F0EE0EDA1339E236476D" KeyPath="yes" Source="$(var.BasePath)\it\Microsoft.CodeAnalysis.CSharp.resources.dll" />
+                </Component>
+                <Component Id="cmp6780D332346713440CC057DAEC4B0FD3" Guid="{EF4E97B2-0B03-4037-ADE3-FD6A83A30994}">
+                    <File Id="filDE8049D5696DD1721C61DBDB5B211B33" KeyPath="yes" Source="$(var.BasePath)\it\Microsoft.CodeAnalysis.resources.dll" />
+                </Component>
+            </Directory>
+            <Directory Id="dir997B58958EFAE06BB705E870622AB899" Name="ja">
+                <Component Id="cmp30BCC02AA5E2FFB6E2A18CE70A2036D7" Guid="{B0339BE2-BD2C-4E5D-9035-C1DBD4933D24}">
+                    <File Id="fil6D5156F244DE9C2D9EAF48A80D2704C4" KeyPath="yes" Source="$(var.BasePath)\ja\Microsoft.CodeAnalysis.CSharp.resources.dll" />
+                </Component>
+                <Component Id="cmp2B73574A3CA3F07C3746A122ED4F122C" Guid="{7F5F3340-7CFA-446E-BA31-1CD44FB25531}">
+                    <File Id="fil39D680EF6EA456485BF1E0E61613662D" KeyPath="yes" Source="$(var.BasePath)\ja\Microsoft.CodeAnalysis.resources.dll" />
+                </Component>
+            </Directory>
+            <Directory Id="dirF152986C1E6339E5EF84FD1370841521" Name="ko">
+                <Component Id="cmpE8F42607C46BFC0A18FABF940AD6FA25" Guid="{22F592C8-A696-49C9-88FD-540802EEA61C}">
+                    <File Id="fil131194F170E1357B794DBAEB6BBA96D7" KeyPath="yes" Source="$(var.BasePath)\ko\Microsoft.CodeAnalysis.CSharp.resources.dll" />
+                </Component>
+                <Component Id="cmp61FFF7DB5F7D94DDB645987CAD6018D7" Guid="{89211ED7-A477-4536-B84D-06A78D685453}">
+                    <File Id="filFB518C854CF8A7B83879587B4AEF7339" KeyPath="yes" Source="$(var.BasePath)\ko\Microsoft.CodeAnalysis.resources.dll" />
+                </Component>
+            </Directory>
+            <Directory Id="dirB6C57608593BDEA87B90E388CF59E0E8" Name="pl">
+                <Component Id="cmp453447E5E1D259CC610930DA5FCA889C" Guid="{BEAFFED4-9124-4034-AAB6-F71DAD42642B}">
+                    <File Id="fil55F1D8A3671A67E922526D1825A56971" KeyPath="yes" Source="$(var.BasePath)\pl\Microsoft.CodeAnalysis.CSharp.resources.dll" />
+                </Component>
+                <Component Id="cmpBD442C3313944AF0F84FA2455FFE0F72" Guid="{C89B80BD-4F4D-4114-B3AB-6FB0923711DD}">
+                    <File Id="fil88E9208EA7068F1DF320C0E1464FC6B7" KeyPath="yes" Source="$(var.BasePath)\pl\Microsoft.CodeAnalysis.resources.dll" />
+                </Component>
+            </Directory>
+            <Directory Id="dir339F53F3A11C56B053FD1FEC9B438810" Name="pt-BR">
+                <Component Id="cmpDD32D43AD2385F827B9330031F55CD10" Guid="{2AEA34D0-C0A7-4226-B706-E7BBBCFBA5DC}">
+                    <File Id="filEFF18FF2CC2375E1985D69AC4D69518C" KeyPath="yes" Source="$(var.BasePath)\pt-BR\Microsoft.CodeAnalysis.CSharp.resources.dll" />
+                </Component>
+                <Component Id="cmpF7DB1AFA92F263C99DF8FCE16B9DAA60" Guid="{080728E7-AE24-45F6-B20B-F22240082B71}">
+                    <File Id="fil74526F1D3A23689E4E39862766AE31B4" KeyPath="yes" Source="$(var.BasePath)\pt-BR\Microsoft.CodeAnalysis.resources.dll" />
+                </Component>
+            </Directory>
+            <Directory Id="dirE9205C68F964857267FD3312DBFF9A91" Name="ru">
+                <Component Id="cmpDEC9D2448E75375534A64A2FFFB8ECA4" Guid="{3E344D2B-E2BB-4B60-BAB5-6136CE52FD6D}">
+                    <File Id="fil6F03EDEBE4C0C354D0419BF9E2AD23DB" KeyPath="yes" Source="$(var.BasePath)\ru\Microsoft.CodeAnalysis.CSharp.resources.dll" />
+                </Component>
+                <Component Id="cmp5845F1E73436266617221056BBF0D320" Guid="{9C999009-8E70-4DB1-A4A1-9F2D88ADEDE4}">
+                    <File Id="fil2A5B350B696D19C822A0FDF263FDD0F2" KeyPath="yes" Source="$(var.BasePath)\ru\Microsoft.CodeAnalysis.resources.dll" />
+                </Component>
+            </Directory>
+            <Directory Id="dir58E8247E2885C01898CAD009F9EFD8BA" Name="runtimes">
+                <Directory Id="dir6F75383DB633D8F130457F52F58EA410" Name="linux-arm">
+                    <Directory Id="dirCAD3B0463F375DAD27B0DCF48EEB933F" Name="lib">
+                        <Directory Id="dir9AE212194451E1002A0ACF77720BD842" Name="netcoreapp2.1">
+                            <Component Id="cmp205BDC35F1266116514446A4BA2D91D6" Guid="{D690CD83-B027-43D7-9658-777027F97D4B}">
+                                <File Id="fil6431CA7F82F88099DDA6AB059BCB6CBC" KeyPath="yes" Source="$(var.BasePath)\runtimes\linux-arm\lib\netcoreapp2.1\Microsoft.PowerShell.Commands.Management.dll" />
+                            </Component>
+                            <Component Id="cmpF0F200E1E44B6C277B8E74FCA3B86444" Guid="{9E6C5524-83C7-483C-AA78-EB0E2A99E3A3}">
+                                <File Id="fil69292EB2E243C85B8A91F0720E5D0868" KeyPath="yes" Source="$(var.BasePath)\runtimes\linux-arm\lib\netcoreapp2.1\Microsoft.PowerShell.Commands.Utility.dll" />
+                            </Component>
+                            <Component Id="cmpB99A4ED54D2F085861A91CBE7F9BE084" Guid="{25A97F2C-3372-42F2-BCAD-16F1F916B05C}">
+                                <File Id="fil9449E975BFBCDB460635ACFD13E97681" KeyPath="yes" Source="$(var.BasePath)\runtimes\linux-arm\lib\netcoreapp2.1\Microsoft.PowerShell.ConsoleHost.dll" />
+                            </Component>
+                            <Component Id="cmp0711DC9C7A8E1F0D63C361CEADA662E1" Guid="{58C878FD-55FC-4C95-8BA9-C5C6FEB83363}">
+                                <File Id="fil293CC1A71B8CB2A0E52D62FD5A6D22C5" KeyPath="yes" Source="$(var.BasePath)\runtimes\linux-arm\lib\netcoreapp2.1\Microsoft.PowerShell.CoreCLR.Eventing.dll" />
+                            </Component>
+                            <Component Id="cmp24BA07005FEE841D86540A76C07A028D" Guid="{44D22EC9-B4A1-4005-A6E0-60C973D60292}">
+                                <File Id="fil4D3D45872AF9E7A01FF749E8F3683F15" KeyPath="yes" Source="$(var.BasePath)\runtimes\linux-arm\lib\netcoreapp2.1\Microsoft.PowerShell.MarkdownRender.dll" />
+                            </Component>
+                            <Component Id="cmpC1DB2C3313034EBDFA74BFBDD74D4F2A" Guid="{31780EFA-DFAE-4D02-AD49-D496143CB70D}">
+                                <File Id="fil6C135FD8D67887F9AD6873A46AD4FB95" KeyPath="yes" Source="$(var.BasePath)\runtimes\linux-arm\lib\netcoreapp2.1\Microsoft.PowerShell.Security.dll" />
+                            </Component>
+                            <Component Id="cmp354355469320E31DBFEC57B38805AC87" Guid="{E7AE2A1D-EE20-48AE-A614-B3703B2B2D41}">
+                                <File Id="filF68CB411685E89B383F225AC29EFF401" KeyPath="yes" Source="$(var.BasePath)\runtimes\linux-arm\lib\netcoreapp2.1\System.Management.Automation.dll" />
+                            </Component>
+                        </Directory>
+                    </Directory>
+                    <Directory Id="dirDE2B6474A7AE43169B31CD69645DD47A" Name="native">
+                        <Component Id="cmp5A7E8D2642A23FF526E84895101CD153" Guid="{E3769234-BC72-4773-AD39-33DBA9F6BDD4}">
+                            <File Id="fil8F3CD3CBEF079A3C78C21B4A42975C84" KeyPath="yes" Source="$(var.BasePath)\runtimes\linux-arm\native\libpsl-native.so" />
+                        </Component>
+                    </Directory>
+                </Directory>
+                <Directory Id="dir4368456DE80A31A0FABEF422CF868A74" Name="linux-arm64">
+                    <Directory Id="dirD4D406B0649E8BA45C0D436FC1C3D7B7" Name="native">
+                        <Component Id="cmp3F1B7493B3E0D4E32EB6A4CFD59394B3" Guid="{D51CE363-8D90-4374-B127-904F51A87209}">
+                            <File Id="fil8A822BD9EF87D8F472B2D7F2D6C4A112" KeyPath="yes" Source="$(var.BasePath)\runtimes\linux-arm64\native\libpsl-native.so" />
+                        </Component>
+                    </Directory>
+                </Directory>
+                <Directory Id="dir43C41CC727670B5306674FCA0856E156" Name="linux-musl-x64">
+                    <Directory Id="dir45A4D9035B4FF6D574E71B5F5E92BDDF" Name="native">
+                        <Component Id="cmp336DA271FD1EE0F1BA4656BE8BCBEA92" Guid="{70BBBD40-938E-4C73-951B-45A53CF8AA0C}">
+                            <File Id="filCB71C2741D44BCAB3D2F2F1BF16E525A" KeyPath="yes" Source="$(var.BasePath)\runtimes\linux-musl-x64\native\libpsl-native.so" />
+                        </Component>
+                    </Directory>
+                </Directory>
+                <Directory Id="dir986BEF73997BE02DCDBC34E856C19B36" Name="linux-x64">
+                    <Directory Id="dirFCC1680685057D688EC2F43BD2F5A551" Name="lib">
+                        <Directory Id="dir6369B29D1A4C24C9740F1F950085B9E8" Name="netcoreapp2.1">
+                            <Component Id="cmp933BE45C83CB84BF700F11F48900E026" Guid="{486DAF7A-D678-4D88-B7FD-664F43A84B6D}">
+                                <File Id="fil35741F5E4D8BFF2078A06A953BE18D71" KeyPath="yes" Source="$(var.BasePath)\runtimes\linux-x64\lib\netcoreapp2.1\Microsoft.PowerShell.Commands.Management.dll" />
+                            </Component>
+                            <Component Id="cmp5B26C7E4ED245783D62BB03453922B7F" Guid="{A91B80EF-71FB-4005-8F65-92878A8BBCB7}">
+                                <File Id="fil56DF08F705CEEA8A631BD7773297EB4E" KeyPath="yes" Source="$(var.BasePath)\runtimes\linux-x64\lib\netcoreapp2.1\Microsoft.PowerShell.Commands.Utility.dll" />
+                            </Component>
+                            <Component Id="cmp8D0429F904CB55C87A8EA896C4021EEB" Guid="{384DDFCF-29B8-4925-83FD-ACEE95622D9E}">
+                                <File Id="filCBF9939E629F084CBA3C0360710F70A8" KeyPath="yes" Source="$(var.BasePath)\runtimes\linux-x64\lib\netcoreapp2.1\Microsoft.PowerShell.ConsoleHost.dll" />
+                            </Component>
+                            <Component Id="cmpD4054B5DBD3356BA62FC1A031FD5FA99" Guid="{DFA65DA4-8562-4737-A395-2F9B2CE0583F}">
+                                <File Id="filCF78645F9A1FF9ABD2B88B23112B7689" KeyPath="yes" Source="$(var.BasePath)\runtimes\linux-x64\lib\netcoreapp2.1\Microsoft.PowerShell.CoreCLR.Eventing.dll" />
+                            </Component>
+                            <Component Id="cmp984C2F01230EEEC72E5F622B9D927A8E" Guid="{1F9B3255-D054-4246-81FA-69CF6C664F44}">
+                                <File Id="fil44D055102FD46C2BE10036A657397A31" KeyPath="yes" Source="$(var.BasePath)\runtimes\linux-x64\lib\netcoreapp2.1\Microsoft.PowerShell.MarkdownRender.dll" />
+                            </Component>
+                            <Component Id="cmp84A84B8BEDD0236538393D857BED175A" Guid="{FF396715-9EA0-4820-A308-38A3FA375F04}">
+                                <File Id="filFAA7765D513466969C995EF3C0280049" KeyPath="yes" Source="$(var.BasePath)\runtimes\linux-x64\lib\netcoreapp2.1\Microsoft.PowerShell.Security.dll" />
+                            </Component>
+                            <Component Id="cmp51A1441F2CAC83479B70D0CF6A166F11" Guid="{E2F184E7-D20F-460D-8AE7-6ED361794B03}">
+                                <File Id="fil344A9DBD86CCC7EA912645BDD08BC4CE" KeyPath="yes" Source="$(var.BasePath)\runtimes\linux-x64\lib\netcoreapp2.1\System.Management.Automation.dll" />
+                            </Component>
+                        </Directory>
+                    </Directory>
+                    <Directory Id="dirE1E651EB5B4F1522E5E10B81FEA70677" Name="native">
+                        <Component Id="cmp29895B84DADF85B4907C71B459BB577F" Guid="{33564BE6-E33F-47B0-99FB-0C50725D7801}">
+                            <File Id="fil10A2F4EFAC6B7FDA65DF1ADF8F0B5F0E" KeyPath="yes" Source="$(var.BasePath)\runtimes\linux-x64\native\libmi.so" />
+                        </Component>
+                        <Component Id="cmp64A4DA2A941FDC8B6A4A014DE100316C" Guid="{CA031A29-664B-4697-B328-EA23B1780D21}">
+                            <File Id="fil8DFD6DF2DD4B8F54730C4C3BA402B1F3" KeyPath="yes" Source="$(var.BasePath)\runtimes\linux-x64\native\libpsl-native.so" />
+                        </Component>
+                        <Component Id="cmpD58F8AA7A7F73ED33656AB00FF0FC493" Guid="{60F5785C-2E3F-4E6A-815E-52A142AF535C}">
+                            <File Id="fil7DD397A412218AD4F4E7975B3E04FC79" KeyPath="yes" Source="$(var.BasePath)\runtimes\linux-x64\native\libpsrpclient.so" />
+                        </Component>
+                    </Directory>
+                </Directory>
+                <Directory Id="dir3DA9BA8D811ABA6F3AFA391339C320BE" Name="osx">
+                    <Directory Id="dir110FA5569245E7C688740B82832BE4A1" Name="lib">
+                        <Directory Id="dirACE827595B5CD26895A6E4A6B7BA241C" Name="netcoreapp2.1">
+                            <Component Id="cmp628E19A8D70F949F6FB3C9643AACD859" Guid="{17C9A5E4-62BD-4A91-A6B0-18951C640505}">
+                                <File Id="filA2F39BEB43E4CD010D563973A0AB4805" KeyPath="yes" Source="$(var.BasePath)\runtimes\osx\lib\netcoreapp2.1\Microsoft.PowerShell.Commands.Management.dll" />
+                            </Component>
+                            <Component Id="cmpF69707EEA4D1D5FFC907764D8833DD2C" Guid="{9221CB3A-1A28-48FF-8E47-ED27CE07CF7B}">
+                                <File Id="filA99429240F5576FE12A6D70D905BEBF4" KeyPath="yes" Source="$(var.BasePath)\runtimes\osx\lib\netcoreapp2.1\Microsoft.PowerShell.Commands.Utility.dll" />
+                            </Component>
+                            <Component Id="cmpB985854F820297AE57D3DC5B3D058C63" Guid="{AAC37915-7482-4A47-994A-9211D912254C}">
+                                <File Id="fil1B8C6153E5BFC1E7658D11D3E18AE5E5" KeyPath="yes" Source="$(var.BasePath)\runtimes\osx\lib\netcoreapp2.1\Microsoft.PowerShell.ConsoleHost.dll" />
+                            </Component>
+                            <Component Id="cmp726937A7071B42D035EDE9ACADCC386C" Guid="{48842ECF-7DAC-4400-86DB-D1BC907A75F1}">
+                                <File Id="fil31A9342FEB3A3D71ECE95EFE97DE2615" KeyPath="yes" Source="$(var.BasePath)\runtimes\osx\lib\netcoreapp2.1\Microsoft.PowerShell.CoreCLR.Eventing.dll" />
+                            </Component>
+                            <Component Id="cmpAF85E989E3F0EF570C7BD020339AF2DE" Guid="{FB0C48BC-A8BA-4342-8A5A-93797A58E46E}">
+                                <File Id="fil5B8E2C010C08C968308DFCB7DE74D2DE" KeyPath="yes" Source="$(var.BasePath)\runtimes\osx\lib\netcoreapp2.1\Microsoft.PowerShell.MarkdownRender.dll" />
+                            </Component>
+                            <Component Id="cmp68FB882EFEFD35D9CF061F791B250EAA" Guid="{9D490E02-730B-4769-8A5A-4AC2B21FCEB5}">
+                                <File Id="filE732066259CC928E68ABD67E94CCED7C" KeyPath="yes" Source="$(var.BasePath)\runtimes\osx\lib\netcoreapp2.1\Microsoft.PowerShell.Security.dll" />
+                            </Component>
+                            <Component Id="cmp08E33973F0B17520B09350A02CCE6D5B" Guid="{07EFC1F0-D0B2-46DF-AFFD-91F76109078A}">
+                                <File Id="fil7ECE798C7BDF54E4F72C2211C7F361D9" KeyPath="yes" Source="$(var.BasePath)\runtimes\osx\lib\netcoreapp2.1\System.Management.Automation.dll" />
+                            </Component>
+                        </Directory>
+                    </Directory>
+                    <Directory Id="dir2887E24B7F769B7740C67C14A1BE2316" Name="native">
+                        <Component Id="cmp29012B9224AA5EE3CFD4BC695501DD9E" Guid="{1B98032A-7CEF-4E81-929D-65F7D1C40ECB}">
+                            <File Id="fil0F7824BBB3E4F89FFA92B5C9F61CB0B2" KeyPath="yes" Source="$(var.BasePath)\runtimes\osx\native\libmi.dylib" />
+                        </Component>
+                        <Component Id="cmp0A12B403681C8BE2F0DBA9C88DC1C2BF" Guid="{F37482DE-38AD-48AD-87D2-9E137C5AE850}">
+                            <File Id="fil1B497F823D1BBCD6B60D3BF4301893F1" KeyPath="yes" Source="$(var.BasePath)\runtimes\osx\native\libpsl-native.dylib" />
+                        </Component>
+                        <Component Id="cmp6C1908B4C69C467CBDE39CBF74B42DDF" Guid="{52295C89-4846-4480-A9C1-E64EAFF0F132}">
+                            <File Id="filB153B6E56CDF64BDE9E98A389ED982C5" KeyPath="yes" Source="$(var.BasePath)\runtimes\osx\native\libpsrpclient.dylib" />
+                        </Component>
+                    </Directory>
+                </Directory>
+                <Directory Id="dirDD6F90495A1A6169171F36CE85E975B6" Name="unix">
+                    <Directory Id="dirF5C312D00ABBDC163194A7BEF01BFACF" Name="lib">
+                        <Directory Id="dirE60B1419A80451E653BC5E8EB4DC40C4" Name="netstandard1.6">
+                            <Component Id="cmp17D54420992FE9AEA9706A554FDBF335" Guid="{E4A13E78-9F02-4FD4-BF81-37D6577C04AB}">
+                                <File Id="fil2C71C88D97F55D4E9969B13781D6AE5D" KeyPath="yes" Source="$(var.BasePath)\runtimes\unix\lib\netstandard1.6\Microsoft.Management.Infrastructure.dll" />
+                            </Component>
+                            <Component Id="cmp0CC2E3EB31A67C0AACF6B033C2AD9597" Guid="{AEB164E5-BD85-4935-996C-73BB58E2B23F}">
+                                <File Id="fil99E9AD169B208EF978AC8133727D7B54" KeyPath="yes" Source="$(var.BasePath)\runtimes\unix\lib\netstandard1.6\Microsoft.Management.Infrastructure.Native.dll" />
+                            </Component>
+                        </Directory>
+                    </Directory>
+                </Directory>
+                <Directory Id="dir9BE9104649A116CC7BCCF4D9CCD3331B" Name="win">
+                    <Directory Id="dirD19B0610952D1EE2D417EB5361695989" Name="lib">
+                        <Directory Id="dirE6C91B9343029DAC8410CDFBF32A7D8C" Name="netcoreapp2.0">
+                            <Component Id="cmpCD2DFF54292DDAB4B8187528A383DB5A" Guid="{83670CAF-E270-4690-A1EC-B9FCE8C5C9C4}">
+                                <File Id="filC699983038D16B49E3E9CED528310DB8" KeyPath="yes" Source="$(var.BasePath)\runtimes\win\lib\netcoreapp2.0\System.Management.dll" />
+                            </Component>
+                        </Directory>
+                        <Directory Id="dir9B4F20F396822EEA06946FAEF0EA799A" Name="netstandard2.0">
+                            <Component Id="cmp40FBCECCD67CE1E0530D4D98172F59EF" Guid="{C7461214-2FBF-48F5-8FA0-8AD5E1AE1189}">
+                                <File Id="filAF9D76B389C79302EDBD0A5A1F333EDF" KeyPath="yes" Source="$(var.BasePath)\runtimes\win\lib\netstandard2.0\System.ServiceProcess.ServiceController.dll" />
+                            </Component>
+                        </Directory>
+                    </Directory>
+                </Directory>
+                <Directory Id="dir9FF0F9C1A7463CA0B24689AA89D869B5" Name="win-arm">
+                    <Directory Id="dir30F3D5DD6D04A504677F34809445DF48" Name="lib">
+                        <Directory Id="dir3E5B381092A4C8388FA648F5C20FB258" Name="netcoreapp2.1">
+                            <Component Id="cmpAECFC06CEC9A78D394C44A27918E8F8C" Guid="{9F0F7858-3583-4FFC-9A8D-EA42719511B1}">
+                                <File Id="fil106FE6EA44254F601FDA4B1C28758A9D" KeyPath="yes" Source="$(var.BasePath)\runtimes\win-arm\lib\netcoreapp2.1\Microsoft.PowerShell.Commands.Diagnostics.dll" />
+                            </Component>
+                            <Component Id="cmpD0281081B7FE727A15EDD12F6F820488" Guid="{5C0BCF67-04EB-4B1B-B1F3-9701631B63A2}">
+                                <File Id="filA82D0D45D174699FEBFCD0B9A04747FF" KeyPath="yes" Source="$(var.BasePath)\runtimes\win-arm\lib\netcoreapp2.1\Microsoft.PowerShell.Commands.Management.dll" />
+                            </Component>
+                            <Component Id="cmp1C210FF1A8A02BA9D722F1F7FA6B160E" Guid="{3DDD831D-D1A8-46F2-A511-B218DBB5742A}">
+                                <File Id="filB4E4A228E6F1A7D39FCAB7A0290EF10E" KeyPath="yes" Source="$(var.BasePath)\runtimes\win-arm\lib\netcoreapp2.1\Microsoft.PowerShell.Commands.Utility.dll" />
+                            </Component>
+                            <Component Id="cmp0B277C0AC26FE6D0FCDCBD5D257688EA" Guid="{23B4B922-657B-4A4E-B820-1849F859BFAD}">
+                                <File Id="fil7E1E929C5480535DB832E2AB074798A6" KeyPath="yes" Source="$(var.BasePath)\runtimes\win-arm\lib\netcoreapp2.1\Microsoft.PowerShell.ConsoleHost.dll" />
+                            </Component>
+                            <Component Id="cmp3D63DDD52D4C8848656E64F41C55784D" Guid="{5EEF47EC-BFBA-4777-A438-DCD979B7C5C9}">
+                                <File Id="fil78669710E46EFE4E8C0735438E5D1B19" KeyPath="yes" Source="$(var.BasePath)\runtimes\win-arm\lib\netcoreapp2.1\Microsoft.PowerShell.CoreCLR.Eventing.dll" />
+                            </Component>
+                            <Component Id="cmpABE5368DEBBB41E186F7C038ACC663F1" Guid="{A7357408-DAB4-4214-9A30-3D61A608E84A}">
+                                <File Id="filBB612B2948EA593FFE8D02ADBFD343D3" KeyPath="yes" Source="$(var.BasePath)\runtimes\win-arm\lib\netcoreapp2.1\Microsoft.PowerShell.MarkdownRender.dll" />
+                            </Component>
+                            <Component Id="cmp8587A0715D7EBDB2755A86573A1AF8CE" Guid="{DEF61039-2DE2-4A82-9203-4BA9F3CFE8F3}">
+                                <File Id="fil2F0C0F13B0C8ACD07C4D7CB1ABF0B49F" KeyPath="yes" Source="$(var.BasePath)\runtimes\win-arm\lib\netcoreapp2.1\Microsoft.PowerShell.Security.dll" />
+                            </Component>
+                            <Component Id="cmp531F3AD4A104F41DB603D0C2D3955806" Guid="{AC8B09DA-326A-4EA6-8DE0-D3A2C5C64B4B}">
+                                <File Id="filBA2025203B4E5DF01F5637263EB3EEC3" KeyPath="yes" Source="$(var.BasePath)\runtimes\win-arm\lib\netcoreapp2.1\Microsoft.WSMan.Management.dll" />
+                            </Component>
+                            <Component Id="cmp68BD96573993921BE5A4AE55E15B8559" Guid="{F4C471A0-DF06-4BE6-A4E0-F5F478AC9AF4}">
+                                <File Id="filF97B8175096F2D94D75DD2F09915D7CB" KeyPath="yes" Source="$(var.BasePath)\runtimes\win-arm\lib\netcoreapp2.1\Microsoft.WSMan.Runtime.dll" />
+                            </Component>
+                            <Component Id="cmp5D259D06A5F1295E001A0CF44A76230A" Guid="{DDC981D9-9B85-419F-9F79-AE48ABCB0994}">
+                                <File Id="fil9F8A106D8929ADE616C0E9402C89FD51" KeyPath="yes" Source="$(var.BasePath)\runtimes\win-arm\lib\netcoreapp2.1\System.Management.Automation.dll" />
+                            </Component>
+                        </Directory>
+                        <Directory Id="dirE0D422AC722E50F6C08CC756E65278B0" Name="netstandard1.6">
+                            <Component Id="cmp5FD166585349CA02C42A04C8F1B2F944" Guid="{9D97C85C-8681-4151-8930-09B861FFC407}">
+                                <File Id="fil40989662A2F3C0F5073054B8A424D7C0" KeyPath="yes" Source="$(var.BasePath)\runtimes\win-arm\lib\netstandard1.6\Microsoft.Management.Infrastructure.dll" />
+                            </Component>
+                            <Component Id="cmp4FCE00499484092B64C04D644EE1E64E" Guid="{44FE5445-EADA-4A95-AD63-A0C7EF9CF4B8}">
+                                <File Id="filBF96EE9CAFD10EBE42FDA4F7E6973663" KeyPath="yes" Source="$(var.BasePath)\runtimes\win-arm\lib\netstandard1.6\Microsoft.Management.Infrastructure.Native.dll" />
+                            </Component>
+                        </Directory>
+                    </Directory>
+                    <Directory Id="dir46754318AAFE7C2D3BBAC065B627290B" Name="native">
+                        <Component Id="cmp805351DE653ECA9A5498A7E9BF589D95" Guid="{9892AB9B-0B04-4F85-AF2C-D0A34B1B5EC3}">
+                            <File Id="fil1E66B46C5656BD5A6C7EC385F5F616F1" KeyPath="yes" Source="$(var.BasePath)\runtimes\win-arm\native\mi.dll" />
+                        </Component>
+                        <Component Id="cmp79CA210B71A35CFEE5DA51CCE3FFC969" Guid="{FCD8ED14-2B8E-4D81-B97F-630519F6DA80}">
+                            <File Id="filB02B51FDE16612A56CEF643BACA4B66D" KeyPath="yes" Source="$(var.BasePath)\runtimes\win-arm\native\Microsoft.Management.Infrastructure.Native.Unmanaged.dll" />
+                        </Component>
+                        <Component Id="cmp2E7C0441F4FB8C52F77C70B98AE871BD" Guid="{8141C4D7-C6D2-4F9C-AC71-D8F5DB16AFC5}">
+                            <File Id="fil7B7225A311EF58BE25B0AAC9CC65CF78" KeyPath="yes" Source="$(var.BasePath)\runtimes\win-arm\native\miutils.dll" />
+                        </Component>
+                        <Component Id="cmpCF2E5D9F328142DE9E77D5E4F6F55261" Guid="{8543D39C-50F7-446C-AB6D-1425DC73FC68}">
+                            <File Id="fil8D90026EACBC364D6BE64E750B581099" KeyPath="yes" Source="$(var.BasePath)\runtimes\win-arm\native\PowerShell.Core.Instrumentation.dll" />
+                        </Component>
+                        <Component Id="cmpC99801584DC29BACBBC63D30CCB33F8E" Guid="{BD9F22DC-63E4-4266-8D4B-234086B7D802}">
+                            <File Id="fil08028824FE6421AABC69DE2194E4CEC9" KeyPath="yes" Source="$(var.BasePath)\runtimes\win-arm\native\pwrshplugin.dll" />
+                        </Component>
+                        
+                    </Directory>
+                </Directory>
+                <Directory Id="dirFF6AADC4B618984E1542CDA5FCBD7BB1" Name="win-arm64">
+                    <Directory Id="dir1D2878E113F2A5073E35588BF717108B" Name="lib">
+                        <Directory Id="dir7D6DB6EB0836401F53DC1655577812D9" Name="netcoreapp2.1">
+                            <Component Id="cmp744C228E1763D81C8E97FE2C94F7372F" Guid="{82C5FDE7-7119-4130-AB23-A098DDE1DDD6}">
+                                <File Id="fil1F047875B21AB94609F74FB00B7C794A" KeyPath="yes" Source="$(var.BasePath)\runtimes\win-arm64\lib\netcoreapp2.1\Microsoft.PowerShell.Commands.Diagnostics.dll" />
+                            </Component>
+                            <Component Id="cmpD57DB4BE7FA8C98233B97E96CCC4D03C" Guid="{2B8590D9-7D0C-4E95-8E25-93FF1534A128}">
+                                <File Id="filCBA34EF31BF08C75071DBD1672202B95" KeyPath="yes" Source="$(var.BasePath)\runtimes\win-arm64\lib\netcoreapp2.1\Microsoft.PowerShell.Commands.Management.dll" />
+                            </Component>
+                            <Component Id="cmp2316881BA001C178441BE2C903106BE5" Guid="{FAC8B711-F6C1-4B61-B787-3CFEF180593F}">
+                                <File Id="fil1C8340E28C6F7FDE9EED80E4FE47D59C" KeyPath="yes" Source="$(var.BasePath)\runtimes\win-arm64\lib\netcoreapp2.1\Microsoft.PowerShell.Commands.Utility.dll" />
+                            </Component>
+                            <Component Id="cmp413EDBD598C478307C1444E1C43AF71C" Guid="{D905AE2D-7E9C-45C5-9A6D-C19EEFA9852E}">
+                                <File Id="filB23A4B4992D25DC6333E61D75DC3C6C9" KeyPath="yes" Source="$(var.BasePath)\runtimes\win-arm64\lib\netcoreapp2.1\Microsoft.PowerShell.ConsoleHost.dll" />
+                            </Component>
+                            <Component Id="cmp46935CF05648EEA07D9D224463385F5F" Guid="{124ED453-4A22-4AFB-BCFD-83BB06019915}">
+                                <File Id="filA2F39CC813BD0B4DE0479A6B37C415E8" KeyPath="yes" Source="$(var.BasePath)\runtimes\win-arm64\lib\netcoreapp2.1\Microsoft.PowerShell.CoreCLR.Eventing.dll" />
+                            </Component>
+                            <Component Id="cmp2E0A79CD54D4C0C1165EBF60C9B74B42" Guid="{2022D629-EF1B-4C78-8CD7-E9835ADFA858}">
+                                <File Id="filE9977297F20D1674788E5676E910D8CF" KeyPath="yes" Source="$(var.BasePath)\runtimes\win-arm64\lib\netcoreapp2.1\Microsoft.PowerShell.MarkdownRender.dll" />
+                            </Component>
+                            <Component Id="cmp13B486A0604A0963196E39BBD46B036E" Guid="{4D4E1A6D-3427-42A0-A57D-FEDD27A35CB7}">
+                                <File Id="fil9A39CF6F2C3DA1AFDF1F637F4E81E265" KeyPath="yes" Source="$(var.BasePath)\runtimes\win-arm64\lib\netcoreapp2.1\Microsoft.PowerShell.Security.dll" />
+                            </Component>
+                            <Component Id="cmpE10F800462A004E871FD5AABABD1BB07" Guid="{09569187-C88D-4400-8846-28AD45444831}">
+                                <File Id="fil55CFDF3DCB2147DFD6194C41BD7F8E56" KeyPath="yes" Source="$(var.BasePath)\runtimes\win-arm64\lib\netcoreapp2.1\Microsoft.WSMan.Management.dll" />
+                            </Component>
+                            <Component Id="cmp957937014F4A10BF18A28BC9767A8C42" Guid="{DD5B8B17-39A6-42D7-A850-D7F59625FF07}">
+                                <File Id="filD49C366E7A613223B8D59CDA4F5AF24C" KeyPath="yes" Source="$(var.BasePath)\runtimes\win-arm64\lib\netcoreapp2.1\Microsoft.WSMan.Runtime.dll" />
+                            </Component>
+                            <Component Id="cmp6666F6D9B342CA8DE4EB1952DE80F806" Guid="{D3665D6F-7457-4D20-B32D-DCCB970808B4}">
+                                <File Id="filC20BB970CE1A7B381390EEA3BBE0E034" KeyPath="yes" Source="$(var.BasePath)\runtimes\win-arm64\lib\netcoreapp2.1\System.Management.Automation.dll" />
+                            </Component>
+                        </Directory>
+                        <Directory Id="dir33DCF7183B1F54554120BBAD0831260F" Name="netstandard1.6">
+                            <Component Id="cmp111BBA60BFB75C8AB6FB4037FE50639E" Guid="{EAE04AB4-0747-4B96-997C-B761E19B3E08}">
+                                <File Id="fil37F2DB52AFEF157994BB3BD6C6ED1256" KeyPath="yes" Source="$(var.BasePath)\runtimes\win-arm64\lib\netstandard1.6\Microsoft.Management.Infrastructure.dll" />
+                            </Component>
+                            <Component Id="cmpE81058956B9C9701677926F6A03C7189" Guid="{C0CABF60-D1E5-4E03-A4F9-ABCEE799077E}">
+                                <File Id="filBA235BF3AF20CF3B8B3D9469609DD6B3" KeyPath="yes" Source="$(var.BasePath)\runtimes\win-arm64\lib\netstandard1.6\Microsoft.Management.Infrastructure.Native.dll" />
+                            </Component>
+                        </Directory>
+                    </Directory>
+                    <Directory Id="dir65EC979D52EB501E3A656AA03EE4F2F5" Name="native">
+                        <Component Id="cmp0BA726361A31660DAA2566F842D5A38B" Guid="{AB3074E0-2E6C-4219-82EC-3731620ED2FC}">
+                            <File Id="filD745B87F7D63082BAEF388729ACE8136" KeyPath="yes" Source="$(var.BasePath)\runtimes\win-arm64\native\mi.dll" />
+                        </Component>
+                        <Component Id="cmpB60B11FECC428FAD8688F77BC1504CEF" Guid="{5A9C80E3-A510-4436-807D-65428E0D927D}">
+                            <File Id="fil5556657991123D57B37CF8483067AED7" KeyPath="yes" Source="$(var.BasePath)\runtimes\win-arm64\native\Microsoft.Management.Infrastructure.Native.Unmanaged.dll" />
+                        </Component>
+                        <Component Id="cmp9F0C0F51E8F8172870D832FB9CACC539" Guid="{D1C25916-9183-43C4-A01D-45F948556585}">
+                            <File Id="fil2EF0EFE577B1C210FC5B2979B2A17132" KeyPath="yes" Source="$(var.BasePath)\runtimes\win-arm64\native\miutils.dll" />
+                        </Component>
+                        <Component Id="cmpFA37E639168B3EEFD95CE598CF6619F1" Guid="{D1505B3A-6252-43D4-8541-2DFE189E24F5}">
+                            <File Id="filE729A11035450DB9E82BAA1817E3B2F6" KeyPath="yes" Source="$(var.BasePath)\runtimes\win-arm64\native\PowerShell.Core.Instrumentation.dll" />
+                        </Component>
+                        <Component Id="cmp5F1ED972825502BB9890373E12C30536" Guid="{86F822AE-D7CD-40BD-A72C-FD688DA5AA87}">
+                            <File Id="fil7210BA9CA4CF18018686F8085C811F5B" KeyPath="yes" Source="$(var.BasePath)\runtimes\win-arm64\native\pwrshplugin.dll" />
+                        </Component>
+                        
+                    </Directory>
+                </Directory>
+                <Directory Id="dirB9C75524282911E40C3C964A8836A714" Name="win-x64">
+                    <Directory Id="dirB8203F6CFB017C376D2E2E1EDA25DA38" Name="lib">
+                        <Directory Id="dirE785910034143B095F4C90B709C74189" Name="netcoreapp2.1">
+                            <Component Id="cmpE3516A566CB6BA56D1B1A3B032F5A73F" Guid="{B5CEF2FA-473E-4575-AF80-D0D9E07D6BE1}">
+                                <File Id="fil74247A9945B7046E65D4D2BF51502898" KeyPath="yes" Source="$(var.BasePath)\runtimes\win-x64\lib\netcoreapp2.1\Microsoft.PowerShell.Commands.Diagnostics.dll" />
+                            </Component>
+                            <Component Id="cmp7C08E90584798E2928A21D0DB9A6D6D7" Guid="{2BB95FA7-416E-42B9-AE68-20DB444A5D3F}">
+                                <File Id="filE0ED26BCD6B65231D54D95D0DD3EB6F6" KeyPath="yes" Source="$(var.BasePath)\runtimes\win-x64\lib\netcoreapp2.1\Microsoft.PowerShell.Commands.Management.dll" />
+                            </Component>
+                            <Component Id="cmp3D14B0965A90511B7E27835841DA7973" Guid="{3DEC7C49-8BA1-4C64-9879-C45189B22142}">
+                                <File Id="fil6F9423BF3D209E3C7CDBABD744F3D887" KeyPath="yes" Source="$(var.BasePath)\runtimes\win-x64\lib\netcoreapp2.1\Microsoft.PowerShell.Commands.Utility.dll" />
+                            </Component>
+                            <Component Id="cmp98F1B649188582EF41A536E1D975D99B" Guid="{74F2B48B-AE22-4CD4-BFBE-B625AD42B037}">
+                                <File Id="fil1799A467842CFA25137AB4053935D2DF" KeyPath="yes" Source="$(var.BasePath)\runtimes\win-x64\lib\netcoreapp2.1\Microsoft.PowerShell.ConsoleHost.dll" />
+                            </Component>
+                            <Component Id="cmpD160934C04C6B0685FC4A34313DB5D11" Guid="{45D427CE-DD2C-4418-9E9F-3CC82B2366EC}">
+                                <File Id="fil7677C97B39E0769333F255295499C712" KeyPath="yes" Source="$(var.BasePath)\runtimes\win-x64\lib\netcoreapp2.1\Microsoft.PowerShell.CoreCLR.Eventing.dll" />
+                            </Component>
+                            <Component Id="cmp257337FC7CD0E5C1E65646417B0FA3D6" Guid="{FDD4B364-66D9-44E2-A016-8E377AC849E6}">
+                                <File Id="filEB34331FB653F1CB998474969726494B" KeyPath="yes" Source="$(var.BasePath)\runtimes\win-x64\lib\netcoreapp2.1\Microsoft.PowerShell.MarkdownRender.dll" />
+                            </Component>
+                            <Component Id="cmpDD748358703C682B18AD812D969CF473" Guid="{8ABA6F05-AE5E-438E-B9F1-2463CFBB425D}">
+                                <File Id="fil8D442529F825C35D4DFBC8FDF078146B" KeyPath="yes" Source="$(var.BasePath)\runtimes\win-x64\lib\netcoreapp2.1\Microsoft.PowerShell.Security.dll" />
+                            </Component>
+                            <Component Id="cmpACB20EBC58549583D0D5DF3B6C8B85DC" Guid="{B095D55E-DDCF-40E0-AAC4-595C1E07F133}">
+                                <File Id="fil6C94C75BF538E7098F81FB6CEF7BB9F8" KeyPath="yes" Source="$(var.BasePath)\runtimes\win-x64\lib\netcoreapp2.1\Microsoft.WSMan.Management.dll" />
+                            </Component>
+                            <Component Id="cmp69AF9CE9BF4E6CE7E590937395805AF2" Guid="{3F95F457-096E-45F3-AB9E-9F4E8BC9DEB9}">
+                                <File Id="filDD441BB4702DB07E31A2F0A25880061D" KeyPath="yes" Source="$(var.BasePath)\runtimes\win-x64\lib\netcoreapp2.1\Microsoft.WSMan.Runtime.dll" />
+                            </Component>
+                            <Component Id="cmp1708112179047DCAF9007F0547E35A9C" Guid="{B55D72C6-8C49-4577-9005-6F199C5A2033}">
+                                <File Id="fil0BB63695ECAE33AC702B49A6F51A3086" KeyPath="yes" Source="$(var.BasePath)\runtimes\win-x64\lib\netcoreapp2.1\System.Management.Automation.dll" />
+                            </Component>
+                        </Directory>
+                    </Directory>
+                    <Directory Id="dir1F9DF9DD2FB29AE2942604FAC206D5C4" Name="native">
+                        <Component Id="cmp2712062D10B7A6518BC4B884873EA6EF" Guid="{71CE3F1A-E92A-405F-AAFD-F3C924F9243A}">
+                            <File Id="fil773FA0B46D585B3B5613B83A9CFB66D6" KeyPath="yes" Source="$(var.BasePath)\runtimes\win-x64\native\PowerShell.Core.Instrumentation.dll" />
+                        </Component>
+                        <Component Id="cmpE749A9840C44618086866C9B9D3435D2" Guid="{12F5ABDF-C287-46F4-8627-E7425C81FD4D}">
+                            <File Id="fil76F9C1D6B6DB6F5FD58CEAB9415FD044" KeyPath="yes" Source="$(var.BasePath)\runtimes\win-x64\native\pwrshplugin.dll" />
+                        </Component>
+                        
+                    </Directory>
+                </Directory>
+                <Directory Id="dir92F336DAA82E5A629052407A3F87EF27" Name="win-x86">
+                    <Directory Id="dirCA589ED17CC78685FB5F14D5A5DD6CCC" Name="lib">
+                        <Directory Id="dir2E770EEB6EE4B13A0B9312B86DABA31E" Name="netcoreapp2.1">
+                            <Component Id="cmp59A8DA20557C5A5A20E2558D3FE75678" Guid="{B627A1CD-9B28-4A31-9FB5-FBF439FBEC0E}">
+                                <File Id="fil5BE7F04333233953040C28526779AFF5" KeyPath="yes" Source="$(var.BasePath)\runtimes\win-x86\lib\netcoreapp2.1\Microsoft.PowerShell.Commands.Diagnostics.dll" />
+                            </Component>
+                            <Component Id="cmpA78ECCA84C58A743008D8855BE66DF4F" Guid="{82D22410-98F6-4888-A204-9DFAEC846FE0}">
+                                <File Id="filDB9E755A3F7A8A83CB2F4DF90E1F7B40" KeyPath="yes" Source="$(var.BasePath)\runtimes\win-x86\lib\netcoreapp2.1\Microsoft.PowerShell.Commands.Management.dll" />
+                            </Component>
+                            <Component Id="cmp1F111273F472D2DF94C9B6CB301BE67E" Guid="{7F29660E-D423-4A73-AFAC-9D9ED05AC95C}">
+                                <File Id="fil239C2FAF3C598D406F68E7261C96B899" KeyPath="yes" Source="$(var.BasePath)\runtimes\win-x86\lib\netcoreapp2.1\Microsoft.PowerShell.Commands.Utility.dll" />
+                            </Component>
+                            <Component Id="cmp91C2CF7F1C56194DF4A0198EE5DAC38B" Guid="{0007A531-E9F5-4E6F-9281-31990EF77911}">
+                                <File Id="filADBF6442E80EF52001A61DC26A114E2F" KeyPath="yes" Source="$(var.BasePath)\runtimes\win-x86\lib\netcoreapp2.1\Microsoft.PowerShell.ConsoleHost.dll" />
+                            </Component>
+                            <Component Id="cmpFABB3871BC9942CA98BEBA63D7DDEA7C" Guid="{238AF4FA-A6B1-4CA8-BC7B-10B004479988}">
+                                <File Id="fil103FC32A790BD94458DCF28559542DD6" KeyPath="yes" Source="$(var.BasePath)\runtimes\win-x86\lib\netcoreapp2.1\Microsoft.PowerShell.CoreCLR.Eventing.dll" />
+                            </Component>
+                            <Component Id="cmp13AA3AA09C9A2EAFB749BFA5F4DFC858" Guid="{D3B23307-D11D-46C8-BB0F-7AB4BADB64E2}">
+                                <File Id="fil6254AE74713A258AB32FFF9B6E518B69" KeyPath="yes" Source="$(var.BasePath)\runtimes\win-x86\lib\netcoreapp2.1\Microsoft.PowerShell.MarkdownRender.dll" />
+                            </Component>
+                            <Component Id="cmpBDBED8BC9F0D0C5D6360E209F3DE53E7" Guid="{CD6DD714-9E3B-4E22-8EE2-0ADFB32247CE}">
+                                <File Id="fil91D50902C8CDA63F9896FD459796D31B" KeyPath="yes" Source="$(var.BasePath)\runtimes\win-x86\lib\netcoreapp2.1\Microsoft.PowerShell.Security.dll" />
+                            </Component>
+                            <Component Id="cmpBA4048A570BABC6A78E3F29687298613" Guid="{387EEFF7-30AD-4061-AE74-137D8BA93A0B}">
+                                <File Id="fil6267EE062C499C29890B82D1074EFF0D" KeyPath="yes" Source="$(var.BasePath)\runtimes\win-x86\lib\netcoreapp2.1\Microsoft.WSMan.Management.dll" />
+                            </Component>
+                            <Component Id="cmp330CD69E0F3302A5D5F3193975696C29" Guid="{3EFC5055-39C2-4A90-8432-34D592492558}">
+                                <File Id="fil8D4C25E9C19B5EA636EADE480878394C" KeyPath="yes" Source="$(var.BasePath)\runtimes\win-x86\lib\netcoreapp2.1\Microsoft.WSMan.Runtime.dll" />
+                            </Component>
+                            <Component Id="cmpB9B6F009B29484D0D6D886BA1A50B4BA" Guid="{F7258422-1B96-45B3-B196-5E8A9BA81CFE}">
+                                <File Id="filAA9222250DC39767285E9F174850101B" KeyPath="yes" Source="$(var.BasePath)\runtimes\win-x86\lib\netcoreapp2.1\System.Management.Automation.dll" />
+                            </Component>
+                        </Directory>
+                    </Directory>
+                    <Directory Id="dir2B43AAE918D399CEF13EC6CBA2D3D5EA" Name="native">
+                        <Component Id="cmpFB0DEE0153B2A80B715F2E0EE7276B96" Guid="{363CA11E-4E31-4AD7-9A3B-F8F7E7ECE6A9}">
+                            <File Id="fil11FDE2881634BC54733DDB4C78E77C09" KeyPath="yes" Source="$(var.BasePath)\runtimes\win-x86\native\PowerShell.Core.Instrumentation.dll" />
+                        </Component>
+                        <Component Id="cmp9041BD6FE459395A5F544DB6F78516B3" Guid="{E2439FC3-3930-4EA4-AFE0-569B1A622B78}">
+                            <File Id="fil6E65DC8DB8FFBA08C0B5F3868B832165" KeyPath="yes" Source="$(var.BasePath)\runtimes\win-x86\native\pwrshplugin.dll" />
+                        </Component>
+                        
+                    </Directory>
+                </Directory>
+                <Directory Id="dirA791370D806A22A8AFD2CDFBA783EE41" Name="win10-x64">
+                    <Directory Id="dir7755C61994371B2E7C8EC8550D90457B" Name="lib">
+                        <Directory Id="dirCCFF838D32F6272FF4F1D00C82D52BBD" Name="netstandard1.6">
+                            <Component Id="cmp25EF6DDA68F2B38635B96192A3B0E61C" Guid="{9890BC07-807D-43DC-9A7B-D9CF6FDBAF82}">
+                                <File Id="fil4FBC4B90154CF87EE8E9C109CB8AF64B" KeyPath="yes" Source="$(var.BasePath)\runtimes\win10-x64\lib\netstandard1.6\Microsoft.Management.Infrastructure.dll" />
+                            </Component>
+                            <Component Id="cmp59A3518BEB92A6289014B48DD6810F87" Guid="{6BA8E514-0A99-42F6-8E13-6A1DAA526759}">
+                                <File Id="filBD2CCB05FDB9739F9645F7D78EDDDC58" KeyPath="yes" Source="$(var.BasePath)\runtimes\win10-x64\lib\netstandard1.6\Microsoft.Management.Infrastructure.Native.dll" />
+                            </Component>
+                        </Directory>
+                    </Directory>
+                    <Directory Id="dir4E04E77073D44FC31E6A18CA0851572B" Name="native">
+                        <Component Id="cmp027F44D351BC9397D18BB9A2CF4D3D41" Guid="{32959069-841F-4208-AC08-06C16E21657B}">
+                            <File Id="fil330E3CDC2FC7D3E2D59C03AD1D18D596" KeyPath="yes" Source="$(var.BasePath)\runtimes\win10-x64\native\mi.dll" />
+                        </Component>
+                        <Component Id="cmp2D4504D46F0ADCBAF6E0BA39D508DD55" Guid="{ECF2D9CD-5B48-4628-891F-779BC1754454}">
+                            <File Id="filA85A7393BBFAA586F8209C0A188372E3" KeyPath="yes" Source="$(var.BasePath)\runtimes\win10-x64\native\Microsoft.Management.Infrastructure.Native.Unmanaged.dll" />
+                        </Component>
+                        <Component Id="cmp95E7E5E8524B0477DE64544D032F559D" Guid="{6FF3B066-B8DC-4DE1-8C7E-B94181AAAD31}">
+                            <File Id="filEDD199BD1D45B26D5200E465736F5383" KeyPath="yes" Source="$(var.BasePath)\runtimes\win10-x64\native\miutils.dll" />
+                        </Component>
+                    </Directory>
+                </Directory>
+                <Directory Id="dir197DA881903E3C049827D5E978F270EF" Name="win10-x86">
+                    <Directory Id="dir891301BC932925949212C57B00527CEB" Name="lib">
+                        <Directory Id="dir4B9D3A3417E9A1330EBD528B6A98064F" Name="netstandard1.6">
+                            <Component Id="cmp7C2F3AA418BC1ED76169770987410141" Guid="{769BDFEA-8FB1-40FD-BF0C-20DD963283A8}">
+                                <File Id="fil8AED4E9F1938B92E1CCDEA658B7BE961" KeyPath="yes" Source="$(var.BasePath)\runtimes\win10-x86\lib\netstandard1.6\Microsoft.Management.Infrastructure.dll" />
+                            </Component>
+                            <Component Id="cmp3C9988C63BCCB0E6538690986E847F30" Guid="{3D2D1E98-84BD-45EE-BD10-6241EDA9A960}">
+                                <File Id="filFF2074C2019602E146E067E5397E56D7" KeyPath="yes" Source="$(var.BasePath)\runtimes\win10-x86\lib\netstandard1.6\Microsoft.Management.Infrastructure.Native.dll" />
+                            </Component>
+                        </Directory>
+                    </Directory>
+                    <Directory Id="dirB9511C548A02BD39E01B3D77FF935FFD" Name="native">
+                        <Component Id="cmp958C85CD92DE2F42C5EF6D8B034A9292" Guid="{4858A61B-1F79-4DDD-A15C-C10B2A1CC6A2}">
+                            <File Id="filE5BA983D18FE276D7ECB20F1C72FA57A" KeyPath="yes" Source="$(var.BasePath)\runtimes\win10-x86\native\mi.dll" />
+                        </Component>
+                        <Component Id="cmp9CE34A087D5B2748EB9CF2402A1C4484" Guid="{44115711-A69D-45A1-B674-B2E169B9D948}">
+                            <File Id="filAD338C5E5A94BC2475E07974E04CE25E" KeyPath="yes" Source="$(var.BasePath)\runtimes\win10-x86\native\Microsoft.Management.Infrastructure.Native.Unmanaged.dll" />
+                        </Component>
+                        <Component Id="cmpA7E5EE6E5508E97FB9BDABDD451964E8" Guid="{4F8B8B50-EEF6-4DE8-BAE3-E6FEC8C5E51A}">
+                            <File Id="fil1E889CADCDFDAAB0316747E6CAACC069" KeyPath="yes" Source="$(var.BasePath)\runtimes\win10-x86\native\miutils.dll" />
+                        </Component>
+                    </Directory>
+                </Directory>
+                <Directory Id="dirDD380A2F01186A6E4C30ED603090E324" Name="win7-x64">
+                    <Directory Id="dir7AD58D98167EC89CD4337415B3FC2967" Name="lib">
+                        <Directory Id="dirDE5B04C2C9226C7D2B4F14314B11F617" Name="netstandard1.6">
+                            <Component Id="cmp5EEDA3D6C4557A1E23FF0223920B66C9" Guid="{FDE23A41-05CF-44C9-9319-04574BF4FC3E}">
+                                <File Id="fil75DB76A67611A0405A1EC9634187A198" KeyPath="yes" Source="$(var.BasePath)\runtimes\win7-x64\lib\netstandard1.6\Microsoft.Management.Infrastructure.dll" />
+                            </Component>
+                            <Component Id="cmpF54E5480EACEA195B7E713E5E032783A" Guid="{5FF274AA-058A-44C1-BBC6-63BE36F65665}">
+                                <File Id="fil3A2D6C265CA90C7F6DDFCE4C9B14F374" KeyPath="yes" Source="$(var.BasePath)\runtimes\win7-x64\lib\netstandard1.6\Microsoft.Management.Infrastructure.Native.dll" />
+                            </Component>
+                        </Directory>
+                    </Directory>
+                    <Directory Id="dir02A6727585B36BE7529231A6350B8811" Name="native">
+                        <Component Id="cmpFC63288FC81038223422FC873200ECDF" Guid="{4EF74D68-779F-4280-BF9C-9437F23C4D7C}">
+                            <File Id="fil83F1ED03B75945D83CEC0A3CC1B7B49D" KeyPath="yes" Source="$(var.BasePath)\runtimes\win7-x64\native\mi.dll" />
+                        </Component>
+                        <Component Id="cmpE85A4C1B9191269026E4652EFE7A4CD7" Guid="{280AA593-7546-4773-99D5-1A26C9785C38}">
+                            <File Id="fil9EFA2B97865DDE1DDEF90DEA3524D541" KeyPath="yes" Source="$(var.BasePath)\runtimes\win7-x64\native\Microsoft.Management.Infrastructure.Native.Unmanaged.dll" />
+                        </Component>
+                        <Component Id="cmpA23EEECBE20EC716D6C9304E5A121869" Guid="{BC0FE673-047A-49D3-85FA-F1BEF1450AEA}">
+                            <File Id="filDC7A67C3ABE5F9D0448A6AF554A65082" KeyPath="yes" Source="$(var.BasePath)\runtimes\win7-x64\native\miutils.dll" />
+                        </Component>
+                    </Directory>
+                </Directory>
+                <Directory Id="dir229FE8EE4F4EEE130AEB9014A74CDEF6" Name="win7-x86">
+                    <Directory Id="dir96DF0B0D78AFB955699DC7300B642118" Name="lib">
+                        <Directory Id="dir57F9027D0668C5A3FC3B8B80B074129E" Name="netstandard1.6">
+                            <Component Id="cmp1DA977075A75644E1632829A5A7DDEEF" Guid="{95D2B032-3969-463E-A977-2945639259D1}">
+                                <File Id="filC88D70654C8659CDB14F2E5170F0747D" KeyPath="yes" Source="$(var.BasePath)\runtimes\win7-x86\lib\netstandard1.6\Microsoft.Management.Infrastructure.dll" />
+                            </Component>
+                            <Component Id="cmp1A1212A015D62FF1777325E15C171F8A" Guid="{99B3D81E-1119-427F-8D0D-04F3E802069D}">
+                                <File Id="fil95E741F1EEFBFFE6702E4ACE973F8E84" KeyPath="yes" Source="$(var.BasePath)\runtimes\win7-x86\lib\netstandard1.6\Microsoft.Management.Infrastructure.Native.dll" />
+                            </Component>
+                        </Directory>
+                    </Directory>
+                    <Directory Id="dirF98D4A5B2D003D6AF9D1C63C997DE788" Name="native">
+                        <Component Id="cmpBD341FD5CEDDD4B787149892203135E6" Guid="{9FF142DE-D56B-4FAF-8842-F79FD28BF696}">
+                            <File Id="filC8670DF4228B6F7D472B331093BF4E51" KeyPath="yes" Source="$(var.BasePath)\runtimes\win7-x86\native\mi.dll" />
+                        </Component>
+                        <Component Id="cmpA90552E842A551E1501CF67E9EB931BD" Guid="{093CBC88-EEE2-4AAA-8926-30B03AE72453}">
+                            <File Id="fil403262FABC8947A64C3A4E3DEAF432EE" KeyPath="yes" Source="$(var.BasePath)\runtimes\win7-x86\native\Microsoft.Management.Infrastructure.Native.Unmanaged.dll" />
+                        </Component>
+                        <Component Id="cmp517D2387BC334B5AE9475962FE4DB797" Guid="{1AA1804E-8037-4679-9F16-56C92376509D}">
+                            <File Id="fil3C79F534536F5FDFEF68BAECCD5380E9" KeyPath="yes" Source="$(var.BasePath)\runtimes\win7-x86\native\miutils.dll" />
+                        </Component>
+                    </Directory>
+                </Directory>
+                <Directory Id="dir6C2D5FA0D312F31731EEFDD61EF5F34E" Name="win8-x64">
+                    <Directory Id="dir4E977A57A2E289D355FECF0D2ADF7258" Name="lib">
+                        <Directory Id="dir5F9C8B735D7C1BB51CCA7CE5574F6F06" Name="netstandard1.6">
+                            <Component Id="cmp6A029326D7B3DBAA65FB3668D1E27AE8" Guid="{33D6D157-369D-420F-9C02-131583890FED}">
+                                <File Id="fil1C0AE7A17517026D1974E3E6BBB9DA3F" KeyPath="yes" Source="$(var.BasePath)\runtimes\win8-x64\lib\netstandard1.6\Microsoft.Management.Infrastructure.dll" />
+                            </Component>
+                            <Component Id="cmp7BD8CDAF6DD92277776CCE8D3ADFD7D0" Guid="{81F9B351-7CB5-421B-BBA8-E9F76CE79C1D}">
+                                <File Id="fil4B0E96880A7EF0D78D80AA4B69EE70C2" KeyPath="yes" Source="$(var.BasePath)\runtimes\win8-x64\lib\netstandard1.6\Microsoft.Management.Infrastructure.Native.dll" />
+                            </Component>
+                        </Directory>
+                    </Directory>
+                    <Directory Id="dirB41F6D20FB759D549B34B20F386DD3E2" Name="native">
+                        <Component Id="cmp8EBA8C0BC3B8C1511752D5C8E40F5076" Guid="{C20F8F47-D8A8-47D6-ABDA-0D2ABEBBD8B9}">
+                            <File Id="filFFA85A94334FAC9EB8C666FC943B7AC5" KeyPath="yes" Source="$(var.BasePath)\runtimes\win8-x64\native\mi.dll" />
+                        </Component>
+                        <Component Id="cmpD78F3732A953DFDA743739EAC2D8D6FF" Guid="{2E4C1A93-ADB0-4C5A-A86B-B3C0ABA12DAD}">
+                            <File Id="filD5FD844A1423827B92316E982D14D888" KeyPath="yes" Source="$(var.BasePath)\runtimes\win8-x64\native\Microsoft.Management.Infrastructure.Native.Unmanaged.dll" />
+                        </Component>
+                        <Component Id="cmpB06340B9ACB235ECAC2146E88B4A2421" Guid="{EB1C6E99-F151-47A7-8867-7CB1D8BBC5B0}">
+                            <File Id="fil3403A3A684B1188DD60F5D0D22D3CEA1" KeyPath="yes" Source="$(var.BasePath)\runtimes\win8-x64\native\miutils.dll" />
+                        </Component>
+                    </Directory>
+                </Directory>
+                <Directory Id="dirDB87AA61E3EABFD959D9F1FB3B6812D4" Name="win8-x86">
+                    <Directory Id="dirF2CE59439075531695D5555C4C317672" Name="lib">
+                        <Directory Id="dir062B06473DDC3126EDEB320B46A781BB" Name="netstandard1.6">
+                            <Component Id="cmp4C3B9F8DE99D1DC4667C578733CE767F" Guid="{1FA2D9D6-BD8C-424A-96D1-8BBC8C831ABE}">
+                                <File Id="fil3B9B031E68B94F08F2D1DB5A93919D9D" KeyPath="yes" Source="$(var.BasePath)\runtimes\win8-x86\lib\netstandard1.6\Microsoft.Management.Infrastructure.dll" />
+                            </Component>
+                            <Component Id="cmpDE91335AB2C40F7D27AA1E5E561F1943" Guid="{26C98AC5-8925-413B-815B-5F7DB5F7A9F2}">
+                                <File Id="fil1B32A0F45BE54D72CA68629AC5881D8B" KeyPath="yes" Source="$(var.BasePath)\runtimes\win8-x86\lib\netstandard1.6\Microsoft.Management.Infrastructure.Native.dll" />
+                            </Component>
+                        </Directory>
+                    </Directory>
+                    <Directory Id="dir03122773FA8F98DAE36DA29C7BF14DF1" Name="native">
+                        <Component Id="cmpAAA63CEDD1E7EA28918D557C960F9704" Guid="{E60057E8-132C-41F7-8A9F-057EF7ABC8F2}">
+                            <File Id="fil2211B823F5497B3212A590E21362ED09" KeyPath="yes" Source="$(var.BasePath)\runtimes\win8-x86\native\mi.dll" />
+                        </Component>
+                        <Component Id="cmp4AF03106F287833981FA51D1D7A62BC7" Guid="{F2FF18E2-DDB9-421E-96F5-E0B30E85A2DA}">
+                            <File Id="fil876935B71C4C10F0801CE6A59461863F" KeyPath="yes" Source="$(var.BasePath)\runtimes\win8-x86\native\Microsoft.Management.Infrastructure.Native.Unmanaged.dll" />
+                        </Component>
+                        <Component Id="cmp8402CF6B2AC56D76EBE06DE0C384190B" Guid="{D7B11651-B813-4AB9-AE89-56446DBA2197}">
+                            <File Id="filB62CB2D1AE4D0401BE437478B825530A" KeyPath="yes" Source="$(var.BasePath)\runtimes\win8-x86\native\miutils.dll" />
+                        </Component>
+                    </Directory>
+                </Directory>
+                <Directory Id="dirE208947CCC7FF7417B978C9689517720" Name="win81-x64">
+                    <Directory Id="dirC6B32A59AA9764F1DF033E3925DDCDAA" Name="lib">
+                        <Directory Id="dir6605B67F646A8B5BF452240D21E9BA79" Name="netstandard1.6">
+                            <Component Id="cmp5D1B2BE21784B857D6FD8B90868BDDC5" Guid="{51C24DF2-5C5C-4E24-9838-7F9E9DF42561}">
+                                <File Id="filB00FB9F420B7BAD850DF20BE2FB70536" KeyPath="yes" Source="$(var.BasePath)\runtimes\win81-x64\lib\netstandard1.6\Microsoft.Management.Infrastructure.dll" />
+                            </Component>
+                            <Component Id="cmp56364CBC9AA1F792FD9B171AA6932FDB" Guid="{E94BEE3F-F6F3-4534-9B95-EFBFC983CA57}">
+                                <File Id="filA45B68E28A895E6582426464E0C836D8" KeyPath="yes" Source="$(var.BasePath)\runtimes\win81-x64\lib\netstandard1.6\Microsoft.Management.Infrastructure.Native.dll" />
+                            </Component>
+                        </Directory>
+                    </Directory>
+                    <Directory Id="dir932071A0D7AED6E4EA0ECBFDBD7B45B7" Name="native">
+                        <Component Id="cmp7A01CD4CF667A92FBCF29B5FE3977EDC" Guid="{F6E895EE-16B9-4EE2-BD8B-1C0587453E10}">
+                            <File Id="fil527774A555FE519D55EB73D244439FFB" KeyPath="yes" Source="$(var.BasePath)\runtimes\win81-x64\native\mi.dll" />
+                        </Component>
+                        <Component Id="cmp128C2F62CB360CED67DE77B7BCF7443B" Guid="{1AED533C-0420-4D69-A91D-32C306A8FFC5}">
+                            <File Id="filE3EC42C8067E4ADB186CD9ED64E17A73" KeyPath="yes" Source="$(var.BasePath)\runtimes\win81-x64\native\Microsoft.Management.Infrastructure.Native.Unmanaged.dll" />
+                        </Component>
+                        <Component Id="cmp7BDC79030C071E7E47EC5A6EB7166DE6" Guid="{A95F2301-39F7-4A46-94D9-62272CB32E30}">
+                            <File Id="filED426A8B48364225F4C14500412C45F8" KeyPath="yes" Source="$(var.BasePath)\runtimes\win81-x64\native\miutils.dll" />
+                        </Component>
+                    </Directory>
+                </Directory>
+                <Directory Id="dir6CDD0BA2332A6296E422AA619EE66340" Name="win81-x86">
+                    <Directory Id="dirFAEF07EEAAC7CD6480572E43E2DF4CE9" Name="lib">
+                        <Directory Id="dir2D605EA9370162A4497E649697F834D7" Name="netstandard1.6">
+                            <Component Id="cmp16716176303CA1166AF6D17BCB5750D6" Guid="{072B3D13-D96B-4E0B-8D29-2AA0CD71DCF0}">
+                                <File Id="filD6E4880EABE1E1C19E461C137F642810" KeyPath="yes" Source="$(var.BasePath)\runtimes\win81-x86\lib\netstandard1.6\Microsoft.Management.Infrastructure.dll" />
+                            </Component>
+                            <Component Id="cmp5063A519AD1D2AA1CDBC6543A6E79F8A" Guid="{2B3E824B-CD6C-417F-9C24-3D85E1F8D81C}">
+                                <File Id="filC189C1D9A32A9D22E5ADAF30681C4AC5" KeyPath="yes" Source="$(var.BasePath)\runtimes\win81-x86\lib\netstandard1.6\Microsoft.Management.Infrastructure.Native.dll" />
+                            </Component>
+                        </Directory>
+                    </Directory>
+                    <Directory Id="dir90A8B48282CBEDAC05CF6C20334A915D" Name="native">
+                        <Component Id="cmpDEB7696E0D219A62EB91A79A0BA4BBDF" Guid="{ED978A58-8871-410C-9F4E-06DC11664C07}">
+                            <File Id="fil6093A4A031BDFC9B7F065F772CB550F5" KeyPath="yes" Source="$(var.BasePath)\runtimes\win81-x86\native\mi.dll" />
+                        </Component>
+                        <Component Id="cmp526281EC6DFAC114B738801145D659B6" Guid="{07F14BC1-8E61-4241-B44F-F8DE6EC5D4E2}">
+                            <File Id="filBBBF85B50361FAF5D2827FFB4BBA587B" KeyPath="yes" Source="$(var.BasePath)\runtimes\win81-x86\native\Microsoft.Management.Infrastructure.Native.Unmanaged.dll" />
+                        </Component>
+                        <Component Id="cmp0FB98011F7C9A961EC314BB2742658F9" Guid="{DA6C32E8-B81E-4617-BA51-4DEF11EACD5E}">
+                            <File Id="fil722289743AD863262E8EA397F05E4FAE" KeyPath="yes" Source="$(var.BasePath)\runtimes\win81-x86\native\miutils.dll" />
+                        </Component>
+                    </Directory>
+                </Directory>
+            </Directory>
+            <Directory Id="dirE562A4656FE03253EA39D17E8127BA05" Name="tr">
+                <Component Id="cmpD055CD4BE37AC69A6C3179A8EF50014E" Guid="{F013196E-9613-45FD-84A4-17BFDCE777FD}">
+                    <File Id="fil5470F063383F7BA3A8F4E23EEE86261E" KeyPath="yes" Source="$(var.BasePath)\tr\Microsoft.CodeAnalysis.CSharp.resources.dll" />
+                </Component>
+                <Component Id="cmp893EB9C0C959C8AACD7BC975D074C94C" Guid="{9D3750BA-0A84-4A95-98A3-A0146AF3D435}">
+                    <File Id="fil91523543D82AABEFCD14D943EBA191C6" KeyPath="yes" Source="$(var.BasePath)\tr\Microsoft.CodeAnalysis.resources.dll" />
+                </Component>
+            </Directory>
+            <Directory Id="dir4A8DD77DBC79775EC39CACBC8AA06107" Name="zh-Hans">
+                <Component Id="cmpE74E1BFCBF5DAF24230ADED9F41CA273" Guid="{392F2F72-0BFD-4842-A365-E38A8B7FA727}">
+                    <File Id="filF072B18BBC0CBCD17880633A6D77AB68" KeyPath="yes" Source="$(var.BasePath)\zh-Hans\Microsoft.CodeAnalysis.CSharp.resources.dll" />
+                </Component>
+                <Component Id="cmp337184108B965333B018985B74BF5CF7" Guid="{D65CAC73-BB43-4890-AC7C-277BB080E759}">
+                    <File Id="fil41E3C21496060BD5639FBAE9FE59E87B" KeyPath="yes" Source="$(var.BasePath)\zh-Hans\Microsoft.CodeAnalysis.resources.dll" />
+                </Component>
+            </Directory>
+            <Directory Id="dir083BC4C92455CD933FA93376E7459C85" Name="zh-Hant">
+                <Component Id="cmp572927903A3BC09BE84571AB3FCED87B" Guid="{0DA6861C-2F9D-4E9E-8BD7-1CFC1B89E08E}">
+                    <File Id="fil81EF5AB463008703BF3CE32C4CC97B48" KeyPath="yes" Source="$(var.BasePath)\zh-Hant\Microsoft.CodeAnalysis.CSharp.resources.dll" />
+                </Component>
+                <Component Id="cmp1D928052D0F5AFF2C2D503668E55EDC3" Guid="{6A45D2C9-90A3-42AF-BD2A-3B467DDB062F}">
+                    <File Id="fil438862B0D45DF3142CDFE2B239973F3B" KeyPath="yes" Source="$(var.BasePath)\zh-Hant\Microsoft.CodeAnalysis.resources.dll" />
+                </Component>
+            </Directory>
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <ComponentGroup Id="GitLookerSetup">
+            <ComponentRef Id="cmp550270A9B9ACD6B76E32B241A666C5B2" />
+            <ComponentRef Id="cmp682A264DBBFF2B01B88CFFE64605733F" />
+            <ComponentRef Id="cmpE2237F73C1CD15428C1850E5F6AB79E3" />
+            <ComponentRef Id="cmp7F3981F86BB577E4337964CF861E27A2" />
+            
+            <ComponentRef Id="cmpF5E9714D238558D2E5F87493B589A02E" />
+            <ComponentRef Id="cmpC22F38E3D56F67B957226A039502D973" />
+            <ComponentRef Id="cmp2D4E264A037FA2F6B87E99BED18F7B8C" />
+            <ComponentRef Id="cmpC74E6335A099467B85B5E878A54BF0CA" />
+            <ComponentRef Id="cmp036A680CF94E7627338001F023402FC5" />
+            <ComponentRef Id="cmpC721F41377E85E493F0DF0733B2DF311" />
+            <ComponentRef Id="cmpBC4FC00A26E7D32479D42D3411317FC5" />
+            <ComponentRef Id="cmp7DAAB7CB097BB649D0BA383E73F2CDD7" />
+            <ComponentRef Id="cmpB2F9EBAF385E9E29B5A93F58B0D73177" />
+            <ComponentRef Id="cmp3C5190B580EDFB87D0BC5E835BB950DE" />
+            <ComponentRef Id="cmp7330BE2FF6BC4376AECA56BA3335BC5E" />
+            <ComponentRef Id="cmp567E1D848FA3F3C2D261218B840CB447" />
+            <ComponentRef Id="cmp85D8AE1A380C35C1F931FDA83B69C206" />
+            <ComponentRef Id="cmp9D0FF61921F53533FB2FB9D10155662D" />
+            <ComponentRef Id="cmpA138D05BA7C9460CAD63D20A63C165EE" />
+            <ComponentRef Id="cmp64EADCD00A83038F25D1F27C60A7FF51" />
+            <ComponentRef Id="cmp02F007F6E349BF1E45B754BBDA475E79" />
+            <ComponentRef Id="cmp3E836866A5CFF75D04105DFA16D35F67" />
+            <ComponentRef Id="cmp102B5DCE898C00C320BA06B659830D47" />
+            <ComponentRef Id="cmp6780D332346713440CC057DAEC4B0FD3" />
+            <ComponentRef Id="cmp30BCC02AA5E2FFB6E2A18CE70A2036D7" />
+            <ComponentRef Id="cmp2B73574A3CA3F07C3746A122ED4F122C" />
+            <ComponentRef Id="cmpE8F42607C46BFC0A18FABF940AD6FA25" />
+            <ComponentRef Id="cmp61FFF7DB5F7D94DDB645987CAD6018D7" />
+            <ComponentRef Id="cmp453447E5E1D259CC610930DA5FCA889C" />
+            <ComponentRef Id="cmpBD442C3313944AF0F84FA2455FFE0F72" />
+            <ComponentRef Id="cmpDD32D43AD2385F827B9330031F55CD10" />
+            <ComponentRef Id="cmpF7DB1AFA92F263C99DF8FCE16B9DAA60" />
+            <ComponentRef Id="cmpDEC9D2448E75375534A64A2FFFB8ECA4" />
+            <ComponentRef Id="cmp5845F1E73436266617221056BBF0D320" />
+            <ComponentRef Id="cmp205BDC35F1266116514446A4BA2D91D6" />
+            <ComponentRef Id="cmpF0F200E1E44B6C277B8E74FCA3B86444" />
+            <ComponentRef Id="cmpB99A4ED54D2F085861A91CBE7F9BE084" />
+            <ComponentRef Id="cmp0711DC9C7A8E1F0D63C361CEADA662E1" />
+            <ComponentRef Id="cmp24BA07005FEE841D86540A76C07A028D" />
+            <ComponentRef Id="cmpC1DB2C3313034EBDFA74BFBDD74D4F2A" />
+            <ComponentRef Id="cmp354355469320E31DBFEC57B38805AC87" />
+            <ComponentRef Id="cmp5A7E8D2642A23FF526E84895101CD153" />
+            <ComponentRef Id="cmp3F1B7493B3E0D4E32EB6A4CFD59394B3" />
+            <ComponentRef Id="cmp336DA271FD1EE0F1BA4656BE8BCBEA92" />
+            <ComponentRef Id="cmp933BE45C83CB84BF700F11F48900E026" />
+            <ComponentRef Id="cmp5B26C7E4ED245783D62BB03453922B7F" />
+            <ComponentRef Id="cmp8D0429F904CB55C87A8EA896C4021EEB" />
+            <ComponentRef Id="cmpD4054B5DBD3356BA62FC1A031FD5FA99" />
+            <ComponentRef Id="cmp984C2F01230EEEC72E5F622B9D927A8E" />
+            <ComponentRef Id="cmp84A84B8BEDD0236538393D857BED175A" />
+            <ComponentRef Id="cmp51A1441F2CAC83479B70D0CF6A166F11" />
+            <ComponentRef Id="cmp29895B84DADF85B4907C71B459BB577F" />
+            <ComponentRef Id="cmp64A4DA2A941FDC8B6A4A014DE100316C" />
+            <ComponentRef Id="cmpD58F8AA7A7F73ED33656AB00FF0FC493" />
+            <ComponentRef Id="cmp628E19A8D70F949F6FB3C9643AACD859" />
+            <ComponentRef Id="cmpF69707EEA4D1D5FFC907764D8833DD2C" />
+            <ComponentRef Id="cmpB985854F820297AE57D3DC5B3D058C63" />
+            <ComponentRef Id="cmp726937A7071B42D035EDE9ACADCC386C" />
+            <ComponentRef Id="cmpAF85E989E3F0EF570C7BD020339AF2DE" />
+            <ComponentRef Id="cmp68FB882EFEFD35D9CF061F791B250EAA" />
+            <ComponentRef Id="cmp08E33973F0B17520B09350A02CCE6D5B" />
+            <ComponentRef Id="cmp29012B9224AA5EE3CFD4BC695501DD9E" />
+            <ComponentRef Id="cmp0A12B403681C8BE2F0DBA9C88DC1C2BF" />
+            <ComponentRef Id="cmp6C1908B4C69C467CBDE39CBF74B42DDF" />
+            <ComponentRef Id="cmp17D54420992FE9AEA9706A554FDBF335" />
+            <ComponentRef Id="cmp0CC2E3EB31A67C0AACF6B033C2AD9597" />
+            <ComponentRef Id="cmpCD2DFF54292DDAB4B8187528A383DB5A" />
+            <ComponentRef Id="cmp40FBCECCD67CE1E0530D4D98172F59EF" />
+            <ComponentRef Id="cmpAECFC06CEC9A78D394C44A27918E8F8C" />
+            <ComponentRef Id="cmpD0281081B7FE727A15EDD12F6F820488" />
+            <ComponentRef Id="cmp1C210FF1A8A02BA9D722F1F7FA6B160E" />
+            <ComponentRef Id="cmp0B277C0AC26FE6D0FCDCBD5D257688EA" />
+            <ComponentRef Id="cmp3D63DDD52D4C8848656E64F41C55784D" />
+            <ComponentRef Id="cmpABE5368DEBBB41E186F7C038ACC663F1" />
+            <ComponentRef Id="cmp8587A0715D7EBDB2755A86573A1AF8CE" />
+            <ComponentRef Id="cmp531F3AD4A104F41DB603D0C2D3955806" />
+            <ComponentRef Id="cmp68BD96573993921BE5A4AE55E15B8559" />
+            <ComponentRef Id="cmp5D259D06A5F1295E001A0CF44A76230A" />
+            <ComponentRef Id="cmp5FD166585349CA02C42A04C8F1B2F944" />
+            <ComponentRef Id="cmp4FCE00499484092B64C04D644EE1E64E" />
+            <ComponentRef Id="cmp805351DE653ECA9A5498A7E9BF589D95" />
+            <ComponentRef Id="cmp79CA210B71A35CFEE5DA51CCE3FFC969" />
+            <ComponentRef Id="cmp2E7C0441F4FB8C52F77C70B98AE871BD" />
+            <ComponentRef Id="cmpCF2E5D9F328142DE9E77D5E4F6F55261" />
+            <ComponentRef Id="cmpC99801584DC29BACBBC63D30CCB33F8E" />
+            
+            <ComponentRef Id="cmp744C228E1763D81C8E97FE2C94F7372F" />
+            <ComponentRef Id="cmpD57DB4BE7FA8C98233B97E96CCC4D03C" />
+            <ComponentRef Id="cmp2316881BA001C178441BE2C903106BE5" />
+            <ComponentRef Id="cmp413EDBD598C478307C1444E1C43AF71C" />
+            <ComponentRef Id="cmp46935CF05648EEA07D9D224463385F5F" />
+            <ComponentRef Id="cmp2E0A79CD54D4C0C1165EBF60C9B74B42" />
+            <ComponentRef Id="cmp13B486A0604A0963196E39BBD46B036E" />
+            <ComponentRef Id="cmpE10F800462A004E871FD5AABABD1BB07" />
+            <ComponentRef Id="cmp957937014F4A10BF18A28BC9767A8C42" />
+            <ComponentRef Id="cmp6666F6D9B342CA8DE4EB1952DE80F806" />
+            <ComponentRef Id="cmp111BBA60BFB75C8AB6FB4037FE50639E" />
+            <ComponentRef Id="cmpE81058956B9C9701677926F6A03C7189" />
+            <ComponentRef Id="cmp0BA726361A31660DAA2566F842D5A38B" />
+            <ComponentRef Id="cmpB60B11FECC428FAD8688F77BC1504CEF" />
+            <ComponentRef Id="cmp9F0C0F51E8F8172870D832FB9CACC539" />
+            <ComponentRef Id="cmpFA37E639168B3EEFD95CE598CF6619F1" />
+            <ComponentRef Id="cmp5F1ED972825502BB9890373E12C30536" />
+            
+            <ComponentRef Id="cmpE3516A566CB6BA56D1B1A3B032F5A73F" />
+            <ComponentRef Id="cmp7C08E90584798E2928A21D0DB9A6D6D7" />
+            <ComponentRef Id="cmp3D14B0965A90511B7E27835841DA7973" />
+            <ComponentRef Id="cmp98F1B649188582EF41A536E1D975D99B" />
+            <ComponentRef Id="cmpD160934C04C6B0685FC4A34313DB5D11" />
+            <ComponentRef Id="cmp257337FC7CD0E5C1E65646417B0FA3D6" />
+            <ComponentRef Id="cmpDD748358703C682B18AD812D969CF473" />
+            <ComponentRef Id="cmpACB20EBC58549583D0D5DF3B6C8B85DC" />
+            <ComponentRef Id="cmp69AF9CE9BF4E6CE7E590937395805AF2" />
+            <ComponentRef Id="cmp1708112179047DCAF9007F0547E35A9C" />
+            <ComponentRef Id="cmp2712062D10B7A6518BC4B884873EA6EF" />
+            <ComponentRef Id="cmpE749A9840C44618086866C9B9D3435D2" />
+            
+            <ComponentRef Id="cmp59A8DA20557C5A5A20E2558D3FE75678" />
+            <ComponentRef Id="cmpA78ECCA84C58A743008D8855BE66DF4F" />
+            <ComponentRef Id="cmp1F111273F472D2DF94C9B6CB301BE67E" />
+            <ComponentRef Id="cmp91C2CF7F1C56194DF4A0198EE5DAC38B" />
+            <ComponentRef Id="cmpFABB3871BC9942CA98BEBA63D7DDEA7C" />
+            <ComponentRef Id="cmp13AA3AA09C9A2EAFB749BFA5F4DFC858" />
+            <ComponentRef Id="cmpBDBED8BC9F0D0C5D6360E209F3DE53E7" />
+            <ComponentRef Id="cmpBA4048A570BABC6A78E3F29687298613" />
+            <ComponentRef Id="cmp330CD69E0F3302A5D5F3193975696C29" />
+            <ComponentRef Id="cmpB9B6F009B29484D0D6D886BA1A50B4BA" />
+            <ComponentRef Id="cmpFB0DEE0153B2A80B715F2E0EE7276B96" />
+            <ComponentRef Id="cmp9041BD6FE459395A5F544DB6F78516B3" />
+            
+            <ComponentRef Id="cmp25EF6DDA68F2B38635B96192A3B0E61C" />
+            <ComponentRef Id="cmp59A3518BEB92A6289014B48DD6810F87" />
+            <ComponentRef Id="cmp027F44D351BC9397D18BB9A2CF4D3D41" />
+            <ComponentRef Id="cmp2D4504D46F0ADCBAF6E0BA39D508DD55" />
+            <ComponentRef Id="cmp95E7E5E8524B0477DE64544D032F559D" />
+            <ComponentRef Id="cmp7C2F3AA418BC1ED76169770987410141" />
+            <ComponentRef Id="cmp3C9988C63BCCB0E6538690986E847F30" />
+            <ComponentRef Id="cmp958C85CD92DE2F42C5EF6D8B034A9292" />
+            <ComponentRef Id="cmp9CE34A087D5B2748EB9CF2402A1C4484" />
+            <ComponentRef Id="cmpA7E5EE6E5508E97FB9BDABDD451964E8" />
+            <ComponentRef Id="cmp5EEDA3D6C4557A1E23FF0223920B66C9" />
+            <ComponentRef Id="cmpF54E5480EACEA195B7E713E5E032783A" />
+            <ComponentRef Id="cmpFC63288FC81038223422FC873200ECDF" />
+            <ComponentRef Id="cmpE85A4C1B9191269026E4652EFE7A4CD7" />
+            <ComponentRef Id="cmpA23EEECBE20EC716D6C9304E5A121869" />
+            <ComponentRef Id="cmp1DA977075A75644E1632829A5A7DDEEF" />
+            <ComponentRef Id="cmp1A1212A015D62FF1777325E15C171F8A" />
+            <ComponentRef Id="cmpBD341FD5CEDDD4B787149892203135E6" />
+            <ComponentRef Id="cmpA90552E842A551E1501CF67E9EB931BD" />
+            <ComponentRef Id="cmp517D2387BC334B5AE9475962FE4DB797" />
+            <ComponentRef Id="cmp6A029326D7B3DBAA65FB3668D1E27AE8" />
+            <ComponentRef Id="cmp7BD8CDAF6DD92277776CCE8D3ADFD7D0" />
+            <ComponentRef Id="cmp8EBA8C0BC3B8C1511752D5C8E40F5076" />
+            <ComponentRef Id="cmpD78F3732A953DFDA743739EAC2D8D6FF" />
+            <ComponentRef Id="cmpB06340B9ACB235ECAC2146E88B4A2421" />
+            <ComponentRef Id="cmp4C3B9F8DE99D1DC4667C578733CE767F" />
+            <ComponentRef Id="cmpDE91335AB2C40F7D27AA1E5E561F1943" />
+            <ComponentRef Id="cmpAAA63CEDD1E7EA28918D557C960F9704" />
+            <ComponentRef Id="cmp4AF03106F287833981FA51D1D7A62BC7" />
+            <ComponentRef Id="cmp8402CF6B2AC56D76EBE06DE0C384190B" />
+            <ComponentRef Id="cmp5D1B2BE21784B857D6FD8B90868BDDC5" />
+            <ComponentRef Id="cmp56364CBC9AA1F792FD9B171AA6932FDB" />
+            <ComponentRef Id="cmp7A01CD4CF667A92FBCF29B5FE3977EDC" />
+            <ComponentRef Id="cmp128C2F62CB360CED67DE77B7BCF7443B" />
+            <ComponentRef Id="cmp7BDC79030C071E7E47EC5A6EB7166DE6" />
+            <ComponentRef Id="cmp16716176303CA1166AF6D17BCB5750D6" />
+            <ComponentRef Id="cmp5063A519AD1D2AA1CDBC6543A6E79F8A" />
+            <ComponentRef Id="cmpDEB7696E0D219A62EB91A79A0BA4BBDF" />
+            <ComponentRef Id="cmp526281EC6DFAC114B738801145D659B6" />
+            <ComponentRef Id="cmp0FB98011F7C9A961EC314BB2742658F9" />
+            <ComponentRef Id="cmpD055CD4BE37AC69A6C3179A8EF50014E" />
+            <ComponentRef Id="cmp893EB9C0C959C8AACD7BC975D074C94C" />
+            <ComponentRef Id="cmpE74E1BFCBF5DAF24230ADED9F41CA273" />
+            <ComponentRef Id="cmp337184108B965333B018985B74BF5CF7" />
+            <ComponentRef Id="cmp572927903A3BC09BE84571AB3FCED87B" />
+            <ComponentRef Id="cmp1D928052D0F5AFF2C2D503668E55EDC3" />
+        </ComponentGroup>
+    </Fragment>
+</Wix>

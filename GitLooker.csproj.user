@@ -3,4 +3,18 @@
   <PropertyGroup>
     <ProjectView>ProjectFiles</ProjectView>
   </PropertyGroup>
+  <ItemGroup>
+    <Compile Update="Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="RepoControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="RepoList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Status.cs">
+      <SubType>Form</SubType>
+    </Compile>
+  </ItemGroup>
 </Project>

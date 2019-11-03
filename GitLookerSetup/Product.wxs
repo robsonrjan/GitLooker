@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+	<Product Id="*" Name="GitLookerSetup" Language="1033" Version="1.1.0" Manufacturer="Robert Janda" UpgradeCode="110e56f0-8890-4d7c-8ece-b80153b44df4">
+		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
+
+		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+    <MediaTemplate EmbedCab="yes" />
+
+    <Icon Id="wi000948.ico" SourceFile="..\wi0009-48.ico"/>
+    <Property Id="ARPPRODUCTICON" Value="wi000948.ico" />
+    
+    <Feature Id="ProductFeature" Title="GitLookerSetup" Level="1">
+			<ComponentGroupRef Id="GitLookerSetup" />
+      <ComponentGroupRef Id="GitLooker_Exe" />
+    <ComponentRef Id="ApplicationShortcutDesktop" />
+		</Feature>
+	</Product>
+
+	<Fragment>
+		<Directory Id="TARGETDIR" Name="SourceDir">
+			<Directory Id="ProgramFilesFolder">
+				<Directory Id="INSTALLFOLDER" Name="GitLookerSetup" />
+        <Directory Id="DesktopFolder" Name="Desktop">
+          <Component Id="ApplicationShortcutDesktop" Guid="*">
+              <Shortcut Id="ApplicationDesktopShortcut"
+                  Name="GitLooker"
+                  Description="Comment field in your shortcut"
+                  Target="[INSTALLFOLDER]GitLooker.exe"
+                  WorkingDirectory="INSTALLFOLDER"/>
+              <RegistryValue
+                  Root="HKCU"
+                  Key="Software/GitLooker"
+                  Name="installed"
+                  Type="integer"
+                  Value="1"
+                  KeyPath="yes"/>
+          </Component>
+      </Directory>
+			</Directory>
+		</Directory>
+	</Fragment>
+  
+	<Fragment>
+		<ComponentGroup Id="GitLooker_Exe">
+      <Component Id="GitLookerEntry" Directory="INSTALLFOLDER" Guid="51042007-454D-4DCF-BC58-056EE860618B">
+        <CreateFolder/>
+        <RemoveFile Id="InstallState" On="uninstall" Name="GitLooker.InstallState" />
+        <Environment
+          Id="PATH"
+          Name="PATH"
+          Value="[INSTALLFOLDER]"
+          Permanent="yes"
+          Part="last"
+          Action="set"
+          System="yes" />
+      </Component>
+		</ComponentGroup>
+	</Fragment>
+</Wix>
