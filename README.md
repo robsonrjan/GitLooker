@@ -7,7 +7,7 @@ Based on Git installation.
 Needs to be started as Administrator.
 
 Setup:
-https://github.com/robsonrjan/GitLooker/tree/master/GitLookerSetup/Release
+https://github.com/robsonrjan/GitLooker/blob/master/GitLookerSetup/bin/Release/GitLookerSetup.msi
 
 Setup.exe and 
 GitLookerSetup.msi
