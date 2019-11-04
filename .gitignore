@@ -126,3 +126,5 @@ dmypy.json
 /bin/
 /packages/
 /obj/
+/GitLookerSetup/obj
+/obj/

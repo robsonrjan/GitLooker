@@ -32,11 +32,12 @@ namespace GitLooker
 
         public IEnumerable<string> Execute(string command, bool closeConnectionAfter = true)
         {
-            if (!isInitialized)
-                InitializeConnection();
 
             try
             {
+                if (!isInitialized)
+                    InitializeConnection();
+
                 powerShell.Streams.Error.Clear();
                 pipeLine.Commands.Clear();
 
