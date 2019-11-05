@@ -25,28 +25,28 @@ namespace GitLooker.CommandProcessor
             this.powerShell = powerShell;
         }
 
-        private string GenerateCloneCommand(string workingDir, string repoConfig) => string.Join(Environment.NewLine, new[] {
+        private static string GenerateCloneCommand(string workingDir, string repoConfig) => string.Join(Environment.NewLine, new[] {
             string.Format(commandPath, workingDir),
             string.Format(commandCloneRepo, repoConfig)
         });
 
-        private string GenerateUpdateWithStatusCommand(string workingDir) => string.Join(Environment.NewLine, new[] {
+        private static string GenerateUpdateWithStatusCommand(string workingDir) => string.Join(Environment.NewLine, new[] {
             string.Format(commandPath, workingDir),
             commandUpdate,
             commandStatus
         });
 
-        private string GeneratePullCommand(string workingDir) => string.Join(Environment.NewLine, new[] {
+        private static string GeneratePullCommand(string workingDir) => string.Join(Environment.NewLine, new[] {
             string.Format(commandPath, workingDir),
             commandPull
         });
 
-        private string GenerateRemoteConfig(string workingDir) => string.Join(Environment.NewLine, new[] {
+        private static string GenerateRemoteConfig(string workingDir) => string.Join(Environment.NewLine, new[] {
             string.Format(commandPath, workingDir),
             commandRemoteConfig
         });
 
-        private string GenerateResetCommand(string workingDir) => string.Join(Environment.NewLine, new[] {
+        private static string GenerateResetCommand(string workingDir) => string.Join(Environment.NewLine, new[] {
             string.Format(commandPath, workingDir),
             commandClean,
             commandReset

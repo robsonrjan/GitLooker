@@ -32,12 +32,11 @@ namespace GitLooker
 
         public IEnumerable<string> Execute(string command, bool closeConnectionAfter = true)
         {
+            if (!isInitialized)
+                InitializeConnection();
 
             try
             {
-                if (!isInitialized)
-                    InitializeConnection();
-
                 powerShell.Streams.Error.Clear();
                 pipeLine.Commands.Clear();
 
@@ -52,15 +51,16 @@ namespace GitLooker
                 if ((errors != default(IEnumerable<string>)) && errors.Any())
                     returnValue = returnValue.Union(errors);
 
-                if (closeConnectionAfter)
-                    DisposePowersShell();
-
                 return returnValue;
             }
             catch (Exception err)
             {
-                DisposePowersShell();
-                return new[] { err.Message };
+                throw;
+            }
+            finally
+            {
+                if (closeConnectionAfter)
+                    DisposePowersShell();
             }
         }
     }
