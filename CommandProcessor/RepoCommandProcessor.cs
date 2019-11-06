@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace GitLooker.CommandProcessor
 {
-    public class CommandProcessor : ICommandProcessor
+    public class RepoCommandProcessor : IRepoCommandProcessor
     {
         private const string commandUpdate = "git remote update";
         private const string commandStatus = "git status";
@@ -17,10 +17,10 @@ namespace GitLooker.CommandProcessor
 
         private readonly IPowersShell powerShell;
 
-        public CommandProcessor(IPowersShell powerShell)
+        public RepoCommandProcessor(IPowersShell powerShell)
         {
             if (powerShell == null)
-                throw new ArgumentException($"[{nameof(CommandProcessor)}] ->Argument {powerShell} can not be null!");
+                throw new ArgumentException($"[{nameof(RepoCommandProcessor)}] ->Argument {powerShell} can not be null!");
 
             this.powerShell = powerShell;
         }

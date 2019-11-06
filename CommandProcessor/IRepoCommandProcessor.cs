@@ -2,7 +2,7 @@
 
 namespace GitLooker.CommandProcessor
 {
-    public interface ICommandProcessor
+    public interface IRepoCommandProcessor
     {
         IEnumerable<string> CheckRepo(string workingDir);
         IEnumerable<string> PullRepo(string workingDir);

@@ -21,7 +21,7 @@ namespace GitLooker
         private SemaphoreSlim semaphore;
         private IRepoControlConfiguration repoConfiguration;
         private IPowersShell powerShell;
-        private ICommandProcessor commandProcessor;
+        private IRepoCommandProcessor commandProcessor;
         private List<RepoControl> allReposControl;
         internal static List<string> RepoRemoteList;
         internal static List<string> ExpectedRemoteList;
@@ -99,7 +99,7 @@ namespace GitLooker
         {
             repoConfiguration = new RepoControlConfiguration(repoDdir, semaphore, newRepo);
             powerShell = new PowersShell();
-            commandProcessor = new CommandProcessor.CommandProcessor(powerShell);
+            commandProcessor = new CommandProcessor.RepoCommandProcessor(powerShell);
             var repo = new RepoControl(repoConfiguration, commandProcessor);
             repo.Dock = DockStyle.Top;
             allReposControl.Add(repo);
@@ -180,14 +180,14 @@ namespace GitLooker
         private async void toolStripMenuItem2_Click(object sender, EventArgs e)
         {
             var pwShell = new PowersShell();
-            var commandProc = new CommandProcessor.CommandProcessor(powerShell);
+            var commandProc = new CommandProcessor.RepoCommandProcessor(powerShell);
 
             await CloneNewRepo(commandProc);
 
             toolStripMenuItem2.Visible = false;
         }
 
-        private Task CloneNewRepo(CommandProcessor.CommandProcessor commandProc)
+        private Task CloneNewRepo(CommandProcessor.RepoCommandProcessor commandProc)
         {
             allReposControl.Where(ctr => ctr.IsNew).ToList()
                 .ForEach(ctr =>
@@ -202,6 +202,11 @@ namespace GitLooker
                     }
                 });
             return Task.CompletedTask;
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            semaphore.Dispose();
         }
     }
 }

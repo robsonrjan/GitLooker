@@ -38,12 +38,12 @@
             this.configurationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.remoteReposConfigToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.expectedReposConfigToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -122,6 +122,19 @@
             this.expectedReposConfigToolStripMenuItem.Text = "Expected repos config";
             this.expectedReposConfigToolStripMenuItem.Click += new System.EventHandler(this.expectedReposConfigToolStripMenuItem_Click);
             // 
+            // toolStripMenuItem2
+            // 
+            this.toolStripMenuItem2.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.toolStripMenuItem2.AutoToolTip = true;
+            this.toolStripMenuItem2.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+            this.toolStripMenuItem2.Padding = new System.Windows.Forms.Padding(40, 0, 4, 0);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(92, 23);
+            this.toolStripMenuItem2.Text = "Clone";
+            this.toolStripMenuItem2.ToolTipText = "Check for updates";
+            this.toolStripMenuItem2.Visible = false;
+            this.toolStripMenuItem2.Click += new System.EventHandler(this.toolStripMenuItem2_Click);
+            // 
             // imageList1
             // 
             this.imageList1.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
@@ -147,19 +160,6 @@
             this.panel2.Size = new System.Drawing.Size(484, 2);
             this.panel2.TabIndex = 2;
             // 
-            // toolStripMenuItem2
-            // 
-            this.toolStripMenuItem2.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.toolStripMenuItem2.AutoToolTip = true;
-            this.toolStripMenuItem2.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Padding = new System.Windows.Forms.Padding(40, 0, 4, 0);
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(92, 23);
-            this.toolStripMenuItem2.Text = "Clone";
-            this.toolStripMenuItem2.ToolTipText = "Check for updates";
-            this.toolStripMenuItem2.Visible = false;
-            this.toolStripMenuItem2.Click += new System.EventHandler(this.toolStripMenuItem2_Click);
-            // 
             // Form1
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -176,6 +176,7 @@
             this.MinimumSize = new System.Drawing.Size(500, 300);
             this.Name = "Form1";
             this.Text = "Git branch changes looker";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();

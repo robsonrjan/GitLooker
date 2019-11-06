@@ -15,7 +15,7 @@ namespace GitLooker
     {
         private readonly string repoPath;
         private readonly DirectoryInfo workingDir;
-        private readonly ICommandProcessor commandProcessor;
+        private readonly IRepoCommandProcessor commandProcessor;
         private readonly SemaphoreSlim operationSemaphore;
         private string currentRespond;
         private string branchOn = "Pull current branch";
@@ -27,19 +27,22 @@ namespace GitLooker
         internal bool IsNew { get; private set; }
         internal string RepoConfiguration { get; private set; }
 
-        public RepoControl(IRepoControlConfiguration repoConfiguration, ICommandProcessor commandProcessor)
+        public RepoControl(IRepoControlConfiguration repoConfiguration, IRepoCommandProcessor commandProcessor)
         {
             InitializeComponent();
-            this.label1.Text = this.repoPath = repoConfiguration.RepoPath;
+            this.label1.Text = this.repoPath = repoConfiguration?.RepoPath ?? string.Empty;
             this.commandProcessor = commandProcessor;
 
             workingDir = new DirectoryInfo(repoPath);
             this.label1.Text = workingDir.Name;
-            operationSemaphore = repoConfiguration.Semaphore;
-            newRepoConfiguration = repoConfiguration.NewRepo;
+            operationSemaphore = repoConfiguration?.Semaphore ?? new SemaphoreSlim(0);
+            newRepoConfiguration = repoConfiguration?.NewRepo ?? string.Empty;
             IsNew = !string.IsNullOrEmpty(newRepoConfiguration);
             if (IsNew)
                 ConfigureAsToClone();
+
+            this.toolTip1.SetToolTip(this.button1, "pull");
+            this.button1.Enabled = false;
         }
 
         private void Wait()
@@ -78,39 +81,41 @@ namespace GitLooker
             RepoConfiguration = newRepoConfiguration;
         }
 
-        public async void UpdateRepoInfo()
+        public void UpdateRepoInfo()
         {
             if (IsNew) return;
 
             if (!Directory.Exists(workingDir.FullName))
                 this.Dispose();
 
-            await Task.Factory.StartNew(() =>
+            Task.Factory.StartNew(() => CheckRepoProcess());
+        }
+
+        private void CheckRepoProcess()
+        {
+            Wait();
+            try
             {
-                Wait();
-                try
-                {
-                    canReset = false;
-                    this.Invoke(new Action(() => { this.label1.ForeColor = Color.DarkGreen; }), null);
-                    GetRepoConfiguraion();
+                canReset = false;
+                this.Invoke(new Action(() => { this.label1.ForeColor = Color.DarkGreen; }), null);
+                GetRepoConfiguraion();
 
-                    var returnValue = commandProcessor.CheckRepo(workingDir.FullName);
-                    if (CheckIfExist(returnValue))
-                    {
-                        CheckCurrentBranch(returnValue);
-                        CheckStatus(returnValue);
-                    }
-
-                    currentRespond += string.Join(Environment.NewLine, returnValue.ToArray());
-                    this.Invoke(new Action(() => { this.label1.ForeColor = Color.Navy; }), null);
-                }
-                catch (Exception err)
+                var returnValue = commandProcessor.CheckRepo(workingDir.FullName);
+                if (CheckIfExist(returnValue))
                 {
-                    currentRespond = err.Message;
-                    this.Invoke(new Action(() => SetErrorForRepo()), null);
+                    CheckCurrentBranch(returnValue);
+                    CheckStatus(returnValue);
                 }
-                Release();
-            }).ConfigureAwait(true);
+
+                currentRespond += string.Join(Environment.NewLine, returnValue.ToArray());
+                this.Invoke(new Action(() => { this.label1.ForeColor = Color.Navy; }), null);
+            }
+            catch (Exception err)
+            {
+                currentRespond = err.Message;
+                this.Invoke(new Action(() => SetErrorForRepo()), null);
+            }
+            Release();
         }
 
         private void SetErrorForRepo()
@@ -145,7 +150,6 @@ namespace GitLooker
                 this.Invoke(new Action(() =>
                 {
                     this.button2.BackgroundImage = global::GitLooker.Properties.Resources.agt_action_fail;
-                    this.button1.Enabled = false;
                     this.SendToBack();
                 }), null);
             }
@@ -159,6 +163,7 @@ namespace GitLooker
                 this.Invoke(new Action(() =>
                 {
                     this.button2.BackgroundImage = global::GitLooker.Properties.Resources.checkmark;
+                    this.button1.Enabled = true;
                     this.SendToBack();
                 }), null);
             }
@@ -167,7 +172,6 @@ namespace GitLooker
                 this.Invoke(new Action(() =>
                 {
                     this.button2.BackgroundImage = global::GitLooker.Properties.Resources.move_task_up;
-                    this.button1.Enabled = false;
                 }));
                 canReset = true && branchOn.EndsWith("master");
             }
@@ -188,68 +192,72 @@ namespace GitLooker
                 branchOn = string.Format("Working {0}", returnValue.FirstOrDefault(x => x.StartsWith("on branch")));
                 this.Invoke(new Action(() =>
                 {
-                    this.toolTip1.SetToolTip(this.button1, "pull");
                     this.label2.Text = branchOn;
-                    this.button1.Enabled = true;
                 }), null);
             }
         }
 
-        private async void Button1_Click(object sender, EventArgs e)
+        private void Button1_Click(object sender, EventArgs e)
         {
             currentRespond = string.Empty;
             this.label1.ForeColor = Color.DarkGreen;
             var currentBranch = label1.Text;
-            await Task.Factory.StartNew(() =>
+            Task.Factory.StartNew(() => PullRepoProcess(currentBranch));
+        }
+
+        private void PullRepoProcess(string currentBranch)
+        {
+            Wait();
+            try
             {
-                Wait();
-                try
-                {
-                    List<string> rtn = new List<string>();
-                    if (currentBranch != "...")
-                        rtn = commandProcessor.PullRepo(workingDir.FullName).ToList();
-                    currentRespond = string.Join(Environment.NewLine, rtn.ToArray());
-                }
-                catch(Exception ex)
-                {
-                    currentRespond = ex.Message;
-                    this.Invoke(new Action(() => SetErrorForRepo()), null);
-                }
-                finally
-                {
-                    Release();
-                }               
-                UpdateRepoInfo();
-            }).ConfigureAwait(true);
+                List<string> rtn = new List<string>();
+                if (currentBranch != "...")
+                    rtn = commandProcessor.PullRepo(workingDir.FullName).ToList();
+                currentRespond = string.Join(Environment.NewLine, rtn.ToArray());
+            }
+            catch (Exception ex)
+            {
+                currentRespond = ex.Message;
+                this.Invoke(new Action(() => SetErrorForRepo()), null);
+            }
+            finally
+            {
+                Release();
+            }
+            UpdateRepoInfo();
         }
 
         private void Button2_Click(object sender, EventArgs e)
         {
-            var status = new Status(currentRespond, async () =>
-            {
-                currentRespond = string.Empty;
-                await Task.Factory.StartNew(() =>
-                {
-                    Wait();
-                    try
-                    {
-                        this.label1.ForeColor = Color.DarkGreen;
-                        var rtn = commandProcessor.ResetRepo(workingDir.FullName);
-                        currentRespond = string.Join(Environment.NewLine, rtn.ToArray());
-                    }
-                    catch(Exception ex)
-                    {
-                        currentRespond = ex.Message;
-                        this.Invoke(new Action(() => SetErrorForRepo()), null);
-                    }
-                    finally
-                    {
-                        Release();
-                    }
-                    UpdateRepoInfo();
-                }).ConfigureAwait(true);
-            }, canReset);
+            var status = new Status(currentRespond, () => DelegateResetMethod(), canReset);
             status.ShowDialog();
+        }
+
+        private void DelegateResetMethod()
+        {
+            currentRespond = string.Empty;
+            Task.Factory.StartNew(() => ResetRepoProcess());
+        }
+
+        private void ResetRepoProcess()
+        {
+            Wait();
+            try
+            {
+                this.label1.ForeColor = Color.DarkGreen;
+                var rtn = commandProcessor.ResetRepo(workingDir.FullName);
+                currentRespond = string.Join(Environment.NewLine, rtn.ToArray());
+            }
+            catch (Exception ex)
+            {
+                currentRespond = ex.Message;
+                this.Invoke(new Action(() => SetErrorForRepo()), null);
+            }
+            finally
+            {
+                Release();
+            }
+            UpdateRepoInfo();
         }
     }
 }

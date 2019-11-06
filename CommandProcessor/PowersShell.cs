@@ -53,7 +53,7 @@ namespace GitLooker
 
                 return returnValue;
             }
-            catch (Exception err)
+            catch (Exception)
             {
                 throw;
             }
