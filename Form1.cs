@@ -187,21 +187,40 @@ namespace GitLooker
             toolStripMenuItem2.Visible = false;
         }
 
-        private Task CloneNewRepo(CommandProcessor.RepoCommandProcessor commandProc)
+        private async Task CloneNewRepo(CommandProcessor.RepoCommandProcessor commandProc)
         {
-            allReposControl.Where(ctr => ctr.IsNew).ToList()
-                .ForEach(ctr =>
-                {
-                    var result = commandProc.ClonRepo(chosenPath, ctr.RepoConfiguration);
-                    var repoPath = $@"{chosenPath}\{ctr.GetNewRepoName}";
-                    if (Directory.Exists(repoPath))
-                    {
-                        var repo = CheckRepo(repoPath);
-                        ctr.Dispose();
-                        repo.UpdateRepoInfo();
-                    }
-                });
-            return Task.CompletedTask;
+            try
+            {
+                await WaitTakeAll();
+                allReposControl.Where(ctr => ctr.IsNew).ToList()
+                    .ForEach(ctr => CloneRepoProcess(commandProc, ctr));
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                semaphore.Release(repoProcessingCount);
+            }
+        }
+
+        private async Task WaitTakeAll()
+        {
+            while (semaphore.CurrentCount != 0)
+                await semaphore.WaitAsync();
+        }
+
+        private void CloneRepoProcess(RepoCommandProcessor commandProc, RepoControl ctr)
+        {
+            var result = commandProc.ClonRepo(chosenPath, ctr.RepoConfiguration);
+            var repoPath = $@"{chosenPath}\{ctr.GetNewRepoName}";
+            if (Directory.Exists(repoPath))
+            {
+                var repo = CheckRepo(repoPath);
+                ctr.Dispose();
+                repo.UpdateRepoInfo();
+            }
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
