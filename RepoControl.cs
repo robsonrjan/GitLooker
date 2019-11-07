@@ -16,7 +16,7 @@ namespace GitLooker
         private readonly string repoPath;
         private readonly DirectoryInfo workingDir;
         private readonly IRepoCommandProcessor commandProcessor;
-        private readonly SemaphoreSlim operationSemaphore;
+        private readonly IAppSemaphoreSlim operationSemaphore;
         private string currentRespond;
         private string branchOn = "Pull current branch";
         private string newRepoConfiguration;
@@ -35,7 +35,7 @@ namespace GitLooker
 
             workingDir = new DirectoryInfo(repoPath);
             this.label1.Text = workingDir.Name;
-            operationSemaphore = repoConfiguration?.Semaphore ?? new SemaphoreSlim(0);
+            operationSemaphore = repoConfiguration?.Semaphore ?? throw new ArgumentNullException(nameof(repoConfiguration));
             newRepoConfiguration = repoConfiguration?.NewRepo ?? string.Empty;
             IsNew = !string.IsNullOrEmpty(newRepoConfiguration);
             if (IsNew)

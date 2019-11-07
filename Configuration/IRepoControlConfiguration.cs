@@ -5,7 +5,7 @@ namespace GitLooker.Configuration
     public interface IRepoControlConfiguration
     {
         string RepoPath { get; }
-        SemaphoreSlim Semaphore { get; }
+        IAppSemaphoreSlim Semaphore { get; }
         string NewRepo { get; }
     }
 }

@@ -1,15 +1,14 @@
 ﻿using System;
-using System.Threading;
 
 namespace GitLooker.Configuration
 {
     public class RepoControlConfiguration : IRepoControlConfiguration
     {
         public string RepoPath { get; }
-        public SemaphoreSlim Semaphore { get; }
+        public IAppSemaphoreSlim Semaphore { get; }
         public string NewRepo { get; }
 
-        public RepoControlConfiguration(string repoPath, SemaphoreSlim semaphore, string newRepo)
+        public RepoControlConfiguration(string repoPath, IAppSemaphoreSlim semaphore, string newRepo)
         {
             if (string.IsNullOrEmpty(repoPath))
                 throw new ArgumentException($"[{nameof(RepoControlConfiguration)}] -> Argument {repoPath} can not be null or empty!");

@@ -18,7 +18,7 @@ namespace GitLooker
         private const int maxPandingGitOperations = 3;
         private int repoProcessingCount;
         private string chosenPath = string.Empty;
-        private SemaphoreSlim semaphore;
+        private IAppSemaphoreSlim semaphore;
         private IRepoControlConfiguration repoConfiguration;
         private IPowersShell powerShell;
         private IRepoCommandProcessor commandProcessor;
@@ -57,7 +57,8 @@ namespace GitLooker
             chosenPath = ConfigurationManager.AppSettings["GirLookerPath"];
             if (!int.TryParse(ConfigurationManager.AppSettings["repoProcessingCount"], out repoProcessingCount))
                 repoProcessingCount = maxPandingGitOperations;
-            semaphore = new SemaphoreSlim(repoProcessingCount);
+            semaphore = new AppSemaphoreSlim(repoProcessingCount);
+            semaphore.OnUse += SemaphoreIsUsed;
 
             if (!string.IsNullOrEmpty(chosenPath))
                 GenerateAndUpdateRepos();
@@ -66,6 +67,9 @@ namespace GitLooker
 
             this.Text += $"    ver.{AppVersion.AssemblyVersion}";
         }
+
+        private void SemaphoreIsUsed(bool isProccesing)
+            => this.Invoke(new Action(() => checkToolStripMenuItem.Enabled = !(toolStripMenuItem1.Visible = !isProccesing)), null);
 
         private static void ReadRepositoriumConfiguration()
         {
@@ -109,35 +113,14 @@ namespace GitLooker
 
         private void CheckToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            toolStripMenuItem1.Visible = true;
-            Application.DoEvents();
-            Application.DoEvents();
-            checkToolStripMenuItem.Enabled = false;
-
             CheackAndRemovedNewRepos();
             allReposControl.ForEach(cntr => cntr.UpdateRepoInfo());
-            Task.Run(() => CheckStatusProgress());
         }
 
         private void CheackAndRemovedNewRepos()
         {
             foreach (var ctrRepo in allReposControl.Where(repo => repo.IsNew && !ExpectedRemoteList.Contains(repo.RepoConfiguration)))
                 ctrRepo.Dispose();
-        }
-
-        private void CheckStatusProgress()
-        {
-            System.Threading.Thread.Sleep(2000);
-
-            while (repoConfiguration.Semaphore.CurrentCount < repoProcessingCount)
-                System.Threading.Thread.Sleep(50);
-
-            this.Invoke(new Action(() =>
-            {
-                checkToolStripMenuItem.Enabled = true;
-                toolStripMenuItem1.Visible = false;
-                AddMissingRepositoriums();
-            }), null);
         }
 
         private bool NotInRepoConfig(string config) => !RepoRemoteList.Contains(config) && !allReposControl.Any(ctr => ctr.RepoConfiguration == config);
@@ -183,7 +166,6 @@ namespace GitLooker
             var commandProc = new CommandProcessor.RepoCommandProcessor(powerShell);
 
             await CloneNewRepo(commandProc);
-
             toolStripMenuItem2.Visible = false;
         }
 
