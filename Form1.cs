@@ -69,7 +69,12 @@ namespace GitLooker
         }
 
         private void SemaphoreIsUsed(bool isProccesing)
-            => this.Invoke(new Action(() => checkToolStripMenuItem.Enabled = !(toolStripMenuItem1.Visible = !isProccesing)), null);
+            => this.Invoke(new Action(() =>
+            {
+                checkToolStripMenuItem.Enabled = !(toolStripMenuItem1.Visible = !isProccesing);
+                if (!isProccesing)
+                    panel2.Focus();
+            }), null);
 
         private static void ReadRepositoriumConfiguration()
         {

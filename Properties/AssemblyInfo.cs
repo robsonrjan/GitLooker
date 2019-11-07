@@ -37,5 +37,5 @@ using System.Runtime.InteropServices;
 
 public static class AppVersion
 {
-    public const string AssemblyVersion = "2.0.0";
+    public const string AssemblyVersion = "2.0.1";
 }
