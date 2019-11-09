@@ -73,6 +73,16 @@ namespace GitLooker.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap agt_add_to_autorun {
+            get {
+                object obj = ResourceManager.GetObject("agt_add-to-autorun", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap agt_update_misc {
             get {
                 object obj = ResourceManager.GetObject("agt_update_misc", resourceCulture);
@@ -96,6 +106,16 @@ namespace GitLooker.Properties {
         internal static System.Drawing.Bitmap cancel {
             get {
                 object obj = ResourceManager.GetObject("cancel", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap checkedbox {
+            get {
+                object obj = ResourceManager.GetObject("checkedbox", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

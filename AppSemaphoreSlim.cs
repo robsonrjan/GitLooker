@@ -14,6 +14,7 @@ namespace GitLooker
         public delegate void onSemaphoreChange(bool isProcessing);
         private onSemaphoreChange isUsed;
         public onSemaphoreChange OnUse { get => isUsed; set => isUsed = value; }
+        public int MaxRepoProcessingCount => repoProcessingCount;
 
         public AppSemaphoreSlim(int repoProcessingCount)
         {
@@ -25,14 +26,14 @@ namespace GitLooker
         {
             semaphoreSlim.Wait();
             if (isUsed != default(onSemaphoreChange))
-                isUsed(semaphoreSlim.CurrentCount == repoProcessingCount);
+                isUsed(semaphoreSlim.CurrentCount != repoProcessingCount);
         }
 
         public void Release()
         {
             semaphoreSlim.Release();
             if (isUsed != default(onSemaphoreChange))
-                isUsed(semaphoreSlim.CurrentCount == repoProcessingCount);
+                isUsed(semaphoreSlim.CurrentCount != repoProcessingCount);
         }
 
         public void Release(int count)

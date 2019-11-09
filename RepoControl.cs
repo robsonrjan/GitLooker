@@ -115,7 +115,10 @@ namespace GitLooker
                 currentRespond = err.Message;
                 this.Invoke(new Action(() => SetErrorForRepo()), null);
             }
-            Release();
+            finally
+            {
+                Release();
+            }            
         }
 
         private void SetErrorForRepo()
@@ -150,6 +153,7 @@ namespace GitLooker
                 this.Invoke(new Action(() =>
                 {
                     this.button2.BackgroundImage = global::GitLooker.Properties.Resources.agt_action_fail;
+                    this.button1.BackgroundImage = global::GitLooker.Properties.Resources.checkmark;
                     this.SendToBack();
                 }), null);
             }
@@ -163,6 +167,7 @@ namespace GitLooker
                 this.Invoke(new Action(() =>
                 {
                     this.button2.BackgroundImage = global::GitLooker.Properties.Resources.checkmark;
+                    this.button1.BackgroundImage = global::GitLooker.Properties.Resources.agt_update_misc;
                     this.button1.Enabled = true;
                     this.SendToBack();
                 }), null);
@@ -172,6 +177,7 @@ namespace GitLooker
                 this.Invoke(new Action(() =>
                 {
                     this.button2.BackgroundImage = global::GitLooker.Properties.Resources.move_task_up;
+                    this.button1.BackgroundImage = global::GitLooker.Properties.Resources.agt_add_to_autorun;
                 }));
                 canReset = true && branchOn.EndsWith("master");
             }
@@ -180,6 +186,7 @@ namespace GitLooker
                 this.Invoke(new Action(() =>
                 {
                     this.button2.BackgroundImage = global::GitLooker.Properties.Resources.button_ok;
+                    this.button1.BackgroundImage = global::GitLooker.Properties.Resources.checkedbox;
                     this.BringToFront();
                 }), null);
             }

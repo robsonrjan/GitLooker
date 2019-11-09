@@ -12,5 +12,6 @@ namespace GitLooker
         Task WaitAsync();
         int CurrentCount { get; }
         void Release(int count);
+        int MaxRepoProcessingCount { get; }
     }
 }

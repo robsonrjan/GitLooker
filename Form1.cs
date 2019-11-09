@@ -3,6 +3,7 @@ using GitLooker.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization.Json;
@@ -44,12 +45,20 @@ namespace GitLooker
             var path = folderBrowserDialog1.SelectedPath;
             if (!string.IsNullOrEmpty(path) && (chosenPath != path))
             {
+                Clear();
                 chosenPath = path;
                 config.AppSettings.Settings.Remove("GirLookerPath");
                 config.AppSettings.Settings.Add("GirLookerPath", chosenPath);
                 config.Save();
                 GenerateAndUpdateRepos();
             }
+        }
+
+        private void Clear()
+        {
+            panel1.Controls.Clear();            
+            allReposControl.ForEach(r => r.Dispose());
+            allReposControl.Clear();
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -59,11 +68,10 @@ namespace GitLooker
                 repoProcessingCount = maxPandingGitOperations;
             semaphore = new AppSemaphoreSlim(repoProcessingCount);
             semaphore.OnUse += SemaphoreIsUsed;
+            ReadRepositoriumConfiguration();
 
             if (!string.IsNullOrEmpty(chosenPath))
-                GenerateAndUpdateRepos();
-
-            ReadRepositoriumConfiguration();
+                GenerateAndUpdateRepos();            
 
             this.Text += $"    ver.{AppVersion.AssemblyVersion}";
         }
@@ -71,9 +79,12 @@ namespace GitLooker
         private void SemaphoreIsUsed(bool isProccesing)
             => this.Invoke(new Action(() =>
             {
-                checkToolStripMenuItem.Enabled = !(toolStripMenuItem1.Visible = !isProccesing);
+                toolStripMenuItem2.Enabled = checkToolStripMenuItem.Enabled = !(toolStripMenuItem1.Visible = isProccesing);
                 if (!isProccesing)
+                {
                     panel2.Focus();
+                    AddMissingRepositoriums();
+                }
             }), null);
 
         private static void ReadRepositoriumConfiguration()
@@ -113,6 +124,7 @@ namespace GitLooker
             repo.Dock = DockStyle.Top;
             allReposControl.Add(repo);
             this.panel1.Controls.Add(repo);
+            Application.DoEvents();
             return repo;
         }
 
@@ -128,13 +140,16 @@ namespace GitLooker
                 ctrRepo.Dispose();
         }
 
-        private bool NotInRepoConfig(string config) => !RepoRemoteList.Contains(config) && !allReposControl.Any(ctr => ctr.RepoConfiguration == config);
+        private bool NotInRepoConfig(string config) => !RepoRemoteList.Any(r => r?.ToLower() == config?.ToLower()) 
+            && !allReposControl.Any(ctr => ctr.RepoConfiguration?.ToLower() == config?.ToLower());
         private void AddMissingRepositoriums()
         {
             ExpectedRemoteList.Where(NotInRepoConfig).ToList()
                 .ForEach(config =>
                 {
                     CheckRepo(chosenPath, config);
+                    Application.DoEvents();
+                    Application.DoEvents();
                     toolStripMenuItem2.Visible = true;
                 });
         }
@@ -176,38 +191,69 @@ namespace GitLooker
 
         private async Task CloneNewRepo(CommandProcessor.RepoCommandProcessor commandProc)
         {
+            List<Task> runningClons = new List<Task>();
             try
             {
-                await WaitTakeAll();
+                await WaitLeaveOne();
                 allReposControl.Where(ctr => ctr.IsNew).ToList()
-                    .ForEach(ctr => CloneRepoProcess(commandProc, ctr));
+                    .ForEach(ctr => runningClons.Add(Task.Run(() => CloneRepoProcessAsync(commandProc, ctr))));
+
             }
             catch(Exception ex)
             {
                 MessageBox.Show(ex.Message, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            finally
-            {
-                semaphore.Release(repoProcessingCount);
-            }
         }
 
-        private async Task WaitTakeAll()
+        private async Task WaitLeaveOne()
         {
-            while (semaphore.CurrentCount != 0)
+            while (semaphore.CurrentCount != 1)
                 await semaphore.WaitAsync();
         }
 
-        private void CloneRepoProcess(RepoCommandProcessor commandProc, RepoControl ctr)
+        private void ReleaceAll() 
         {
-            var result = commandProc.ClonRepo(chosenPath, ctr.RepoConfiguration);
-            var repoPath = $@"{chosenPath}\{ctr.GetNewRepoName}";
-            if (Directory.Exists(repoPath))
+            while (semaphore.CurrentCount != semaphore.MaxRepoProcessingCount) 
+                semaphore.Release(); 
+        }
+
+        private void CloneRepoProcessAsync(RepoCommandProcessor commandProc, RepoControl ctr)
+        {            
+            try
             {
-                var repo = CheckRepo(repoPath);
-                ctr.Dispose();
-                repo.UpdateRepoInfo();
+                semaphore.Wait();
+                ctr.Invoke(new Action(() => ctr.label1.ForeColor = Color.Green), null);
+                var result = commandProc.ClonRepo(chosenPath, ctr.RepoConfiguration);
+                var repoPath = $@"{chosenPath}\{ctr.GetNewRepoName}";
+                if (Directory.Exists(repoPath))
+                {
+                    this.Invoke(new Action(() =>
+                    {
+                        var repo = CheckRepo(repoPath);
+                        ctr.Dispose();
+                        repo.UpdateRepoInfo();
+                    }), null);
+                }
+                else
+                {
+                    this.Invoke(new Action(() => RemoveUnUsed(ctr)), null);
+                }
             }
+            catch(Exception) { }
+            finally
+            {
+                semaphore.Release();
+            }
+
+            if (!allReposControl.Any(c => c.IsNew))
+                ReleaceAll();
+        }
+
+        private void RemoveUnUsed(RepoControl ctr)
+        {
+            allReposControl.Remove(ctr);
+            ctr.Dispose();
+            ExpectedRemoteList.Remove(ctr.RepoConfiguration);
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
