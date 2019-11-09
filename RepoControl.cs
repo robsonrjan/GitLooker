@@ -157,6 +157,16 @@ namespace GitLooker
                     this.SendToBack();
                 }), null);
             }
+            else if (responseValue.Any(respound => respound.ToLower().Contains("could not resolve host:")))
+            {
+                returnValue = false;
+                this.Invoke(new Action(() =>
+                {
+                    this.button2.BackgroundImage = global::GitLooker.Properties.Resources.checkmark;
+                    this.button1.BackgroundImage = global::GitLooker.Properties.Resources.checkmark;
+                    this.SendToBack();
+                }), null);
+            }
             return returnValue;
         }
 
