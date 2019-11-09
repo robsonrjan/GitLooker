@@ -322,15 +322,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:GitLookerSetup"
-        "ProductCode" = "8:{1584257B-6B15-42AC-A46B-C919EFE8250A}"
-        "PackageCode" = "8:{19F74B6E-1D30-4F0F-9AB2-22AAFB78D188}"
+        "ProductCode" = "8:{E929A4FF-C650-4241-84D9-0EC0308FFC9C}"
+        "PackageCode" = "8:{A4C91C51-F055-403A-9430-18AB8501E0E7}"
         "UpgradeCode" = "8:{E0F1D824-8150-4EA3-BA55-357639F8A869}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:2.0.4"
+        "ProductVersion" = "8:2.0.5"
         "Manufacturer" = "8:Robert Janda"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:https://github.com/robsonrjan/GitLooker"
@@ -858,7 +858,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_BCF714BA6E6D463689BCE3BD93568F51"
             {
-            "SourcePath" = "8:..\\obj\\Release\\GitLooker.exe"
+            "SourcePath" = "8:..\\obj\\Debug\\GitLooker.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_6D20888006D14ECE86A73683A047E42A"

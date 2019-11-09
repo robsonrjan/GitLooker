@@ -59,6 +59,7 @@ namespace GitLooker
             panel1.Controls.Clear();            
             allReposControl.ForEach(r => r.Dispose());
             allReposControl.Clear();
+            toolStripMenuItem2.Visible = false;
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -73,7 +74,7 @@ namespace GitLooker
             if (!string.IsNullOrEmpty(chosenPath))
                 GenerateAndUpdateRepos();            
 
-            this.Text += $"    ver.{AppVersion.AssemblyVersion}";
+            this.Text += $"    ver.{AppVersion.AssemblyVersion}"; 
         }
 
         private void SemaphoreIsUsed(bool isProccesing)
@@ -101,6 +102,9 @@ namespace GitLooker
         {
             CheckForGitRepo(chosenPath);
             CheckToolStripMenuItem_Click(null, null);
+
+            if (!allReposControl.Any() && !string.IsNullOrEmpty(chosenPath))
+                AddMissingRepositoriums();
         }
 
         private void CheckForGitRepo(string chosenPath)
