@@ -226,7 +226,7 @@ namespace GitLooker
             try
             {
                 semaphore.Wait();
-                ctr.Invoke(new Action(() => ctr.label1.ForeColor = Color.Green), null);
+                ctr.Invoke(new Action(() => ctr.HighlightLabel()), null);
                 var result = commandProc.ClonRepo(chosenPath, ctr.RepoConfiguration);
                 var repoPath = $@"{chosenPath}\{ctr.GetNewRepoName}";
                 if (Directory.Exists(repoPath))

@@ -164,6 +164,6 @@
         private System.Windows.Forms.Splitter splitter4;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.Label label2;
-        public System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label1;
     }
 }

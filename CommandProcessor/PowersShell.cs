@@ -46,7 +46,7 @@ namespace GitLooker
                 var returnValue = pipeLine.Invoke()?.Select(p => p.ToString()) ?? default(IEnumerable<string>);
 
                 if (pipeLine.HadErrors)
-                    errors = pipeLine.Error.ReadToEnd().Select(err => err.ToString()).ToList(); ;
+                    errors = pipeLine.Error.ReadToEnd().Select(err => err.ToString()).ToList();
 
                 if ((errors != default(IEnumerable<string>)) && errors.Any())
                     returnValue = returnValue.Union(errors);

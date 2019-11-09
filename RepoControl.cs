@@ -121,6 +121,8 @@ namespace GitLooker
             }            
         }
 
+        public void HighlightLabel() => this.label1.ForeColor = Color.Green;
+
         private void SetErrorForRepo()
         {
             this.label1.ForeColor = Color.Red;
@@ -163,7 +165,7 @@ namespace GitLooker
                 this.Invoke(new Action(() =>
                 {
                     this.button2.BackgroundImage = global::GitLooker.Properties.Resources.checkmark;
-                    this.button1.BackgroundImage = global::GitLooker.Properties.Resources.checkmark;
+                    this.button1.BackgroundImage = global::GitLooker.Properties.Resources.networkx;
                     this.SendToBack();
                 }), null);
             }

@@ -194,6 +194,7 @@
     <None Include="Resources\cancel.png" />
     <None Include="Resources\agt_add-to-autorun.png" />
     <None Include="Resources\checkedbox.png" />
+    <None Include="Resources\networkx.png" />
     <Content Include="wi0009-48.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
