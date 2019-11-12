@@ -174,6 +174,8 @@ namespace GitLooker
 
         private void CheckStatus(IEnumerable<string> returnValue)
         {
+            canReset = true && branchOn.EndsWith("master");
+
             if (returnValue.Any(rtn => rtn.Contains("branch is behind")))
             {
                 this.Invoke(new Action(() =>
@@ -191,7 +193,6 @@ namespace GitLooker
                     this.button2.BackgroundImage = global::GitLooker.Properties.Resources.move_task_up;
                     this.button1.BackgroundImage = global::GitLooker.Properties.Resources.agt_add_to_autorun;
                 }));
-                canReset = true && branchOn.EndsWith("master");
             }
             else
             {
@@ -199,7 +200,8 @@ namespace GitLooker
                 {
                     this.button2.BackgroundImage = global::GitLooker.Properties.Resources.button_ok;
                     this.button1.BackgroundImage = global::GitLooker.Properties.Resources.checkedbox;
-                    this.BringToFront();
+                    if (canReset)
+                        this.BringToFront();
                 }), null);
             }
         }

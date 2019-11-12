@@ -59,6 +59,7 @@ namespace GitLooker
             panel1.Controls.Clear();            
             allReposControl.ForEach(r => r.Dispose());
             allReposControl.Clear();
+            RepoRemoteList.Clear();
             toolStripMenuItem2.Visible = false;
         }
 
