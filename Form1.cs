@@ -120,7 +120,7 @@ namespace GitLooker
                 });
         }
 
-        private RepoControl CheckRepo(string repoDdir, string newRepo = default(string))
+        private void CheckRepo(string repoDdir, string newRepo = default(string))
         {
             repoConfiguration = new RepoControlConfiguration(repoDdir, semaphore, newRepo);
             powerShell = new PowersShell();
@@ -130,7 +130,6 @@ namespace GitLooker
             allReposControl.Add(repo);
             this.panel1.Controls.Add(repo);
             Application.DoEvents();
-            return repo;
         }
 
         private void CheckToolStripMenuItem_Click(object sender, EventArgs e)
@@ -201,13 +200,23 @@ namespace GitLooker
             {
                 await WaitLeaveOne();
                 allReposControl.Where(ctr => ctr.IsNew).ToList()
-                    .ForEach(ctr => runningClons.Add(Task.Run(() => CloneRepoProcessAsync(commandProc, ctr))));
+                    .ForEach(ctr => runningClons.Add(Task.Run(() => CloneRepoProcess(commandProc, ctr))));
 
+                Task.Run(() => UpdateCloneRepos(runningClons));
             }
             catch(Exception ex)
             {
                 MessageBox.Show(ex.Message, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void UpdateCloneRepos(List<Task> runningClons)
+        {
+            while (!runningClons.All(t => t.IsCompleted))
+                Thread.Sleep(100);
+
+            ReleaceAll();
+            CheckToolStripMenuItem_Click(null, null);
         }
 
         private async Task WaitLeaveOne()
@@ -222,7 +231,7 @@ namespace GitLooker
                 semaphore.Release(); 
         }
 
-        private void CloneRepoProcessAsync(RepoCommandProcessor commandProc, RepoControl ctr)
+        private void CloneRepoProcess(RepoCommandProcessor commandProc, RepoControl ctr)
         {            
             try
             {
@@ -234,9 +243,8 @@ namespace GitLooker
                 {
                     this.Invoke(new Action(() =>
                     {
-                        var repo = CheckRepo(repoPath);
+                        CheckRepo(repoPath);
                         ctr.Dispose();
-                        repo.UpdateRepoInfo();
                     }), null);
                 }
                 else
@@ -249,9 +257,6 @@ namespace GitLooker
             {
                 semaphore.Release();
             }
-
-            if (!allReposControl.Any(c => c.IsNew))
-                ReleaceAll();
         }
 
         private void RemoveUnUsed(RepoControl ctr)

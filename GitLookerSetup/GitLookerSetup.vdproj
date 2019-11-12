@@ -52,7 +52,7 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_A8693F0BB01E38907425A4D231DB69DB"
+        "OwnerKey" = "8:_A4670E78BBA826E44351105EFE5B8156"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -64,7 +64,7 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_A4670E78BBA826E44351105EFE5B8156"
+        "OwnerKey" = "8:_A8693F0BB01E38907425A4D231DB69DB"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -307,15 +307,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:GitLookerSetup"
-        "ProductCode" = "8:{C09621EF-3073-4FF3-8C7C-A9B97BBB1FE3}"
-        "PackageCode" = "8:{DCF40ADB-FC4F-45E6-B3D0-F1802438ADB6}"
+        "ProductCode" = "8:{C8F319C8-0D45-4425-8352-3F7607603A4D}"
+        "PackageCode" = "8:{55233250-4D76-494F-8511-E3EF3090E2DB}"
         "UpgradeCode" = "8:{E0F1D824-8150-4EA3-BA55-357639F8A869}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:2.0.7"
+        "ProductVersion" = "8:2.0.8"
         "Manufacturer" = "8:Robert Janda"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:https://github.com/robsonrjan/GitLooker"
@@ -843,7 +843,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_BCF714BA6E6D463689BCE3BD93568F51"
             {
-            "SourcePath" = "8:..\\obj\\Release\\GitLooker.exe"
+            "SourcePath" = "8:"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_6D20888006D14ECE86A73683A047E42A"
