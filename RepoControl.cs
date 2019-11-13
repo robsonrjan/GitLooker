@@ -174,7 +174,9 @@ namespace GitLooker
 
         private void CheckStatus(IEnumerable<string> returnValue)
         {
-            canReset = true && branchOn.EndsWith("master");
+            bool needToPush = returnValue.Any(rtn => rtn.Contains("git push") || rtn.Contains("git add") || rtn.Contains("git checkout "));
+            bool isMaster = branchOn.EndsWith("master");
+            canReset = true && needToPush && isMaster;
 
             if (returnValue.Any(rtn => rtn.Contains("branch is behind")))
             {
@@ -186,7 +188,7 @@ namespace GitLooker
                     this.SendToBack();
                 }), null);
             }
-            else if (returnValue.Any(rtn => rtn.Contains("git push") || rtn.Contains("git add") || rtn.Contains("git checkout ")))
+            else if (needToPush)
             {
                 this.Invoke(new Action(() =>
                 {
@@ -200,7 +202,7 @@ namespace GitLooker
                 {
                     this.button2.BackgroundImage = global::GitLooker.Properties.Resources.button_ok;
                     this.button1.BackgroundImage = global::GitLooker.Properties.Resources.checkedbox;
-                    if (canReset)
+                    if (isMaster)
                         this.BringToFront();
                 }), null);
             }
