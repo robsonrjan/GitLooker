@@ -17,6 +17,7 @@ namespace GitLooker
         private readonly DirectoryInfo workingDir;
         private readonly IRepoCommandProcessor commandProcessor;
         private readonly IAppSemaphoreSlim operationSemaphore;
+        private readonly Control endControl;
         private string currentRespond;
         private string branchOn = "Pull current branch";
         private string newRepoConfiguration;
@@ -27,11 +28,12 @@ namespace GitLooker
         internal bool IsNew { get; private set; }
         internal string RepoConfiguration { get; private set; }
 
-        public RepoControl(IRepoControlConfiguration repoConfiguration, IRepoCommandProcessor commandProcessor)
+        public RepoControl(IRepoControlConfiguration repoConfiguration, IRepoCommandProcessor commandProcessor, Control endControl)
         {
             InitializeComponent();
             this.label1.Text = this.repoPath = repoConfiguration?.RepoPath ?? string.Empty;
             this.commandProcessor = commandProcessor;
+            this.endControl = endControl;
 
             workingDir = new DirectoryInfo(repoPath);
             this.label1.Text = workingDir.Name;
@@ -226,6 +228,15 @@ namespace GitLooker
             this.label1.ForeColor = Color.DarkGreen;
             var currentBranch = label1.Text;
             Task.Factory.StartNew(() => PullRepoProcess(currentBranch));
+            MarkControl();
+        }
+
+        private void MarkControl()
+        {
+            int indexOfThis = Parent.Controls.GetChildIndex(this);
+            int indexOfcontrol = endControl.Parent.Controls.GetChildIndex(endControl);
+            if (indexOfcontrol > indexOfThis) indexOfThis++;
+            endControl.Parent.Controls.SetChildIndex(endControl, indexOfThis - 1);
         }
 
         private void PullRepoProcess(string currentBranch)
@@ -254,6 +265,7 @@ namespace GitLooker
         {
             var status = new Status(currentRespond, () => DelegateResetMethod(), canReset);
             status.ShowDialog();
+            MarkControl();
         }
 
         private void DelegateResetMethod()
@@ -282,5 +294,7 @@ namespace GitLooker
             }
             UpdateRepoInfo();
         }
+
+        private void label1_Click(object sender, EventArgs e) => MarkControl();
     }
 }

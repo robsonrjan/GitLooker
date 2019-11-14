@@ -84,7 +84,8 @@ namespace GitLooker
                 toolStripMenuItem2.Enabled = checkToolStripMenuItem.Enabled = !(toolStripMenuItem1.Visible = isProccesing);
                 if (!isProccesing)
                 {
-                    panel2.Focus();
+                    endControl.SendToBack();
+                    endControl.Focus();
                     AddMissingRepositoriums();
                 }
             }), null);
@@ -125,7 +126,7 @@ namespace GitLooker
             repoConfiguration = new RepoControlConfiguration(repoDdir, semaphore, newRepo);
             powerShell = new PowersShell();
             commandProcessor = new CommandProcessor.RepoCommandProcessor(powerShell);
-            var repo = new RepoControl(repoConfiguration, commandProcessor);
+            var repo = new RepoControl(repoConfiguration, commandProcessor, endControl);
             repo.Dock = DockStyle.Top;
             allReposControl.Add(repo);
             this.panel1.Controls.Add(repo);

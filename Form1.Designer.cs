@@ -42,9 +42,11 @@
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
+            this.endControl = new System.Windows.Forms.Panel();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.panel2 = new System.Windows.Forms.Panel();
             this.menuStrip1.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -145,11 +147,21 @@
             // 
             this.panel1.AutoScroll = true;
             this.panel1.BackColor = System.Drawing.Color.White;
+            this.panel1.Controls.Add(this.endControl);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 31);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(484, 630);
             this.panel1.TabIndex = 1;
+            // 
+            // endControl
+            // 
+            this.endControl.BackColor = System.Drawing.Color.DarkSlateGray;
+            this.endControl.Dock = System.Windows.Forms.DockStyle.Top;
+            this.endControl.Location = new System.Drawing.Point(0, 0);
+            this.endControl.Name = "endControl";
+            this.endControl.Size = new System.Drawing.Size(484, 1);
+            this.endControl.TabIndex = 3;
             // 
             // panel2
             // 
@@ -180,6 +192,7 @@
             this.Load += new System.EventHandler(this.Form1_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -201,6 +214,7 @@
         private System.Windows.Forms.ToolStripMenuItem remoteReposConfigToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem expectedReposConfigToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
+        private System.Windows.Forms.Panel endControl;
     }
 }
 

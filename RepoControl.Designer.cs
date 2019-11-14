@@ -88,6 +88,7 @@
             this.label1.TabIndex = 5;
             this.label1.Text = "label1";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // label2
             // 
@@ -99,6 +100,7 @@
             this.label2.TabIndex = 7;
             this.label2.Text = "...";
             this.label2.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.label2.Click += new System.EventHandler(this.label1_Click);
             // 
             // button2
             // 
