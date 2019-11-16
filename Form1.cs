@@ -24,8 +24,11 @@ namespace GitLooker
         private IPowersShell powerShell;
         private IRepoCommandProcessor commandProcessor;
         private List<RepoControl> allReposControl;
+        private int intervalUpdateCheckHour;
+        private DateTime lastTimeUpdate;
         internal static List<string> RepoRemoteList;
         internal static List<string> ExpectedRemoteList;
+        private bool isLoaded;
 
         public Form1()
         {
@@ -33,6 +36,7 @@ namespace GitLooker
             RepoRemoteList = new List<string>();
             ExpectedRemoteList = new List<string>();
             allReposControl = new List<RepoControl>();
+            lastTimeUpdate = DateTime.UtcNow;
         }
 
         private void SetWorkingPathToolStripMenuItem_Click(object sender, EventArgs e)
@@ -68,6 +72,10 @@ namespace GitLooker
             chosenPath = ConfigurationManager.AppSettings["GirLookerPath"];
             if (!int.TryParse(ConfigurationManager.AppSettings["repoProcessingCount"], out repoProcessingCount))
                 repoProcessingCount = maxPandingGitOperations;
+            if (!int.TryParse(ConfigurationManager.AppSettings["intervalUpdateCheckHour"], out intervalUpdateCheckHour))
+                intervalUpdateCheckHour = 0;
+            SetMenueCheckerValue();
+
             semaphore = new AppSemaphoreSlim(repoProcessingCount);
             semaphore.OnUse += SemaphoreIsUsed;
             ReadRepositoriumConfiguration();
@@ -75,7 +83,8 @@ namespace GitLooker
             if (!string.IsNullOrEmpty(chosenPath))
                 GenerateAndUpdateRepos();            
 
-            this.Text += $"    ver.{AppVersion.AssemblyVersion}"; 
+            this.Text += $"    ver.{AppVersion.AssemblyVersion}";
+            isLoaded = true;
         }
 
         private void SemaphoreIsUsed(bool isProccesing)
@@ -135,6 +144,7 @@ namespace GitLooker
 
         private void CheckToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            lastTimeUpdate = DateTime.UtcNow;
             CheackAndRemovedNewRepos();
             allReposControl.ForEach(cntr => cntr.UpdateRepoInfo());
         }
@@ -270,6 +280,64 @@ namespace GitLooker
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             semaphore.Dispose();
+            timer1.Dispose();
+        }
+
+        private void SetMenueCheckerValue()
+        {
+            switch (intervalUpdateCheckHour)
+            {
+                case 1:
+                    toolStripComboBox1.SelectedIndex = 1;
+                    break;
+                case 2:
+                    toolStripComboBox1.SelectedIndex = 2;
+                    break;
+                case 3:
+                    toolStripComboBox1.SelectedIndex = 3;
+                    break;
+                case 4:
+                    toolStripComboBox1.SelectedIndex = 4;
+                    break;
+                default:
+                    toolStripComboBox1.SelectedIndex = 0;
+                    break;
+            }
+        }
+
+        private void toolStripComboBox1_Click(object sender, EventArgs e)
+        {
+            if (!isLoaded) return;
+            switch(toolStripComboBox1.SelectedItem)
+            {
+                case "1 hour":
+                    intervalUpdateCheckHour = 1;
+                    break;
+                case "2 hours":
+                    intervalUpdateCheckHour = 2;
+                    break;
+                case "3 hours":
+                    intervalUpdateCheckHour = 3;
+                    break;
+                case "4 hours":
+                    intervalUpdateCheckHour = 4;
+                    break;
+                default:
+                    intervalUpdateCheckHour = 0;
+                    break;
+            }
+            var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            config.AppSettings.Settings.Remove("intervalUpdateCheckHour");
+            config.AppSettings.Settings.Add("intervalUpdateCheckHour", intervalUpdateCheckHour.ToString());
+            config.Save();
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            if (intervalUpdateCheckHour == 0) return;
+
+            if (lastTimeUpdate.AddHours(intervalUpdateCheckHour) < DateTime.UtcNow)
+                CheckToolStripMenuItem_Click(null, null);
         }
     }
 }

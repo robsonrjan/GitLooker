@@ -33,6 +33,9 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.setWorkingPathToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripComboBox1 = new System.Windows.Forms.ToolStripComboBox();
             this.checkToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.configurationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -45,6 +48,7 @@
             this.endControl = new System.Windows.Forms.Panel();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -68,7 +72,10 @@
             // fileToolStripMenuItem
             // 
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.setWorkingPathToolStripMenuItem});
+            this.setWorkingPathToolStripMenuItem,
+            this.toolStripSeparator1,
+            this.toolStripMenuItem3,
+            this.toolStripComboBox1});
             this.fileToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(41, 23);
@@ -77,9 +84,35 @@
             // setWorkingPathToolStripMenuItem
             // 
             this.setWorkingPathToolStripMenuItem.Name = "setWorkingPathToolStripMenuItem";
-            this.setWorkingPathToolStripMenuItem.Size = new System.Drawing.Size(182, 24);
+            this.setWorkingPathToolStripMenuItem.Size = new System.Drawing.Size(186, 24);
             this.setWorkingPathToolStripMenuItem.Text = "Set working path";
             this.setWorkingPathToolStripMenuItem.Click += new System.EventHandler(this.SetWorkingPathToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(183, 6);
+            // 
+            // toolStripMenuItem3
+            // 
+            this.toolStripMenuItem3.Enabled = false;
+            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(186, 24);
+            this.toolStripMenuItem3.Text = "Autocheck every: ";
+            // 
+            // toolStripComboBox1
+            // 
+            this.toolStripComboBox1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.toolStripComboBox1.Items.AddRange(new object[] {
+            "none",
+            "1 hour",
+            "2 hours",
+            "3 hours",
+            "4 hours"});
+            this.toolStripComboBox1.Name = "toolStripComboBox1";
+            this.toolStripComboBox1.Size = new System.Drawing.Size(121, 25);
+            this.toolStripComboBox1.Text = "none";
+            this.toolStripComboBox1.SelectedIndexChanged += new System.EventHandler(this.toolStripComboBox1_Click);
             // 
             // checkToolStripMenuItem
             // 
@@ -172,6 +205,12 @@
             this.panel2.Size = new System.Drawing.Size(484, 2);
             this.panel2.TabIndex = 2;
             // 
+            // timer1
+            // 
+            this.timer1.Enabled = true;
+            this.timer1.Interval = 60000;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
             // Form1
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -215,6 +254,10 @@
         private System.Windows.Forms.ToolStripMenuItem expectedReposConfigToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
         private System.Windows.Forms.Panel endControl;
+        private System.Windows.Forms.ToolStripComboBox toolStripComboBox1;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem3;
+        private System.Windows.Forms.Timer timer1;
     }
 }
 
