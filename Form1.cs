@@ -97,8 +97,15 @@ namespace GitLooker
                     endControl.SendToBack();
                     endControl.Focus();
                     AddMissingRepositoriums();
+                    ShowCheckNotification();
                 }
             }), null);
+
+        private void ShowCheckNotification()
+        {
+            if (intervalUpdateCheckHour == 0) return;
+            notifyIcon1.ShowBalloonTip(3000);
+        }
 
         private static void ReadRepositoriumConfiguration()
         {
