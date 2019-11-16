@@ -60,7 +60,8 @@ namespace GitLooker
 
         private void Clear()
         {
-            panel1.Controls.Clear();            
+            panel1.Controls.Clear();
+            panel1.Controls.Add(endControl);
             allReposControl.ForEach(r => r.Dispose());
             allReposControl.Clear();
             RepoRemoteList.Clear();
