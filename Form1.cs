@@ -145,6 +145,7 @@ namespace GitLooker
         private void CheckToolStripMenuItem_Click(object sender, EventArgs e)
         {
             lastTimeUpdate = DateTime.UtcNow;
+            toolStripMenuItem4.Text = $"Updated: {lastTimeUpdate.ToString("HH:mm dddd")}";
             CheackAndRemovedNewRepos();
             allReposControl.ForEach(cntr => cntr.UpdateRepoInfo());
         }
