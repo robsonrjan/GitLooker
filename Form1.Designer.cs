@@ -42,6 +42,7 @@
             this.remoteReposConfigToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.expectedReposConfigToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
@@ -49,7 +50,6 @@
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.panel2 = new System.Windows.Forms.Panel();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -173,6 +173,14 @@
             this.toolStripMenuItem2.Visible = false;
             this.toolStripMenuItem2.Click += new System.EventHandler(this.toolStripMenuItem2_Click);
             // 
+            // toolStripMenuItem4
+            // 
+            this.toolStripMenuItem4.Font = new System.Drawing.Font("Segoe UI", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.toolStripMenuItem4.ForeColor = System.Drawing.Color.Navy;
+            this.toolStripMenuItem4.Name = "toolStripMenuItem4";
+            this.toolStripMenuItem4.Size = new System.Drawing.Size(67, 23);
+            this.toolStripMenuItem4.Text = "Last update: ";
+            // 
             // imageList1
             // 
             this.imageList1.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
@@ -213,15 +221,6 @@
             this.timer1.Enabled = true;
             this.timer1.Interval = 60000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
-            // toolStripMenuItem4
-            // 
-            this.toolStripMenuItem4.Enabled = false;
-            this.toolStripMenuItem4.Font = new System.Drawing.Font("Segoe UI", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.toolStripMenuItem4.ForeColor = System.Drawing.Color.Navy;
-            this.toolStripMenuItem4.Name = "toolStripMenuItem4";
-            this.toolStripMenuItem4.Size = new System.Drawing.Size(67, 23);
-            this.toolStripMenuItem4.Text = "Last update: ";
             // 
             // notifyIcon1
             // 

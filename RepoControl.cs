@@ -24,6 +24,7 @@ namespace GitLooker
         private bool canReset;
         private bool isConfigured;
         private string newRepoName = default(string);
+        private volatile bool isWaiting;
 
         internal bool IsNew { get; private set; }
         internal string RepoConfiguration { get; private set; }
@@ -51,11 +52,15 @@ namespace GitLooker
         {
             this.Invoke(new Action(() => { this.button2.Enabled = this.button1.Enabled = false; }), null);
             operationSemaphore.Wait();
+            isWaiting = true;
+            this.Invoke(new Action(() => this.label1.ForeColor = Color.DarkGreen), null);
         }
 
         private void Release()
         {
-            operationSemaphore.Release();
+            if (isWaiting)
+                operationSemaphore.Release();
+            isWaiting = false;
             this.Invoke(new Action(() => { this.button2.Enabled = true; }), null);
         }
 
@@ -99,7 +104,6 @@ namespace GitLooker
             try
             {
                 canReset = false;
-                this.Invoke(new Action(() => { this.label1.ForeColor = Color.DarkGreen; }), null);
                 GetRepoConfiguraion();
 
                 var returnValue = commandProcessor.CheckRepo(workingDir.FullName);
@@ -225,7 +229,6 @@ namespace GitLooker
         private void Button1_Click(object sender, EventArgs e)
         {
             currentRespond = string.Empty;
-            this.label1.ForeColor = Color.DarkGreen;
             var currentBranch = label1.Text;
             Task.Factory.StartNew(() => PullRepoProcess(currentBranch));
             MarkControl();
@@ -248,6 +251,7 @@ namespace GitLooker
                 if (currentBranch != "...")
                     rtn = commandProcessor.PullRepo(workingDir.FullName).ToList();
                 currentRespond = string.Join(Environment.NewLine, rtn.ToArray());
+                UpdateRepoInfo();
             }
             catch (Exception ex)
             {
@@ -258,7 +262,6 @@ namespace GitLooker
             {
                 Release();
             }
-            UpdateRepoInfo();
         }
 
         private void Button2_Click(object sender, EventArgs e)
@@ -279,9 +282,9 @@ namespace GitLooker
             Wait();
             try
             {
-                this.label1.ForeColor = Color.DarkGreen;
                 var rtn = commandProcessor.ResetRepo(workingDir.FullName);
                 currentRespond = string.Join(Environment.NewLine, rtn.ToArray());
+                UpdateRepoInfo();
             }
             catch (Exception ex)
             {
@@ -291,8 +294,7 @@ namespace GitLooker
             finally
             {
                 Release();
-            }
-            UpdateRepoInfo();
+            }            
         }
 
         private void label1_Click(object sender, EventArgs e) => MarkControl();
