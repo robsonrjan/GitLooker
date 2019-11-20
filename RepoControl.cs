@@ -51,9 +51,10 @@ namespace GitLooker
         private void Wait()
         {
             this.Invoke(new Action(() => { this.button2.Enabled = this.button1.Enabled = false; }), null);
-            operationSemaphore.Wait();
+            if (!isWaiting)
+                operationSemaphore.Wait();
             isWaiting = true;
-            this.Invoke(new Action(() => this.label1.ForeColor = Color.DarkGreen), null);
+            this.Invoke(new Action(() => HighlightLabel()), null);
         }
 
         private void Release()
@@ -90,7 +91,7 @@ namespace GitLooker
 
         public void UpdateRepoInfo()
         {
-            if (IsNew) return;
+            if (IsNew || isWaiting) return;
 
             if (!Directory.Exists(workingDir.FullName))
                 this.Dispose();
