@@ -29,6 +29,7 @@ namespace GitLooker
         internal static List<string> RepoRemoteList;
         internal static List<string> ExpectedRemoteList;
         private bool isLoaded;
+        private string mainBranch = "master";
 
         public Form1()
         {
@@ -73,6 +74,9 @@ namespace GitLooker
             chosenPath = ConfigurationManager.AppSettings["GirLookerPath"];
             if (!int.TryParse(ConfigurationManager.AppSettings["repoProcessingCount"], out repoProcessingCount))
                 repoProcessingCount = maxPandingGitOperations;
+
+            mainBranch = ConfigurationManager.AppSettings["mainBranch"] ?? "master";
+
             if (!int.TryParse(ConfigurationManager.AppSettings["intervalUpdateCheckHour"], out intervalUpdateCheckHour))
                 intervalUpdateCheckHour = 0;
             SetMenueCheckerValue();
@@ -140,7 +144,7 @@ namespace GitLooker
 
         private void CheckRepo(string repoDdir, string newRepo = default(string))
         {
-            repoConfiguration = new RepoControlConfiguration(repoDdir, semaphore, newRepo);
+            repoConfiguration = new RepoControlConfiguration(repoDdir, semaphore, newRepo, mainBranch);
             powerShell = new PowersShell();
             commandProcessor = new CommandProcessor.RepoCommandProcessor(powerShell);
             var repo = new RepoControl(repoConfiguration, commandProcessor, endControl);
@@ -339,6 +343,8 @@ namespace GitLooker
             config.AppSettings.Settings.Remove("intervalUpdateCheckHour");
             config.AppSettings.Settings.Add("intervalUpdateCheckHour", intervalUpdateCheckHour.ToString());
             config.Save();
+
+            fileToolStripMenuItem.HideDropDown();
         }
 
         private void timer1_Tick(object sender, EventArgs e)
@@ -347,6 +353,24 @@ namespace GitLooker
 
             if (lastTimeUpdate.AddHours(intervalUpdateCheckHour) < DateTime.UtcNow)
                 CheckToolStripMenuItem_Click(null, null);
+        }
+
+        private void toolStripTextBox1_KeyUp(object sender, KeyEventArgs e)
+        {
+            if(e.KeyCode == Keys.Enter)
+            {
+                if (mainBranch == toolStripTextBox1.Text) return;
+                mainBranch = toolStripTextBox1.Text;
+                fileToolStripMenuItem.HideDropDown();
+
+                var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+                config.AppSettings.Settings.Remove("mainBranch");
+                config.AppSettings.Settings.Add("mainBranch", mainBranch);
+                config.Save();
+
+                Clear();
+                GenerateAndUpdateRepos();
+            }
         }
     }
 }

@@ -24,6 +24,7 @@ namespace GitLooker
         private bool canReset;
         private bool isConfigured;
         private string newRepoName = default(string);
+        private readonly string mainBranch;
 
         internal bool IsNew { get; private set; }
         internal string RepoConfiguration { get; private set; }
@@ -39,6 +40,7 @@ namespace GitLooker
             this.label1.Text = workingDir.Name;
             operationSemaphore = repoConfiguration?.Semaphore ?? throw new ArgumentNullException(nameof(repoConfiguration));
             newRepoConfiguration = repoConfiguration?.NewRepo ?? string.Empty;
+            mainBranch = repoConfiguration.MainBranch;
             IsNew = !string.IsNullOrEmpty(newRepoConfiguration);
             if (IsNew)
                 ConfigureAsToClone();
@@ -184,7 +186,7 @@ namespace GitLooker
         private void CheckStatus(IEnumerable<string> returnValue)
         {
             bool needToPush = returnValue.Any(rtn => rtn.Contains("git push") || rtn.Contains("git add") || rtn.Contains("git checkout "));
-            bool isMaster = branchOn.EndsWith("master");
+            bool isMaster = branchOn.EndsWith(mainBranch);
             canReset = true && needToPush && isMaster;
 
             if (returnValue.Any(rtn => rtn.Contains("branch is behind")))

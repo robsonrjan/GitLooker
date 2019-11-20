@@ -7,8 +7,9 @@ namespace GitLooker.Configuration
         public string RepoPath { get; }
         public IAppSemaphoreSlim Semaphore { get; }
         public string NewRepo { get; }
+        public string MainBranch { get; }
 
-        public RepoControlConfiguration(string repoPath, IAppSemaphoreSlim semaphore, string newRepo)
+        public RepoControlConfiguration(string repoPath, IAppSemaphoreSlim semaphore, string newRepo, string mainBranch)
         {
             if (string.IsNullOrEmpty(repoPath))
                 throw new ArgumentException($"[{nameof(RepoControlConfiguration)}] -> Argument {repoPath} can not be null or empty!");
@@ -19,6 +20,7 @@ namespace GitLooker.Configuration
             this.RepoPath = repoPath;
             this.Semaphore = semaphore;
             NewRepo = newRepo;
+            MainBranch = mainBranch;
         }
     }
 }
