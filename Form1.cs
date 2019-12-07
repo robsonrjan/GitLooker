@@ -3,7 +3,6 @@ using GitLooker.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization.Json;
@@ -86,7 +85,7 @@ namespace GitLooker
             ReadRepositoriumConfiguration();
 
             if (!string.IsNullOrEmpty(chosenPath))
-                GenerateAndUpdateRepos();            
+                GenerateAndUpdateRepos();
 
             this.Text += $"    ver.{AppVersion.AssemblyVersion}";
             isLoaded = true;
@@ -168,7 +167,7 @@ namespace GitLooker
                 ctrRepo.Dispose();
         }
 
-        private bool NotInRepoConfig(string config) => !RepoRemoteList.Any(r => r?.ToLower() == config?.ToLower()) 
+        private bool NotInRepoConfig(string config) => !RepoRemoteList.Any(r => r?.ToLower() == config?.ToLower())
             && !allReposControl.Any(ctr => ctr.RepoConfiguration?.ToLower() == config?.ToLower());
         private void AddMissingRepositoriums()
         {
@@ -228,7 +227,7 @@ namespace GitLooker
 
                 Task.Run(() => UpdateCloneRepos(runningClons));
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -249,14 +248,14 @@ namespace GitLooker
                 await semaphore.WaitAsync();
         }
 
-        private void ReleaceAll() 
+        private void ReleaceAll()
         {
-            while (semaphore.CurrentCount != semaphore.MaxRepoProcessingCount) 
-                semaphore.Release(); 
+            while (semaphore.CurrentCount != semaphore.MaxRepoProcessingCount)
+                semaphore.Release();
         }
 
         private void CloneRepoProcess(RepoCommandProcessor commandProc, RepoControl ctr)
-        {            
+        {
             try
             {
                 semaphore.Wait();
@@ -276,7 +275,7 @@ namespace GitLooker
                     this.Invoke(new Action(() => RemoveUnUsed(ctr)), null);
                 }
             }
-            catch(Exception) { }
+            catch (Exception) { }
             finally
             {
                 semaphore.Release();
@@ -321,7 +320,7 @@ namespace GitLooker
         private void toolStripComboBox1_Click(object sender, EventArgs e)
         {
             if (!isLoaded) return;
-            switch(toolStripComboBox1.SelectedItem)
+            switch (toolStripComboBox1.SelectedItem)
             {
                 case "1 hour":
                     intervalUpdateCheckHour = 1;
@@ -357,7 +356,7 @@ namespace GitLooker
 
         private void toolStripTextBox1_KeyUp(object sender, KeyEventArgs e)
         {
-            if(e.KeyCode == Keys.Enter)
+            if (e.KeyCode == Keys.Enter)
             {
                 if (mainBranch == toolStripTextBox1.Text) return;
                 mainBranch = toolStripTextBox1.Text;

@@ -1,6 +1,4 @@
-﻿using System.Threading;
-
-namespace GitLooker.Configuration
+﻿namespace GitLooker.Configuration
 {
     public interface IRepoControlConfiguration
     {
