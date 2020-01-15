@@ -28,6 +28,10 @@ namespace GitLooker
         internal bool IsNew { get; private set; }
         internal string RepoConfiguration { get; private set; }
 
+        public delegate void SelectRepo(RepoControl control);
+        public event SelectRepo OnSelectRepo;
+        public string RepoPath => repoPath;
+
         public RepoControl(IRepoControlConfiguration repoConfiguration, IRepoCommandProcessor commandProcessor, Control endControl)
         {
             InitializeComponent();
@@ -244,6 +248,8 @@ namespace GitLooker
             int indexOfcontrol = endControl.Parent.Controls.GetChildIndex(endControl);
             if (indexOfcontrol > indexOfThis) indexOfThis++;
             endControl.Parent.Controls.SetChildIndex(endControl, indexOfThis - 1);
+
+            label1_DoubleClick(default, default);
         }
 
         private void PullRepoProcess(string currentBranch)
@@ -303,5 +309,11 @@ namespace GitLooker
         }
 
         private void label1_Click(object sender, EventArgs e) => MarkControl();
+
+        private void label1_DoubleClick(object sender, EventArgs e)
+        {
+            if (OnSelectRepo != default)
+                OnSelectRepo(this);
+        }
     }
 }

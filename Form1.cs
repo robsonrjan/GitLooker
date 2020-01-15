@@ -29,6 +29,7 @@ namespace GitLooker
         internal static List<string> ExpectedRemoteList;
         private bool isLoaded;
         private string mainBranch = "master";
+        private RepoControl currentRepo;
 
         public Form1()
         {
@@ -78,6 +79,10 @@ namespace GitLooker
 
             if (!int.TryParse(ConfigurationManager.AppSettings["intervalUpdateCheckHour"], out intervalUpdateCheckHour))
                 intervalUpdateCheckHour = 0;
+
+            toolStripTextBox2.Text = ConfigurationManager.AppSettings["command"];
+            toolStripTextBox3.Text = ConfigurationManager.AppSettings["arguments"];
+
             SetMenueCheckerValue();
 
             semaphore = new AppSemaphoreSlim(repoProcessingCount);
@@ -88,6 +93,7 @@ namespace GitLooker
                 GenerateAndUpdateRepos();
 
             this.Text += $"    ver.{AppVersion.AssemblyVersion}";
+            this.notifyIcon1.Text = this.Text;
             isLoaded = true;
         }
 
@@ -147,10 +153,17 @@ namespace GitLooker
             powerShell = new PowersShell();
             commandProcessor = new CommandProcessor.RepoCommandProcessor(powerShell);
             var repo = new RepoControl(repoConfiguration, commandProcessor, endControl);
+            repo.OnSelectRepo += Repo_OnSelectRepo;
             repo.Dock = DockStyle.Top;
             allReposControl.Add(repo);
             this.panel1.Controls.Add(repo);
             Application.DoEvents();
+        }
+
+        private void Repo_OnSelectRepo(RepoControl control)
+        {
+            currentRepo = control;
+            currentRepo.ContextMenuStrip = this.contextMenuStrip1;
         }
 
         private void CheckToolStripMenuItem_Click(object sender, EventArgs e)
@@ -370,6 +383,33 @@ namespace GitLooker
                 Clear();
                 GenerateAndUpdateRepos();
             }
+        }
+
+        private void toolStripMenuItem7_Click(object sender, EventArgs e)
+        {
+            if(currentRepo != default)
+                System.Diagnostics.Process.Start("explorer", currentRepo.RepoPath);
+        }
+
+        private void toolStripTextBox2_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                fileToolStripMenuItem.HideDropDown();
+
+                var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+                config.AppSettings.Settings.Remove("command");
+                config.AppSettings.Settings.Add("command", toolStripTextBox2.Text);
+                config.AppSettings.Settings.Remove("arguments");
+                config.AppSettings.Settings.Add("arguments", toolStripTextBox3.Text);
+                config.Save();
+            }
+        }
+
+        private void toolStripMenuItem8_Click(object sender, EventArgs e)
+        {
+            if(!string.IsNullOrWhiteSpace(toolStripTextBox2.Text))
+                System.Diagnostics.Process.Start(toolStripTextBox2.Text, $@"{toolStripTextBox3.Text} ""{currentRepo.RepoPath}""");
         }
     }
 }

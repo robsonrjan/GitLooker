@@ -89,6 +89,7 @@
             this.label1.Text = "label1";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.label1.Click += new System.EventHandler(this.label1_Click);
+            this.label1.DoubleClick += new System.EventHandler(this.label1_DoubleClick);
             // 
             // label2
             // 
@@ -101,6 +102,7 @@
             this.label2.Text = "...";
             this.label2.TextAlign = System.Drawing.ContentAlignment.TopRight;
             this.label2.Click += new System.EventHandler(this.label1_Click);
+            this.label2.DoubleClick += new System.EventHandler(this.label1_DoubleClick);
             // 
             // button2
             // 
