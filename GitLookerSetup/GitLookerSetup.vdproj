@@ -323,7 +323,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:GitLookerSetup"
         "ProductCode" = "8:{6611A0E9-5ADB-4EFD-8688-5B178F50B8A1}"
-        "PackageCode" = "8:{5EDF1D69-8A11-4D4E-AD7F-DD0200639116}"
+        "PackageCode" = "8:{94EC5262-32C3-41F1-BA81-898E398A4656}"
         "UpgradeCode" = "8:{E0F1D824-8150-4EA3-BA55-357639F8A869}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
