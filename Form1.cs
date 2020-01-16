@@ -411,5 +411,16 @@ namespace GitLooker
             if(!string.IsNullOrWhiteSpace(toolStripTextBox2.Text))
                 System.Diagnostics.Process.Start(toolStripTextBox2.Text, $@"{toolStripTextBox3.Text} ""{currentRepo.RepoPath}""");
         }
+
+        private void updateStatusToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (currentRepo != default)
+                currentRepo.UpdateRepoInfo();
+        }
+
+        private void contextMenuStrip1_Opening(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            toolStripMenuItem8.Text = $"Execute {toolStripTextBox2.Text.Split('\\').Last()}";
+        }
     }
 }

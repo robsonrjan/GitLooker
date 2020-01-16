@@ -63,6 +63,8 @@
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItem7 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem8 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem12 = new System.Windows.Forms.ToolStripMenuItem();
+            this.updateStatusToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
@@ -100,7 +102,8 @@
             this.toolStripMenuItem10,
             this.toolStripTextBox2,
             this.toolStripMenuItem11,
-            this.toolStripTextBox3});
+            this.toolStripTextBox3,
+            this.toolStripMenuItem12});
             this.fileToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(41, 23);
@@ -121,6 +124,7 @@
             // toolStripMenuItem3
             // 
             this.toolStripMenuItem3.Enabled = false;
+            this.toolStripMenuItem3.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
             this.toolStripMenuItem3.Size = new System.Drawing.Size(310, 24);
             this.toolStripMenuItem3.Text = "Autocheck every: ";
@@ -135,7 +139,7 @@
             "3 hours",
             "4 hours"});
             this.toolStripComboBox1.Name = "toolStripComboBox1";
-            this.toolStripComboBox1.Size = new System.Drawing.Size(121, 25);
+            this.toolStripComboBox1.Size = new System.Drawing.Size(250, 25);
             this.toolStripComboBox1.Text = "none";
             this.toolStripComboBox1.SelectedIndexChanged += new System.EventHandler(this.toolStripComboBox1_Click);
             // 
@@ -147,6 +151,7 @@
             // toolStripMenuItem5
             // 
             this.toolStripMenuItem5.Enabled = false;
+            this.toolStripMenuItem5.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
             this.toolStripMenuItem5.Name = "toolStripMenuItem5";
             this.toolStripMenuItem5.Size = new System.Drawing.Size(310, 24);
             this.toolStripMenuItem5.Text = "Main branch:";
@@ -155,7 +160,7 @@
             // 
             this.toolStripTextBox1.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.toolStripTextBox1.Name = "toolStripTextBox1";
-            this.toolStripTextBox1.Size = new System.Drawing.Size(100, 23);
+            this.toolStripTextBox1.Size = new System.Drawing.Size(250, 23);
             this.toolStripTextBox1.Text = "master";
             this.toolStripTextBox1.KeyUp += new System.Windows.Forms.KeyEventHandler(this.toolStripTextBox1_KeyUp);
             // 
@@ -166,6 +171,7 @@
             // 
             // toolStripMenuItem9
             // 
+            this.toolStripMenuItem9.Enabled = false;
             this.toolStripMenuItem9.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
             this.toolStripMenuItem9.Name = "toolStripMenuItem9";
             this.toolStripMenuItem9.Size = new System.Drawing.Size(310, 24);
@@ -182,6 +188,7 @@
             this.toolStripTextBox2.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.toolStripTextBox2.Name = "toolStripTextBox2";
             this.toolStripTextBox2.Size = new System.Drawing.Size(250, 23);
+            this.toolStripTextBox2.KeyUp += new System.Windows.Forms.KeyEventHandler(this.toolStripTextBox2_KeyUp);
             // 
             // toolStripMenuItem11
             // 
@@ -314,9 +321,11 @@
             // 
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItem7,
-            this.toolStripMenuItem8});
+            this.toolStripMenuItem8,
+            this.updateStatusToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(181, 70);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(181, 92);
+            this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
             // 
             // toolStripMenuItem7
             // 
@@ -331,6 +340,21 @@
             this.toolStripMenuItem8.Size = new System.Drawing.Size(180, 22);
             this.toolStripMenuItem8.Text = "Execute command";
             this.toolStripMenuItem8.Click += new System.EventHandler(this.toolStripMenuItem8_Click);
+            // 
+            // toolStripMenuItem12
+            // 
+            this.toolStripMenuItem12.Enabled = false;
+            this.toolStripMenuItem12.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Italic);
+            this.toolStripMenuItem12.Name = "toolStripMenuItem12";
+            this.toolStripMenuItem12.Size = new System.Drawing.Size(310, 24);
+            this.toolStripMenuItem12.Text = "to save press ENTER";
+            // 
+            // updateStatusToolStripMenuItem
+            // 
+            this.updateStatusToolStripMenuItem.Name = "updateStatusToolStripMenuItem";
+            this.updateStatusToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.updateStatusToolStripMenuItem.Text = "Update status";
+            this.updateStatusToolStripMenuItem.Click += new System.EventHandler(this.updateStatusToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -395,6 +419,8 @@
         private System.Windows.Forms.ToolStripTextBox toolStripTextBox2;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem11;
         private System.Windows.Forms.ToolStripTextBox toolStripTextBox3;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem12;
+        private System.Windows.Forms.ToolStripMenuItem updateStatusToolStripMenuItem;
     }
 }
 
