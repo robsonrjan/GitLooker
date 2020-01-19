@@ -429,10 +429,8 @@ namespace GitLooker
         }
 
         private void toolStripTextBox4_KeyUp(object sender, KeyEventArgs e)
-        {
-            if (string.IsNullOrWhiteSpace(toolStripTextBox4.Text))
-                toolStripTextBox4.Text = "repo filter";
-            else if (e.KeyCode == Keys.Enter)
+        {            
+            if (e.KeyCode == Keys.Enter)
             {
                 var filterRepo = allReposControl.Where(r => r.RepoName.ToLower().Contains(toolStripTextBox4.Text.ToLower())).OrderByDescending(r => r.RepoName);
                 foreach (var repo in filterRepo)
