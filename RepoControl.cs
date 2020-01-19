@@ -31,6 +31,7 @@ namespace GitLooker
         public delegate void SelectRepo(RepoControl control);
         public event SelectRepo OnSelectRepo;
         public string RepoPath => repoPath;
+        public string RepoName { get; }
 
         public RepoControl(IRepoControlConfiguration repoConfiguration, IRepoCommandProcessor commandProcessor, Control endControl)
         {
@@ -38,6 +39,7 @@ namespace GitLooker
             this.label1.Text = this.repoPath = repoConfiguration?.RepoPath ?? string.Empty;
             this.commandProcessor = commandProcessor;
             this.endControl = endControl;
+            RepoName = this.repoPath?.Split('\\').LastOrDefault() ?? string.Empty;
 
             workingDir = new DirectoryInfo(repoPath);
             this.label1.Text = workingDir.Name;

@@ -45,6 +45,7 @@
             this.toolStripTextBox2 = new System.Windows.Forms.ToolStripTextBox();
             this.toolStripMenuItem11 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripTextBox3 = new System.Windows.Forms.ToolStripTextBox();
+            this.toolStripMenuItem12 = new System.Windows.Forms.ToolStripMenuItem();
             this.checkToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.configurationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -63,8 +64,8 @@
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItem7 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem8 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem12 = new System.Windows.Forms.ToolStripMenuItem();
             this.updateStatusToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripTextBox4 = new System.Windows.Forms.ToolStripTextBox();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
@@ -79,11 +80,12 @@
             this.toolStripMenuItem1,
             this.configurationToolStripMenuItem,
             this.toolStripMenuItem2,
-            this.toolStripMenuItem4});
+            this.toolStripMenuItem4,
+            this.toolStripTextBox4});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(9, 3, 0, 3);
-            this.menuStrip1.Size = new System.Drawing.Size(484, 29);
+            this.menuStrip1.Size = new System.Drawing.Size(584, 29);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -203,6 +205,14 @@
             this.toolStripTextBox3.Size = new System.Drawing.Size(250, 23);
             this.toolStripTextBox3.KeyUp += new System.Windows.Forms.KeyEventHandler(this.toolStripTextBox2_KeyUp);
             // 
+            // toolStripMenuItem12
+            // 
+            this.toolStripMenuItem12.Enabled = false;
+            this.toolStripMenuItem12.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Italic);
+            this.toolStripMenuItem12.Name = "toolStripMenuItem12";
+            this.toolStripMenuItem12.Size = new System.Drawing.Size(310, 24);
+            this.toolStripMenuItem12.Text = "to save press ENTER";
+            // 
             // checkToolStripMenuItem
             // 
             this.checkToolStripMenuItem.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
@@ -281,7 +291,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 31);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(484, 630);
+            this.panel1.Size = new System.Drawing.Size(584, 730);
             this.panel1.TabIndex = 1;
             // 
             // endControl
@@ -290,7 +300,7 @@
             this.endControl.Dock = System.Windows.Forms.DockStyle.Top;
             this.endControl.Location = new System.Drawing.Point(0, 0);
             this.endControl.Name = "endControl";
-            this.endControl.Size = new System.Drawing.Size(484, 1);
+            this.endControl.Size = new System.Drawing.Size(584, 1);
             this.endControl.TabIndex = 3;
             // 
             // panel2
@@ -299,7 +309,7 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel2.Location = new System.Drawing.Point(0, 29);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(484, 2);
+            this.panel2.Size = new System.Drawing.Size(584, 2);
             this.panel2.TabIndex = 2;
             // 
             // timer1
@@ -324,43 +334,46 @@
             this.toolStripMenuItem8,
             this.updateStatusToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(181, 92);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(174, 70);
             this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
             // 
             // toolStripMenuItem7
             // 
             this.toolStripMenuItem7.Name = "toolStripMenuItem7";
-            this.toolStripMenuItem7.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItem7.Size = new System.Drawing.Size(173, 22);
             this.toolStripMenuItem7.Text = "Open folder";
             this.toolStripMenuItem7.Click += new System.EventHandler(this.toolStripMenuItem7_Click);
             // 
             // toolStripMenuItem8
             // 
             this.toolStripMenuItem8.Name = "toolStripMenuItem8";
-            this.toolStripMenuItem8.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItem8.Size = new System.Drawing.Size(173, 22);
             this.toolStripMenuItem8.Text = "Execute command";
             this.toolStripMenuItem8.Click += new System.EventHandler(this.toolStripMenuItem8_Click);
-            // 
-            // toolStripMenuItem12
-            // 
-            this.toolStripMenuItem12.Enabled = false;
-            this.toolStripMenuItem12.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Italic);
-            this.toolStripMenuItem12.Name = "toolStripMenuItem12";
-            this.toolStripMenuItem12.Size = new System.Drawing.Size(310, 24);
-            this.toolStripMenuItem12.Text = "to save press ENTER";
             // 
             // updateStatusToolStripMenuItem
             // 
             this.updateStatusToolStripMenuItem.Name = "updateStatusToolStripMenuItem";
-            this.updateStatusToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.updateStatusToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
             this.updateStatusToolStripMenuItem.Text = "Update status";
             this.updateStatusToolStripMenuItem.Click += new System.EventHandler(this.updateStatusToolStripMenuItem_Click);
+            // 
+            // toolStripTextBox4
+            // 
+            this.toolStripTextBox4.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Italic);
+            this.toolStripTextBox4.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.toolStripTextBox4.Name = "toolStripTextBox4";
+            this.toolStripTextBox4.Size = new System.Drawing.Size(120, 23);
+            this.toolStripTextBox4.Text = "repo filter";
+            this.toolStripTextBox4.Enter += new System.EventHandler(this.toolStripTextBox4_Enter);
+            this.toolStripTextBox4.Leave += new System.EventHandler(this.toolStripTextBox4_Leave);
+            this.toolStripTextBox4.KeyUp += new System.Windows.Forms.KeyEventHandler(this.toolStripTextBox4_KeyUp);
             // 
             // Form1
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(484, 661);
+            this.ClientSize = new System.Drawing.Size(584, 761);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.menuStrip1);
@@ -421,6 +434,7 @@
         private System.Windows.Forms.ToolStripTextBox toolStripTextBox3;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem12;
         private System.Windows.Forms.ToolStripMenuItem updateStatusToolStripMenuItem;
+        private System.Windows.Forms.ToolStripTextBox toolStripTextBox4;
     }
 }
 

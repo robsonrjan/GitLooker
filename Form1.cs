@@ -387,7 +387,7 @@ namespace GitLooker
 
         private void toolStripMenuItem7_Click(object sender, EventArgs e)
         {
-            if(currentRepo != default)
+            if (currentRepo != default)
                 System.Diagnostics.Process.Start("explorer", currentRepo.RepoPath);
         }
 
@@ -408,8 +408,12 @@ namespace GitLooker
 
         private void toolStripMenuItem8_Click(object sender, EventArgs e)
         {
-            if(!string.IsNullOrWhiteSpace(toolStripTextBox2.Text))
-                System.Diagnostics.Process.Start(toolStripTextBox2.Text, $@"{toolStripTextBox3.Text} ""{currentRepo.RepoPath}""");
+            try
+            {
+                if (!string.IsNullOrWhiteSpace(toolStripTextBox2.Text))
+                    System.Diagnostics.Process.Start(toolStripTextBox2.Text, $@"{toolStripTextBox3.Text} ""{currentRepo.RepoPath}""");
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error); }
         }
 
         private void updateStatusToolStripMenuItem_Click(object sender, EventArgs e)
@@ -420,7 +424,32 @@ namespace GitLooker
 
         private void contextMenuStrip1_Opening(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            toolStripMenuItem8.Text = $"Execute {toolStripTextBox2.Text.Split('\\').Last()}";
+            if (toolStripMenuItem8.Visible = !string.IsNullOrWhiteSpace(toolStripTextBox2.Text))
+                toolStripMenuItem8.Text = $"Execute {toolStripTextBox2.Text.Split('\\').Last()}";
+        }
+
+        private void toolStripTextBox4_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(toolStripTextBox4.Text))
+                toolStripTextBox4.Text = "repo filter";
+            else if (e.KeyCode == Keys.Enter)
+            {
+                var filterRepo = allReposControl.Where(r => r.RepoName.ToLower().Contains(toolStripTextBox4.Text.ToLower())).OrderByDescending(r => r.RepoName);
+                foreach (var repo in filterRepo)
+                    repo.SendToBack();
+            }
+        }
+
+        private void toolStripTextBox4_Enter(object sender, EventArgs e)
+        {
+            if (toolStripTextBox4.Text == "repo filter")
+                toolStripTextBox4.Text = "";
+        }
+
+        private void toolStripTextBox4_Leave(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(toolStripTextBox4.Text))
+                toolStripTextBox4.Text = "repo filter";
         }
     }
 }
