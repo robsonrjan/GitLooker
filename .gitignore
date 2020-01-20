@@ -14,7 +14,6 @@ dist/
 downloads/
 eggs/
 .eggs/
-lib/
 lib64/
 parts/
 sdist/
@@ -129,3 +128,7 @@ dmypy.json
 /GitLookerSetup/obj
 /obj/
 /publish/
+/Lib/GitLooker.Core/bin
+/Lib/GitLooker.Core/obj
+/Lib/GitLooker.Services/bin
+/Lib/GitLooker.Services/obj/
