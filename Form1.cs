@@ -1,11 +1,10 @@
-﻿using GitLooker.CommandProcessor;
-using GitLooker.Configuration;
+﻿using GitLooker.Core.Configuration;
+using GitLooker.Core.Services;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.IO;
 using System.Linq;
-using System.Runtime.Serialization.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -14,30 +13,36 @@ namespace GitLooker
 {
     public partial class Form1 : Form
     {
-        private const string repoFileConfigurationName = "repos.json";
-        private const int maxPandingGitOperations = 3;
-        private int repoProcessingCount;
+        private readonly IAppConfiguration appConfiguration;
+        private readonly IAppSemaphoreSlim semaphore;
+        private readonly IServiceProvider serviceProvider;
+
         private string chosenPath = string.Empty;
-        private IAppSemaphoreSlim semaphore;
-        private IRepoControlConfiguration repoConfiguration;
-        private IPowersShell powerShell;
-        private IRepoCommandProcessor commandProcessor;
         private List<RepoControl> allReposControl;
         private int intervalUpdateCheckHour;
         private DateTime lastTimeUpdate;
-        internal static List<string> RepoRemoteList;
-        internal static List<string> ExpectedRemoteList;
         private bool isLoaded;
         private string mainBranch = "master";
         private RepoControl currentRepo;
 
-        public Form1()
+        internal static List<string> RepoRemoteList;
+        internal static List<string> ExpectedRemoteList;
+
+        public Panel EndControl => endControl;
+        public string CurrentRepoDdir { get; private set; }
+        public string CurrentNewRepo { get; private set; }
+
+        public Form1(IServiceProvider serviceProvider, IAppSemaphoreSlim appSemaphoreSlim, IAppConfiguration appConfiguration)
         {
             InitializeComponent();
             RepoRemoteList = new List<string>();
             ExpectedRemoteList = new List<string>();
             allReposControl = new List<RepoControl>();
             lastTimeUpdate = DateTime.UtcNow;
+            semaphore = appSemaphoreSlim;
+            semaphore.OnUse += SemaphoreIsUsed;
+            this.appConfiguration = appConfiguration;
+            this.serviceProvider = serviceProvider;
         }
 
         private void SetWorkingPathToolStripMenuItem_Click(object sender, EventArgs e)
@@ -45,18 +50,18 @@ namespace GitLooker
             if (!string.IsNullOrEmpty(chosenPath))
                 folderBrowserDialog1.SelectedPath = chosenPath;
 
-            var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
             folderBrowserDialog1.ShowDialog();
             var path = folderBrowserDialog1.SelectedPath;
             if (!string.IsNullOrEmpty(path) && (chosenPath != path))
             {
                 Clear();
                 chosenPath = path;
-                config.AppSettings.Settings.Remove("GirLookerPath");
-                config.AppSettings.Settings.Add("GirLookerPath", chosenPath);
-                config.Save();
+                var dataToSave = new Dictionary<string, object>();
+                dataToSave.Add("GirLookerPath", chosenPath);
+                appConfiguration.Save(dataToSave);
                 GenerateAndUpdateRepos();
             }
+
         }
 
         private void Clear()
@@ -71,22 +76,12 @@ namespace GitLooker
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            chosenPath = ConfigurationManager.AppSettings["GirLookerPath"];
-            if (!int.TryParse(ConfigurationManager.AppSettings["repoProcessingCount"], out repoProcessingCount))
-                repoProcessingCount = maxPandingGitOperations;
-
-            mainBranch = ConfigurationManager.AppSettings["mainBranch"] ?? "master";
-
-            if (!int.TryParse(ConfigurationManager.AppSettings["intervalUpdateCheckHour"], out intervalUpdateCheckHour))
-                intervalUpdateCheckHour = 0;
-
-            toolStripTextBox2.Text = ConfigurationManager.AppSettings["command"];
-            toolStripTextBox3.Text = ConfigurationManager.AppSettings["arguments"];
-
+            chosenPath = appConfiguration.GirLookerPath;
+            mainBranch = appConfiguration.MainBranch;
+            intervalUpdateCheckHour = appConfiguration.IntervalUpdateCheckHour;
+            toolStripTextBox2.Text = appConfiguration.Command;
+            toolStripTextBox3.Text = appConfiguration.Arguments;
             SetMenueCheckerValue();
-
-            semaphore = new AppSemaphoreSlim(repoProcessingCount);
-            semaphore.OnUse += SemaphoreIsUsed;
             ReadRepositoriumConfiguration();
 
             if (!string.IsNullOrEmpty(chosenPath))
@@ -116,15 +111,8 @@ namespace GitLooker
             notifyIcon1.ShowBalloonTip(3000);
         }
 
-        private static void ReadRepositoriumConfiguration()
-        {
-            if (File.Exists(repoFileConfigurationName))
-            {
-                var jsonserializer = new DataContractJsonSerializer(typeof(List<string>));
-                using (var stream = File.OpenRead(repoFileConfigurationName))
-                    ExpectedRemoteList = (List<string>)jsonserializer.ReadObject(stream);
-            }
-        }
+        private void ReadRepositoriumConfiguration() => ExpectedRemoteList = appConfiguration.ExpectedRemoteRepos;
+
 
         private void GenerateAndUpdateRepos()
         {
@@ -149,10 +137,9 @@ namespace GitLooker
 
         private void CheckRepo(string repoDdir, string newRepo = default(string))
         {
-            repoConfiguration = new RepoControlConfiguration(repoDdir, semaphore, newRepo, mainBranch);
-            powerShell = new PowersShell();
-            commandProcessor = new CommandProcessor.RepoCommandProcessor(powerShell);
-            var repo = new RepoControl(repoConfiguration, commandProcessor, endControl);
+            CurrentRepoDdir = repoDdir;
+            CurrentNewRepo = newRepo;
+            var repo = serviceProvider.GetService<RepoControl>();
             repo.OnSelectRepo += Repo_OnSelectRepo;
             repo.Dock = DockStyle.Top;
             allReposControl.Add(repo);
@@ -209,27 +196,19 @@ namespace GitLooker
             repoList.repoText.Lines = ExpectedRemoteList.ToArray();
             repoList.ShowDialog();
 
-            if (File.Exists(repoFileConfigurationName))
-                File.Delete(repoFileConfigurationName);
-
             ExpectedRemoteList = repoList.repoText.Lines.Select(ToLower).Distinct().ToList();
-            var jsonserializer = new DataContractJsonSerializer(typeof(List<string>));
-
-            using (var stream = File.OpenWrite(repoFileConfigurationName))
-                jsonserializer.WriteObject(stream, ExpectedRemoteList);
-
+            appConfiguration.ExpectedRemoteRepos = ExpectedRemoteList;
         }
 
         private async void toolStripMenuItem2_Click(object sender, EventArgs e)
         {
-            var pwShell = new PowersShell();
-            var commandProc = new CommandProcessor.RepoCommandProcessor(powerShell);
+            var commandProc = serviceProvider.GetService<IRepoCommandProcessor>();
 
             await CloneNewRepo(commandProc);
             toolStripMenuItem2.Visible = false;
         }
 
-        private async Task CloneNewRepo(CommandProcessor.RepoCommandProcessor commandProc)
+        private async Task CloneNewRepo(IRepoCommandProcessor commandProc)
         {
             List<Task> runningClons = new List<Task>();
             try
@@ -257,7 +236,7 @@ namespace GitLooker
 
         private async Task WaitLeaveOne()
         {
-            while (semaphore.CurrentCount != 1)
+            while (semaphore.CurrentCount > 1)
                 await semaphore.WaitAsync();
         }
 
@@ -267,7 +246,7 @@ namespace GitLooker
                 semaphore.Release();
         }
 
-        private void CloneRepoProcess(RepoCommandProcessor commandProc, RepoControl ctr)
+        private void CloneRepoProcess(IRepoCommandProcessor commandProc, RepoControl ctr)
         {
             try
             {
@@ -351,10 +330,9 @@ namespace GitLooker
                     intervalUpdateCheckHour = 0;
                     break;
             }
-            var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-            config.AppSettings.Settings.Remove("intervalUpdateCheckHour");
-            config.AppSettings.Settings.Add("intervalUpdateCheckHour", intervalUpdateCheckHour.ToString());
-            config.Save();
+            var settingToSave = new Dictionary<string, object>();
+            settingToSave.Add("intervalUpdateCheckHour", intervalUpdateCheckHour);
+            appConfiguration.Save(settingToSave);
 
             fileToolStripMenuItem.HideDropDown();
         }
@@ -375,10 +353,11 @@ namespace GitLooker
                 mainBranch = toolStripTextBox1.Text;
                 fileToolStripMenuItem.HideDropDown();
 
-                var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-                config.AppSettings.Settings.Remove("mainBranch");
-                config.AppSettings.Settings.Add("mainBranch", mainBranch);
-                config.Save();
+                var settingToSave = new Dictionary<string, object>();
+                settingToSave.Add("mainBranch", mainBranch);
+                appConfiguration.Save(settingToSave);
+
+                fileToolStripMenuItem.HideDropDown();
 
                 Clear();
                 GenerateAndUpdateRepos();
@@ -397,12 +376,10 @@ namespace GitLooker
             {
                 fileToolStripMenuItem.HideDropDown();
 
-                var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-                config.AppSettings.Settings.Remove("command");
-                config.AppSettings.Settings.Add("command", toolStripTextBox2.Text);
-                config.AppSettings.Settings.Remove("arguments");
-                config.AppSettings.Settings.Add("arguments", toolStripTextBox3.Text);
-                config.Save();
+                var settingToSave = new Dictionary<string, object>();
+                settingToSave.Add("command", toolStripTextBox2.Text);
+                settingToSave.Add("arguments", toolStripTextBox3.Text);
+                appConfiguration.Save(settingToSave);
             }
         }
 
@@ -429,7 +406,7 @@ namespace GitLooker
         }
 
         private void toolStripTextBox4_KeyUp(object sender, KeyEventArgs e)
-        {            
+        {
             if (e.KeyCode == Keys.Enter)
             {
                 var filterRepo = allReposControl.Where(r => r.RepoName.ToLower().Contains(toolStripTextBox4.Text.ToLower())).OrderByDescending(r => r.RepoName);

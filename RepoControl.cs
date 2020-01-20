@@ -1,5 +1,4 @@
-﻿using GitLooker.CommandProcessor;
-using GitLooker.Configuration;
+﻿using GitLooker.Core.Services;
 using System;
 using System.Collections.Generic;
 using System.Drawing;

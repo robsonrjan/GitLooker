@@ -1,19 +1,32 @@
-﻿using System;
+﻿using GitLooker.CompositionRoot;
+using GitLooker.Core.Services;
+using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Windows.Forms;
 
 namespace GitLooker
 {
     static class Program
     {
-        /// <summary>
-        /// The main entry point for the application.
-        /// </summary>
         [STAThread]
-        static void Main()
+        static void Main(string[] arg)
+        {
+            BeforeStart();
+
+            IServiceCollection servises = new ServiceCollection();
+            servises.AddApp();
+
+            using (var servisesProvider = servises.BuildServiceProvider())
+            {
+                var appService = servisesProvider.GetService<IAppService>();
+                appService.StartApp(arg);
+            }
+        }
+
+        private static void BeforeStart()
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
         }
     }
 }
