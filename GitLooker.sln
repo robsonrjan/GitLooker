@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29215.179
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GitLooker", "GitLooker.csproj", "{7D3DB575-1FB8-45A0-BD83-C300321BC3FC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GitLooker", "GitLooker\GitLooker.csproj", "{7D3DB575-1FB8-45A0-BD83-C300321BC3FC}"
 EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "GitLookerSetup", "GitLookerSetup\GitLookerSetup.vdproj", "{C9440298-5D6B-4EBB-BC48-0E9215333D53}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GitLooker.Core", "Lib\GitLooker.Core\GitLooker.Core.csproj", "{ECF7B194-EAED-4023-AF60-A1C50E30E966}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GitLooker.Core", "GitLooker.Core\GitLooker.Core.csproj", "{ECF7B194-EAED-4023-AF60-A1C50E30E966}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GitLooker.Services", "Lib\GitLooker.Services\GitLooker.Services.csproj", "{3AFF7E45-F071-47C5-AB02-D892188DD44B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GitLooker.Services", "GitLooker.Services\GitLooker.Services.csproj", "{3AFF7E45-F071-47C5-AB02-D892188DD44B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -132,3 +132,9 @@ dmypy.json
 /Lib/GitLooker.Core/obj
 /Lib/GitLooker.Services/bin
 /Lib/GitLooker.Services/obj/
+/GitLooker.Core/bin/
+/GitLooker.Core/obj/
+/GitLooker.Services/bin/
+/GitLooker.Services/obj/
+/GitLooker/bin/
+/GitLooker/obj/
