@@ -2,6 +2,7 @@
 using GitLooker.Core.Services;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.IO;
 using System.Windows.Forms;
 
 namespace GitLooker
@@ -11,15 +12,22 @@ namespace GitLooker
         [STAThread]
         static void Main(string[] arg)
         {
-            BeforeStart();
-
-            IServiceCollection servises = new ServiceCollection();
-            servises.AddApp();
-
-            using (var servisesProvider = servises.BuildServiceProvider())
+            try
             {
-                var appService = servisesProvider.GetService<IAppService>();
-                appService.StartApp(arg);
+                BeforeStart();
+
+                IServiceCollection servises = new ServiceCollection();
+                servises.AddApp();
+
+                using (var servisesProvider = servises.BuildServiceProvider())
+                {
+                    var appService = servisesProvider.GetService<IAppService>();
+                    appService.StartApp(arg);
+                }
+            }
+            catch(Exception ex)
+            {
+                File.WriteAllText("LogError.log", ex.ToString());
             }
         }
 

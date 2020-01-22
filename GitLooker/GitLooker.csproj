@@ -50,7 +50,7 @@
     <RunCodeAnalysis>true</RunCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x86</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -203,16 +203,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\GitLooker.Core\GitLooker.Core.csproj">
-      <Project>{ecf7b194-eaed-4023-af60-a1c50e30e966}</Project>
-      <Name>GitLooker.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\GitLooker.Services\GitLooker.Services.csproj">
-      <Project>{3aff7e45-f071-47c5-ab02-d892188dd44b}</Project>
-      <Name>GitLooker.Services</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.DependencyInjection">
       <Version>3.1.1</Version>
     </PackageReference>
@@ -228,6 +218,16 @@
     <PackageReference Include="System.Threading.Tasks.Extensions">
       <Version>4.5.3</Version>
     </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GitLooker.Core\GitLooker.Core.csproj">
+      <Project>{ecf7b194-eaed-4023-af60-a1c50e30e966}</Project>
+      <Name>GitLooker.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GitLooker.Services\GitLooker.Services.csproj">
+      <Project>{3aff7e45-f071-47c5-ab02-d892188dd44b}</Project>
+      <Name>GitLooker.Services</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
