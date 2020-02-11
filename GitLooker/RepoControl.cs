@@ -162,9 +162,13 @@ namespace GitLooker
         private bool CheckIfExist(IEnumerable<string> responseValue)
         {
             bool returnValue = true;
-            if (responseValue.Any(respound => respound.ToLower().Contains("repository not found") ||
-            respound.ToLower().Contains("does not exist or you do not have permissions") ||
-            respound.ToLower().Contains("fatal: repository")))
+            if (responseValue.Any(respound => respound.ToLower().Contains("repository not found")
+            ||
+            respound.ToLower().Contains("does not exist or you do not have permissions")
+            ||
+            respound.ToLower().Contains("fatal: repository")
+            ||
+            respound.ToLower().Contains("received http code 403 from")))
             {
                 returnValue = false;
                 this.Invoke(new Action(() =>
