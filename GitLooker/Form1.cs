@@ -158,7 +158,10 @@ namespace GitLooker
             lastTimeUpdate = DateTime.UtcNow;
             toolStripMenuItem4.Text = $"Updated: {lastTimeUpdate.ToLocalTime().ToString("HH:mm dddd")}";
             CheackAndRemovedNewRepos();
-            allReposControl.ForEach(cntr => cntr.UpdateRepoInfo());
+
+            allReposControl.OrderByDescending(c => c.Parent.Controls.GetChildIndex(c))
+                .ToList()
+                .ForEach(cntr => cntr.UpdateRepoInfo());
         }
 
         private void CheackAndRemovedNewRepos()
