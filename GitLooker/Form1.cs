@@ -158,9 +158,19 @@ namespace GitLooker
             lastTimeUpdate = DateTime.UtcNow;
             toolStripMenuItem4.Text = $"Updated: {lastTimeUpdate.ToLocalTime().ToString("HH:mm dddd")}";
             CheackAndRemovedNewRepos();
+            DeleteDisposedRepos();
 
             foreach (var cntr in allReposControl.OrderByDescending(c => c.Parent.Controls.GetChildIndex(c)))
                 cntr.UpdateRepoInfo();
+        }
+
+        private void DeleteDisposedRepos()
+        {
+            foreach (var ctr in allReposControl.Where(c => c.Parent == null).ToList())
+            {
+                allReposControl.Remove(ctr);
+                ctr.Dispose();
+            }
         }
 
         private void CheackAndRemovedNewRepos()
@@ -260,8 +270,8 @@ namespace GitLooker
                 {
                     this.Invoke(new Action(() =>
                     {
-                        CheckRepo(repoPath);
-                        ctr.Dispose();
+                        ctr.Dispose();                        
+                        CheckRepo(repoPath);                        
                     }), null);
                 }
                 else
@@ -274,6 +284,7 @@ namespace GitLooker
             {
                 semaphore.Release();
             }
+            ctr.Dispose();
         }
 
         private void RemoveUnUsed(RepoControl ctr)
