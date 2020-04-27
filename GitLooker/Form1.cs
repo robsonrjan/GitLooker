@@ -216,20 +216,20 @@ namespace GitLooker
         {
             var commandProc = serviceProvider.GetService<IRepoCommandProcessor>();
 
-            await CloneNewRepo(commandProc);
+            await CloneNewRepoAsync(commandProc);
             toolStripMenuItem2.Visible = false;
         }
 
-        private async Task CloneNewRepo(IRepoCommandProcessor commandProc)
+        private async Task CloneNewRepoAsync(IRepoCommandProcessor commandProc)
         {
             List<Task> runningClons = new List<Task>();
             try
             {
-                await WaitLeaveOne();
+                await WaitLeaveOneAsync();
                 allReposControl.Where(ctr => ctr.IsNew).ToList()
                     .ForEach(ctr => runningClons.Add(Task.Run(() => CloneRepoProcess(commandProc, ctr))));
 
-                Task.Run(() => UpdateCloneRepos(runningClons));
+                Task.Run(() => UpdateCloneReposAsync(runningClons));
             }
             catch (Exception ex)
             {
@@ -237,16 +237,15 @@ namespace GitLooker
             }
         }
 
-        private void UpdateCloneRepos(List<Task> runningClons)
+        private async void UpdateCloneReposAsync(List<Task> runningClons)
         {
-            while (!runningClons.All(t => t.IsCompleted))
-                Thread.Sleep(100);
+            await Task.WhenAll(runningClons);
 
             ReleaceAll();
             CheckToolStripMenuItem_Click(null, null);
         }
 
-        private async Task WaitLeaveOne()
+        private async Task WaitLeaveOneAsync()
         {
             while (semaphore.CurrentCount > 1)
                 await semaphore.WaitAsync();
