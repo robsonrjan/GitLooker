@@ -227,7 +227,7 @@ namespace GitLooker
             {
                 await WaitLeaveOneAsync();
                 allReposControl.Where(ctr => ctr.IsNew).ToList()
-                    .ForEach(ctr => runningClons.Add(Task.Run(() => CloneRepoProcess(commandProc, ctr))));
+                    .ForEach(ctr => runningClons.Add(Task.Run(() => CloneRepoProcessAsync(commandProc, ctr))));
 
                 Task.Run(() => UpdateCloneReposAsync(runningClons));
             }
@@ -257,11 +257,11 @@ namespace GitLooker
                 semaphore.Release();
         }
 
-        private void CloneRepoProcess(IRepoCommandProcessor commandProc, RepoControl ctr)
+        private async Task CloneRepoProcessAsync(IRepoCommandProcessor commandProc, RepoControl ctr)
         {
             try
             {
-                semaphore.Wait();
+                await semaphore.WaitAsync();
                 ctr.Invoke(new Action(() => ctr.HighlightLabel()), null);
                 var result = commandProc.ClonRepo(chosenPath, ctr.RepoConfiguration);
                 var repoPath = $@"{chosenPath}\{ctr.GetNewRepoName}";
