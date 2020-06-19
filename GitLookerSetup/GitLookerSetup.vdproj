@@ -503,11 +503,6 @@
             "AssemblyAsmDisplayName" = "8:Microsoft.Bcl.AsyncInterfaces, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_62EE6D93754941768EB6413007F9BAD5"
-                    {
-                    "Name" = "8:Microsoft.Bcl.AsyncInterfaces.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:..\\GitLooker\\bin\\Release\\Microsoft.Bcl.AsyncInterfaces.dll"
             "TargetName" = "8:"
@@ -627,11 +622,6 @@
             "AssemblyAsmDisplayName" = "8:GitLooker.Services, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86"
                 "ScatterAssemblies"
                 {
-                    "_B43811B502AED06C61FE7DB01462ABDB"
-                    {
-                    "Name" = "8:GitLooker.Services.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:GitLooker.Services.dll"
             "TargetName" = "8:"
@@ -751,11 +741,6 @@
             "AssemblyAsmDisplayName" = "8:GitLooker.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86"
                 "ScatterAssemblies"
                 {
-                    "_F103181FF9E5747CEE4CF2EB35EBE3CD"
-                    {
-                    "Name" = "8:GitLooker.Core.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:GitLooker.Core.dll"
             "TargetName" = "8:"
@@ -935,15 +920,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:GitLookerSetup"
-        "ProductCode" = "8:{26C63FB6-4C7A-414F-B40F-490C5DBA6C8F}"
-        "PackageCode" = "8:{65F94369-B635-4A90-A5E8-21E60BD68FE3}"
+        "ProductCode" = "8:{46C9D4A3-8E0D-4CA7-A445-8AC3A9F38430}"
+        "PackageCode" = "8:{804E6724-6263-4C2F-9179-6D7C3B5D9451}"
         "UpgradeCode" = "8:{E0F1D824-8150-4EA3-BA55-357639F8A869}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:3.0.5"
+        "ProductVersion" = "8:3.0.6"
         "Manufacturer" = "8:Robert Janda"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:https://github.com/robsonrjan/GitLooker"

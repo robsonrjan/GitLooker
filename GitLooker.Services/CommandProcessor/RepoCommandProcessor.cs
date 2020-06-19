@@ -15,6 +15,7 @@ namespace GitLooker.Services.CommandProcessor
         private const string commandPath = "cd \"{0}\"";
         private const string commandRemoteConfig = "git remote -v";
         private const string commandCloneRepo = "git clone {0}";
+        private const string commandCheckOut = "git checkout \"{0}\"";
 
         private readonly IPowersShell powerShell;
 
@@ -53,6 +54,11 @@ namespace GitLooker.Services.CommandProcessor
             commandReset
         });
 
+        private static string GenerateCheckOutCommand(string workingDir, string branch) => string.Join(Environment.NewLine, new[] {
+            string.Format(commandPath, workingDir),
+            string.Format(commandCheckOut, branch)
+        });
+
         public IEnumerable<string> CheckRepo(string workingDir)
         {
             var rtn = powerShell.Execute(GenerateUpdateWithStatusCommand(workingDir));
@@ -84,6 +90,12 @@ namespace GitLooker.Services.CommandProcessor
         public IEnumerable<string> ResetRepo(string workingDi)
         {
             var rtn = powerShell.Execute(GenerateResetCommand(workingDi));
+            return rtn.Select(x => x.ToLower());
+        }
+
+        public IEnumerable<string> CheckOutBranch(string workingDi, string branch)
+        {
+            var rtn = powerShell.Execute(GenerateCheckOutCommand(workingDi, branch));
             return rtn.Select(x => x.ToLower());
         }
     }

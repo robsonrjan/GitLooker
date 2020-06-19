@@ -9,5 +9,6 @@ namespace GitLooker.Core.Services
         IEnumerable<string> ResetRepo(string workingDi);
         string RemoteConfig(string workingDir);
         IEnumerable<string> ClonRepo(string workingDir, string repoConfig);
+        IEnumerable<string> CheckOutBranch(string workingDi, string branch);
     }
 }

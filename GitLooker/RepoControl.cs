@@ -23,6 +23,7 @@ namespace GitLooker
         private bool isConfigured;
         private string newRepoName = default(string);
         private readonly string mainBranch;
+        public bool IsMainBranch { get; private set; }
 
         internal bool IsNew { get; private set; }
         internal string RepoConfiguration { get; private set; }
@@ -194,8 +195,8 @@ namespace GitLooker
         private void CheckStatus(IEnumerable<string> returnValue)
         {
             bool needToPush = returnValue.Any(rtn => rtn.Contains("git push") || rtn.Contains("git add") || rtn.Contains("git checkout "));
-            bool isMaster = branchOn.EndsWith(mainBranch);
-            canReset = true && needToPush && isMaster;
+            IsMainBranch = branchOn.EndsWith(mainBranch);
+            canReset = true && needToPush && IsMainBranch;
 
             if (returnValue.Any(rtn => rtn.Contains("branch is behind")))
             {
@@ -221,7 +222,7 @@ namespace GitLooker
                 {
                     this.button2.BackgroundImage = global::GitLooker.Properties.Resources.button_ok;
                     this.button1.BackgroundImage = global::GitLooker.Properties.Resources.checkedbox;
-                    if (isMaster)
+                    if (IsMainBranch)
                         this.BringToFront();
                 }), null);
             }
@@ -303,6 +304,26 @@ namespace GitLooker
                 CheckRepoProcess(false);
             }
             catch (Exception ex)
+            {
+                currentRespond = ex.Message;
+                this.Invoke(new Action(() => SetErrorForRepo()), null);
+            }
+            finally
+            {
+                Release();
+            }
+        }
+
+        public void CheckOutBranch(string branch)
+        {
+            Wait();
+            try
+            {
+                var result = commandProcessor.CheckOutBranch(workingDir.FullName, branch);
+                currentRespond = string.Join(Environment.NewLine, result.ToArray());
+                CheckRepoProcess(false);
+            }
+            catch(Exception ex)
             {
                 currentRespond = ex.Message;
                 this.Invoke(new Action(() => SetErrorForRepo()), null);

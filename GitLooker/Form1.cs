@@ -415,6 +415,14 @@ namespace GitLooker
         {
             if (toolStripMenuItem8.Visible = !string.IsNullOrWhiteSpace(toolStripTextBox2.Text))
                 toolStripMenuItem8.Text = $"Execute {toolStripTextBox2.Text.Split('\\').Last()}";
+
+            if (string.IsNullOrWhiteSpace(mainBranch) || (currentRepo == default) || currentRepo.IsMainBranch)
+                checkOnToolStripMenuItem.Visible = false;
+            else
+            {
+                checkOnToolStripMenuItem.Visible = true;
+                checkOnToolStripMenuItem.Text = $"Check on: {mainBranch}";
+            }
         }
 
         private void toolStripTextBox4_KeyUp(object sender, KeyEventArgs e)
@@ -437,6 +445,12 @@ namespace GitLooker
         {
             if (string.IsNullOrWhiteSpace(toolStripTextBox4.Text))
                 toolStripTextBox4.Text = "repo filter";
+        }
+
+        private void checkOnToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (currentRepo != default)
+                currentRepo.CheckOutBranch(mainBranch);
         }
     }
 }
