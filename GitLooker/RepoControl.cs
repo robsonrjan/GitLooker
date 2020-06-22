@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Reflection;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -308,11 +310,11 @@ namespace GitLooker
 
         private void RunCommands(IEnumerable<string> commnds)
         {
-            var commandsToProcess = commandProcessor.CommonCommandActions
-            .Where(k => commnds.Contains(k.Key))
-            .Select(m => m.Value);
-
-            var result = commandProcessor.Execute(commandsToProcess, new[] { workingDir.FullName });
+            var commandList = new List<MethodInfo>();
+            foreach (var command in commnds)
+                commandList.Add(commandProcessor.CommonCommandActions.FirstOrDefault(k => k.Key == command).Value);
+ 
+            var result = commandProcessor.Execute(commandList, new[] { workingDir.FullName, mainBranch });
 
             SetStatusAfterCommandProcess(result);
         }

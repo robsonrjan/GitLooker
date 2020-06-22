@@ -37,8 +37,10 @@ namespace GitLooker.Services.CommandProcessor
 
             foreach (var command in commands)
             {
-                var rtn = command.Invoke(repoCommandProcessor, options.ToArray()) as AppResult<IEnumerable<string>>;
-                (result ?? (result = rtn)).Add(rtn);
+                var parCount = command.GetParameters().Length;
+                var rtn = command.Invoke(repoCommandProcessor, options.Take(parCount).ToArray()) as AppResult<IEnumerable<string>>;
+                if (result == default) result = rtn;
+                else result.Add(rtn);
             }
 
             return result;

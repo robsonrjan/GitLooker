@@ -116,7 +116,7 @@ namespace GitLooker
 
         private void GenerateAndUpdateRepos()
         {
-            CheckForGitRepo(chosenPath);
+            if (Directory.Exists(chosenPath)) CheckForGitRepo(chosenPath);
             CheckToolStripMenuItem_Click(null, null);
 
             if (!allReposControl.Any() && !string.IsNullOrEmpty(chosenPath))
