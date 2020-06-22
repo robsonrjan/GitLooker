@@ -4,11 +4,11 @@ namespace GitLooker.Core.Services
 {
     public interface IRepoCommandProcessor
     {
-        IEnumerable<string> CheckRepo(string workingDir);
-        IEnumerable<string> PullRepo(string workingDir);
-        IEnumerable<string> ResetRepo(string workingDi);
-        string RemoteConfig(string workingDir);
-        IEnumerable<string> ClonRepo(string workingDir, string repoConfig);
-        IEnumerable<string> CheckOutBranch(string workingDi, string branch);
+        AppResult<IEnumerable<string>> CheckRepo(string workingDir);
+        AppResult<IEnumerable<string>> PullRepo(string workingDir);
+        AppResult<IEnumerable<string>> ResetRepo(string workingDi);
+        AppResult<IEnumerable<string>> RemoteConfig(string workingDir);
+        AppResult<IEnumerable<string>> ClonRepo(string workingDir, string repoConfig);
+        AppResult<IEnumerable<string>> CheckOutBranch(string workingDir, string branch);
     }
 }

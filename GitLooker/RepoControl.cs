@@ -1,4 +1,5 @@
-﻿using GitLooker.Core.Services;
+﻿using GitLooker.Core;
+using GitLooker.Core.Services;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -13,7 +14,7 @@ namespace GitLooker
     {
         private readonly string repoPath;
         private readonly DirectoryInfo workingDir;
-        private readonly IRepoCommandProcessor commandProcessor;
+        private readonly IRepoCommandProcessorController commandProcessor;
         private readonly IAppSemaphoreSlim operationSemaphore;
         private readonly Control endControl;
         private string currentRespond;
@@ -33,7 +34,7 @@ namespace GitLooker
         public string RepoPath => repoPath;
         public string RepoName { get; }
 
-        public RepoControl(IRepoControlConfiguration repoConfiguration, IRepoCommandProcessor commandProcessor, Control endControl)
+        public RepoControl(IRepoControlConfiguration repoConfiguration, IRepoCommandProcessorController commandProcessor, Control endControl)
         {
             InitializeComponent();
             this.label1.Text = this.repoPath = repoConfiguration?.RepoPath ?? string.Empty;
@@ -91,9 +92,9 @@ namespace GitLooker
             RepoConfiguration = newRepoConfiguration;
         }
 
-        public void UpdateRepoInfo() => InternalUpdateRepoInfo(true);
+        public void UpdateRepoInfo() => InternalUpdateRepoInfo();
 
-        private void InternalUpdateRepoInfo(bool useSemaphore)
+        private void InternalUpdateRepoInfo()
         {
             if (IsNew) return;
 
@@ -103,44 +104,49 @@ namespace GitLooker
                 return;
             }
 
-            Task.Factory.StartNew(() => CheckRepoProcess(useSemaphore));
+            Task.Factory.StartNew(() => CheckRepoProcess());
         }
 
-        private void CheckRepoProcess(bool useSemaphore)
+        private void CheckRepoProcess()
         {
-            if (useSemaphore)
-                Wait();
-            try
-            {
-                canReset = false;
-                GetRepoConfiguraion();
 
-                var returnValue = commandProcessor.CheckRepo(workingDir.FullName);
-                if (CheckIfExist(returnValue))
+            canReset = false;
+
+            var method = commandProcessor.CommonCommandActions.Where(m => new[] {"RemoteConfig", "CheckRepo" }.Contains(m.Key))
+                .Select(m => m.Value).OrderByDescending(f => f.Name);
+            var returnValue = commandProcessor.Execute((!isConfigured ? method : method.Skip(1)), new[] { workingDir.FullName });
+
+            SetStatusAfterCommandProcess(GetRepoConfiguraion(returnValue));
+        }
+
+        private void SetStatusAfterCommandProcess(AppResult<IEnumerable<string>> returnValue)
+        {
+            if (returnValue.IsSuccess)
+            {
+                if (CheckIfExist(returnValue.Value.SelectMany(v => v)))
                 {
-                    CheckCurrentBranch(returnValue);
-                    CheckStatus(returnValue);
+                    CheckCurrentBranch(returnValue.Value.SelectMany(v => v));
+                    CheckStatus(returnValue.Value.SelectMany(v => v));
                 }
 
-                currentRespond += string.Join(Environment.NewLine, returnValue.ToArray());
+                currentRespond += string.Join(Environment.NewLine, returnValue.Value.SelectMany(v => v).ToArray());
                 this.Invoke(new Action(() => { this.label1.ForeColor = Color.Navy; }), null);
             }
-            catch (Exception err)
-            {
-                currentRespond = err.Message;
-                this.Invoke(new Action(() => SetErrorForRepo()), null);
-            }
-            finally
-            {
-                if (useSemaphore)
-                    Release();
-            }
+            else
+                SetErrorForRepo(returnValue.Error.FirstOrDefault());
         }
 
         public void HighlightLabel() => this.label1.ForeColor = Color.DarkGreen;
 
-        private void SetErrorForRepo()
+        private void SetErrorForRepo(Exception ex = null)
         {
+            if(ex != default)
+            {
+                currentRespond = ex.Message;
+                this.Invoke(new Action(() => SetErrorForRepo()), null);
+                return;
+            }
+
             this.label1.ForeColor = Color.Red;
             this.button2.BackgroundImage = global::GitLooker.Properties.Resources.agt_action_fail;
             this.button1.BackgroundImage = global::GitLooker.Properties.Resources.agt_action_fail;
@@ -149,15 +155,23 @@ namespace GitLooker
             this.button1.Enabled = false;
         }
 
-        private void GetRepoConfiguraion()
+        private AppResult<IEnumerable<string>> GetRepoConfiguraion(AppResult<IEnumerable<string>> result)
         {
             if (!isConfigured)
             {
-                var repoConfig = commandProcessor.RemoteConfig(workingDir.FullName);
-                if (!string.IsNullOrEmpty(repoConfig))
-                    Form1.RepoRemoteList.Add((RepoConfiguration = repoConfig.ToLower()));
-                isConfigured = true;
+                if (result.IsSuccess)
+                {
+                    var repoConfig = result.Value.SelectMany(v => v).First();
+                    if (!string.IsNullOrEmpty(repoConfig))
+                        Form1.RepoRemoteList.Add((RepoConfiguration = repoConfig.ToLower()));
+                    isConfigured = true;
+                    return new AppResult<IEnumerable<string>>(result.Value.SelectMany(v => v).Skip(1));
+                }
+                else
+                    SetErrorForRepo(result.Error.FirstOrDefault());
             }
+
+            return result;
         }
 
         private bool CheckIfExist(IEnumerable<string> responseValue)
@@ -260,25 +274,8 @@ namespace GitLooker
 
         private void PullRepoProcess(string currentBranch)
         {
-            Wait();
-            try
-            {
-                List<string> rtn = new List<string>();
-                if (currentBranch != "...")
-                    rtn = commandProcessor.PullRepo(workingDir.FullName).ToList();
-                currentRespond = string.Join(Environment.NewLine, rtn.ToArray());
-
-                CheckRepoProcess(false);
-            }
-            catch (Exception ex)
-            {
-                currentRespond = ex.Message;
-                this.Invoke(new Action(() => SetErrorForRepo()), null);
-            }
-            finally
-            {
-                Release();
-            }
+            if (currentBranch != "...")
+                RunCommands(new[] { "PullRepo", "CheckRepo" });
         }
 
         private void Button2_Click(object sender, EventArgs e)
@@ -294,45 +291,12 @@ namespace GitLooker
             Task.Factory.StartNew(() => ResetRepoProcess());
         }
 
-        private void ResetRepoProcess()
-        {
-            Wait();
-            try
-            {
-                var rtn = commandProcessor.ResetRepo(workingDir.FullName);
-                currentRespond = string.Join(Environment.NewLine, rtn.ToArray());
-                CheckRepoProcess(false);
-            }
-            catch (Exception ex)
-            {
-                currentRespond = ex.Message;
-                this.Invoke(new Action(() => SetErrorForRepo()), null);
-            }
-            finally
-            {
-                Release();
-            }
-        }
+        private void ResetRepoProcess() 
+            => RunCommands(new[] { "ResetRepo", "CheckRepo" });
 
-        public void CheckOutBranch(string branch)
-        {
-            Wait();
-            try
-            {
-                var result = commandProcessor.CheckOutBranch(workingDir.FullName, branch);
-                currentRespond = string.Join(Environment.NewLine, result.ToArray());
-                CheckRepoProcess(false);
-            }
-            catch(Exception ex)
-            {
-                currentRespond = ex.Message;
-                this.Invoke(new Action(() => SetErrorForRepo()), null);
-            }
-            finally
-            {
-                Release();
-            }
-        }
+
+        public void CheckOutBranch(string branch) 
+            => RunCommands(new[] { "CheckOutBranch", "CheckRepo" });
 
         private void label1_Click(object sender, EventArgs e) => MarkControl();
 
@@ -340,6 +304,17 @@ namespace GitLooker
         {
             if (OnSelectRepo != default)
                 OnSelectRepo(this);
+        }
+
+        private void RunCommands(IEnumerable<string> commnds)
+        {
+            var commandsToProcess = commandProcessor.CommonCommandActions
+            .Where(k => commnds.Contains(k.Key))
+            .Select(m => m.Value);
+
+            var result = commandProcessor.Execute(commandsToProcess, new[] { workingDir.FullName });
+
+            SetStatusAfterCommandProcess(result);
         }
     }
 }

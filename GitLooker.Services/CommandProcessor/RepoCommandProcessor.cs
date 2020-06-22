@@ -1,4 +1,5 @@
-﻿using GitLooker.Core.Services;
+﻿using GitLooker.Core;
+using GitLooker.Core.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -59,44 +60,47 @@ namespace GitLooker.Services.CommandProcessor
             string.Format(commandCheckOut, branch)
         });
 
-        public IEnumerable<string> CheckRepo(string workingDir)
+        public AppResult<IEnumerable<string>> CheckRepo(string workingDir)
         {
             var rtn = powerShell.Execute(GenerateUpdateWithStatusCommand(workingDir));
-            return rtn.Select(x => x.ToLower());
+            return ReturnValue(rtn.Select(x => x.ToLower()));
         }
 
-        public IEnumerable<string> ClonRepo(string workingDir, string repoConfig)
+        public AppResult<IEnumerable<string>> ClonRepo(string workingDir, string repoConfig)
         {
             var rtn = powerShell.Execute(GenerateCloneCommand(workingDir, repoConfig));
-            return rtn.Select(x => x.ToLower());
+            return ReturnValue(rtn.Select(x => x.ToLower()));
         }
 
-        public IEnumerable<string> PullRepo(string workingDir)
+        public AppResult<IEnumerable<string>> PullRepo(string workingDir)
         {
             var rtn = powerShell.Execute(GeneratePullCommand(workingDir));
-            return rtn.Select(x => x.ToLower());
+            return ReturnValue(rtn.Select(x => x.ToLower()));
         }
 
-        public string RemoteConfig(string workingDir)
+        public AppResult<IEnumerable<string>> RemoteConfig(string workingDir)
         {
             var rtn = powerShell.Execute(GenerateRemoteConfig(workingDir));
             var result = rtn.FirstOrDefault(x => x.ToLower().Contains("(push)")).Replace('\t', ' ').Split(' ');
             if (result.Length > 2)
-                return result[result.Length - 2];
+                return ReturnValue(new[] { result[result.Length - 2] }.AsEnumerable());
             else
-                return string.Empty;
+                return ReturnValue(new[] { string.Empty }.AsEnumerable());
         }
 
-        public IEnumerable<string> ResetRepo(string workingDi)
+        public AppResult<IEnumerable<string>> ResetRepo(string workingDi)
         {
             var rtn = powerShell.Execute(GenerateResetCommand(workingDi));
-            return rtn.Select(x => x.ToLower());
+            return ReturnValue(rtn.Select(x => x.ToLower()));
         }
 
-        public IEnumerable<string> CheckOutBranch(string workingDi, string branch)
+        public AppResult<IEnumerable<string>> CheckOutBranch(string workingDi, string branch)
         {
             var rtn = powerShell.Execute(GenerateCheckOutCommand(workingDi, branch));
-            return rtn.Select(x => x.ToLower());
+            return ReturnValue(rtn.Select(x => x.ToLower()));
         }
+
+        private AppResult<T> ReturnValue<T>(T value) 
+            => new AppResult<T>(value);
     }
 }

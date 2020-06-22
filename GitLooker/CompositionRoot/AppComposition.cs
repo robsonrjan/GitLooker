@@ -1,9 +1,11 @@
-﻿using GitLooker.Configuration;
+﻿using Castle.DynamicProxy;
+using GitLooker.Configuration;
 using GitLooker.Core.Configuration;
 using GitLooker.Core.Services;
 using GitLooker.Services;
 using GitLooker.Services.CommandProcessor;
 using GitLooker.Services.Configuration;
+using GitLooker.Services.interceptors;
 using GitLooker.Services.Services;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -31,11 +33,20 @@ namespace GitLooker.CompositionRoot
                 })
                 .AddTransient<IPowersShell, PowersShell>()
                 .AddTransient<IRepoCommandProcessor, RepoCommandProcessor>()
+                .AddTransient(service =>
+                {
+                    var cmdProcessor = service.GetService<IRepoCommandProcessor>();
+                    var semaphoreConfig = service.GetService<IRepoControlConfiguration>();
+                    var myInterceptedClass = new RepoCommandProcessorController(cmdProcessor);
+                    var proxy = new ProxyGenerator();
+                    var interceptor = new SemaphoreInteractionInterceptor(semaphoreConfig);
+                    return proxy.CreateInterfaceProxyWithTargetInterface<IRepoCommandProcessorController>(myInterceptedClass, interceptor);
+                })
                 .AddTransient<RepoControl>(service =>
                 {
                     var mainForm = service.GetService<Form1>();
                     var repoConfig = service.GetService<IRepoControlConfiguration>();
-                    var commandProcessor = service.GetService<IRepoCommandProcessor>();
+                    var commandProcessor = service.GetService<IRepoCommandProcessorController>();
                     return new RepoControl(repoConfig, commandProcessor, mainForm.EndControl);
                 })
                 .AddSingleton<Form1>();
