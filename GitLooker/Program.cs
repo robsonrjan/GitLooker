@@ -20,10 +20,7 @@ namespace GitLooker
                 servises.AddApp();
 
                 using (var servisesProvider = servises.BuildServiceProvider())
-                {
-                    var appService = servisesProvider.GetService<IAppService>();
-                    appService.StartApp(arg);
-                }
+                    servisesProvider.GetService<IAppService>().StartApp(arg);
             }
             catch (Exception ex)
             {
