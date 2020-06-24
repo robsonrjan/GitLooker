@@ -34,12 +34,14 @@ namespace GitLooker.Services.CommandProcessor
                 .ToDictionary(k => k.Name, v => v);
         }
 
-        public AppResult<IEnumerable<string>> Execute(IEnumerable<MethodInfo> commands, IEnumerable<string> options)
+        public AppResult<IEnumerable<string>> Execute(IEnumerable<MethodInfo> commands, IEnumerable<string> options, Action beforeExecution)
         {
             if ((!commands?.Any() ?? false) || (!options?.Any() ?? false))
                 throw new ArgumentNullException(nameof(options));
             AppResult<IEnumerable<string>> result = default;
             object specialValue = default;
+
+            if (beforeExecution != default) beforeExecution.Invoke();
 
             foreach (var command in commands)
             {

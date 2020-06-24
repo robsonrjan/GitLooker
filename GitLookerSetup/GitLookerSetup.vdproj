@@ -21,18 +21,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_2B867D282A45B196EAD64E855676F0F7"
-        "OwnerKey" = "8:_6CD065FD86E04F83A2FC384B69109685"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_2B867D282A45B196EAD64E855676F0F7"
-        "OwnerKey" = "8:_45AF1B268677439B57914687C323B677"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_44B3AE9AE3435FCC8B254723646AC44A"
         "OwnerKey" = "8:_6CD065FD86E04F83A2FC384B69109685"
         "MsmSig" = "8:_UNDEFINED"
@@ -41,12 +29,6 @@
         {
         "MsmKey" = "8:_44B3AE9AE3435FCC8B254723646AC44A"
         "OwnerKey" = "8:_F2AEB8FE86BBED6C7AAFC60D4E87BD24"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_45AF1B268677439B57914687C323B677"
-        "OwnerKey" = "8:_6CD065FD86E04F83A2FC384B69109685"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -123,6 +105,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_B43811B502AED06C61FE7DB01462ABDB"
+        "OwnerKey" = "8:_6CD065FD86E04F83A2FC384B69109685"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_C8CC05DC394A399483D4BA8A62006310"
         "OwnerKey" = "8:_FF70D13434DABCA1FC28A58DC447B313"
         "MsmSig" = "8:_UNDEFINED"
@@ -154,13 +142,25 @@
         "Entry"
         {
         "MsmKey" = "8:_E9A3C96D496CBA6998A4B7379E68A6DB"
-        "OwnerKey" = "8:_45AF1B268677439B57914687C323B677"
+        "OwnerKey" = "8:_B43811B502AED06C61FE7DB01462ABDB"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_EF5424EE3A007049880E98FCFF644B89"
         "OwnerKey" = "8:_45B70F5A89C623934E3183B6185B387B"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_F103181FF9E5747CEE4CF2EB35EBE3CD"
+        "OwnerKey" = "8:_6CD065FD86E04F83A2FC384B69109685"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_F103181FF9E5747CEE4CF2EB35EBE3CD"
+        "OwnerKey" = "8:_B43811B502AED06C61FE7DB01462ABDB"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -172,7 +172,7 @@
         "Entry"
         {
         "MsmKey" = "8:_F13B5D7CF591F71298996411CF714F5A"
-        "OwnerKey" = "8:_45AF1B268677439B57914687C323B677"
+        "OwnerKey" = "8:_B43811B502AED06C61FE7DB01462ABDB"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -220,13 +220,13 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_45AF1B268677439B57914687C323B677"
+        "OwnerKey" = "8:_B43811B502AED06C61FE7DB01462ABDB"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_2B867D282A45B196EAD64E855676F0F7"
+        "OwnerKey" = "8:_F103181FF9E5747CEE4CF2EB35EBE3CD"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -421,37 +421,6 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_2B867D282A45B196EAD64E855676F0F7"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:GitLooker.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_2B867D282A45B196EAD64E855676F0F7"
-                    {
-                    "Name" = "8:GitLooker.Core.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:GitLooker.Core.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_6D20888006D14ECE86A73683A047E42A"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_44B3AE9AE3435FCC8B254723646AC44A"
             {
             "AssemblyRegister" = "3:1"
@@ -466,37 +435,6 @@
                     }
                 }
             "SourcePath" = "8:Microsoft.Extensions.DependencyInjection.Abstractions.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_6D20888006D14ECE86A73683A047E42A"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_45AF1B268677439B57914687C323B677"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:GitLooker.Services, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_45AF1B268677439B57914687C323B677"
-                    {
-                    "Name" = "8:GitLooker.Services.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:GitLooker.Services.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_6D20888006D14ECE86A73683A047E42A"
@@ -700,6 +638,37 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_B43811B502AED06C61FE7DB01462ABDB"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:GitLooker.Services, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86"
+                "ScatterAssemblies"
+                {
+                    "_B43811B502AED06C61FE7DB01462ABDB"
+                    {
+                    "Name" = "8:GitLooker.Services.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:GitLooker.Services.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_6D20888006D14ECE86A73683A047E42A"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_C8CC05DC394A399483D4BA8A62006310"
             {
             "AssemblyRegister" = "3:1"
@@ -807,6 +776,37 @@
                     }
                 }
             "SourcePath" = "8:System.IO.Compression.FileSystem.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_6D20888006D14ECE86A73683A047E42A"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_F103181FF9E5747CEE4CF2EB35EBE3CD"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:GitLooker.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86"
+                "ScatterAssemblies"
+                {
+                    "_F103181FF9E5747CEE4CF2EB35EBE3CD"
+                    {
+                    "Name" = "8:GitLooker.Core.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:GitLooker.Core.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_6D20888006D14ECE86A73683A047E42A"
@@ -984,15 +984,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:GitLookerSetup"
-        "ProductCode" = "8:{DDD0F448-3D32-4CF8-9992-D0F5755D5991}"
-        "PackageCode" = "8:{55613944-720A-4D9E-8AB0-029760F3182E}"
+        "ProductCode" = "8:{57075B16-692A-43F6-A889-7187263551AD}"
+        "PackageCode" = "8:{054D765D-6A63-4C57-A690-2AA4AF475F9D}"
         "UpgradeCode" = "8:{E0F1D824-8150-4EA3-BA55-357639F8A869}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:4.0.0"
+        "ProductVersion" = "8:4.0.1"
         "Manufacturer" = "8:Robert Janda"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:https://github.com/robsonrjan/GitLooker"

@@ -16,7 +16,6 @@ namespace GitLooker
         private readonly string repoPath;
         private readonly DirectoryInfo workingDir;
         private readonly IRepoCommandProcessorController commandProcessor;
-        private readonly IAppSemaphoreSlim operationSemaphore;
         private readonly IRepoHolder repoHolder;
         private readonly Control endControl;
         private string currentRespond;
@@ -47,7 +46,6 @@ namespace GitLooker
 
             workingDir = new DirectoryInfo(repoPath);
             this.label1.Text = workingDir.Name;
-            operationSemaphore = repoConfiguration?.Semaphore ?? throw new ArgumentNullException(nameof(repoConfiguration));
             newRepoConfiguration = repoConfiguration?.NewRepo ?? string.Empty;
             mainBranch = repoConfiguration.MainBranch;
             IsNew = !string.IsNullOrEmpty(newRepoConfiguration);
@@ -56,19 +54,6 @@ namespace GitLooker
 
             this.toolTip1.SetToolTip(this.button1, "pull");
             this.button1.Enabled = false;
-        }
-
-        private void Wait()
-        {
-            this.Invoke(new Action(() => { this.button2.Enabled = this.button1.Enabled = false; }), null);
-            operationSemaphore.Wait();
-            this.Invoke(new Action(() => HighlightLabel()), null);
-        }
-
-        private void Release()
-        {
-            operationSemaphore.Release();
-            this.Invoke(new Action(() => { this.button2.Enabled = true; }), null);
         }
 
         public string GetNewRepoName
@@ -112,17 +97,11 @@ namespace GitLooker
 
         private void CheckRepoProcess()
         {
-
             canReset = false;
-
-            var method = commandProcessor.CommonCommandActions.Where(m => new[] { "RemoteConfig", "CheckRepo" }.Contains(m.Key))
-                .Select(m => m.Value).OrderByDescending(f => f.Name);
-            var returnValue = commandProcessor.Execute(method, new[] { workingDir.FullName });
+            var result = RunCommands(new[] { "RemoteConfig", "CheckRepo" });
 
             if (string.IsNullOrWhiteSpace(RepoConfiguration))
-                RepoConfiguration = returnValue.SpecialValue.ToString();
-
-            SetStatusAfterCommandProcess(returnValue);
+                RepoConfiguration = result.SpecialValue.ToString();
         }
 
         private void SetStatusAfterCommandProcess(AppResult<IEnumerable<string>> returnValue)
@@ -294,15 +273,18 @@ namespace GitLooker
                 OnSelectRepo(this);
         }
 
-        private void RunCommands(IEnumerable<string> commnds)
+        private AppResult<IEnumerable<string>> RunCommands(IEnumerable<string> commnds)
         {
             var commandList = new List<MethodInfo>();
             foreach (var command in commnds)
                 commandList.Add(commandProcessor.CommonCommandActions.FirstOrDefault(k => k.Key == command).Value);
 
-            var result = commandProcessor.Execute(commandList, new[] { workingDir.FullName, mainBranch });
+            this.Invoke(new Action(() => { this.button2.Enabled = this.button1.Enabled = false; }), null);
+            var result = commandProcessor.Execute(commandList, new[] { workingDir.FullName, mainBranch }, () => this.Invoke(new Action(() => HighlightLabel()), null));
 
             SetStatusAfterCommandProcess(result);
+            this.Invoke(new Action(() => { this.button2.Enabled = true; }), null);
+            return result;
         }
     }
 }
