@@ -18,6 +18,7 @@ namespace GitLooker.CompositionRoot
             return services
                 .AddSingleton<IAppService, AppService>()
                 .AddSingleton<IAppConfiguration, AppConfiguration>()
+                .AddSingleton<IRepoHolder, RepoHolder>()
                 .AddSingleton<IAppSemaphoreSlim>(service =>
                 {
                     var config = service.GetService<IAppConfiguration>();
@@ -28,18 +29,17 @@ namespace GitLooker.CompositionRoot
                     var repoConfig = service.GetService<IAppConfiguration>();
                     var mainForm = service.GetService<Form1>();
                     var semaphore = service.GetService<IAppSemaphoreSlim>();
-
                     return new RepoControlConfiguration(mainForm.CurrentRepoDdir, semaphore, mainForm.CurrentNewRepo, repoConfig.MainBranch);
                 })
                 .AddTransient<IPowersShell, PowersShell>()
                 .AddTransient<IRepoCommandProcessor, RepoCommandProcessor>()
+                .AddTransient<RepoCommandProcessorController>()
+                .AddTransient<SemaphoreInteractionInterceptor>()
                 .AddTransient(service =>
                 {
-                    var cmdProcessor = service.GetService<IRepoCommandProcessor>();
-                    var semaphoreConfig = service.GetService<IRepoControlConfiguration>();
-                    var myInterceptedClass = new RepoCommandProcessorController(cmdProcessor);
+                    var myInterceptedClass = service.GetService<RepoCommandProcessorController>();
+                    var interceptor = service.GetService<SemaphoreInteractionInterceptor>();
                     var proxy = new ProxyGenerator();
-                    var interceptor = new SemaphoreInteractionInterceptor(semaphoreConfig);
                     return proxy.CreateInterfaceProxyWithTargetInterface<IRepoCommandProcessorController>(myInterceptedClass, interceptor);
                 })
                 .AddTransient<RepoControl>(service =>
@@ -47,7 +47,8 @@ namespace GitLooker.CompositionRoot
                     var mainForm = service.GetService<Form1>();
                     var repoConfig = service.GetService<IRepoControlConfiguration>();
                     var commandProcessor = service.GetService<IRepoCommandProcessorController>();
-                    return new RepoControl(repoConfig, commandProcessor, mainForm.EndControl);
+                    var repoHolder = service.GetService<IRepoHolder>();
+                    return new RepoControl(repoConfig, commandProcessor, mainForm.EndControl, repoHolder);
                 })
                 .AddSingleton<Form1>();
         }

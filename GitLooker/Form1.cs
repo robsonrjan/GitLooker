@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -16,6 +15,7 @@ namespace GitLooker
         private readonly IAppConfiguration appConfiguration;
         private readonly IAppSemaphoreSlim semaphore;
         private readonly IServiceProvider serviceProvider;
+        private readonly IRepoHolder repoHolder;
 
         private string chosenPath = string.Empty;
         private List<RepoControl> allReposControl;
@@ -25,18 +25,15 @@ namespace GitLooker
         private string mainBranch = "master";
         private RepoControl currentRepo;
 
-        internal static List<string> RepoRemoteList;
-        internal static List<string> ExpectedRemoteList;
-
         public Panel EndControl => endControl;
         public string CurrentRepoDdir { get; private set; }
         public string CurrentNewRepo { get; private set; }
 
-        public Form1(IServiceProvider serviceProvider, IAppSemaphoreSlim appSemaphoreSlim, IAppConfiguration appConfiguration)
+        public Form1(IServiceProvider serviceProvider, IAppSemaphoreSlim appSemaphoreSlim,
+            IAppConfiguration appConfiguration, IRepoHolder repoHolder)
         {
             InitializeComponent();
-            RepoRemoteList = new List<string>();
-            ExpectedRemoteList = new List<string>();
+            this.repoHolder = repoHolder;
             allReposControl = new List<RepoControl>();
             lastTimeUpdate = DateTime.UtcNow;
             semaphore = appSemaphoreSlim;
@@ -70,7 +67,7 @@ namespace GitLooker
             panel1.Controls.Add(endControl);
             allReposControl.ForEach(r => r.Dispose());
             allReposControl.Clear();
-            RepoRemoteList.Clear();
+            repoHolder.RepoRemoteList.Clear();
             toolStripMenuItem2.Visible = false;
         }
 
@@ -111,7 +108,7 @@ namespace GitLooker
             notifyIcon1.ShowBalloonTip(3000);
         }
 
-        private void ReadRepositoriumConfiguration() => ExpectedRemoteList = appConfiguration.ExpectedRemoteRepos;
+        private void ReadRepositoriumConfiguration() => repoHolder.ExpectedRemoteList = appConfiguration.ExpectedRemoteRepos;
 
 
         private void GenerateAndUpdateRepos()
@@ -175,15 +172,15 @@ namespace GitLooker
 
         private void CheackAndRemovedNewRepos()
         {
-            foreach (var ctrRepo in allReposControl.Where(repo => repo.IsNew && !ExpectedRemoteList.Contains(repo.RepoConfiguration)))
+            foreach (var ctrRepo in allReposControl.Where(repo => repo.IsNew && !repoHolder.ExpectedRemoteList.Contains(repo.RepoConfiguration)))
                 ctrRepo.Dispose();
         }
 
-        private bool NotInRepoConfig(string config) => !RepoRemoteList.Any(r => r?.ToLower() == config?.ToLower())
+        private bool NotInRepoConfig(string config) => !repoHolder.RepoRemoteList.Any(r => r?.ToLower() == config?.ToLower())
             && !allReposControl.Any(ctr => ctr.RepoConfiguration?.ToLower() == config?.ToLower());
         private void AddMissingRepositoriums()
         {
-            ExpectedRemoteList.Where(NotInRepoConfig).ToList()
+            repoHolder.ExpectedRemoteList.Where(NotInRepoConfig).ToList()
                 .ForEach(config =>
                 {
                     CheckRepo(chosenPath, config);
@@ -196,7 +193,7 @@ namespace GitLooker
         private void remoteReposConfigToolStripMenuItem_Click(object sender, EventArgs e)
         {
             RepoList repoList = new RepoList();
-            repoList.repoText.Lines = RepoRemoteList.ToArray();
+            repoList.repoText.Lines = repoHolder.RepoRemoteList.ToArray();
             repoList.ShowDialog();
         }
 
@@ -205,11 +202,11 @@ namespace GitLooker
         private void expectedReposConfigToolStripMenuItem_Click(object sender, EventArgs e)
         {
             RepoList repoList = new RepoList();
-            repoList.repoText.Lines = ExpectedRemoteList.ToArray();
+            repoList.repoText.Lines = repoHolder.ExpectedRemoteList.ToArray();
             repoList.ShowDialog();
 
-            ExpectedRemoteList = repoList.repoText.Lines.Select(ToLower).Distinct().ToList();
-            appConfiguration.ExpectedRemoteRepos = ExpectedRemoteList;
+            repoHolder.ExpectedRemoteList = repoList.repoText.Lines.Select(ToLower).Distinct().ToList();
+            appConfiguration.ExpectedRemoteRepos = repoHolder.ExpectedRemoteList;
         }
 
         private async void toolStripMenuItem2_Click(object sender, EventArgs e)
@@ -269,8 +266,8 @@ namespace GitLooker
                 {
                     this.Invoke(new Action(() =>
                     {
-                        ctr.Dispose();                        
-                        CheckRepo(repoPath);                        
+                        ctr.Dispose();
+                        CheckRepo(repoPath);
                     }), null);
                 }
                 else
@@ -290,7 +287,7 @@ namespace GitLooker
         {
             allReposControl.Remove(ctr);
             ctr.Dispose();
-            ExpectedRemoteList.Remove(ctr.RepoConfiguration);
+            repoHolder.ExpectedRemoteList.Remove(ctr.RepoConfiguration);
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)

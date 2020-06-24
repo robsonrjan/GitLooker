@@ -6,7 +6,6 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -18,30 +17,32 @@ namespace GitLooker
         private readonly DirectoryInfo workingDir;
         private readonly IRepoCommandProcessorController commandProcessor;
         private readonly IAppSemaphoreSlim operationSemaphore;
+        private readonly IRepoHolder repoHolder;
         private readonly Control endControl;
         private string currentRespond;
         private string branchOn = "Pull current branch";
         private string newRepoConfiguration;
         private bool canReset;
-        private bool isConfigured;
         private string newRepoName = default(string);
         private readonly string mainBranch;
         public bool IsMainBranch { get; private set; }
+        public string RepoConfiguration { get; private set; }
 
         internal bool IsNew { get; private set; }
-        internal string RepoConfiguration { get; private set; }
 
         public delegate void SelectRepo(RepoControl control);
         public event SelectRepo OnSelectRepo;
         public string RepoPath => repoPath;
         public string RepoName { get; }
 
-        public RepoControl(IRepoControlConfiguration repoConfiguration, IRepoCommandProcessorController commandProcessor, Control endControl)
+        public RepoControl(IRepoControlConfiguration repoConfiguration, IRepoCommandProcessorController commandProcessor,
+            Control endControl, IRepoHolder repoHolder)
         {
             InitializeComponent();
             this.label1.Text = this.repoPath = repoConfiguration?.RepoPath ?? string.Empty;
             this.commandProcessor = commandProcessor;
             this.endControl = endControl;
+            this.repoHolder = repoHolder;
             RepoName = this.repoPath?.Split('\\').LastOrDefault() ?? string.Empty;
 
             workingDir = new DirectoryInfo(repoPath);
@@ -114,11 +115,14 @@ namespace GitLooker
 
             canReset = false;
 
-            var method = commandProcessor.CommonCommandActions.Where(m => new[] {"RemoteConfig", "CheckRepo" }.Contains(m.Key))
+            var method = commandProcessor.CommonCommandActions.Where(m => new[] { "RemoteConfig", "CheckRepo" }.Contains(m.Key))
                 .Select(m => m.Value).OrderByDescending(f => f.Name);
-            var returnValue = commandProcessor.Execute((!isConfigured ? method : method.Skip(1)), new[] { workingDir.FullName });
+            var returnValue = commandProcessor.Execute(method, new[] { workingDir.FullName });
 
-            SetStatusAfterCommandProcess(GetRepoConfiguraion(returnValue));
+            if (string.IsNullOrWhiteSpace(RepoConfiguration))
+                RepoConfiguration = returnValue.SpecialValue.ToString();
+
+            SetStatusAfterCommandProcess(returnValue);
         }
 
         private void SetStatusAfterCommandProcess(AppResult<IEnumerable<string>> returnValue)
@@ -142,7 +146,7 @@ namespace GitLooker
 
         private void SetErrorForRepo(Exception ex = null)
         {
-            if(ex != default)
+            if (ex != default)
             {
                 currentRespond = ex.Message;
                 this.Invoke(new Action(() => SetErrorForRepo()), null);
@@ -155,25 +159,6 @@ namespace GitLooker
             Application.DoEvents();
             Application.DoEvents();
             this.button1.Enabled = false;
-        }
-
-        private AppResult<IEnumerable<string>> GetRepoConfiguraion(AppResult<IEnumerable<string>> result)
-        {
-            if (!isConfigured)
-            {
-                if (result.IsSuccess)
-                {
-                    var repoConfig = result.Value.SelectMany(v => v).First();
-                    if (!string.IsNullOrEmpty(repoConfig))
-                        Form1.RepoRemoteList.Add((RepoConfiguration = repoConfig.ToLower()));
-                    isConfigured = true;
-                    return new AppResult<IEnumerable<string>>(result.Value.SelectMany(v => v).Skip(1));
-                }
-                else
-                    SetErrorForRepo(result.Error.FirstOrDefault());
-            }
-
-            return result;
         }
 
         private bool CheckIfExist(IEnumerable<string> responseValue)
@@ -195,7 +180,8 @@ namespace GitLooker
                     this.SendToBack();
                 }), null);
             }
-            else if (responseValue.Any(respound => respound.ToLower().Contains("could not resolve host:")))
+            else if (responseValue.Any(respound => respound.ToLower().Contains("could not resolve host:")
+                || (respound.ToLower().Contains("failed to connect to") && respound.ToLower().Contains("timed out"))))
             {
                 returnValue = false;
                 this.Invoke(new Action(() =>
@@ -293,11 +279,11 @@ namespace GitLooker
             Task.Factory.StartNew(() => ResetRepoProcess());
         }
 
-        private void ResetRepoProcess() 
+        private void ResetRepoProcess()
             => RunCommands(new[] { "ResetRepo", "CheckRepo" });
 
 
-        public void CheckOutBranch(string branch) 
+        public void CheckOutBranch(string branch)
             => RunCommands(new[] { "CheckOutBranch", "CheckRepo" });
 
         private void label1_Click(object sender, EventArgs e) => MarkControl();
@@ -313,7 +299,7 @@ namespace GitLooker
             var commandList = new List<MethodInfo>();
             foreach (var command in commnds)
                 commandList.Add(commandProcessor.CommonCommandActions.FirstOrDefault(k => k.Key == command).Value);
- 
+
             var result = commandProcessor.Execute(commandList, new[] { workingDir.FullName, mainBranch });
 
             SetStatusAfterCommandProcess(result);

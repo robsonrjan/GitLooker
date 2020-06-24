@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GitLooker.Core
 {
@@ -14,6 +10,7 @@ namespace GitLooker.Core
         public bool IsSuccess { get; }
         public IEnumerable<T> Value => value;
         public IEnumerable<Exception> Error => error;
+        public object SpecialValue;
 
         public AppResult(T value)
         {

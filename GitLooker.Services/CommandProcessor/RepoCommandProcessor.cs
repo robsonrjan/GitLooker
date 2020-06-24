@@ -100,7 +100,7 @@ namespace GitLooker.Services.CommandProcessor
             return ReturnValue(rtn.Select(x => x.ToLower()));
         }
 
-        private AppResult<T> ReturnValue<T>(T value) 
+        private AppResult<T> ReturnValue<T>(T value)
             => new AppResult<T>(value);
     }
 }

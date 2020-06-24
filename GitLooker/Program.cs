@@ -25,7 +25,7 @@ namespace GitLooker
                     appService.StartApp(arg);
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 File.WriteAllText("LogError.log", ex.ToString());
             }

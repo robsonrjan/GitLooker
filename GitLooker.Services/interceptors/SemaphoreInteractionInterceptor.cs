@@ -3,9 +3,6 @@ using GitLooker.Core;
 using GitLooker.Core.Services;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GitLooker.Services.interceptors
 {
@@ -13,7 +10,7 @@ namespace GitLooker.Services.interceptors
     {
         private readonly IAppSemaphoreSlim operationSemaphore;
 
-        public SemaphoreInteractionInterceptor(IRepoControlConfiguration repoConfiguration) 
+        public SemaphoreInteractionInterceptor(IRepoControlConfiguration repoConfiguration)
             => operationSemaphore = repoConfiguration?.Semaphore ?? throw new ArgumentNullException(nameof(repoConfiguration));
 
         public void Intercept(IInvocation invocation)

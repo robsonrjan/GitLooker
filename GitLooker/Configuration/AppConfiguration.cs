@@ -45,7 +45,7 @@ namespace GitLooker.Configuration
             }
             config.Save();
         }
-        public List<string> ExpectedRemoteRepos
+        public IList<string> ExpectedRemoteRepos
         {
             get
             {
