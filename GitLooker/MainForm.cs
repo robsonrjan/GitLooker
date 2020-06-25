@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace GitLooker
 {
-    public partial class Form1 : Form
+    public partial class MainForm : Form
     {
         private readonly IAppConfiguration appConfiguration;
         private readonly IAppSemaphoreSlim semaphore;
@@ -29,7 +29,7 @@ namespace GitLooker
         public string CurrentRepoDdir { get; private set; }
         public string CurrentNewRepo { get; private set; }
 
-        public Form1(IServiceProvider serviceProvider, IAppSemaphoreSlim appSemaphoreSlim,
+        public MainForm(IServiceProvider serviceProvider, IAppSemaphoreSlim appSemaphoreSlim,
             IAppConfiguration appConfiguration, IRepoHolder repoHolder)
         {
             InitializeComponent();

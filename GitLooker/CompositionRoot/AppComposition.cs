@@ -27,7 +27,7 @@ namespace GitLooker.CompositionRoot
                 .AddTransient<IRepoControlConfiguration>(service =>
                 {
                     var repoConfig = service.GetService<IAppConfiguration>();
-                    var mainForm = service.GetService<Form1>();
+                    var mainForm = service.GetService<MainForm>();
                     var semaphore = service.GetService<IAppSemaphoreSlim>();
                     return new RepoControlConfiguration(mainForm.CurrentRepoDdir, semaphore, mainForm.CurrentNewRepo, repoConfig.MainBranch);
                 })
@@ -44,13 +44,13 @@ namespace GitLooker.CompositionRoot
                 })
                 .AddTransient<RepoControl>(service =>
                 {
-                    var mainForm = service.GetService<Form1>();
+                    var mainForm = service.GetService<MainForm>();
                     var repoConfig = service.GetService<IRepoControlConfiguration>();
                     var commandProcessor = service.GetService<IRepoCommandProcessorController>();
                     var repoHolder = service.GetService<IRepoHolder>();
                     return new RepoControl(repoConfig, commandProcessor, mainForm.EndControl, repoHolder);
                 })
-                .AddSingleton<Form1>();
+                .AddSingleton<MainForm>();
         }
     }
 }
