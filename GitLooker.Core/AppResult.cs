@@ -10,7 +10,7 @@ namespace GitLooker.Core
         public bool IsSuccess { get; }
         public IEnumerable<T> Value => value;
         public IEnumerable<Exception> Error => error;
-        public object SpecialValue;
+        public object SpecialValue { get; set; }
 
         public AppResult(T value)
         {
