@@ -9,8 +9,6 @@ namespace GitLooker.Services.CommandProcessor
 {
     public class RepoCommandProcessorController : IRepoCommandProcessorController
     {
-        private const string CommandForRepoCheck = "RemoteConfig";
-
         private readonly IRepoCommandProcessor repoCommandProcessor;
         private readonly IRepoHolder repoHolder;
         private bool isConfigured = default;
@@ -45,14 +43,14 @@ namespace GitLooker.Services.CommandProcessor
 
             foreach (var command in commands)
             {
-                if ((command.Name == CommandForRepoCheck) && isConfigured) continue;
+                if ((command.Name == nameof(RemoteConfig)) && isConfigured) continue;
 
                 var parCount = command.GetParameters().Length;
                 var rtn = command.Invoke(repoCommandProcessor, options.Take(parCount).ToArray()) as AppResult<IEnumerable<string>>;
 
-                if ((command.Name == CommandForRepoCheck) && rtn.IsSuccess)
+                if ((command.Name == nameof(RemoteConfig)) && rtn.IsSuccess)
                 {
-                    specialValue = SetRepoConfiguraion(rtn);
+                    specialValue = RemoteConfig(rtn);
                     continue;
                 }
 
@@ -67,7 +65,7 @@ namespace GitLooker.Services.CommandProcessor
             return result;
         }
 
-        private string SetRepoConfiguraion(AppResult<IEnumerable<string>> result)
+        private string RemoteConfig(AppResult<IEnumerable<string>> result)
         {
             string repoConfiguration = default;
             var repoConfig = result.Value.SelectMany(v => v).First();
