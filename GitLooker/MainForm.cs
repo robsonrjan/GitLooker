@@ -455,5 +455,8 @@ namespace GitLooker
             foreach (var cntr in allReposControl.Where(repo => repo.CanPull))
                 cntr.PullRepo();
         }
+
+        private void checkToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
+                => pullAllToolStripMenuItem.Visible = allReposControl.Any(repo => repo.CanPull);
     }
 }

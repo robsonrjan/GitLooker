@@ -229,6 +229,7 @@
             this.checkToolStripMenuItem.Size = new System.Drawing.Size(75, 23);
             this.checkToolStripMenuItem.Text = "Git";
             this.checkToolStripMenuItem.ToolTipText = "Check for updates";
+            this.checkToolStripMenuItem.DropDownOpening += new System.EventHandler(this.checkToolStripMenuItem_DropDownOpening);
             // 
             // toolStripMenuItem1
             // 
