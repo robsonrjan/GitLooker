@@ -26,6 +26,7 @@ namespace GitLooker
         private readonly string mainBranch;
         public bool IsMainBranch { get; private set; }
         public string RepoConfiguration { get; private set; }
+        public bool CanPull { get; private set; }
 
         internal bool IsNew { get; private set; }
 
@@ -178,8 +179,9 @@ namespace GitLooker
             bool needToPush = returnValue.Any(rtn => rtn.Contains("git push") || rtn.Contains("git add") || rtn.Contains("git checkout "));
             IsMainBranch = branchOn.EndsWith(mainBranch);
             canReset = true && needToPush && IsMainBranch;
+            this.CanPull = false;
 
-            if (returnValue.Any(rtn => rtn.Contains("branch is behind")))
+            if (!needToPush && returnValue.Any(rtn => rtn.Contains("branch is behind")))
             {
                 this.Invoke(new Action(() =>
                 {
@@ -187,6 +189,7 @@ namespace GitLooker
                     this.button1.BackgroundImage = global::GitLooker.Properties.Resources.agt_update_misc;
                     this.button1.Enabled = true;
                     this.SendToBack();
+                    this.CanPull = true;
                 }), null);
             }
             else if (needToPush)
@@ -220,6 +223,8 @@ namespace GitLooker
                 }), null);
             }
         }
+
+        public void PullRepo() => Button1_Click(default, default);
 
         private void Button1_Click(object sender, EventArgs e)
         {

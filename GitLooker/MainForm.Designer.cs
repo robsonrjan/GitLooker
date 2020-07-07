@@ -67,6 +67,8 @@
             this.toolStripMenuItem8 = new System.Windows.Forms.ToolStripMenuItem();
             this.updateStatusToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.checkOnToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.checkStatusToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pullAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
@@ -218,13 +220,15 @@
             // 
             this.checkToolStripMenuItem.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.checkToolStripMenuItem.AutoToolTip = true;
+            this.checkToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.checkStatusToolStripMenuItem,
+            this.pullAllToolStripMenuItem});
             this.checkToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.checkToolStripMenuItem.Name = "checkToolStripMenuItem";
             this.checkToolStripMenuItem.Padding = new System.Windows.Forms.Padding(40, 0, 4, 0);
-            this.checkToolStripMenuItem.Size = new System.Drawing.Size(98, 23);
-            this.checkToolStripMenuItem.Text = "Check ";
+            this.checkToolStripMenuItem.Size = new System.Drawing.Size(75, 23);
+            this.checkToolStripMenuItem.Text = "Git";
             this.checkToolStripMenuItem.ToolTipText = "Check for updates";
-            this.checkToolStripMenuItem.Click += new System.EventHandler(this.CheckToolStripMenuItem_Click);
             // 
             // toolStripMenuItem1
             // 
@@ -347,38 +351,52 @@
             this.updateStatusToolStripMenuItem,
             this.checkOnToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(181, 114);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(174, 92);
             this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
             // 
             // toolStripMenuItem7
             // 
             this.toolStripMenuItem7.Name = "toolStripMenuItem7";
-            this.toolStripMenuItem7.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItem7.Size = new System.Drawing.Size(173, 22);
             this.toolStripMenuItem7.Text = "Open folder";
             this.toolStripMenuItem7.Click += new System.EventHandler(this.toolStripMenuItem7_Click);
             // 
             // toolStripMenuItem8
             // 
             this.toolStripMenuItem8.Name = "toolStripMenuItem8";
-            this.toolStripMenuItem8.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItem8.Size = new System.Drawing.Size(173, 22);
             this.toolStripMenuItem8.Text = "Execute command";
             this.toolStripMenuItem8.Click += new System.EventHandler(this.toolStripMenuItem8_Click);
             // 
             // updateStatusToolStripMenuItem
             // 
             this.updateStatusToolStripMenuItem.Name = "updateStatusToolStripMenuItem";
-            this.updateStatusToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.updateStatusToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
             this.updateStatusToolStripMenuItem.Text = "Update status";
             this.updateStatusToolStripMenuItem.Click += new System.EventHandler(this.updateStatusToolStripMenuItem_Click);
             // 
             // checkOnToolStripMenuItem
             // 
             this.checkOnToolStripMenuItem.Name = "checkOnToolStripMenuItem";
-            this.checkOnToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.checkOnToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
             this.checkOnToolStripMenuItem.Text = "Check on ";
             this.checkOnToolStripMenuItem.Click += new System.EventHandler(this.checkOnToolStripMenuItem_Click);
             // 
-            // Form1
+            // checkStatusToolStripMenuItem
+            // 
+            this.checkStatusToolStripMenuItem.Name = "checkStatusToolStripMenuItem";
+            this.checkStatusToolStripMenuItem.Size = new System.Drawing.Size(180, 24);
+            this.checkStatusToolStripMenuItem.Text = "Check status";
+            this.checkStatusToolStripMenuItem.Click += new System.EventHandler(this.CheckToolStripMenuItem_Click);
+            // 
+            // pullAllToolStripMenuItem
+            // 
+            this.pullAllToolStripMenuItem.Name = "pullAllToolStripMenuItem";
+            this.pullAllToolStripMenuItem.Size = new System.Drawing.Size(180, 24);
+            this.pullAllToolStripMenuItem.Text = "Pull all";
+            this.pullAllToolStripMenuItem.Click += new System.EventHandler(this.pullAllToolStripMenuItem_Click);
+            // 
+            // MainForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.White;
@@ -392,7 +410,7 @@
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.MaximumSize = new System.Drawing.Size(600, 800);
             this.MinimumSize = new System.Drawing.Size(500, 300);
-            this.Name = "Form1";
+            this.Name = "MainForm";
             this.Text = "Git branch changes looker";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -444,6 +462,8 @@
         private System.Windows.Forms.ToolStripMenuItem updateStatusToolStripMenuItem;
         private System.Windows.Forms.ToolStripTextBox toolStripTextBox4;
         private System.Windows.Forms.ToolStripMenuItem checkOnToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem checkStatusToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem pullAllToolStripMenuItem;
     }
 }
 

@@ -449,5 +449,11 @@ namespace GitLooker
             if (currentRepo != default)
                 currentRepo.CheckOutBranch(mainBranch);
         }
+
+        private void pullAllToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            foreach (var cntr in allReposControl.Where(repo => repo.CanPull))
+                cntr.PullRepo();
+        }
     }
 }
