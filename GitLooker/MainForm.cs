@@ -24,6 +24,7 @@ namespace GitLooker
         private bool isLoaded;
         private string mainBranch = "master";
         private RepoControl currentRepo;
+        private bool updatedManual;
 
         public Panel EndControl => endControl;
         public string CurrentRepoDdir { get; private set; }
@@ -105,7 +106,8 @@ namespace GitLooker
         private void ShowCheckNotification()
         {
             if (intervalUpdateCheckHour == 0) return;
-            notifyIcon1.ShowBalloonTip(3000);
+            if (updatedManual) notifyIcon1.ShowBalloonTip(3000);
+            updatedManual = false;
         }
 
         private void ReadRepositoriumConfiguration() => repoHolder.ExpectedRemoteList = appConfiguration.ExpectedRemoteRepos;
@@ -159,6 +161,7 @@ namespace GitLooker
 
             foreach (var cntr in allReposControl.OrderByDescending(c => c.Parent.Controls.GetChildIndex(c)))
                 cntr.UpdateRepoInfo();
+            updatedManual = true;
         }
 
         private void DeleteDisposedRepos()
@@ -454,6 +457,7 @@ namespace GitLooker
         {
             foreach (var cntr in allReposControl.Where(repo => repo.CanPull))
                 cntr.PullRepo();
+            updatedManual = true;
         }
 
         private void checkToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
