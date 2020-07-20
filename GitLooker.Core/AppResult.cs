@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-
 namespace GitLooker.Core
 {
     public class AppResult<T>
