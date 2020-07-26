@@ -13,11 +13,11 @@ namespace GitLooker.Services.Configuration
 
         public RepoControlConfiguration(string repoPath, IAppSemaphoreSlim semaphore, string newRepo, string mainBranch)
         {
-            if (string.IsNullOrEmpty(repoPath))
-                throw new ArgumentException($"[{nameof(RepoControlConfiguration)}] -> Argument {repoPath} can not be null or empty!");
+            if (string.IsNullOrWhiteSpace(repoPath))
+                throw new ArgumentException($"[{nameof(RepoControlConfiguration)}] -> Argument {repoPath} can not be null or empty!", nameof(repoPath));
 
-            if (semaphore == null)
-                throw new ArgumentException($"[{nameof(RepoControlConfiguration)}] ->Argument {semaphore} can not be null!");
+            if (semaphore == default)
+                throw new ArgumentException($"[{nameof(RepoControlConfiguration)}] ->Argument {semaphore} can not be null!", nameof(semaphore));
 
             this.RepoPath = repoPath;
             this.Semaphore = semaphore;

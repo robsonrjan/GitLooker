@@ -6,7 +6,7 @@ namespace GitLooker.Core.Services
 {
     public interface IRepoCommandProcessorController
     {
-        Dictionary<string, MethodInfo> CommonCommandActions { get; }
+        IList<MethodInfo> CommonCommandActions { get; }
         AppResult<IEnumerable<string>> Execute(IEnumerable<MethodInfo> commands, IEnumerable<string> options, Action beforeExecution);
     }
 }

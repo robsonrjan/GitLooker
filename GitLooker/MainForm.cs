@@ -1,4 +1,5 @@
 ﻿using GitLooker.Core.Configuration;
+using GitLooker.Core.Repository;
 using GitLooker.Core.Services;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -16,6 +17,7 @@ namespace GitLooker
         private readonly IAppSemaphoreSlim semaphore;
         private readonly IServiceProvider serviceProvider;
         private readonly IRepoHolder repoHolder;
+        private readonly IGitFileRepo gitFileRepo;
 
         private string chosenPath = string.Empty;
         private List<RepoControl> allReposControl;
@@ -31,7 +33,7 @@ namespace GitLooker
         public string CurrentNewRepo { get; private set; }
 
         public MainForm(IServiceProvider serviceProvider, IAppSemaphoreSlim appSemaphoreSlim,
-            IAppConfiguration appConfiguration, IRepoHolder repoHolder)
+            IAppConfiguration appConfiguration, IRepoHolder repoHolder, IGitFileRepo gitFileRepo)
         {
             InitializeComponent();
             this.repoHolder = repoHolder;
@@ -41,6 +43,7 @@ namespace GitLooker
             semaphore.OnUse += SemaphoreIsUsed;
             this.appConfiguration = appConfiguration;
             this.serviceProvider = serviceProvider;
+            this.gitFileRepo = gitFileRepo;
         }
 
         private void SetWorkingPathToolStripMenuItem_Click(object sender, EventArgs e)
@@ -124,14 +127,8 @@ namespace GitLooker
 
         private void CheckForGitRepo(string chosenPath)
         {
-            var dir = Directory.GetDirectories(chosenPath).ToList();
-            if (dir.Any(d => d.EndsWith(".git")))
-                CheckRepo(chosenPath);
-            else
-                dir.ForEach(d =>
-                {
-                    CheckForGitRepo(d);
-                });
+            foreach (var repo in gitFileRepo.Get(chosenPath))
+                CheckRepo(repo);
         }
 
         private void CheckRepo(string repoDdir, string newRepo = default(string))

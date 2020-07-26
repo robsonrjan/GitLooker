@@ -1,11 +1,13 @@
 ﻿using Castle.DynamicProxy;
 using GitLooker.Configuration;
 using GitLooker.Core.Configuration;
+using GitLooker.Core.Repository;
 using GitLooker.Core.Services;
 using GitLooker.Services;
 using GitLooker.Services.CommandProcessor;
 using GitLooker.Services.Configuration;
 using GitLooker.Services.interceptors;
+using GitLooker.Services.Repository;
 using GitLooker.Services.Services;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -19,6 +21,7 @@ namespace GitLooker.CompositionRoot
                 .AddSingleton<IAppService, AppService>()
                 .AddSingleton<IAppConfiguration, AppConfiguration>()
                 .AddSingleton<IRepoHolder, RepoHolder>()
+                .AddSingleton<IGitFileRepo, GitFileRepo>()
                 .AddSingleton<IAppSemaphoreSlim>(service =>
                 {
                     var config = service.GetService<IAppConfiguration>();

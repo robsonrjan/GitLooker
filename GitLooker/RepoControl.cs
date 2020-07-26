@@ -281,11 +281,12 @@ namespace GitLooker
         private AppResult<IEnumerable<string>> RunCommands(IEnumerable<string> commnds)
         {
             var commandList = new List<MethodInfo>();
+            var parameters = new[] { workingDir.FullName, mainBranch };
             foreach (var command in commnds)
-                commandList.Add(commandProcessor.CommonCommandActions.FirstOrDefault(k => k.Key == command).Value);
+                commandList.Add(commandProcessor.CommonCommandActions.FirstOrDefault(k => k.Name == command));
 
             this.Invoke(new Action(() => { this.button2.Enabled = this.button1.Enabled = false; }), null);
-            var result = commandProcessor.Execute(commandList, new[] { workingDir.FullName, mainBranch }, () => this.Invoke(new Action(() => HighlightLabel()), null));
+            var result = commandProcessor.Execute(commandList, parameters, () => this.Invoke(new Action(() => HighlightLabel()), null));
 
             SetStatusAfterCommandProcess(result);
             this.Invoke(new Action(() => { this.button2.Enabled = true; }), null);

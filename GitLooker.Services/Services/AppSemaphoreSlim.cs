@@ -48,10 +48,6 @@ namespace GitLooker.Services.Services
         }
 
         public int CurrentCount => semaphoreSlim.CurrentCount;
-
-        public void Dispose()
-        {
-            semaphoreSlim.Dispose();
-        }
+        public void Dispose() => semaphoreSlim.Dispose();
     }
 }

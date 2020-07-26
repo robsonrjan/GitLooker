@@ -3,6 +3,7 @@ using GitLooker.Core.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Management.Automation;
 using System.Reflection;
 
 namespace GitLooker.Services.CommandProcessor
@@ -13,7 +14,7 @@ namespace GitLooker.Services.CommandProcessor
         private readonly IRepoHolder repoHolder;
         private bool isConfigured = default;
 
-        public Dictionary<string, MethodInfo> CommonCommandActions { get; }
+        public IList<MethodInfo> CommonCommandActions { get; }
 
         public RepoCommandProcessorController(IRepoCommandProcessor repoCommandProcessor, IRepoHolder repoHolder)
         {
@@ -29,12 +30,14 @@ namespace GitLooker.Services.CommandProcessor
             CommonCommandActions = this.repoCommandProcessor
                 .GetType()
                 .GetMethods()
-                .ToDictionary(k => k.Name, v => v);
+                .ToList();
         }
 
         public AppResult<IEnumerable<string>> Execute(IEnumerable<MethodInfo> commands, IEnumerable<string> options, Action beforeExecution)
         {
-            if ((!commands?.Any() ?? false) || (!options?.Any() ?? false))
+            if (!commands?.Any() ?? true)
+                throw new ArgumentNullException(nameof(commands));
+            if (!options?.Any() ?? true)
                 throw new ArgumentNullException(nameof(options));
             AppResult<IEnumerable<string>> result = default;
             object specialValue = default;
@@ -54,11 +57,7 @@ namespace GitLooker.Services.CommandProcessor
                     continue;
                 }
 
-                if (result == default)
-                {
-                    result = rtn;
-                    result.SpecialValue = specialValue;
-                }
+                if (result == default) (result = rtn).SpecialValue = specialValue;
                 else result.Add(rtn);
             }
 
