@@ -35,6 +35,7 @@ namespace GitLooker.Services.CommandProcessor
 
         public AppResult<IEnumerable<string>> Execute(IEnumerable<MethodInfo> commands, IEnumerable<string> options, Action beforeExecution)
         {
+            AppResult<IEnumerable<string>> rtn = default;
             if (!commands?.Any() ?? true)
                 throw new ArgumentNullException(nameof(commands));
             if (!options?.Any() ?? true)
@@ -49,7 +50,7 @@ namespace GitLooker.Services.CommandProcessor
                 if ((command.Name == nameof(RemoteConfig)) && isConfigured) continue;
 
                 var parCount = command.GetParameters().Length;
-                var rtn = command.Invoke(repoCommandProcessor, options.Take(parCount).ToArray()) as AppResult<IEnumerable<string>>;
+                rtn = command.Invoke(repoCommandProcessor, options.Take(parCount).ToArray()) as AppResult<IEnumerable<string>>;
 
                 if ((command.Name == nameof(RemoteConfig)) && rtn.IsSuccess)
                 {
@@ -60,6 +61,7 @@ namespace GitLooker.Services.CommandProcessor
                 if (result == default) (result = rtn).SpecialValue = specialValue;
                 else result.Add(rtn);
             }
+            if (result == default) (result = rtn).SpecialValue = specialValue;
 
             return result;
         }
