@@ -26,6 +26,7 @@ namespace GitLooker.Unit.Test.GitLooker.Services.CommandProcessor
         private static bool hasBeenExecuted;
         private IEnumerable<MethodInfo> commands;
         private List<String> holderRepoList;
+        private static int executionCount;
 
         [SetUp]
         public void BeforeEach()
@@ -37,6 +38,7 @@ namespace GitLooker.Unit.Test.GitLooker.Services.CommandProcessor
             repoCommandProcessorController = new RepoCommandProcessorController(repoCommandProcessor, repoHolder);
             commands = repoCommandProcessorController.CommonCommandActions;
             hasBeenExecuted = default;
+            executionCount = default;
         }
 
         [TestCase("CheckOutBranch", 0, null)]
@@ -60,6 +62,32 @@ namespace GitLooker.Unit.Test.GitLooker.Services.CommandProcessor
             result.SpecialValue.Should().Be(specialValue);
             result.Value.Should().BeEquivalentTo(new[] { new[] { commandName } });
             holderRepoList.Should().HaveCount(reposCount);
+            executionCount.Should().Be(1);
+        }
+
+        [Test]
+        public void Execute_check_fewAtOnce_execution()
+        {
+            var commamdNames = new[] { "CheckOutBranch" , "RemoteConfig", "ClonRepo" };
+            bool hasInvoked = default;
+            int reposCount = 1;
+            object specialValue = "remoteconfig";
+            Action checkInvokation = () => hasInvoked = true;
+            IEnumerable<string> options = new[] { default(string), default(string), default(string) };
+            var commandForTest = commands.Where(c => commamdNames.Contains(c.Name));
+
+            var result = repoCommandProcessorController.Execute(commandForTest, options, checkInvokation);
+
+            hasBeenExecuted.Should().BeTrue();
+            result.Error.Should().BeNullOrEmpty();
+            result.IsSuccess.Should().BeTrue();
+            result.SpecialValue.Should().Be(specialValue);
+            result.Value.Should().BeEquivalentTo(new[] {
+                new[] { "CheckOutBranch" },
+                new[] { "ClonRepo" }
+            });
+            holderRepoList.Should().HaveCount(reposCount);
+            executionCount.Should().Be(commamdNames.Count());
         }
 
         [Test]
@@ -126,36 +154,42 @@ namespace GitLooker.Unit.Test.GitLooker.Services.CommandProcessor
             public AppResult<IEnumerable<string>> CheckOutBranch(string workingDir, string branch)
             {
                 RepoCommandProcessorControllerTest.hasBeenExecuted = true;
-                return new AppResult<IEnumerable<string>>(new[] { nameof(CheckOutBranch) }); ;
+                executionCount++;
+                return new AppResult<IEnumerable<string>>(new[] { nameof(CheckOutBranch) });
             }
 
             public AppResult<IEnumerable<string>> CheckRepo(string workingDir)
             {
                 RepoCommandProcessorControllerTest.hasBeenExecuted = true;
+                executionCount++;
                 return new AppResult<IEnumerable<string>>(new[] { nameof(CheckRepo) }); ;
             }
 
             public AppResult<IEnumerable<string>> ClonRepo(string workingDir, string repoConfig)
             {
                 RepoCommandProcessorControllerTest.hasBeenExecuted = true;
+                executionCount++;
                 return new AppResult<IEnumerable<string>>(new[] { nameof(ClonRepo) }); ;
             }
 
             public AppResult<IEnumerable<string>> PullRepo(string workingDir)
             {
                 RepoCommandProcessorControllerTest.hasBeenExecuted = true;
+                executionCount++;
                 return new AppResult<IEnumerable<string>>(new[] { nameof(PullRepo) }); ;
             }
 
             public AppResult<IEnumerable<string>> RemoteConfig(string workingDir)
             {
                 RepoCommandProcessorControllerTest.hasBeenExecuted = true;
+                executionCount++;
                 return new AppResult<IEnumerable<string>>(new[] { nameof(RemoteConfig) }); ;
             }
 
             public AppResult<IEnumerable<string>> ResetRepo(string workingDi)
             {
                 RepoCommandProcessorControllerTest.hasBeenExecuted = true;
+                executionCount++;
                 return new AppResult<IEnumerable<string>>(new[] { nameof(ResetRepo) }); ;
             }
         }

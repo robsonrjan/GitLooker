@@ -27,8 +27,7 @@ namespace GitLooker.Services.CommandProcessor
             this.repoCommandProcessor = repoCommandProcessor;
             this.repoHolder = repoHolder;
 
-            CommonCommandActions = this.repoCommandProcessor
-                .GetType()
+            CommonCommandActions = typeof(IRepoCommandProcessor)
                 .GetMethods()
                 .ToList();
         }
@@ -58,11 +57,11 @@ namespace GitLooker.Services.CommandProcessor
                     continue;
                 }
 
-                if (result == default) (result = rtn).SpecialValue = specialValue;
+                if (result == default) result = rtn;
                 else result.Add(rtn);
             }
-            if (result == default) (result = rtn).SpecialValue = specialValue;
-
+            if (result == default) result = rtn;
+            result.SpecialValue = specialValue;
             return result;
         }
 

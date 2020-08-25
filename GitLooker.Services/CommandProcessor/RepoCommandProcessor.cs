@@ -23,7 +23,7 @@ namespace GitLooker.Services.CommandProcessor
         public RepoCommandProcessor(IPowersShell powerShell)
         {
             if (powerShell == null)
-                throw new ArgumentException($"[{nameof(RepoCommandProcessor)}] ->Argument {powerShell} can not be null!");
+                throw new ArgumentException($"[{nameof(RepoCommandProcessor)}] ->Argument {powerShell} can not be null!", nameof(powerShell));
 
             this.powerShell = powerShell;
         }
