@@ -1,19 +1,9 @@
-﻿using NUnit.Framework;
-using FluentAssertions;
-using GitLooker.Services.Services;
-using System.Threading.Tasks;
-using System.Collections.Generic;
-using GitLooker.Services.Repository;
-using System.IO;
-using System.Linq;
-using GitLooker.Services.interceptors;
+﻿using FluentAssertions;
 using GitLooker.Core.Services;
-using Moq;
-using System.Reflection;
-using System;
-using System.Diagnostics;
-using GitLooker.Core;
 using GitLooker.Services.CommandProcessor;
+using Moq;
+using NUnit.Framework;
+using System;
 
 namespace GitLooker.Unit.Test.GitLooker.Services.CommandProcessor
 {
@@ -61,6 +51,66 @@ namespace GitLooker.Unit.Test.GitLooker.Services.CommandProcessor
         public void ClonRepo_executes()
         {
             var result = repoCommandProcessor.ClonRepo(workingDir, configRepo);
+
+            Mock.Get(powerShell).Verify(p => p.Execute(It.IsAny<string>(), It.IsAny<bool>()), Times.Once);
+            result.Error.Should().BeNullOrEmpty();
+            result.IsSuccess.Should().BeTrue();
+            result.SpecialValue.Should().BeNull();
+            result.Value.Should().BeEquivalentTo(new[] {
+                new[] { workingDir.ToLower() }
+            });
+        }
+
+        [Test]
+        public void PullRepo_executes()
+        {
+            var result = repoCommandProcessor.PullRepo(workingDir);
+
+            Mock.Get(powerShell).Verify(p => p.Execute(It.IsAny<string>(), It.IsAny<bool>()), Times.Once);
+            result.Error.Should().BeNullOrEmpty();
+            result.IsSuccess.Should().BeTrue();
+            result.SpecialValue.Should().BeNull();
+            result.Value.Should().BeEquivalentTo(new[] {
+                new[] { workingDir.ToLower() }
+            });
+        }
+
+        [TestCase("test", "")]
+        [TestCase("(push) 1 2 3 4", "3")]
+        public void RemoteConfig_executes(string executionResult, string expectedResult)
+        {
+            Mock.Get(powerShell).Setup(p => p.Execute(It.Is<string>(p => p.Contains(workingDir)), It.IsAny<bool>()))
+                .Returns(() => new[] { executionResult });
+
+            var result = repoCommandProcessor.RemoteConfig(workingDir);
+
+            Mock.Get(powerShell).Verify(p => p.Execute(It.IsAny<string>(), It.IsAny<bool>()), Times.Once);
+            result.Error.Should().BeNullOrEmpty();
+            result.IsSuccess.Should().BeTrue();
+            result.SpecialValue.Should().BeNull();
+            result.Value.Should().BeEquivalentTo(new[] {
+                new[] { expectedResult }
+            });
+        }
+
+        [Test]
+        public void ResetRepo_executes()
+        {
+            var result = repoCommandProcessor.ResetRepo(workingDir);
+
+            Mock.Get(powerShell).Verify(p => p.Execute(It.IsAny<string>(), It.IsAny<bool>()), Times.Once);
+            result.Error.Should().BeNullOrEmpty();
+            result.IsSuccess.Should().BeTrue();
+            result.SpecialValue.Should().BeNull();
+            result.Value.Should().BeEquivalentTo(new[] {
+                new[] { workingDir.ToLower() }
+            });
+        }
+
+        [Test]
+        public void CheckOutBranch_executes()
+        {
+            var result = repoCommandProcessor.CheckOutBranch(workingDir, configRepo);
 
             Mock.Get(powerShell).Verify(p => p.Execute(It.IsAny<string>(), It.IsAny<bool>()), Times.Once);
             result.Error.Should().BeNullOrEmpty();

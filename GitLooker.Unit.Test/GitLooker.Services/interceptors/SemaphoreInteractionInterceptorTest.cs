@@ -1,18 +1,11 @@
-﻿using NUnit.Framework;
-using FluentAssertions;
-using GitLooker.Services.Services;
-using System.Threading.Tasks;
-using System.Collections.Generic;
-using GitLooker.Services.Repository;
-using System.IO;
-using System.Linq;
-using GitLooker.Services.interceptors;
-using GitLooker.Core.Services;
-using Moq;
-using System.Reflection;
-using System;
-using System.Diagnostics;
+﻿using FluentAssertions;
 using GitLooker.Core;
+using GitLooker.Core.Services;
+using GitLooker.Services.interceptors;
+using Moq;
+using NUnit.Framework;
+using System;
+using System.Collections.Generic;
 
 namespace GitLooker.Unit.Test.GitLooker.Services.interceptors
 {
@@ -62,7 +55,7 @@ namespace GitLooker.Unit.Test.GitLooker.Services.interceptors
         [Test]
         public void Intercept_check_for_Execute_methodWithException_should_use_Semaphore_and_ReturnValue()
         {
-            Mock.Get(invocation1).Setup(i => i.Proceed()).Callback(() => throw new Exception() );
+            Mock.Get(invocation1).Setup(i => i.Proceed()).Callback(() => throw new Exception());
             var expectedReturnValue = new AppResult<IEnumerable<string>>(new Exception());
 
             semaphoreInteractionInterceptor.Intercept(invocation1);
@@ -71,7 +64,7 @@ namespace GitLooker.Unit.Test.GitLooker.Services.interceptors
             Mock.Get(invocation1).Verify(i => i.Proceed(), Times.Once);
             returnResult.Should().HaveCount(1)
                 .And
-                .Contain(e => e.Message == "Exception of type 'System.Exception' was thrown.");                
+                .Contain(e => e.Message == "Exception of type 'System.Exception' was thrown.");
             Mock.Get(appSemaphoreSlim).Verify(s => s.Wait(), Times.Once);
             Mock.Get(appSemaphoreSlim).Verify(s => s.Release(), Times.Once);
             hasExecuted.Should().BeFalse();

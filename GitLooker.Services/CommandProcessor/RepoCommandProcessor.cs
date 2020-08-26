@@ -81,8 +81,8 @@ namespace GitLooker.Services.CommandProcessor
         public AppResult<IEnumerable<string>> RemoteConfig(string workingDir)
         {
             var rtn = powerShell.Execute(GenerateRemoteConfig(workingDir));
-            var result = rtn.FirstOrDefault(x => x.ToLower().Contains("(push)")).Replace('\t', ' ').Split(' ');
-            if (result.Length > 2)
+            var result = rtn.FirstOrDefault(x => x.ToLower().Contains("(push)"))?.Replace('\t', ' ').Split(' ');
+            if ((result?.Length ?? default) > 2)
                 return ReturnValue(new[] { result[result.Length - 2] }.AsEnumerable());
             else
                 return ReturnValue(new[] { string.Empty }.AsEnumerable());

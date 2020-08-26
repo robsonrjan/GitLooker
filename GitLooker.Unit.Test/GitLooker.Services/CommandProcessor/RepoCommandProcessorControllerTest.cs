@@ -1,19 +1,13 @@
-﻿using NUnit.Framework;
-using FluentAssertions;
-using GitLooker.Services.Services;
-using System.Threading.Tasks;
-using System.Collections.Generic;
-using GitLooker.Services.Repository;
-using System.IO;
-using System.Linq;
-using GitLooker.Services.interceptors;
-using GitLooker.Core.Services;
-using Moq;
-using System.Reflection;
-using System;
-using System.Diagnostics;
+﻿using FluentAssertions;
 using GitLooker.Core;
+using GitLooker.Core.Services;
 using GitLooker.Services.CommandProcessor;
+using Moq;
+using NUnit.Framework;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 
 namespace GitLooker.Unit.Test.GitLooker.Services.CommandProcessor
 {
@@ -68,7 +62,7 @@ namespace GitLooker.Unit.Test.GitLooker.Services.CommandProcessor
         [Test]
         public void Execute_check_fewAtOnce_execution()
         {
-            var commamdNames = new[] { "CheckOutBranch" , "RemoteConfig", "ClonRepo" };
+            var commamdNames = new[] { "CheckOutBranch", "RemoteConfig", "ClonRepo" };
             bool hasInvoked = default;
             int reposCount = 1;
             object specialValue = "remoteconfig";

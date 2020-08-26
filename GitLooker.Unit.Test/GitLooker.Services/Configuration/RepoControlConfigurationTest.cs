@@ -1,19 +1,8 @@
-﻿using NUnit.Framework;
-using FluentAssertions;
-using GitLooker.Services.Services;
-using System.Threading.Tasks;
-using System.Collections.Generic;
-using GitLooker.Services.Repository;
-using System.IO;
-using System.Linq;
-using GitLooker.Services.interceptors;
+﻿using FluentAssertions;
 using GitLooker.Core.Services;
-using Moq;
-using System.Reflection;
-using System;
-using System.Diagnostics;
-using GitLooker.Core;
 using GitLooker.Services.Configuration;
+using NUnit.Framework;
+using System;
 
 namespace GitLooker.Unit.Test.GitLooker.Services.Configuration
 {
