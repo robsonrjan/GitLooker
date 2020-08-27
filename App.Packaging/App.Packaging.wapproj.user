@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DebuggerFlavor>AppHostLocalDebugger</DebuggerFlavor>
+    <RemoteDebugEnabled>False</RemoteDebugEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <DebuggerFlavor>AppHostLocalDebugger</DebuggerFlavor>
+    <RemoteDebugEnabled>False</RemoteDebugEnabled>
+    <AlwaysReinstall>True</AlwaysReinstall>
+    <DeployOptionalPackages>False</DeployOptionalPackages>
+  </PropertyGroup>
+  <PropertyGroup>
+    <UapAppxPackageBuildMode>StoreOnly</UapAppxPackageBuildMode>
+    <AppxShowAllApps>True</AppxShowAllApps>
+    <AppxBuildConfigurationSelection>neutral</AppxBuildConfigurationSelection>
+    <PackageOptionalProjectsInIdeBuilds>False</PackageOptionalProjectsInIdeBuilds>
+  </PropertyGroup>
+</Project>
