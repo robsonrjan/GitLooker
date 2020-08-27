@@ -47,6 +47,8 @@
             this.toolStripTextBox3 = new System.Windows.Forms.ToolStripTextBox();
             this.toolStripMenuItem12 = new System.Windows.Forms.ToolStripMenuItem();
             this.checkToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.checkStatusToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pullAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.configurationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.remoteReposConfigToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -67,8 +69,6 @@
             this.toolStripMenuItem8 = new System.Windows.Forms.ToolStripMenuItem();
             this.updateStatusToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.checkOnToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.checkStatusToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.pullAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
@@ -109,7 +109,7 @@
             this.toolStripMenuItem11,
             this.toolStripTextBox3,
             this.toolStripMenuItem12});
-            this.fileToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.fileToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(41, 23);
             this.fileToolStripMenuItem.Text = "File";
@@ -129,14 +129,14 @@
             // toolStripMenuItem3
             // 
             this.toolStripMenuItem3.Enabled = false;
-            this.toolStripMenuItem3.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.toolStripMenuItem3.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
             this.toolStripMenuItem3.Size = new System.Drawing.Size(310, 24);
             this.toolStripMenuItem3.Text = "Autocheck every: ";
             // 
             // toolStripComboBox1
             // 
-            this.toolStripComboBox1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.toolStripComboBox1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.toolStripComboBox1.Items.AddRange(new object[] {
             "none",
             "1 hour",
@@ -156,14 +156,13 @@
             // toolStripMenuItem5
             // 
             this.toolStripMenuItem5.Enabled = false;
-            this.toolStripMenuItem5.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.toolStripMenuItem5.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.toolStripMenuItem5.Name = "toolStripMenuItem5";
             this.toolStripMenuItem5.Size = new System.Drawing.Size(310, 24);
             this.toolStripMenuItem5.Text = "Main branch:";
             // 
             // toolStripTextBox1
             // 
-            this.toolStripTextBox1.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.toolStripTextBox1.Name = "toolStripTextBox1";
             this.toolStripTextBox1.Size = new System.Drawing.Size(250, 23);
             this.toolStripTextBox1.Text = "master";
@@ -177,7 +176,7 @@
             // toolStripMenuItem9
             // 
             this.toolStripMenuItem9.Enabled = false;
-            this.toolStripMenuItem9.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.toolStripMenuItem9.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.toolStripMenuItem9.Name = "toolStripMenuItem9";
             this.toolStripMenuItem9.Size = new System.Drawing.Size(310, 24);
             this.toolStripMenuItem9.Text = "Command configuration:";
@@ -190,7 +189,6 @@
             // 
             // toolStripTextBox2
             // 
-            this.toolStripTextBox2.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.toolStripTextBox2.Name = "toolStripTextBox2";
             this.toolStripTextBox2.Size = new System.Drawing.Size(250, 23);
             this.toolStripTextBox2.KeyUp += new System.Windows.Forms.KeyEventHandler(this.toolStripTextBox2_KeyUp);
@@ -203,7 +201,6 @@
             // 
             // toolStripTextBox3
             // 
-            this.toolStripTextBox3.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.toolStripTextBox3.Name = "toolStripTextBox3";
             this.toolStripTextBox3.Size = new System.Drawing.Size(250, 23);
             this.toolStripTextBox3.KeyUp += new System.Windows.Forms.KeyEventHandler(this.toolStripTextBox2_KeyUp);
@@ -211,7 +208,7 @@
             // toolStripMenuItem12
             // 
             this.toolStripMenuItem12.Enabled = false;
-            this.toolStripMenuItem12.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Italic);
+            this.toolStripMenuItem12.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
             this.toolStripMenuItem12.Name = "toolStripMenuItem12";
             this.toolStripMenuItem12.Size = new System.Drawing.Size(310, 24);
             this.toolStripMenuItem12.Text = "to save press ENTER";
@@ -223,7 +220,7 @@
             this.checkToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.checkStatusToolStripMenuItem,
             this.pullAllToolStripMenuItem});
-            this.checkToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.checkToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.checkToolStripMenuItem.Name = "checkToolStripMenuItem";
             this.checkToolStripMenuItem.Padding = new System.Windows.Forms.Padding(40, 0, 4, 0);
             this.checkToolStripMenuItem.Size = new System.Drawing.Size(75, 23);
@@ -231,19 +228,32 @@
             this.checkToolStripMenuItem.ToolTipText = "Check for updates";
             this.checkToolStripMenuItem.DropDownOpening += new System.EventHandler(this.checkToolStripMenuItem_DropDownOpening);
             // 
+            // checkStatusToolStripMenuItem
+            // 
+            this.checkStatusToolStripMenuItem.Name = "checkStatusToolStripMenuItem";
+            this.checkStatusToolStripMenuItem.Size = new System.Drawing.Size(156, 24);
+            this.checkStatusToolStripMenuItem.Text = "Check status";
+            this.checkStatusToolStripMenuItem.Click += new System.EventHandler(this.CheckToolStripMenuItem_Click);
+            // 
+            // pullAllToolStripMenuItem
+            // 
+            this.pullAllToolStripMenuItem.Name = "pullAllToolStripMenuItem";
+            this.pullAllToolStripMenuItem.Size = new System.Drawing.Size(156, 24);
+            this.pullAllToolStripMenuItem.Text = "Pull all";
+            this.pullAllToolStripMenuItem.Click += new System.EventHandler(this.pullAllToolStripMenuItem_Click);
+            // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.toolStripMenuItem1.Image = global::GitLooker.Properties.Resources.uo_st___Copy;
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(28, 23);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(12, 23);
             // 
             // configurationToolStripMenuItem
             // 
             this.configurationToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.remoteReposConfigToolStripMenuItem,
             this.expectedReposConfigToolStripMenuItem});
-            this.configurationToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.configurationToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.configurationToolStripMenuItem.Name = "configurationToolStripMenuItem";
             this.configurationToolStripMenuItem.Size = new System.Drawing.Size(105, 23);
             this.configurationToolStripMenuItem.Text = "Configuration";
@@ -266,7 +276,7 @@
             // 
             this.toolStripMenuItem2.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.toolStripMenuItem2.AutoToolTip = true;
-            this.toolStripMenuItem2.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.toolStripMenuItem2.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
             this.toolStripMenuItem2.Padding = new System.Windows.Forms.Padding(40, 0, 4, 0);
             this.toolStripMenuItem2.Size = new System.Drawing.Size(92, 23);
@@ -277,7 +287,7 @@
             // 
             // toolStripMenuItem4
             // 
-            this.toolStripMenuItem4.Font = new System.Drawing.Font("Segoe UI", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.toolStripMenuItem4.Font = new System.Drawing.Font("Segoe UI", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.toolStripMenuItem4.ForeColor = System.Drawing.Color.Navy;
             this.toolStripMenuItem4.Name = "toolStripMenuItem4";
             this.toolStripMenuItem4.Size = new System.Drawing.Size(67, 23);
@@ -285,7 +295,7 @@
             // 
             // toolStripTextBox4
             // 
-            this.toolStripTextBox4.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Italic);
+            this.toolStripTextBox4.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
             this.toolStripTextBox4.ForeColor = System.Drawing.SystemColors.WindowFrame;
             this.toolStripTextBox4.Name = "toolStripTextBox4";
             this.toolStripTextBox4.Size = new System.Drawing.Size(120, 23);
@@ -383,20 +393,6 @@
             this.checkOnToolStripMenuItem.Text = "Check on ";
             this.checkOnToolStripMenuItem.Click += new System.EventHandler(this.checkOnToolStripMenuItem_Click);
             // 
-            // checkStatusToolStripMenuItem
-            // 
-            this.checkStatusToolStripMenuItem.Name = "checkStatusToolStripMenuItem";
-            this.checkStatusToolStripMenuItem.Size = new System.Drawing.Size(180, 24);
-            this.checkStatusToolStripMenuItem.Text = "Check status";
-            this.checkStatusToolStripMenuItem.Click += new System.EventHandler(this.CheckToolStripMenuItem_Click);
-            // 
-            // pullAllToolStripMenuItem
-            // 
-            this.pullAllToolStripMenuItem.Name = "pullAllToolStripMenuItem";
-            this.pullAllToolStripMenuItem.Size = new System.Drawing.Size(180, 24);
-            this.pullAllToolStripMenuItem.Text = "Pull all";
-            this.pullAllToolStripMenuItem.Click += new System.EventHandler(this.pullAllToolStripMenuItem_Click);
-            // 
             // MainForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -405,7 +401,7 @@
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.menuStrip1);
-            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
