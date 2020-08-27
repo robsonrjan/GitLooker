@@ -16,4 +16,9 @@
     <AppxBuildConfigurationSelection>neutral</AppxBuildConfigurationSelection>
     <PackageOptionalProjectsInIdeBuilds>False</PackageOptionalProjectsInIdeBuilds>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <DebuggerFlavor>AppHostLocalDebugger</DebuggerFlavor>
+    <RemoteDebugEnabled>False</RemoteDebugEnabled>
+    <AlwaysReinstall>True</AlwaysReinstall>
+  </PropertyGroup>
 </Project>
