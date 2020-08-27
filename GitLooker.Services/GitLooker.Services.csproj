@@ -18,7 +18,11 @@
 
   <ItemGroup>
     <PackageReference Include="Castle.Core" Version="4.4.1" />
+    <PackageReference Include="Microsoft.PowerShell.Commands.Diagnostics" Version="7.0.3" />
     <PackageReference Include="Microsoft.PowerShell.Commands.Management" Version="7.0.3" />
+    <PackageReference Include="Microsoft.PowerShell.Commands.Utility" Version="7.0.3" />
+    <PackageReference Include="Microsoft.PowerShell.ConsoleHost" Version="7.0.3" />
+    <PackageReference Include="Microsoft.WSMan.Management" Version="7.0.3" />
   </ItemGroup>
 
   <ItemGroup>
