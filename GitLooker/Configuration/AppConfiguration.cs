@@ -50,11 +50,13 @@ namespace GitLooker.Configuration
             get
             {
                 var expectedRemoteList = new List<string>();
+                var executableInfo = new FileInfo(System.Windows.Forms.Application.ExecutablePath);
+                var configFile = $"{executableInfo.DirectoryName}\\{repoFileConfigurationName}";
 
-                if (File.Exists(repoFileConfigurationName))
+                if (File.Exists(configFile))
                 {
                     var jsonserializer = new DataContractJsonSerializer(typeof(List<string>));
-                    using (var stream = File.OpenRead(repoFileConfigurationName))
+                    using (var stream = File.OpenRead(configFile))
                         expectedRemoteList = (List<string>)jsonserializer.ReadObject(stream);
                 }
 
@@ -62,12 +64,15 @@ namespace GitLooker.Configuration
             }
             set
             {
-                if (File.Exists(repoFileConfigurationName))
-                    File.Delete(repoFileConfigurationName);
+                var executableInfo = new FileInfo(System.Windows.Forms.Application.ExecutablePath);
+                var configFile = $"{executableInfo.DirectoryName}\\{repoFileConfigurationName}";
+
+                if (File.Exists(configFile))
+                    File.Delete(configFile);
 
                 var jsonserializer = new DataContractJsonSerializer(typeof(List<string>));
 
-                using (var stream = File.OpenWrite(repoFileConfigurationName))
+                using (var stream = File.OpenWrite(configFile))
                     jsonserializer.WriteObject(stream, value);
             }
         }
