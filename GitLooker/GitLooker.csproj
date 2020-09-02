@@ -7,6 +7,9 @@
     <StartupObject>GitLooker.Program</StartupObject>
     <ApplicationIcon>wi0009-48.ico</ApplicationIcon>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.DependencyInjection">
       <Version>3.1.7</Version>

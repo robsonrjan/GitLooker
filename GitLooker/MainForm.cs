@@ -226,7 +226,7 @@ namespace GitLooker
                 allReposControl.Where(ctr => ctr.IsNew).ToList()
                     .ForEach(ctr => runningClons.Add(Task.Run(() => CloneRepoProcessAsync(commandProc, ctr))));
 
-                Task.Run(() => UpdateCloneReposAsync(runningClons));
+                Task.Run(() => UpdateCloneRepos(runningClons));
             }
             catch (Exception ex)
             {
@@ -234,7 +234,7 @@ namespace GitLooker
             }
         }
 
-        private async void UpdateCloneReposAsync(List<Task> runningClons)
+        private async void UpdateCloneRepos(List<Task> runningClons)
         {
             await Task.WhenAll(runningClons);
 
