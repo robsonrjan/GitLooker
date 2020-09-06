@@ -4,4 +4,10 @@ Git repo changes looker
 Application can ease maintain large amount of repositories showing repo status on form.
 Also allow pull to update local sources with remote.
 
-To run app Git installation and configuration is needed.
+Pre requirements:
+Git installation and configuration,
+Enabled powershell .
+
+
+To install -> download latest release version and go to GitLookerSetup\Release
+for MSI inatalable package.
