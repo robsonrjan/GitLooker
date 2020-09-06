@@ -1,0 +1,2 @@
+MainPackage=E:\Robert Janda dokumenty\Projekty\GIT\GitLooker\App.GitLooker\bin\x64\Release\App.GitLooker_4.1.0.0_x64.appx
+SymbolPackage=E:\Robert Janda dokumenty\Projekty\GIT\GitLooker\App.GitLooker\obj\x64\Release\Symbols\App.GitLooker_4.1.0.0_x64.appxsym
