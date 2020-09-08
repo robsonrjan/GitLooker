@@ -10,4 +10,4 @@ Enabled powershell .
 
 
 To install -> download latest release version and go to GitLookerSetup\Release
-for MSI inatalable package.
+for MSI installable package.
