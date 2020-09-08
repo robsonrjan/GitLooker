@@ -25,6 +25,7 @@ namespace GitLooker
         private string newRepoName = default(string);
         private readonly string mainBranch;
         public bool IsMainBranch { get; private set; }
+        public bool IsConnectionError { get; private set; }
         public string RepoConfiguration { get; private set; }
         public bool CanPull { get; private set; }
 
@@ -144,6 +145,7 @@ namespace GitLooker
         private bool CheckIfExist(IEnumerable<string> responseValue)
         {
             bool returnValue = true;
+            IsConnectionError = false;
             if (responseValue.Any(respound => respound.ToLower().Contains("repository not found")
             ||
             respound.ToLower().Contains("does not exist or you do not have permissions")
@@ -152,6 +154,7 @@ namespace GitLooker
             ||
             respound.ToLower().Contains("received http code 403 from")))
             {
+                IsConnectionError = true;
                 returnValue = false;
                 this.Invoke(new Action(() =>
                 {

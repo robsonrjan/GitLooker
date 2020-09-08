@@ -57,6 +57,7 @@ namespace GitLooker.Unit.Test.GitLooker.Services.CommandProcessor
             result.Value.Should().BeEquivalentTo(new[] { new[] { commandName } });
             holderRepoList.Should().HaveCount(reposCount);
             executionCount.Should().Be(1);
+            hasInvoked.Should().BeTrue();
         }
 
         [Test]

@@ -458,6 +458,16 @@ namespace GitLooker
         }
 
         private void checkToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
-                => pullAllToolStripMenuItem.Visible = allReposControl.Any(repo => repo.CanPull);
+        {
+            pullAllToolStripMenuItem.Visible = allReposControl.Any(repo => repo.CanPull);
+            checkWithConnectionErrorToolStripMenuItem.Visible = allReposControl.Any(repo => repo.IsConnectionError);
+        }
+
+        private void checkWithConnectionErrorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            foreach (var cntr in allReposControl.Where(repo => repo.IsConnectionError))
+                cntr.UpdateRepoInfo();
+            updatedManual = true;
+        }
     }
 }
