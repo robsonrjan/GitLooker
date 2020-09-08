@@ -142,3 +142,6 @@ dmypy.json
 /GitLooker.Unit.Test/bin
 /GitLooker.Unit.Test/obj
 /App.Packaging
+/App.GitLooker/AppPackages
+/App.GitLooker/bin
+/App.GitLooker/obj
