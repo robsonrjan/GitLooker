@@ -52,7 +52,7 @@
   <PropertyGroup>
     <ProjectGuid>aaf5c144-601e-4e9c-a7e2-be23db29de6f</ProjectGuid>
     <TargetPlatformVersion>10.0.18362.0</TargetPlatformVersion>
-    <TargetPlatformMinVersion>10.0.14393.0</TargetPlatformMinVersion>
+    <TargetPlatformMinVersion>10.0.17134.0</TargetPlatformMinVersion>
     <DefaultLanguage>en-US</DefaultLanguage>
     <AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
     <EntryPointProjectUniqueName>..\GitLooker\GitLooker.csproj</EntryPointProjectUniqueName>

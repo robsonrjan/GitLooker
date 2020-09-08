@@ -145,3 +145,6 @@ dmypy.json
 /App.Packaging/obj
 /App.GitLooker/bin
 /App.GitLooker/obj
+/App.GitLooker/AppPackages
+/App.GitLooker/AppPackages
+/App.GitLooker/AppPackages/App.GitLooker_4.1.0.0_Test/App.GitLooker_4.1.0.0_x64.appxbundle
