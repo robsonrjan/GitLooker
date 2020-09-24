@@ -166,6 +166,7 @@ namespace GitLooker
             else if (responseValue.Any(respound => respound.ToLower().Contains("could not resolve host:")
                 || (respound.ToLower().Contains("failed to connect to") && respound.ToLower().Contains("timed out"))))
             {
+                IsConnectionError = true;
                 returnValue = false;
                 this.Invoke(new Action(() =>
                 {

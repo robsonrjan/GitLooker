@@ -83,6 +83,7 @@ namespace GitLooker.Unit.Test.GitLooker.Services.CommandProcessor
             });
             holderRepoList.Should().HaveCount(reposCount);
             executionCount.Should().Be(commamdNames.Count());
+            hasInvoked.Should().BeTrue();
         }
 
         [Test]
