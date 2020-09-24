@@ -57,9 +57,8 @@ namespace GitLooker
             {
                 Clear();
                 chosenPath = path;
-                var dataToSave = new Dictionary<string, object>();
-                dataToSave.Add("GirLookerPath", chosenPath);
-                appConfiguration.Save(dataToSave);
+                appConfiguration.GitLookerPath = chosenPath;
+                appConfiguration.Save();
                 GenerateAndUpdateRepos();
             }
 
@@ -77,7 +76,7 @@ namespace GitLooker
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            chosenPath = appConfiguration.GirLookerPath;
+            chosenPath = appConfiguration.GitLookerPath;
             mainBranch = appConfiguration.MainBranch;
             intervalUpdateCheckHour = appConfiguration.IntervalUpdateCheckHour;
             toolStripTextBox2.Text = appConfiguration.Command;
@@ -339,9 +338,8 @@ namespace GitLooker
                     intervalUpdateCheckHour = 0;
                     break;
             }
-            var settingToSave = new Dictionary<string, object>();
-            settingToSave.Add("intervalUpdateCheckHour", intervalUpdateCheckHour);
-            appConfiguration.Save(settingToSave);
+            appConfiguration.IntervalUpdateCheckHour = intervalUpdateCheckHour;
+            appConfiguration.Save();
 
             fileToolStripMenuItem.HideDropDown();
         }
@@ -362,9 +360,8 @@ namespace GitLooker
                 mainBranch = toolStripTextBox1.Text;
                 fileToolStripMenuItem.HideDropDown();
 
-                var settingToSave = new Dictionary<string, object>();
-                settingToSave.Add("mainBranch", mainBranch);
-                appConfiguration.Save(settingToSave);
+                appConfiguration.MainBranch = mainBranch;
+                appConfiguration.Save();
 
                 fileToolStripMenuItem.HideDropDown();
 
@@ -385,10 +382,9 @@ namespace GitLooker
             {
                 fileToolStripMenuItem.HideDropDown();
 
-                var settingToSave = new Dictionary<string, object>();
-                settingToSave.Add("command", toolStripTextBox2.Text);
-                settingToSave.Add("arguments", toolStripTextBox3.Text);
-                appConfiguration.Save(settingToSave);
+                appConfiguration.Command = toolStripTextBox2.Text;
+                appConfiguration.Arguments = toolStripTextBox3.Text;
+                appConfiguration.Save();
             }
         }
 

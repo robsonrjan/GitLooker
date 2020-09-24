@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GitLooker.Unit.Test", "GitL
 EndProject
 Project("{C7167F0D-BC9F-4E6E-AFE1-012C56B48DB5}") = "App.GitLooker", "App.GitLooker\App.GitLooker.wapproj", "{AAF5C144-601E-4E9C-A7E2-BE23DB29DE6F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplication1", "WebApplication1\WebApplication1.csproj", "{40BE7567-3427-4491-A16D-A75935D3B013}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -137,6 +139,26 @@ Global
 		{AAF5C144-601E-4E9C-A7E2-BE23DB29DE6F}.Release|x86.ActiveCfg = Release|x86
 		{AAF5C144-601E-4E9C-A7E2-BE23DB29DE6F}.Release|x86.Build.0 = Release|x86
 		{AAF5C144-601E-4E9C-A7E2-BE23DB29DE6F}.Release|x86.Deploy.0 = Release|x86
+		{40BE7567-3427-4491-A16D-A75935D3B013}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{40BE7567-3427-4491-A16D-A75935D3B013}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{40BE7567-3427-4491-A16D-A75935D3B013}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{40BE7567-3427-4491-A16D-A75935D3B013}.Debug|ARM.Build.0 = Debug|Any CPU
+		{40BE7567-3427-4491-A16D-A75935D3B013}.Debug|ARM64.ActiveCfg = Debug|Any CPU
+		{40BE7567-3427-4491-A16D-A75935D3B013}.Debug|ARM64.Build.0 = Debug|Any CPU
+		{40BE7567-3427-4491-A16D-A75935D3B013}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{40BE7567-3427-4491-A16D-A75935D3B013}.Debug|x64.Build.0 = Debug|Any CPU
+		{40BE7567-3427-4491-A16D-A75935D3B013}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{40BE7567-3427-4491-A16D-A75935D3B013}.Debug|x86.Build.0 = Debug|Any CPU
+		{40BE7567-3427-4491-A16D-A75935D3B013}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{40BE7567-3427-4491-A16D-A75935D3B013}.Release|Any CPU.Build.0 = Release|Any CPU
+		{40BE7567-3427-4491-A16D-A75935D3B013}.Release|ARM.ActiveCfg = Release|Any CPU
+		{40BE7567-3427-4491-A16D-A75935D3B013}.Release|ARM.Build.0 = Release|Any CPU
+		{40BE7567-3427-4491-A16D-A75935D3B013}.Release|ARM64.ActiveCfg = Release|Any CPU
+		{40BE7567-3427-4491-A16D-A75935D3B013}.Release|ARM64.Build.0 = Release|Any CPU
+		{40BE7567-3427-4491-A16D-A75935D3B013}.Release|x64.ActiveCfg = Release|Any CPU
+		{40BE7567-3427-4491-A16D-A75935D3B013}.Release|x64.Build.0 = Release|Any CPU
+		{40BE7567-3427-4491-A16D-A75935D3B013}.Release|x86.ActiveCfg = Release|Any CPU
+		{40BE7567-3427-4491-A16D-A75935D3B013}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

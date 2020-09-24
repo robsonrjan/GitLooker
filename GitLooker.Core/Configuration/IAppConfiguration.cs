@@ -4,14 +4,13 @@ namespace GitLooker.Core.Configuration
 {
     public interface IAppConfiguration
     {
-        string Arguments { get; }
-        string Command { get; }
-        string GirLookerPath { get; }
-        int IntervalUpdateCheckHour { get; }
-        string MainBranch { get; }
+        string Arguments { get; set; }
+        string Command { get; set; }
+        string GitLookerPath { get; set; }
+        int IntervalUpdateCheckHour { get; set; }
+        string MainBranch { get; set; }
         int RepoProcessingCount { get; }
         IList<string> ExpectedRemoteRepos { get; set; }
-
-        void Save(Dictionary<string, object> configuration);
+        void Save();
     }
 }
