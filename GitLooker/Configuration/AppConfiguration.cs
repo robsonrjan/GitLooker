@@ -1,75 +1,81 @@
 ﻿using GitLooker.Core.Configuration;
 using System.Collections.Generic;
-using System.Configuration;
 using System.IO;
-using System.Runtime.Serialization.Json;
+using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace GitLooker.Configuration
 {
     public class AppConfiguration : IAppConfiguration
     {
-        private const int maxPandingGitOperations = 3;
-        private const string repoFileConfigurationName = "repos.json";
+        private const string appConfigFileName = "GitLookerConfig.json";
+        private readonly string appConfigPath;
+        private readonly string appConfigFullPath;
+        private readonly AppConfig appConfig;
 
-        public string GirLookerPath => ConfigurationManager.AppSettings["GirLookerPath"];
-        public int RepoProcessingCount
+        public AppConfiguration()
         {
-            get
-            {
-                int repoProcessingCount;
-                if (!int.TryParse(ConfigurationManager.AppSettings["repoProcessingCount"], out repoProcessingCount))
-                    repoProcessingCount = maxPandingGitOperations;
-                return repoProcessingCount;
-            }
+            var builder = new ConfigurationBuilder();
+            var configDir = Application.StartupPath;
+            appConfigPath = $"{configDir}\\Config";
+            appConfigFullPath = $"{appConfigPath}\\{appConfigFileName}";
+
+            if (!Directory.Exists(appConfigPath))
+                Directory.CreateDirectory(appConfigPath);
+
+            if (!File.Exists(appConfigFullPath))
+                SaveConfig();
+
+            appConfig = builder.AddJsonFile(appConfigFullPath).Build().Get<AppConfig>();
         }
-        public string MainBranch => ConfigurationManager.AppSettings["mainBranch"] ?? "master";
+
+        public string GitLookerPath
+        {
+            get => appConfig.GitLookerPath;
+            set => appConfig.GitLookerPath = value;
+        }
+
+        public string MainBranch
+        {
+            get => appConfig.MainBranch ?? "master";
+            set => appConfig.MainBranch = value;
+        }
+
+        public int RepoProcessingCount => appConfig.RepoProcessingCount;
+
         public int IntervalUpdateCheckHour
         {
-            get
-            {
-                int intervalUpdateCheckHour;
-                if (!int.TryParse(ConfigurationManager.AppSettings["intervalUpdateCheckHour"], out intervalUpdateCheckHour))
-                    intervalUpdateCheckHour = 0;
-                return intervalUpdateCheckHour;
-            }
+            get => appConfig.IntervalUpdateCheckHour;
+            set => appConfig.IntervalUpdateCheckHour = value;
         }
-        public string Command => ConfigurationManager.AppSettings["command"];
-        public string Arguments => ConfigurationManager.AppSettings["arguments"];
-        public void Save(Dictionary<string, object> configuration)
+
+        public string Command
         {
-            var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-            foreach (var configItem in configuration ?? new Dictionary<string, object>())
-            {
-                config.AppSettings.Settings.Remove(configItem.Key);
-                config.AppSettings.Settings.Add(configItem.Key, configItem.Value.ToString());
-            }
-            config.Save();
+            get => appConfig.Command;
+            set => appConfig.Command = value;
         }
+
+        public string Arguments
+        {
+            get => appConfig.Arguments;
+            set => appConfig.Arguments = value;
+        }
+
+        public void Save() => SaveConfig();
+
         public IList<string> ExpectedRemoteRepos
         {
-            get
-            {
-                var expectedRemoteList = new List<string>();
-
-                if (File.Exists(repoFileConfigurationName))
-                {
-                    var jsonserializer = new DataContractJsonSerializer(typeof(List<string>));
-                    using (var stream = File.OpenRead(repoFileConfigurationName))
-                        expectedRemoteList = (List<string>)jsonserializer.ReadObject(stream);
-                }
-
-                return expectedRemoteList;
-            }
+            get => appConfig.ExpectedRemoteRepos;
             set
             {
-                if (File.Exists(repoFileConfigurationName))
-                    File.Delete(repoFileConfigurationName);
-
-                var jsonserializer = new DataContractJsonSerializer(typeof(List<string>));
-
-                using (var stream = File.OpenWrite(repoFileConfigurationName))
-                    jsonserializer.WriteObject(stream, value);
+                appConfig.ExpectedRemoteRepos = value.ToList();
+                SaveConfig();
             }
         }
+
+        private void SaveConfig()
+            => File.WriteAllText(appConfigFullPath, JsonConvert.SerializeObject(appConfig ?? new AppConfig()));
     }
 }
