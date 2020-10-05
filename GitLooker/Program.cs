@@ -19,8 +19,8 @@ namespace GitLooker
                 IServiceCollection servises = new ServiceCollection();
                 servises.AddApp();
 
-                using (var servisesProvider = servises.BuildServiceProvider())
-                    servisesProvider.GetService<IAppService>().StartApp(arg);
+                using var servisesProvider = servises.BuildServiceProvider();
+                servisesProvider.GetService<IAppService>().StartApp(arg);
             }
             catch (Exception ex)
             {
