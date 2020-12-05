@@ -145,3 +145,4 @@ dmypy.json
 /App.GitLooker/AppPackages
 /App.GitLooker/bin
 /App.GitLooker/obj
+/GitLooker/publish

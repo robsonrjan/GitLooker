@@ -32,10 +32,10 @@ using System.Runtime.InteropServices;
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
 
-[assembly: AssemblyVersion(AppVersion.AssemblyVersion)]
-[assembly: AssemblyFileVersion(AppVersion.AssemblyVersion)]
+[assembly: AssemblyVersion("4.1.0")]
+[assembly: AssemblyFileVersion("4.1.0")]
 
 public static class AppVersion
 {
-    public const string AssemblyVersion = "4.0.9";
+    public const string AssemblyVersion = "4.1.0";
 }

@@ -54,6 +54,7 @@
             this.configurationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.remoteReposConfigToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.expectedReposConfigToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exortConfigurationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripTextBox4 = new System.Windows.Forms.ToolStripTextBox();
@@ -71,6 +72,7 @@
             this.updateStatusToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.checkOnToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.importConfigurationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
@@ -266,7 +268,9 @@
             // 
             this.configurationToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.remoteReposConfigToolStripMenuItem,
-            this.expectedReposConfigToolStripMenuItem});
+            this.expectedReposConfigToolStripMenuItem,
+            this.exortConfigurationToolStripMenuItem,
+            this.importConfigurationToolStripMenuItem});
             this.configurationToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.configurationToolStripMenuItem.Name = "configurationToolStripMenuItem";
             this.configurationToolStripMenuItem.Size = new System.Drawing.Size(105, 23);
@@ -285,6 +289,13 @@
             this.expectedReposConfigToolStripMenuItem.Size = new System.Drawing.Size(211, 24);
             this.expectedReposConfigToolStripMenuItem.Text = "Expected repos config";
             this.expectedReposConfigToolStripMenuItem.Click += new System.EventHandler(this.expectedReposConfigToolStripMenuItem_Click);
+            // 
+            // exortConfigurationToolStripMenuItem
+            // 
+            this.exortConfigurationToolStripMenuItem.Name = "exortConfigurationToolStripMenuItem";
+            this.exortConfigurationToolStripMenuItem.Size = new System.Drawing.Size(211, 24);
+            this.exortConfigurationToolStripMenuItem.Text = "Export configuration";
+            this.exortConfigurationToolStripMenuItem.Click += new System.EventHandler(this.exortConfigurationToolStripMenuItem_Click);
             // 
             // toolStripMenuItem2
             // 
@@ -377,41 +388,48 @@
             this.toolStripSeparator4,
             this.checkOnToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(181, 120);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(174, 98);
             this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
             // 
             // toolStripMenuItem7
             // 
             this.toolStripMenuItem7.Name = "toolStripMenuItem7";
-            this.toolStripMenuItem7.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItem7.Size = new System.Drawing.Size(173, 22);
             this.toolStripMenuItem7.Text = "Open folder";
             this.toolStripMenuItem7.Click += new System.EventHandler(this.toolStripMenuItem7_Click);
             // 
             // toolStripMenuItem8
             // 
             this.toolStripMenuItem8.Name = "toolStripMenuItem8";
-            this.toolStripMenuItem8.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItem8.Size = new System.Drawing.Size(173, 22);
             this.toolStripMenuItem8.Text = "Execute command";
             this.toolStripMenuItem8.Click += new System.EventHandler(this.toolStripMenuItem8_Click);
             // 
             // updateStatusToolStripMenuItem
             // 
             this.updateStatusToolStripMenuItem.Name = "updateStatusToolStripMenuItem";
-            this.updateStatusToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.updateStatusToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
             this.updateStatusToolStripMenuItem.Text = "Update status";
             this.updateStatusToolStripMenuItem.Click += new System.EventHandler(this.updateStatusToolStripMenuItem_Click);
             // 
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator4.Size = new System.Drawing.Size(170, 6);
             // 
             // checkOnToolStripMenuItem
             // 
             this.checkOnToolStripMenuItem.Name = "checkOnToolStripMenuItem";
-            this.checkOnToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.checkOnToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
             this.checkOnToolStripMenuItem.Text = "Check on ";
             this.checkOnToolStripMenuItem.Click += new System.EventHandler(this.checkOnToolStripMenuItem_Click);
+            // 
+            // importConfigurationToolStripMenuItem
+            // 
+            this.importConfigurationToolStripMenuItem.Name = "importConfigurationToolStripMenuItem";
+            this.importConfigurationToolStripMenuItem.Size = new System.Drawing.Size(211, 24);
+            this.importConfigurationToolStripMenuItem.Text = "Import configuration";
+            this.importConfigurationToolStripMenuItem.Click += new System.EventHandler(this.importConfigurationToolStripMenuItem_Click);
             // 
             // MainForm
             // 
@@ -483,6 +501,8 @@
         private System.Windows.Forms.ToolStripMenuItem pullAllToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem checkWithConnectionErrorToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
+        private System.Windows.Forms.ToolStripMenuItem exortConfigurationToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem importConfigurationToolStripMenuItem;
     }
 }
 

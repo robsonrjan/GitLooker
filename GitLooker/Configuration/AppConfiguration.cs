@@ -8,16 +8,15 @@ using System.Windows.Forms;
 
 namespace GitLooker.Configuration
 {
-    public class AppConfiguration : IAppConfiguration
+    public sealed class AppConfiguration : IAppConfiguration
     {
         private const string appConfigFileName = "GitLookerConfig.json";
         private readonly string appConfigPath;
         private readonly string appConfigFullPath;
-        private readonly AppConfig appConfig;
+        private AppConfig appConfig;
 
         public AppConfiguration()
         {
-            var builder = new ConfigurationBuilder();
             var configDir = Application.StartupPath;
             appConfigPath = $"{configDir}\\Config";
             appConfigFullPath = $"{appConfigPath}\\{appConfigFileName}";
@@ -28,7 +27,13 @@ namespace GitLooker.Configuration
             if (!File.Exists(appConfigFullPath))
                 SaveConfig();
 
-            appConfig = builder.AddJsonFile(appConfigFullPath).Build().Get<AppConfig>();
+            Open();
+        }
+
+        public void Open(string configFile = default)
+        {
+            var builder = new ConfigurationBuilder();
+            appConfig = builder.AddJsonFile(configFile ?? appConfigFullPath).Build().Get<AppConfig>();
         }
 
         public string GitLookerPath
@@ -75,7 +80,9 @@ namespace GitLooker.Configuration
             }
         }
 
-        private void SaveConfig()
-            => File.WriteAllText(appConfigFullPath, JsonConvert.SerializeObject(appConfig ?? new AppConfig()));
+        private void SaveConfig(string configFile = default)
+            => File.WriteAllText(configFile ?? appConfigFullPath, JsonConvert.SerializeObject(appConfig ?? new AppConfig()));
+
+        public void SaveAs(string configFile) => SaveConfig(configFile);
     }
 }

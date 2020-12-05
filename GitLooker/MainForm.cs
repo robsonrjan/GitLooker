@@ -99,7 +99,7 @@ namespace GitLooker
                 if (!isProccesing)
                 {
                     endControl.SendToBack();
-                    endControl.Focus();
+                    endControl.Select();
                     AddMissingRepositoriums();
                     ShowCheckNotification();
                 }
@@ -464,6 +464,41 @@ namespace GitLooker
             foreach (var cntr in allReposControl.Where(repo => repo.IsConnectionError))
                 cntr.UpdateRepoInfo();
             updatedManual = true;
+        }
+
+        private void exortConfigurationToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using var saveFileDialog = new SaveFileDialog
+            {
+                InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
+                Filter = "json files (*.json)|*.json",
+                FileName = "GitLookerConfig.json"
+            };
+
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                appConfiguration.SaveAs(saveFileDialog.FileName);
+        }
+
+        private void importConfigurationToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using var openFileDialog = new OpenFileDialog
+            {
+                InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
+                Filter = "json files (*.json)|*.json",
+                FileName = "GitLookerConfig.json",
+                Multiselect = false
+            };
+
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                appConfiguration.Open(openFileDialog.FileName);
+                appConfiguration.Save();
+                foreach (var ctr in allReposControl)
+                    ctr.Dispose();
+
+                allReposControl.Clear();
+                Form1_Load(default, default);
+            }
         }
     }
 }
