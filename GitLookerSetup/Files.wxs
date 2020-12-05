@@ -1,0 +1,715 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+    <Fragment>
+        <DirectoryRef Id="INSTALLLOCATION">
+            <Component Id="cmp9E910694E9B5888F2FEA19E84EA85B4A" Guid="*">
+                <File Id="fil0C3E2365E1340BC0C3736DE7E464783D" KeyPath="yes" Source="$(var.SourceDir)\Castle.Core.dll" />
+            </Component>
+            <Component Id="cmp1B7488CD97DEFFCFA20B422C3275C524" Guid="*">
+                <File Id="fil51F8FE15F0A6D97F858C9942553E9EE8" KeyPath="yes" Source="$(var.SourceDir)\GitLooker.application" />
+            </Component>
+            <Component Id="cmpB61B30DC09F058FF4C9D7E3594A7EA0C" Guid="*">
+                <Class Id="{D9A18817-0993-3602-AE91-C94E4DEB9453}" Context="InprocServer32" Description="GitLooker.Core.Configuration.AppConfig" ThreadingModel="both" ForeignServer="mscoree.dll">
+                    <ProgId Id="GitLooker.Core.Configuration.AppConfig" Description="GitLooker.Core.Configuration.AppConfig" />
+                </Class>
+                <File Id="filE607453CA211DF3144383DFD441D5553" KeyPath="yes" Source="$(var.SourceDir)\GitLooker.Core.dll" />
+                <RegistryValue Root="HKCR" Key="CLSID\{D9A18817-0993-3602-AE91-C94E4DEB9453}\Implemented Categories\{62C8FE65-4EBB-45e7-B440-6E39B2CDBF29}" Value="" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{D9A18817-0993-3602-AE91-C94E4DEB9453}\InprocServer32\1.0.0.0" Name="Class" Value="GitLooker.Core.Configuration.AppConfig" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{D9A18817-0993-3602-AE91-C94E4DEB9453}\InprocServer32\1.0.0.0" Name="Assembly" Value="GitLooker.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{D9A18817-0993-3602-AE91-C94E4DEB9453}\InprocServer32\1.0.0.0" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{D9A18817-0993-3602-AE91-C94E4DEB9453}\InprocServer32\1.0.0.0" Name="CodeBase" Value="file:///[#filE607453CA211DF3144383DFD441D5553]" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{D9A18817-0993-3602-AE91-C94E4DEB9453}\InprocServer32" Name="Class" Value="GitLooker.Core.Configuration.AppConfig" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{D9A18817-0993-3602-AE91-C94E4DEB9453}\InprocServer32" Name="Assembly" Value="GitLooker.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{D9A18817-0993-3602-AE91-C94E4DEB9453}\InprocServer32" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{D9A18817-0993-3602-AE91-C94E4DEB9453}\InprocServer32" Name="CodeBase" Value="file:///[#filE607453CA211DF3144383DFD441D5553]" Type="string" Action="write" />
+            </Component>
+            <Component Id="cmpFE06F2B77604F0D53C7C2C2C78B8CB62" Guid="*">
+                <File Id="fil9572D4D8C11F864D7AB5102A9ACE2A55" KeyPath="yes" Source="$(var.SourceDir)\GitLooker.Core.pdb" />
+            </Component>
+            <Component Id="cmp2F21F49EA828391711B3CEA610552F89" Guid="*">
+                <File Id="fil9633F43F4D997E5360DB087C04494EB4" KeyPath="yes" Source="$(var.SourceDir)\GitLooker.exe" />
+            </Component>
+            <Component Id="cmpB6AB83539BED01D077A5A7E5AAAD7F1A" Guid="*">
+                <File Id="fil7B09FFA298A374E9124D7E072FDCEED3" KeyPath="yes" Source="$(var.SourceDir)\GitLooker.exe.CodeAnalysisLog.xml" />
+            </Component>
+            <Component Id="cmpE1E53F8BE527D309B49593872E530704" Guid="*">
+                <File Id="filD99768F7E546B103989A7D3DF5EFAF62" KeyPath="yes" Source="$(var.SourceDir)\GitLooker.exe.config" />
+            </Component>
+            <Component Id="cmp798CC354064504187056111C63549C16" Guid="*">
+                <File Id="fil0145AE9EB2B895883B3C2EA9C2337356" KeyPath="yes" Source="$(var.SourceDir)\GitLooker.exe.lastcodeanalysissucceeded" />
+            </Component>
+            <Component Id="cmp713787F3CA6710CFA33F42BC7E2F9958" Guid="*">
+                <File Id="filE52903E1ED97D8E92276A1B7151A5088" KeyPath="yes" Source="$(var.SourceDir)\GitLooker.exe.manifest" />
+            </Component>
+            <Component Id="cmp336B029EB1D86590C13797B46CB02A9F" Guid="*">
+                <File Id="filAED2D59C6F0E201FC7134EA07E42435B" KeyPath="yes" Source="$(var.SourceDir)\GitLooker.pdb" />
+            </Component>
+            <Component Id="cmp2D71E778E02ED224B3FBB61C2B016B73" Guid="*">
+                <Class Id="{30DA29C6-7B10-3F95-A7BB-81896D4B24F9}" Context="InprocServer32" Description="GitLooker.Services.Repository.GitFileRepo" ThreadingModel="both" ForeignServer="mscoree.dll">
+                    <ProgId Id="GitLooker.Services.Repository.GitFileRepo" Description="GitLooker.Services.Repository.GitFileRepo" />
+                </Class>
+                <Class Id="{38420CFD-C595-3F75-AA97-29EAD54C4EC0}" Context="InprocServer32" Description="GitLooker.Services.Services.RepoHolder" ThreadingModel="both" ForeignServer="mscoree.dll">
+                    <ProgId Id="GitLooker.Services.Services.RepoHolder" Description="GitLooker.Services.Services.RepoHolder" />
+                </Class>
+                <Class Id="{4C79F205-6819-3567-81C4-860EDD309075}" Context="InprocServer32" Description="GitLooker.Services.CommandProcessor.PowersShell" ThreadingModel="both" ForeignServer="mscoree.dll">
+                    <ProgId Id="GitLooker.Services.CommandProcessor.PowersShell" Description="GitLooker.Services.CommandProcessor.PowersShell" />
+                </Class>
+                <File Id="filCDF0A1B6E26CFC2BED1862F159476220" KeyPath="yes" Source="$(var.SourceDir)\GitLooker.Services.dll" />
+                <RegistryValue Root="HKCR" Key="CLSID\{30DA29C6-7B10-3F95-A7BB-81896D4B24F9}\Implemented Categories\{62C8FE65-4EBB-45e7-B440-6E39B2CDBF29}" Value="" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{30DA29C6-7B10-3F95-A7BB-81896D4B24F9}\InprocServer32\1.0.0.0" Name="Class" Value="GitLooker.Services.Repository.GitFileRepo" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{30DA29C6-7B10-3F95-A7BB-81896D4B24F9}\InprocServer32\1.0.0.0" Name="Assembly" Value="GitLooker.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{30DA29C6-7B10-3F95-A7BB-81896D4B24F9}\InprocServer32\1.0.0.0" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{30DA29C6-7B10-3F95-A7BB-81896D4B24F9}\InprocServer32\1.0.0.0" Name="CodeBase" Value="file:///[#filCDF0A1B6E26CFC2BED1862F159476220]" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{30DA29C6-7B10-3F95-A7BB-81896D4B24F9}\InprocServer32" Name="Class" Value="GitLooker.Services.Repository.GitFileRepo" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{30DA29C6-7B10-3F95-A7BB-81896D4B24F9}\InprocServer32" Name="Assembly" Value="GitLooker.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{30DA29C6-7B10-3F95-A7BB-81896D4B24F9}\InprocServer32" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{30DA29C6-7B10-3F95-A7BB-81896D4B24F9}\InprocServer32" Name="CodeBase" Value="file:///[#filCDF0A1B6E26CFC2BED1862F159476220]" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{38420CFD-C595-3F75-AA97-29EAD54C4EC0}\Implemented Categories\{62C8FE65-4EBB-45e7-B440-6E39B2CDBF29}" Value="" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{38420CFD-C595-3F75-AA97-29EAD54C4EC0}\InprocServer32\1.0.0.0" Name="Class" Value="GitLooker.Services.Services.RepoHolder" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{38420CFD-C595-3F75-AA97-29EAD54C4EC0}\InprocServer32\1.0.0.0" Name="Assembly" Value="GitLooker.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{38420CFD-C595-3F75-AA97-29EAD54C4EC0}\InprocServer32\1.0.0.0" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{38420CFD-C595-3F75-AA97-29EAD54C4EC0}\InprocServer32\1.0.0.0" Name="CodeBase" Value="file:///[#filCDF0A1B6E26CFC2BED1862F159476220]" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{38420CFD-C595-3F75-AA97-29EAD54C4EC0}\InprocServer32" Name="Class" Value="GitLooker.Services.Services.RepoHolder" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{38420CFD-C595-3F75-AA97-29EAD54C4EC0}\InprocServer32" Name="Assembly" Value="GitLooker.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{38420CFD-C595-3F75-AA97-29EAD54C4EC0}\InprocServer32" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{38420CFD-C595-3F75-AA97-29EAD54C4EC0}\InprocServer32" Name="CodeBase" Value="file:///[#filCDF0A1B6E26CFC2BED1862F159476220]" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{4C79F205-6819-3567-81C4-860EDD309075}\Implemented Categories\{62C8FE65-4EBB-45e7-B440-6E39B2CDBF29}" Value="" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{4C79F205-6819-3567-81C4-860EDD309075}\InprocServer32\1.0.0.0" Name="Class" Value="GitLooker.Services.CommandProcessor.PowersShell" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{4C79F205-6819-3567-81C4-860EDD309075}\InprocServer32\1.0.0.0" Name="Assembly" Value="GitLooker.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{4C79F205-6819-3567-81C4-860EDD309075}\InprocServer32\1.0.0.0" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{4C79F205-6819-3567-81C4-860EDD309075}\InprocServer32\1.0.0.0" Name="CodeBase" Value="file:///[#filCDF0A1B6E26CFC2BED1862F159476220]" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{4C79F205-6819-3567-81C4-860EDD309075}\InprocServer32" Name="Class" Value="GitLooker.Services.CommandProcessor.PowersShell" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{4C79F205-6819-3567-81C4-860EDD309075}\InprocServer32" Name="Assembly" Value="GitLooker.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{4C79F205-6819-3567-81C4-860EDD309075}\InprocServer32" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{4C79F205-6819-3567-81C4-860EDD309075}\InprocServer32" Name="CodeBase" Value="file:///[#filCDF0A1B6E26CFC2BED1862F159476220]" Type="string" Action="write" />
+            </Component>
+            <Component Id="cmpE5716EA25FA7C6A31C850FD81DCF6A7B" Guid="*">
+                <File Id="filE9987A244BAF3092E8C69A438BE4579E" KeyPath="yes" Source="$(var.SourceDir)\GitLooker.Services.pdb" />
+            </Component>
+            <Component Id="cmpC6B016849FD1506FF9B5B9D92B44FF74" Guid="*">
+                <Class Id="{51E6CA18-26DB-399A-891E-99D6D0C57C5A}" Context="InprocServer32" Description="System.Runtime.CompilerServices.EnumeratorCancellationAttribute" ThreadingModel="both" ForeignServer="mscoree.dll">
+                    <ProgId Id="System.Runtime.CompilerServices.EnumeratorCancellationAttribute" Description="System.Runtime.CompilerServices.EnumeratorCancellationAttribute" />
+                </Class>
+                <File Id="filD1D77F2306A1017E7AB556DAE0514AAD" KeyPath="yes" Source="$(var.SourceDir)\Microsoft.Bcl.AsyncInterfaces.dll" />
+                <RegistryValue Root="HKCR" Key="CLSID\{51E6CA18-26DB-399A-891E-99D6D0C57C5A}\Implemented Categories\{62C8FE65-4EBB-45e7-B440-6E39B2CDBF29}" Value="" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{51E6CA18-26DB-399A-891E-99D6D0C57C5A}\InprocServer32\5.0.0.0" Name="Class" Value="System.Runtime.CompilerServices.EnumeratorCancellationAttribute" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{51E6CA18-26DB-399A-891E-99D6D0C57C5A}\InprocServer32\5.0.0.0" Name="Assembly" Value="Microsoft.Bcl.AsyncInterfaces, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{51E6CA18-26DB-399A-891E-99D6D0C57C5A}\InprocServer32\5.0.0.0" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{51E6CA18-26DB-399A-891E-99D6D0C57C5A}\InprocServer32\5.0.0.0" Name="CodeBase" Value="file:///[#filD1D77F2306A1017E7AB556DAE0514AAD]" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{51E6CA18-26DB-399A-891E-99D6D0C57C5A}\InprocServer32" Name="Class" Value="System.Runtime.CompilerServices.EnumeratorCancellationAttribute" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{51E6CA18-26DB-399A-891E-99D6D0C57C5A}\InprocServer32" Name="Assembly" Value="Microsoft.Bcl.AsyncInterfaces, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{51E6CA18-26DB-399A-891E-99D6D0C57C5A}\InprocServer32" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{51E6CA18-26DB-399A-891E-99D6D0C57C5A}\InprocServer32" Name="CodeBase" Value="file:///[#filD1D77F2306A1017E7AB556DAE0514AAD]" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{DDEDB864-8098-3D52-A27B-DE7FAFBCB059}\5.0.0.0" Name="Class" Value="System.Runtime.CompilerServices.ConfiguredAsyncDisposable" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{DDEDB864-8098-3D52-A27B-DE7FAFBCB059}\5.0.0.0" Name="Assembly" Value="Microsoft.Bcl.AsyncInterfaces, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{DDEDB864-8098-3D52-A27B-DE7FAFBCB059}\5.0.0.0" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{DDEDB864-8098-3D52-A27B-DE7FAFBCB059}\5.0.0.0" Name="CodeBase" Value="file:///[#filD1D77F2306A1017E7AB556DAE0514AAD]" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{FAB120DF-74DD-3803-A46A-C890401B5DD1}\5.0.0.0" Name="Class" Value="System.Runtime.CompilerServices.AsyncIteratorMethodBuilder" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{FAB120DF-74DD-3803-A46A-C890401B5DD1}\5.0.0.0" Name="Assembly" Value="Microsoft.Bcl.AsyncInterfaces, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{FAB120DF-74DD-3803-A46A-C890401B5DD1}\5.0.0.0" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{FAB120DF-74DD-3803-A46A-C890401B5DD1}\5.0.0.0" Name="CodeBase" Value="file:///[#filD1D77F2306A1017E7AB556DAE0514AAD]" Type="string" Action="write" />
+            </Component>
+            <Component Id="cmp5C35B3CAED3AB51DED0C70930B510066" Guid="*">
+                <File Id="fil0D68A89FAE9A41A10D1E06128B4EECB3" KeyPath="yes" Source="$(var.SourceDir)\Microsoft.Extensions.Configuration.Abstractions.dll" />
+            </Component>
+            <Component Id="cmpB297DA22AAB85C40A4A74B4FCEE211E7" Guid="*">
+                <Class Id="{7A6DFA29-D43F-37FB-85E4-DEEAFD6EBF05}" Context="InprocServer32" Description="Microsoft.Extensions.Configuration.BinderOptions" ThreadingModel="both" ForeignServer="mscoree.dll">
+                    <ProgId Id="Microsoft.Extensions.Configuration.BinderOptions" Description="Microsoft.Extensions.Configuration.BinderOptions" />
+                </Class>
+                <File Id="fil80019F877D9771742803A8BA2D94230E" KeyPath="yes" Source="$(var.SourceDir)\Microsoft.Extensions.Configuration.Binder.dll" />
+                <RegistryValue Root="HKCR" Key="CLSID\{7A6DFA29-D43F-37FB-85E4-DEEAFD6EBF05}\Implemented Categories\{62C8FE65-4EBB-45e7-B440-6E39B2CDBF29}" Value="" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{7A6DFA29-D43F-37FB-85E4-DEEAFD6EBF05}\InprocServer32\5.0.0.0" Name="Class" Value="Microsoft.Extensions.Configuration.BinderOptions" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{7A6DFA29-D43F-37FB-85E4-DEEAFD6EBF05}\InprocServer32\5.0.0.0" Name="Assembly" Value="Microsoft.Extensions.Configuration.Binder, Version=5.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{7A6DFA29-D43F-37FB-85E4-DEEAFD6EBF05}\InprocServer32\5.0.0.0" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{7A6DFA29-D43F-37FB-85E4-DEEAFD6EBF05}\InprocServer32\5.0.0.0" Name="CodeBase" Value="file:///[#fil80019F877D9771742803A8BA2D94230E]" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{7A6DFA29-D43F-37FB-85E4-DEEAFD6EBF05}\InprocServer32" Name="Class" Value="Microsoft.Extensions.Configuration.BinderOptions" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{7A6DFA29-D43F-37FB-85E4-DEEAFD6EBF05}\InprocServer32" Name="Assembly" Value="Microsoft.Extensions.Configuration.Binder, Version=5.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{7A6DFA29-D43F-37FB-85E4-DEEAFD6EBF05}\InprocServer32" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{7A6DFA29-D43F-37FB-85E4-DEEAFD6EBF05}\InprocServer32" Name="CodeBase" Value="file:///[#fil80019F877D9771742803A8BA2D94230E]" Type="string" Action="write" />
+            </Component>
+            <Component Id="cmpFAA29FF2D198ACC51A8FBB0D5418B9FB" Guid="*">
+                <Class Id="{2D443BF5-0703-3667-8FA3-2366D852AC8B}" Context="InprocServer32" Description="Microsoft.Extensions.Configuration.Memory.MemoryConfigurationSource" ThreadingModel="both" ForeignServer="mscoree.dll">
+                    <ProgId Id="Microsoft.Extensions.Configuration.Memory.MemoryConfigurationSource" Description="Microsoft.Extensions.Configuration.Memory.MemoryConfigurationSource" />
+                </Class>
+                <Class Id="{658C8740-615E-399A-B907-687A02FB8F26}" Context="InprocServer32" Description="Microsoft.Extensions.Configuration.ConfigurationBuilder" ThreadingModel="both" ForeignServer="mscoree.dll">
+                    <ProgId Id="Microsoft.Extensions.Configuration.ConfigurationBuilder" Description="Microsoft.Extensions.Configuration.ConfigurationBuilder" />
+                </Class>
+                <Class Id="{676E9FF6-5D04-3434-856D-86DA7941427D}" Context="InprocServer32" Description="Microsoft.Extensions.Configuration.ConfigurationKeyComparer" ThreadingModel="both" ForeignServer="mscoree.dll">
+                    <ProgId Id="Microsoft.Extensions.Configuration.ConfigurationKeyComparer" Description="Microsoft.Extensions.Configuration.ConfigurationKeyComparer" />
+                </Class>
+                <Class Id="{70254565-461A-36D6-82D8-7F50F3B54269}" Context="InprocServer32" Description="Microsoft.Extensions.Configuration.ConfigurationReloadToken" ThreadingModel="both" ForeignServer="mscoree.dll">
+                    <ProgId Id="Microsoft.Extensions.Configuration.ConfigurationReloadToken" Description="Microsoft.Extensions.Configuration.ConfigurationReloadToken" />
+                </Class>
+                <Class Id="{F287B858-2B2A-378F-B7CB-AD33B7465C8F}" Context="InprocServer32" Description="Microsoft.Extensions.Configuration.ChainedConfigurationSource" ThreadingModel="both" ForeignServer="mscoree.dll">
+                    <ProgId Id="Microsoft.Extensions.Configuration.ChainedConfigurationSource" Description="Microsoft.Extensions.Configuration.ChainedConfigurationSource" />
+                </Class>
+                <File Id="fil970A07A1F4E4754ECCF581310431489B" KeyPath="yes" Source="$(var.SourceDir)\Microsoft.Extensions.Configuration.dll" />
+                <RegistryValue Root="HKCR" Key="CLSID\{2D443BF5-0703-3667-8FA3-2366D852AC8B}\Implemented Categories\{62C8FE65-4EBB-45e7-B440-6E39B2CDBF29}" Value="" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{2D443BF5-0703-3667-8FA3-2366D852AC8B}\InprocServer32\5.0.0.0" Name="Class" Value="Microsoft.Extensions.Configuration.Memory.MemoryConfigurationSource" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{2D443BF5-0703-3667-8FA3-2366D852AC8B}\InprocServer32\5.0.0.0" Name="Assembly" Value="Microsoft.Extensions.Configuration, Version=5.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{2D443BF5-0703-3667-8FA3-2366D852AC8B}\InprocServer32\5.0.0.0" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{2D443BF5-0703-3667-8FA3-2366D852AC8B}\InprocServer32\5.0.0.0" Name="CodeBase" Value="file:///[#fil970A07A1F4E4754ECCF581310431489B]" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{2D443BF5-0703-3667-8FA3-2366D852AC8B}\InprocServer32" Name="Class" Value="Microsoft.Extensions.Configuration.Memory.MemoryConfigurationSource" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{2D443BF5-0703-3667-8FA3-2366D852AC8B}\InprocServer32" Name="Assembly" Value="Microsoft.Extensions.Configuration, Version=5.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{2D443BF5-0703-3667-8FA3-2366D852AC8B}\InprocServer32" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{2D443BF5-0703-3667-8FA3-2366D852AC8B}\InprocServer32" Name="CodeBase" Value="file:///[#fil970A07A1F4E4754ECCF581310431489B]" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{658C8740-615E-399A-B907-687A02FB8F26}\Implemented Categories\{62C8FE65-4EBB-45e7-B440-6E39B2CDBF29}" Value="" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{658C8740-615E-399A-B907-687A02FB8F26}\InprocServer32\5.0.0.0" Name="Class" Value="Microsoft.Extensions.Configuration.ConfigurationBuilder" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{658C8740-615E-399A-B907-687A02FB8F26}\InprocServer32\5.0.0.0" Name="Assembly" Value="Microsoft.Extensions.Configuration, Version=5.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{658C8740-615E-399A-B907-687A02FB8F26}\InprocServer32\5.0.0.0" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{658C8740-615E-399A-B907-687A02FB8F26}\InprocServer32\5.0.0.0" Name="CodeBase" Value="file:///[#fil970A07A1F4E4754ECCF581310431489B]" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{658C8740-615E-399A-B907-687A02FB8F26}\InprocServer32" Name="Class" Value="Microsoft.Extensions.Configuration.ConfigurationBuilder" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{658C8740-615E-399A-B907-687A02FB8F26}\InprocServer32" Name="Assembly" Value="Microsoft.Extensions.Configuration, Version=5.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{658C8740-615E-399A-B907-687A02FB8F26}\InprocServer32" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{658C8740-615E-399A-B907-687A02FB8F26}\InprocServer32" Name="CodeBase" Value="file:///[#fil970A07A1F4E4754ECCF581310431489B]" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{676E9FF6-5D04-3434-856D-86DA7941427D}\Implemented Categories\{62C8FE65-4EBB-45e7-B440-6E39B2CDBF29}" Value="" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{676E9FF6-5D04-3434-856D-86DA7941427D}\InprocServer32\5.0.0.0" Name="Class" Value="Microsoft.Extensions.Configuration.ConfigurationKeyComparer" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{676E9FF6-5D04-3434-856D-86DA7941427D}\InprocServer32\5.0.0.0" Name="Assembly" Value="Microsoft.Extensions.Configuration, Version=5.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{676E9FF6-5D04-3434-856D-86DA7941427D}\InprocServer32\5.0.0.0" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{676E9FF6-5D04-3434-856D-86DA7941427D}\InprocServer32\5.0.0.0" Name="CodeBase" Value="file:///[#fil970A07A1F4E4754ECCF581310431489B]" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{676E9FF6-5D04-3434-856D-86DA7941427D}\InprocServer32" Name="Class" Value="Microsoft.Extensions.Configuration.ConfigurationKeyComparer" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{676E9FF6-5D04-3434-856D-86DA7941427D}\InprocServer32" Name="Assembly" Value="Microsoft.Extensions.Configuration, Version=5.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{676E9FF6-5D04-3434-856D-86DA7941427D}\InprocServer32" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{676E9FF6-5D04-3434-856D-86DA7941427D}\InprocServer32" Name="CodeBase" Value="file:///[#fil970A07A1F4E4754ECCF581310431489B]" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{70254565-461A-36D6-82D8-7F50F3B54269}\Implemented Categories\{62C8FE65-4EBB-45e7-B440-6E39B2CDBF29}" Value="" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{70254565-461A-36D6-82D8-7F50F3B54269}\InprocServer32\5.0.0.0" Name="Class" Value="Microsoft.Extensions.Configuration.ConfigurationReloadToken" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{70254565-461A-36D6-82D8-7F50F3B54269}\InprocServer32\5.0.0.0" Name="Assembly" Value="Microsoft.Extensions.Configuration, Version=5.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{70254565-461A-36D6-82D8-7F50F3B54269}\InprocServer32\5.0.0.0" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{70254565-461A-36D6-82D8-7F50F3B54269}\InprocServer32\5.0.0.0" Name="CodeBase" Value="file:///[#fil970A07A1F4E4754ECCF581310431489B]" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{70254565-461A-36D6-82D8-7F50F3B54269}\InprocServer32" Name="Class" Value="Microsoft.Extensions.Configuration.ConfigurationReloadToken" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{70254565-461A-36D6-82D8-7F50F3B54269}\InprocServer32" Name="Assembly" Value="Microsoft.Extensions.Configuration, Version=5.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{70254565-461A-36D6-82D8-7F50F3B54269}\InprocServer32" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{70254565-461A-36D6-82D8-7F50F3B54269}\InprocServer32" Name="CodeBase" Value="file:///[#fil970A07A1F4E4754ECCF581310431489B]" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{F287B858-2B2A-378F-B7CB-AD33B7465C8F}\Implemented Categories\{62C8FE65-4EBB-45e7-B440-6E39B2CDBF29}" Value="" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{F287B858-2B2A-378F-B7CB-AD33B7465C8F}\InprocServer32\5.0.0.0" Name="Class" Value="Microsoft.Extensions.Configuration.ChainedConfigurationSource" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{F287B858-2B2A-378F-B7CB-AD33B7465C8F}\InprocServer32\5.0.0.0" Name="Assembly" Value="Microsoft.Extensions.Configuration, Version=5.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{F287B858-2B2A-378F-B7CB-AD33B7465C8F}\InprocServer32\5.0.0.0" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{F287B858-2B2A-378F-B7CB-AD33B7465C8F}\InprocServer32\5.0.0.0" Name="CodeBase" Value="file:///[#fil970A07A1F4E4754ECCF581310431489B]" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{F287B858-2B2A-378F-B7CB-AD33B7465C8F}\InprocServer32" Name="Class" Value="Microsoft.Extensions.Configuration.ChainedConfigurationSource" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{F287B858-2B2A-378F-B7CB-AD33B7465C8F}\InprocServer32" Name="Assembly" Value="Microsoft.Extensions.Configuration, Version=5.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{F287B858-2B2A-378F-B7CB-AD33B7465C8F}\InprocServer32" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{F287B858-2B2A-378F-B7CB-AD33B7465C8F}\InprocServer32" Name="CodeBase" Value="file:///[#fil970A07A1F4E4754ECCF581310431489B]" Type="string" Action="write" />
+            </Component>
+            <Component Id="cmp2D72717419004E353D7A30E3B172B47D" Guid="*">
+                <Class Id="{025FDC13-3015-3895-8FEB-DDEFE102AEC7}" Context="InprocServer32" Description="Microsoft.Extensions.Configuration.FileLoadExceptionContext" ThreadingModel="both" ForeignServer="mscoree.dll">
+                    <ProgId Id="Microsoft.Extensions.Configuration.FileLoadExceptionContext" Description="Microsoft.Extensions.Configuration.FileLoadExceptionContext" />
+                </Class>
+                <File Id="fil9D7E9B0D5E686CC6BBC066B97BA10D64" KeyPath="yes" Source="$(var.SourceDir)\Microsoft.Extensions.Configuration.FileExtensions.dll" />
+                <RegistryValue Root="HKCR" Key="CLSID\{025FDC13-3015-3895-8FEB-DDEFE102AEC7}\Implemented Categories\{62C8FE65-4EBB-45e7-B440-6E39B2CDBF29}" Value="" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{025FDC13-3015-3895-8FEB-DDEFE102AEC7}\InprocServer32\5.0.0.0" Name="Class" Value="Microsoft.Extensions.Configuration.FileLoadExceptionContext" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{025FDC13-3015-3895-8FEB-DDEFE102AEC7}\InprocServer32\5.0.0.0" Name="Assembly" Value="Microsoft.Extensions.Configuration.FileExtensions, Version=5.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{025FDC13-3015-3895-8FEB-DDEFE102AEC7}\InprocServer32\5.0.0.0" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{025FDC13-3015-3895-8FEB-DDEFE102AEC7}\InprocServer32\5.0.0.0" Name="CodeBase" Value="file:///[#fil9D7E9B0D5E686CC6BBC066B97BA10D64]" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{025FDC13-3015-3895-8FEB-DDEFE102AEC7}\InprocServer32" Name="Class" Value="Microsoft.Extensions.Configuration.FileLoadExceptionContext" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{025FDC13-3015-3895-8FEB-DDEFE102AEC7}\InprocServer32" Name="Assembly" Value="Microsoft.Extensions.Configuration.FileExtensions, Version=5.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{025FDC13-3015-3895-8FEB-DDEFE102AEC7}\InprocServer32" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{025FDC13-3015-3895-8FEB-DDEFE102AEC7}\InprocServer32" Name="CodeBase" Value="file:///[#fil9D7E9B0D5E686CC6BBC066B97BA10D64]" Type="string" Action="write" />
+            </Component>
+            <Component Id="cmp460A257488453C293D293AA9B7141198" Guid="*">
+                <Class Id="{4B70416F-AF26-35F4-9730-0F0A5E6983DA}" Context="InprocServer32" Description="Microsoft.Extensions.Configuration.Json.JsonStreamConfigurationSource" ThreadingModel="both" ForeignServer="mscoree.dll">
+                    <ProgId Id="Microsoft.Extensions.Configuration.Json.JsonStreamConfigurationSource" Description="Microsoft.Extensions.Configuration.Json.JsonStreamConfigurationSource" />
+                </Class>
+                <Class Id="{951E43C9-5C6D-375F-894F-194C00E3DB3A}" Context="InprocServer32" Description="Microsoft.Extensions.Configuration.Json.JsonConfigurationSource" ThreadingModel="both" ForeignServer="mscoree.dll">
+                    <ProgId Id="Microsoft.Extensions.Configuration.Json.JsonConfigurationSource" Description="Microsoft.Extensions.Configuration.Json.JsonConfigurationSource" />
+                </Class>
+                <File Id="fil5C0628997B1C8C9DC95F68890492F3FA" KeyPath="yes" Source="$(var.SourceDir)\Microsoft.Extensions.Configuration.Json.dll" />
+                <RegistryValue Root="HKCR" Key="CLSID\{4B70416F-AF26-35F4-9730-0F0A5E6983DA}\Implemented Categories\{62C8FE65-4EBB-45e7-B440-6E39B2CDBF29}" Value="" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{4B70416F-AF26-35F4-9730-0F0A5E6983DA}\InprocServer32\5.0.0.0" Name="Class" Value="Microsoft.Extensions.Configuration.Json.JsonStreamConfigurationSource" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{4B70416F-AF26-35F4-9730-0F0A5E6983DA}\InprocServer32\5.0.0.0" Name="Assembly" Value="Microsoft.Extensions.Configuration.Json, Version=5.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{4B70416F-AF26-35F4-9730-0F0A5E6983DA}\InprocServer32\5.0.0.0" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{4B70416F-AF26-35F4-9730-0F0A5E6983DA}\InprocServer32\5.0.0.0" Name="CodeBase" Value="file:///[#fil5C0628997B1C8C9DC95F68890492F3FA]" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{4B70416F-AF26-35F4-9730-0F0A5E6983DA}\InprocServer32" Name="Class" Value="Microsoft.Extensions.Configuration.Json.JsonStreamConfigurationSource" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{4B70416F-AF26-35F4-9730-0F0A5E6983DA}\InprocServer32" Name="Assembly" Value="Microsoft.Extensions.Configuration.Json, Version=5.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{4B70416F-AF26-35F4-9730-0F0A5E6983DA}\InprocServer32" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{4B70416F-AF26-35F4-9730-0F0A5E6983DA}\InprocServer32" Name="CodeBase" Value="file:///[#fil5C0628997B1C8C9DC95F68890492F3FA]" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{951E43C9-5C6D-375F-894F-194C00E3DB3A}\Implemented Categories\{62C8FE65-4EBB-45e7-B440-6E39B2CDBF29}" Value="" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{951E43C9-5C6D-375F-894F-194C00E3DB3A}\InprocServer32\5.0.0.0" Name="Class" Value="Microsoft.Extensions.Configuration.Json.JsonConfigurationSource" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{951E43C9-5C6D-375F-894F-194C00E3DB3A}\InprocServer32\5.0.0.0" Name="Assembly" Value="Microsoft.Extensions.Configuration.Json, Version=5.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{951E43C9-5C6D-375F-894F-194C00E3DB3A}\InprocServer32\5.0.0.0" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{951E43C9-5C6D-375F-894F-194C00E3DB3A}\InprocServer32\5.0.0.0" Name="CodeBase" Value="file:///[#fil5C0628997B1C8C9DC95F68890492F3FA]" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{951E43C9-5C6D-375F-894F-194C00E3DB3A}\InprocServer32" Name="Class" Value="Microsoft.Extensions.Configuration.Json.JsonConfigurationSource" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{951E43C9-5C6D-375F-894F-194C00E3DB3A}\InprocServer32" Name="Assembly" Value="Microsoft.Extensions.Configuration.Json, Version=5.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{951E43C9-5C6D-375F-894F-194C00E3DB3A}\InprocServer32" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{951E43C9-5C6D-375F-894F-194C00E3DB3A}\InprocServer32" Name="CodeBase" Value="file:///[#fil5C0628997B1C8C9DC95F68890492F3FA]" Type="string" Action="write" />
+            </Component>
+            <Component Id="cmp3A55DF3B314D255DFBBFC565B24D09E0" Guid="*">
+                <Class Id="{6DC33201-87E8-35AB-8852-ED227D7F2635}" Context="InprocServer32" Description="Microsoft.Extensions.DependencyInjection.ActivatorUtilitiesConstructorAttribute" ThreadingModel="both" ForeignServer="mscoree.dll">
+                    <ProgId Id="Microsoft.Extensions.DependencyInjection.ActivatorUtilitiesConstructorAttribute" Description="Microsoft.Extensions.DependencyInjection.ActivatorUtilitiesConstructorAttribute" />
+                </Class>
+                <File Id="fil08108FB4DD042466AF6FE0B12964426D" KeyPath="yes" Source="$(var.SourceDir)\Microsoft.Extensions.DependencyInjection.Abstractions.dll" />
+                <ProgId Id="Record" />
+                <RegistryValue Root="HKCR" Key="CLSID\{6DC33201-87E8-35AB-8852-ED227D7F2635}\Implemented Categories\{62C8FE65-4EBB-45e7-B440-6E39B2CDBF29}" Value="" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{6DC33201-87E8-35AB-8852-ED227D7F2635}\InprocServer32\5.0.0.0" Name="Class" Value="Microsoft.Extensions.DependencyInjection.ActivatorUtilitiesConstructorAttribute" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{6DC33201-87E8-35AB-8852-ED227D7F2635}\InprocServer32\5.0.0.0" Name="Assembly" Value="Microsoft.Extensions.DependencyInjection.Abstractions, Version=5.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{6DC33201-87E8-35AB-8852-ED227D7F2635}\InprocServer32\5.0.0.0" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{6DC33201-87E8-35AB-8852-ED227D7F2635}\InprocServer32\5.0.0.0" Name="CodeBase" Value="file:///[#fil08108FB4DD042466AF6FE0B12964426D]" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{6DC33201-87E8-35AB-8852-ED227D7F2635}\InprocServer32" Name="Class" Value="Microsoft.Extensions.DependencyInjection.ActivatorUtilitiesConstructorAttribute" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{6DC33201-87E8-35AB-8852-ED227D7F2635}\InprocServer32" Name="Assembly" Value="Microsoft.Extensions.DependencyInjection.Abstractions, Version=5.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{6DC33201-87E8-35AB-8852-ED227D7F2635}\InprocServer32" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{6DC33201-87E8-35AB-8852-ED227D7F2635}\InprocServer32" Name="CodeBase" Value="file:///[#fil08108FB4DD042466AF6FE0B12964426D]" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{49E0C5C7-1D04-3AC9-A5BA-3B706A6BDFB4}\5.0.0.0" Name="Class" Value="Microsoft.Extensions.DependencyInjection.ServiceLifetime" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{49E0C5C7-1D04-3AC9-A5BA-3B706A6BDFB4}\5.0.0.0" Name="Assembly" Value="Microsoft.Extensions.DependencyInjection.Abstractions, Version=5.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{49E0C5C7-1D04-3AC9-A5BA-3B706A6BDFB4}\5.0.0.0" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{49E0C5C7-1D04-3AC9-A5BA-3B706A6BDFB4}\5.0.0.0" Name="CodeBase" Value="file:///[#fil08108FB4DD042466AF6FE0B12964426D]" Type="string" Action="write" />
+            </Component>
+            <Component Id="cmp0D96EA111B87A357A1596E85A20E07BC" Guid="*">
+                <Class Id="{38E40A7E-C5EF-37C5-9CAC-9A8422995E6C}" Context="InprocServer32" Description="Microsoft.Extensions.DependencyInjection.ServiceProviderOptions" ThreadingModel="both" ForeignServer="mscoree.dll">
+                    <ProgId Id="Microsoft.Extensions.DependencyInjection.ServiceProviderOptions" Description="Microsoft.Extensions.DependencyInjection.ServiceProviderOptions" />
+                </Class>
+                <Class Id="{509950A3-A56C-382C-849D-4BFA4F83DC56}" Context="InprocServer32" Description="Microsoft.Extensions.DependencyInjection.DefaultServiceProviderFactory" ThreadingModel="both" ForeignServer="mscoree.dll">
+                    <ProgId Id="Microsoft.Extensions.DependencyInjection.DefaultServiceProviderFactory" Description="Microsoft.Extensions.DependencyInjection.DefaultServiceProviderFactory" />
+                </Class>
+                <Class Id="{82D07A83-AB9C-3B92-A39D-17F84077122C}" Context="InprocServer32" Description="Microsoft.Extensions.DependencyInjection.ServiceCollection" ThreadingModel="both" ForeignServer="mscoree.dll">
+                    <ProgId Id="Microsoft.Extensions.DependencyInjection.ServiceCollection" Description="Microsoft.Extensions.DependencyInjection.ServiceCollection" />
+                </Class>
+                <File Id="filA152DC934E2B48380ADBEBBCB98803C2" KeyPath="yes" Source="$(var.SourceDir)\Microsoft.Extensions.DependencyInjection.dll" />
+                <RegistryValue Root="HKCR" Key="CLSID\{38E40A7E-C5EF-37C5-9CAC-9A8422995E6C}\Implemented Categories\{62C8FE65-4EBB-45e7-B440-6E39B2CDBF29}" Value="" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{38E40A7E-C5EF-37C5-9CAC-9A8422995E6C}\InprocServer32\5.0.0.0" Name="Class" Value="Microsoft.Extensions.DependencyInjection.ServiceProviderOptions" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{38E40A7E-C5EF-37C5-9CAC-9A8422995E6C}\InprocServer32\5.0.0.0" Name="Assembly" Value="Microsoft.Extensions.DependencyInjection, Version=5.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{38E40A7E-C5EF-37C5-9CAC-9A8422995E6C}\InprocServer32\5.0.0.0" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{38E40A7E-C5EF-37C5-9CAC-9A8422995E6C}\InprocServer32\5.0.0.0" Name="CodeBase" Value="file:///[#filA152DC934E2B48380ADBEBBCB98803C2]" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{38E40A7E-C5EF-37C5-9CAC-9A8422995E6C}\InprocServer32" Name="Class" Value="Microsoft.Extensions.DependencyInjection.ServiceProviderOptions" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{38E40A7E-C5EF-37C5-9CAC-9A8422995E6C}\InprocServer32" Name="Assembly" Value="Microsoft.Extensions.DependencyInjection, Version=5.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{38E40A7E-C5EF-37C5-9CAC-9A8422995E6C}\InprocServer32" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{38E40A7E-C5EF-37C5-9CAC-9A8422995E6C}\InprocServer32" Name="CodeBase" Value="file:///[#filA152DC934E2B48380ADBEBBCB98803C2]" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{509950A3-A56C-382C-849D-4BFA4F83DC56}\Implemented Categories\{62C8FE65-4EBB-45e7-B440-6E39B2CDBF29}" Value="" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{509950A3-A56C-382C-849D-4BFA4F83DC56}\InprocServer32\5.0.0.0" Name="Class" Value="Microsoft.Extensions.DependencyInjection.DefaultServiceProviderFactory" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{509950A3-A56C-382C-849D-4BFA4F83DC56}\InprocServer32\5.0.0.0" Name="Assembly" Value="Microsoft.Extensions.DependencyInjection, Version=5.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{509950A3-A56C-382C-849D-4BFA4F83DC56}\InprocServer32\5.0.0.0" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{509950A3-A56C-382C-849D-4BFA4F83DC56}\InprocServer32\5.0.0.0" Name="CodeBase" Value="file:///[#filA152DC934E2B48380ADBEBBCB98803C2]" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{509950A3-A56C-382C-849D-4BFA4F83DC56}\InprocServer32" Name="Class" Value="Microsoft.Extensions.DependencyInjection.DefaultServiceProviderFactory" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{509950A3-A56C-382C-849D-4BFA4F83DC56}\InprocServer32" Name="Assembly" Value="Microsoft.Extensions.DependencyInjection, Version=5.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{509950A3-A56C-382C-849D-4BFA4F83DC56}\InprocServer32" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{509950A3-A56C-382C-849D-4BFA4F83DC56}\InprocServer32" Name="CodeBase" Value="file:///[#filA152DC934E2B48380ADBEBBCB98803C2]" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{82D07A83-AB9C-3B92-A39D-17F84077122C}\Implemented Categories\{62C8FE65-4EBB-45e7-B440-6E39B2CDBF29}" Value="" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{82D07A83-AB9C-3B92-A39D-17F84077122C}\InprocServer32\5.0.0.0" Name="Class" Value="Microsoft.Extensions.DependencyInjection.ServiceCollection" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{82D07A83-AB9C-3B92-A39D-17F84077122C}\InprocServer32\5.0.0.0" Name="Assembly" Value="Microsoft.Extensions.DependencyInjection, Version=5.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{82D07A83-AB9C-3B92-A39D-17F84077122C}\InprocServer32\5.0.0.0" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{82D07A83-AB9C-3B92-A39D-17F84077122C}\InprocServer32\5.0.0.0" Name="CodeBase" Value="file:///[#filA152DC934E2B48380ADBEBBCB98803C2]" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{82D07A83-AB9C-3B92-A39D-17F84077122C}\InprocServer32" Name="Class" Value="Microsoft.Extensions.DependencyInjection.ServiceCollection" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{82D07A83-AB9C-3B92-A39D-17F84077122C}\InprocServer32" Name="Assembly" Value="Microsoft.Extensions.DependencyInjection, Version=5.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{82D07A83-AB9C-3B92-A39D-17F84077122C}\InprocServer32" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{82D07A83-AB9C-3B92-A39D-17F84077122C}\InprocServer32" Name="CodeBase" Value="file:///[#filA152DC934E2B48380ADBEBBCB98803C2]" Type="string" Action="write" />
+            </Component>
+            <Component Id="cmp6E9412CBD83DBDFF582B5FE05B6BC331" Guid="*">
+                <Class Id="{5ADE9196-0861-3625-9D08-7C397F267FBC}" Context="InprocServer32" Description="Microsoft.Extensions.FileProviders.NotFoundDirectoryContents" ThreadingModel="both" ForeignServer="mscoree.dll">
+                    <ProgId Id="Microsoft.Extensions.FileProviders.NotFoundDirectoryContents" Description="Microsoft.Extensions.FileProviders.NotFoundDirectoryContents" />
+                </Class>
+                <Class Id="{8CFC6DDB-B0DB-3608-8D09-28DFCFB41285}" Context="InprocServer32" Description="Microsoft.Extensions.FileProviders.NullFileProvider" ThreadingModel="both" ForeignServer="mscoree.dll">
+                    <ProgId Id="Microsoft.Extensions.FileProviders.NullFileProvider" Description="Microsoft.Extensions.FileProviders.NullFileProvider" />
+                </Class>
+                <File Id="fil0759B9A3004220595F503D5058C68434" KeyPath="yes" Source="$(var.SourceDir)\Microsoft.Extensions.FileProviders.Abstractions.dll" />
+                <RegistryValue Root="HKCR" Key="CLSID\{5ADE9196-0861-3625-9D08-7C397F267FBC}\Implemented Categories\{62C8FE65-4EBB-45e7-B440-6E39B2CDBF29}" Value="" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{5ADE9196-0861-3625-9D08-7C397F267FBC}\InprocServer32\5.0.0.0" Name="Class" Value="Microsoft.Extensions.FileProviders.NotFoundDirectoryContents" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{5ADE9196-0861-3625-9D08-7C397F267FBC}\InprocServer32\5.0.0.0" Name="Assembly" Value="Microsoft.Extensions.FileProviders.Abstractions, Version=5.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{5ADE9196-0861-3625-9D08-7C397F267FBC}\InprocServer32\5.0.0.0" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{5ADE9196-0861-3625-9D08-7C397F267FBC}\InprocServer32\5.0.0.0" Name="CodeBase" Value="file:///[#fil0759B9A3004220595F503D5058C68434]" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{5ADE9196-0861-3625-9D08-7C397F267FBC}\InprocServer32" Name="Class" Value="Microsoft.Extensions.FileProviders.NotFoundDirectoryContents" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{5ADE9196-0861-3625-9D08-7C397F267FBC}\InprocServer32" Name="Assembly" Value="Microsoft.Extensions.FileProviders.Abstractions, Version=5.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{5ADE9196-0861-3625-9D08-7C397F267FBC}\InprocServer32" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{5ADE9196-0861-3625-9D08-7C397F267FBC}\InprocServer32" Name="CodeBase" Value="file:///[#fil0759B9A3004220595F503D5058C68434]" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{8CFC6DDB-B0DB-3608-8D09-28DFCFB41285}\Implemented Categories\{62C8FE65-4EBB-45e7-B440-6E39B2CDBF29}" Value="" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{8CFC6DDB-B0DB-3608-8D09-28DFCFB41285}\InprocServer32\5.0.0.0" Name="Class" Value="Microsoft.Extensions.FileProviders.NullFileProvider" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{8CFC6DDB-B0DB-3608-8D09-28DFCFB41285}\InprocServer32\5.0.0.0" Name="Assembly" Value="Microsoft.Extensions.FileProviders.Abstractions, Version=5.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{8CFC6DDB-B0DB-3608-8D09-28DFCFB41285}\InprocServer32\5.0.0.0" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{8CFC6DDB-B0DB-3608-8D09-28DFCFB41285}\InprocServer32\5.0.0.0" Name="CodeBase" Value="file:///[#fil0759B9A3004220595F503D5058C68434]" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{8CFC6DDB-B0DB-3608-8D09-28DFCFB41285}\InprocServer32" Name="Class" Value="Microsoft.Extensions.FileProviders.NullFileProvider" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{8CFC6DDB-B0DB-3608-8D09-28DFCFB41285}\InprocServer32" Name="Assembly" Value="Microsoft.Extensions.FileProviders.Abstractions, Version=5.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{8CFC6DDB-B0DB-3608-8D09-28DFCFB41285}\InprocServer32" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{8CFC6DDB-B0DB-3608-8D09-28DFCFB41285}\InprocServer32" Name="CodeBase" Value="file:///[#fil0759B9A3004220595F503D5058C68434]" Type="string" Action="write" />
+            </Component>
+            <Component Id="cmp2DC3078E5067AC710452F7A55F587F41" Guid="*">
+                <File Id="fil57492256F3A0906174DCFFC688E2233A" KeyPath="yes" Source="$(var.SourceDir)\Microsoft.Extensions.FileProviders.Physical.dll" />
+                <RegistryValue Root="HKCR" Key="Record\{DFCAA5F2-DE76-3B58-80AB-704BBCE2DEAD}\5.0.0.0" Name="Class" Value="Microsoft.Extensions.FileProviders.Physical.ExclusionFilters" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{DFCAA5F2-DE76-3B58-80AB-704BBCE2DEAD}\5.0.0.0" Name="Assembly" Value="Microsoft.Extensions.FileProviders.Physical, Version=5.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{DFCAA5F2-DE76-3B58-80AB-704BBCE2DEAD}\5.0.0.0" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{DFCAA5F2-DE76-3B58-80AB-704BBCE2DEAD}\5.0.0.0" Name="CodeBase" Value="file:///[#fil57492256F3A0906174DCFFC688E2233A]" Type="string" Action="write" />
+            </Component>
+            <Component Id="cmpA6BBA9A85C8CF71C5EFE583476475BFA" Guid="*">
+                <Class Id="{5B48163E-0A46-371D-B79E-8B74F5548A08}" Context="InprocServer32" Description="Microsoft.Extensions.FileSystemGlobbing.Internal.PathSegments.RecursiveWildcardSegment" ThreadingModel="both" ForeignServer="mscoree.dll">
+                    <ProgId Id="Microsoft.Extensions.FileSystemGlobbing.Internal.PathSegments.RecursiveWildcardSegment" Description="Microsoft.Extensions.FileSystemGlobbing.Internal.PathSegments.RecursiveWildcardSegment" />
+                </Class>
+                <Class Id="{9E2FEF9D-6DAB-3727-BFC0-E51916CEA06A}" Context="InprocServer32" Description="Microsoft.Extensions.FileSystemGlobbing.Internal.PathSegments.ParentPathSegment" ThreadingModel="both" ForeignServer="mscoree.dll">
+                    <ProgId Id="Microsoft.Extensions.FileSystemGlobbing.Internal.PathSegments.ParentPathSegment" Description="Microsoft.Extensions.FileSystemGlobbing.Internal.PathSegments.ParentPathSegment" />
+                </Class>
+                <Class Id="{A19B218E-C4F0-3D5D-B2AB-7C6C7A680307}" Context="InprocServer32" Description="Microsoft.Extensions.FileSystemGlobbing.Internal.Patterns.PatternBuilder" ThreadingModel="both" ForeignServer="mscoree.dll">
+                    <ProgId Id="Microsoft.Extensions.FileSystemGlobbing.Internal.Patterns.PatternBuilder" Description="Microsoft.Extensions.FileSystemGlobbing.Internal.Patterns.PatternBuilder" />
+                </Class>
+                <Class Id="{CA877B6F-61F8-3108-8970-4AC6C5A240F0}" Context="InprocServer32" Description="Microsoft.Extensions.FileSystemGlobbing.Matcher" ThreadingModel="both" ForeignServer="mscoree.dll">
+                    <ProgId Id="Microsoft.Extensions.FileSystemGlobbing.Matcher" Description="Microsoft.Extensions.FileSystemGlobbing.Matcher" />
+                </Class>
+                <Class Id="{FC565422-20B5-3759-B36F-65DB0FAC1BF2}" Context="InprocServer32" Description="Microsoft.Extensions.FileSystemGlobbing.Internal.PathSegments.CurrentPathSegment" ThreadingModel="both" ForeignServer="mscoree.dll">
+                    <ProgId Id="Microsoft.Extensions.FileSystemGlobbing.Internal.PathSegments.CurrentPathSegment" Description="Microsoft.Extensions.FileSystemGlobbing.Internal.PathSegments.CurrentPathSegment" />
+                </Class>
+                <File Id="fil3FAAC0F245EEDF5384B3648EEDDFD95E" KeyPath="yes" Source="$(var.SourceDir)\Microsoft.Extensions.FileSystemGlobbing.dll" />
+                <ProgId Id="Record" />
+                <RegistryValue Root="HKCR" Key="CLSID\{5B48163E-0A46-371D-B79E-8B74F5548A08}\Implemented Categories\{62C8FE65-4EBB-45e7-B440-6E39B2CDBF29}" Value="" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{5B48163E-0A46-371D-B79E-8B74F5548A08}\InprocServer32\5.0.0.0" Name="Class" Value="Microsoft.Extensions.FileSystemGlobbing.Internal.PathSegments.RecursiveWildcardSegment" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{5B48163E-0A46-371D-B79E-8B74F5548A08}\InprocServer32\5.0.0.0" Name="Assembly" Value="Microsoft.Extensions.FileSystemGlobbing, Version=5.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{5B48163E-0A46-371D-B79E-8B74F5548A08}\InprocServer32\5.0.0.0" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{5B48163E-0A46-371D-B79E-8B74F5548A08}\InprocServer32\5.0.0.0" Name="CodeBase" Value="file:///[#fil3FAAC0F245EEDF5384B3648EEDDFD95E]" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{5B48163E-0A46-371D-B79E-8B74F5548A08}\InprocServer32" Name="Class" Value="Microsoft.Extensions.FileSystemGlobbing.Internal.PathSegments.RecursiveWildcardSegment" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{5B48163E-0A46-371D-B79E-8B74F5548A08}\InprocServer32" Name="Assembly" Value="Microsoft.Extensions.FileSystemGlobbing, Version=5.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{5B48163E-0A46-371D-B79E-8B74F5548A08}\InprocServer32" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{5B48163E-0A46-371D-B79E-8B74F5548A08}\InprocServer32" Name="CodeBase" Value="file:///[#fil3FAAC0F245EEDF5384B3648EEDDFD95E]" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{9E2FEF9D-6DAB-3727-BFC0-E51916CEA06A}\Implemented Categories\{62C8FE65-4EBB-45e7-B440-6E39B2CDBF29}" Value="" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{9E2FEF9D-6DAB-3727-BFC0-E51916CEA06A}\InprocServer32\5.0.0.0" Name="Class" Value="Microsoft.Extensions.FileSystemGlobbing.Internal.PathSegments.ParentPathSegment" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{9E2FEF9D-6DAB-3727-BFC0-E51916CEA06A}\InprocServer32\5.0.0.0" Name="Assembly" Value="Microsoft.Extensions.FileSystemGlobbing, Version=5.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{9E2FEF9D-6DAB-3727-BFC0-E51916CEA06A}\InprocServer32\5.0.0.0" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{9E2FEF9D-6DAB-3727-BFC0-E51916CEA06A}\InprocServer32\5.0.0.0" Name="CodeBase" Value="file:///[#fil3FAAC0F245EEDF5384B3648EEDDFD95E]" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{9E2FEF9D-6DAB-3727-BFC0-E51916CEA06A}\InprocServer32" Name="Class" Value="Microsoft.Extensions.FileSystemGlobbing.Internal.PathSegments.ParentPathSegment" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{9E2FEF9D-6DAB-3727-BFC0-E51916CEA06A}\InprocServer32" Name="Assembly" Value="Microsoft.Extensions.FileSystemGlobbing, Version=5.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{9E2FEF9D-6DAB-3727-BFC0-E51916CEA06A}\InprocServer32" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{9E2FEF9D-6DAB-3727-BFC0-E51916CEA06A}\InprocServer32" Name="CodeBase" Value="file:///[#fil3FAAC0F245EEDF5384B3648EEDDFD95E]" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{A19B218E-C4F0-3D5D-B2AB-7C6C7A680307}\Implemented Categories\{62C8FE65-4EBB-45e7-B440-6E39B2CDBF29}" Value="" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{A19B218E-C4F0-3D5D-B2AB-7C6C7A680307}\InprocServer32\5.0.0.0" Name="Class" Value="Microsoft.Extensions.FileSystemGlobbing.Internal.Patterns.PatternBuilder" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{A19B218E-C4F0-3D5D-B2AB-7C6C7A680307}\InprocServer32\5.0.0.0" Name="Assembly" Value="Microsoft.Extensions.FileSystemGlobbing, Version=5.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{A19B218E-C4F0-3D5D-B2AB-7C6C7A680307}\InprocServer32\5.0.0.0" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{A19B218E-C4F0-3D5D-B2AB-7C6C7A680307}\InprocServer32\5.0.0.0" Name="CodeBase" Value="file:///[#fil3FAAC0F245EEDF5384B3648EEDDFD95E]" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{A19B218E-C4F0-3D5D-B2AB-7C6C7A680307}\InprocServer32" Name="Class" Value="Microsoft.Extensions.FileSystemGlobbing.Internal.Patterns.PatternBuilder" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{A19B218E-C4F0-3D5D-B2AB-7C6C7A680307}\InprocServer32" Name="Assembly" Value="Microsoft.Extensions.FileSystemGlobbing, Version=5.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{A19B218E-C4F0-3D5D-B2AB-7C6C7A680307}\InprocServer32" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{A19B218E-C4F0-3D5D-B2AB-7C6C7A680307}\InprocServer32" Name="CodeBase" Value="file:///[#fil3FAAC0F245EEDF5384B3648EEDDFD95E]" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{CA877B6F-61F8-3108-8970-4AC6C5A240F0}\Implemented Categories\{62C8FE65-4EBB-45e7-B440-6E39B2CDBF29}" Value="" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{CA877B6F-61F8-3108-8970-4AC6C5A240F0}\InprocServer32\5.0.0.0" Name="Class" Value="Microsoft.Extensions.FileSystemGlobbing.Matcher" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{CA877B6F-61F8-3108-8970-4AC6C5A240F0}\InprocServer32\5.0.0.0" Name="Assembly" Value="Microsoft.Extensions.FileSystemGlobbing, Version=5.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{CA877B6F-61F8-3108-8970-4AC6C5A240F0}\InprocServer32\5.0.0.0" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{CA877B6F-61F8-3108-8970-4AC6C5A240F0}\InprocServer32\5.0.0.0" Name="CodeBase" Value="file:///[#fil3FAAC0F245EEDF5384B3648EEDDFD95E]" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{CA877B6F-61F8-3108-8970-4AC6C5A240F0}\InprocServer32" Name="Class" Value="Microsoft.Extensions.FileSystemGlobbing.Matcher" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{CA877B6F-61F8-3108-8970-4AC6C5A240F0}\InprocServer32" Name="Assembly" Value="Microsoft.Extensions.FileSystemGlobbing, Version=5.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{CA877B6F-61F8-3108-8970-4AC6C5A240F0}\InprocServer32" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{CA877B6F-61F8-3108-8970-4AC6C5A240F0}\InprocServer32" Name="CodeBase" Value="file:///[#fil3FAAC0F245EEDF5384B3648EEDDFD95E]" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{FC565422-20B5-3759-B36F-65DB0FAC1BF2}\Implemented Categories\{62C8FE65-4EBB-45e7-B440-6E39B2CDBF29}" Value="" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{FC565422-20B5-3759-B36F-65DB0FAC1BF2}\InprocServer32\5.0.0.0" Name="Class" Value="Microsoft.Extensions.FileSystemGlobbing.Internal.PathSegments.CurrentPathSegment" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{FC565422-20B5-3759-B36F-65DB0FAC1BF2}\InprocServer32\5.0.0.0" Name="Assembly" Value="Microsoft.Extensions.FileSystemGlobbing, Version=5.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{FC565422-20B5-3759-B36F-65DB0FAC1BF2}\InprocServer32\5.0.0.0" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{FC565422-20B5-3759-B36F-65DB0FAC1BF2}\InprocServer32\5.0.0.0" Name="CodeBase" Value="file:///[#fil3FAAC0F245EEDF5384B3648EEDDFD95E]" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{FC565422-20B5-3759-B36F-65DB0FAC1BF2}\InprocServer32" Name="Class" Value="Microsoft.Extensions.FileSystemGlobbing.Internal.PathSegments.CurrentPathSegment" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{FC565422-20B5-3759-B36F-65DB0FAC1BF2}\InprocServer32" Name="Assembly" Value="Microsoft.Extensions.FileSystemGlobbing, Version=5.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{FC565422-20B5-3759-B36F-65DB0FAC1BF2}\InprocServer32" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{FC565422-20B5-3759-B36F-65DB0FAC1BF2}\InprocServer32" Name="CodeBase" Value="file:///[#fil3FAAC0F245EEDF5384B3648EEDDFD95E]" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{0F0D9DBB-EA1A-3E0A-8986-B616E96E1FDF}\5.0.0.0" Name="Class" Value="Microsoft.Extensions.FileSystemGlobbing.FilePatternMatch" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{0F0D9DBB-EA1A-3E0A-8986-B616E96E1FDF}\5.0.0.0" Name="Assembly" Value="Microsoft.Extensions.FileSystemGlobbing, Version=5.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{0F0D9DBB-EA1A-3E0A-8986-B616E96E1FDF}\5.0.0.0" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{0F0D9DBB-EA1A-3E0A-8986-B616E96E1FDF}\5.0.0.0" Name="CodeBase" Value="file:///[#fil3FAAC0F245EEDF5384B3648EEDDFD95E]" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{9286FCD7-A75D-3B51-8E07-77D2BD3A1774}\5.0.0.0" Name="Class" Value="Microsoft.Extensions.FileSystemGlobbing.Internal.PatternContexts.PatternContextLinear+FrameData" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{9286FCD7-A75D-3B51-8E07-77D2BD3A1774}\5.0.0.0" Name="Assembly" Value="Microsoft.Extensions.FileSystemGlobbing, Version=5.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{9286FCD7-A75D-3B51-8E07-77D2BD3A1774}\5.0.0.0" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{9286FCD7-A75D-3B51-8E07-77D2BD3A1774}\5.0.0.0" Name="CodeBase" Value="file:///[#fil3FAAC0F245EEDF5384B3648EEDDFD95E]" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{C37380E8-5172-3F91-8439-8731D748ED10}\5.0.0.0" Name="Class" Value="Microsoft.Extensions.FileSystemGlobbing.Internal.PatternTestResult" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{C37380E8-5172-3F91-8439-8731D748ED10}\5.0.0.0" Name="Assembly" Value="Microsoft.Extensions.FileSystemGlobbing, Version=5.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{C37380E8-5172-3F91-8439-8731D748ED10}\5.0.0.0" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{C37380E8-5172-3F91-8439-8731D748ED10}\5.0.0.0" Name="CodeBase" Value="file:///[#fil3FAAC0F245EEDF5384B3648EEDDFD95E]" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{F83B86D4-1F7E-33E1-99B6-01BDFD0F65C0}\5.0.0.0" Name="Class" Value="Microsoft.Extensions.FileSystemGlobbing.Internal.PatternContexts.PatternContextRagged+FrameData" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{F83B86D4-1F7E-33E1-99B6-01BDFD0F65C0}\5.0.0.0" Name="Assembly" Value="Microsoft.Extensions.FileSystemGlobbing, Version=5.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{F83B86D4-1F7E-33E1-99B6-01BDFD0F65C0}\5.0.0.0" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{F83B86D4-1F7E-33E1-99B6-01BDFD0F65C0}\5.0.0.0" Name="CodeBase" Value="file:///[#fil3FAAC0F245EEDF5384B3648EEDDFD95E]" Type="string" Action="write" />
+            </Component>
+            <Component Id="cmp3F0CFE4857281F0880D96F35A0768A38" Guid="*">
+                <File Id="fil80FDAED837E1309C520672B226073BB4" KeyPath="yes" Source="$(var.SourceDir)\Microsoft.Extensions.Primitives.dll" />
+                <RegistryValue Root="HKCR" Key="Record\{5EEF37BB-EAB8-3F16-BFE2-58963EAECE9E}\5.0.0.0" Name="Class" Value="Microsoft.Extensions.Primitives.StringValues+Enumerator" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{5EEF37BB-EAB8-3F16-BFE2-58963EAECE9E}\5.0.0.0" Name="Assembly" Value="Microsoft.Extensions.Primitives, Version=5.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{5EEF37BB-EAB8-3F16-BFE2-58963EAECE9E}\5.0.0.0" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{5EEF37BB-EAB8-3F16-BFE2-58963EAECE9E}\5.0.0.0" Name="CodeBase" Value="file:///[#fil80FDAED837E1309C520672B226073BB4]" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{63952EE3-1E8F-3262-85ED-2C97FC54E871}\5.0.0.0" Name="Class" Value="Microsoft.Extensions.Primitives.StringValues" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{63952EE3-1E8F-3262-85ED-2C97FC54E871}\5.0.0.0" Name="Assembly" Value="Microsoft.Extensions.Primitives, Version=5.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{63952EE3-1E8F-3262-85ED-2C97FC54E871}\5.0.0.0" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{63952EE3-1E8F-3262-85ED-2C97FC54E871}\5.0.0.0" Name="CodeBase" Value="file:///[#fil80FDAED837E1309C520672B226073BB4]" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{878DDE99-02AB-30ED-9F7B-ED403958BF57}\5.0.0.0" Name="Class" Value="Microsoft.Extensions.Primitives.StringTokenizer" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{878DDE99-02AB-30ED-9F7B-ED403958BF57}\5.0.0.0" Name="Assembly" Value="Microsoft.Extensions.Primitives, Version=5.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{878DDE99-02AB-30ED-9F7B-ED403958BF57}\5.0.0.0" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{878DDE99-02AB-30ED-9F7B-ED403958BF57}\5.0.0.0" Name="CodeBase" Value="file:///[#fil80FDAED837E1309C520672B226073BB4]" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{AA36A053-2C7C-341B-A4CB-51F453693B45}\5.0.0.0" Name="Class" Value="Microsoft.Extensions.Primitives.StringSegment" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{AA36A053-2C7C-341B-A4CB-51F453693B45}\5.0.0.0" Name="Assembly" Value="Microsoft.Extensions.Primitives, Version=5.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{AA36A053-2C7C-341B-A4CB-51F453693B45}\5.0.0.0" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{AA36A053-2C7C-341B-A4CB-51F453693B45}\5.0.0.0" Name="CodeBase" Value="file:///[#fil80FDAED837E1309C520672B226073BB4]" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{E031FC3B-FDF8-335A-9152-A47DD0F26468}\5.0.0.0" Name="Class" Value="Microsoft.Extensions.Primitives.StringTokenizer+Enumerator" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{E031FC3B-FDF8-335A-9152-A47DD0F26468}\5.0.0.0" Name="Assembly" Value="Microsoft.Extensions.Primitives, Version=5.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{E031FC3B-FDF8-335A-9152-A47DD0F26468}\5.0.0.0" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{E031FC3B-FDF8-335A-9152-A47DD0F26468}\5.0.0.0" Name="CodeBase" Value="file:///[#fil80FDAED837E1309C520672B226073BB4]" Type="string" Action="write" />
+            </Component>
+            <Component Id="cmpE48528C4F5932A4EFD89F7331108F45D" Guid="*">
+                <File Id="filF1B84C2C6BCC693224B7A7959445B74F" KeyPath="yes" Source="$(var.SourceDir)\Newtonsoft.Json.dll" />
+            </Component>
+            <Component Id="cmp2605C5FE51EF1E6A4EDC743EB8447557" Guid="*">
+                <File Id="fil8F10FADC38F166ACFA189CE932E2D5CC" KeyPath="yes" Source="$(var.SourceDir)\System.Buffers.dll" />
+            </Component>
+            <Component Id="cmpF31E3F5F965B919D4EF1F5F1782DDBA6" Guid="*">
+                <File Id="fil739EC2273CD496EC9B1D8F5ADD1062A4" KeyPath="yes" Source="$(var.SourceDir)\System.Management.Automation.dll" />
+            </Component>
+            <Component Id="cmp6FEA0CD40F07BE97A5C3AFFD38B7DEAB" Guid="*">
+                <File Id="filD11BEDBED69403ACF99C84A5B540848A" KeyPath="yes" Source="$(var.SourceDir)\System.Memory.dll" />
+                <RegistryValue Root="HKCR" Key="Record\{0B917538-9AC4-3D4D-B1F5-34E69F195D55}\4.0.1.1" Name="Class" Value="System.SequencePosition" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{0B917538-9AC4-3D4D-B1F5-34E69F195D55}\4.0.1.1" Name="Assembly" Value="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{0B917538-9AC4-3D4D-B1F5-34E69F195D55}\4.0.1.1" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{0B917538-9AC4-3D4D-B1F5-34E69F195D55}\4.0.1.1" Name="CodeBase" Value="file:///[#filD11BEDBED69403ACF99C84A5B540848A]" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{221217DC-DFC8-3AFE-A567-D04FA2D4CE0D}\4.0.1.1" Name="Class" Value="System.Buffers.MemoryHandle" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{221217DC-DFC8-3AFE-A567-D04FA2D4CE0D}\4.0.1.1" Name="Assembly" Value="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{221217DC-DFC8-3AFE-A567-D04FA2D4CE0D}\4.0.1.1" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{221217DC-DFC8-3AFE-A567-D04FA2D4CE0D}\4.0.1.1" Name="CodeBase" Value="file:///[#filD11BEDBED69403ACF99C84A5B540848A]" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{45AC0BE3-9707-35AC-9D25-32D81ECED986}\4.0.1.1" Name="Class" Value="System.Buffers.OperationStatus" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{45AC0BE3-9707-35AC-9D25-32D81ECED986}\4.0.1.1" Name="Assembly" Value="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{45AC0BE3-9707-35AC-9D25-32D81ECED986}\4.0.1.1" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{45AC0BE3-9707-35AC-9D25-32D81ECED986}\4.0.1.1" Name="CodeBase" Value="file:///[#filD11BEDBED69403ACF99C84A5B540848A]" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{BDE30F46-4A2B-3290-947E-638B584B6099}\4.0.1.1" Name="Class" Value="System.Buffers.StandardFormat" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{BDE30F46-4A2B-3290-947E-638B584B6099}\4.0.1.1" Name="Assembly" Value="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{BDE30F46-4A2B-3290-947E-638B584B6099}\4.0.1.1" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{BDE30F46-4A2B-3290-947E-638B584B6099}\4.0.1.1" Name="CodeBase" Value="file:///[#filD11BEDBED69403ACF99C84A5B540848A]" Type="string" Action="write" />
+            </Component>
+            <Component Id="cmp6065E1313E95A9473D0FBEAD1BA86B56" Guid="*">
+                <File Id="fil00BEA883B436F09BDDB07E047A0E39BC" KeyPath="yes" Source="$(var.SourceDir)\System.Numerics.Vectors.dll" />
+            </Component>
+            <Component Id="cmpDF45DAEBE3E72EE69B477501E5F5420B" Guid="*">
+                <File Id="filC2B6FE49024E92DB1CB539B30330A32C" KeyPath="yes" Source="$(var.SourceDir)\System.Runtime.CompilerServices.Unsafe.dll" />
+            </Component>
+            <Component Id="cmp5728BE79B5063C9C004E75A223649B14" Guid="*">
+                <Class Id="{F8D6F249-797B-3030-919F-39EBCF538E3B}" Context="InprocServer32" Description="System.Text.Encodings.Web.TextEncoderSettings" ThreadingModel="both" ForeignServer="mscoree.dll">
+                    <ProgId Id="System.Text.Encodings.Web.TextEncoderSettings" Description="System.Text.Encodings.Web.TextEncoderSettings" />
+                </Class>
+                <File Id="filDEE55AD568D7CB954CBDB2DF50F964FC" KeyPath="yes" Source="$(var.SourceDir)\System.Text.Encodings.Web.dll" />
+                <RegistryValue Root="HKCR" Key="CLSID\{F8D6F249-797B-3030-919F-39EBCF538E3B}\Implemented Categories\{62C8FE65-4EBB-45e7-B440-6E39B2CDBF29}" Value="" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{F8D6F249-797B-3030-919F-39EBCF538E3B}\InprocServer32\5.0.0.0" Name="Class" Value="System.Text.Encodings.Web.TextEncoderSettings" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{F8D6F249-797B-3030-919F-39EBCF538E3B}\InprocServer32\5.0.0.0" Name="Assembly" Value="System.Text.Encodings.Web, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{F8D6F249-797B-3030-919F-39EBCF538E3B}\InprocServer32\5.0.0.0" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{F8D6F249-797B-3030-919F-39EBCF538E3B}\InprocServer32\5.0.0.0" Name="CodeBase" Value="file:///[#filDEE55AD568D7CB954CBDB2DF50F964FC]" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{F8D6F249-797B-3030-919F-39EBCF538E3B}\InprocServer32" Name="Class" Value="System.Text.Encodings.Web.TextEncoderSettings" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{F8D6F249-797B-3030-919F-39EBCF538E3B}\InprocServer32" Name="Assembly" Value="System.Text.Encodings.Web, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{F8D6F249-797B-3030-919F-39EBCF538E3B}\InprocServer32" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{F8D6F249-797B-3030-919F-39EBCF538E3B}\InprocServer32" Name="CodeBase" Value="file:///[#filDEE55AD568D7CB954CBDB2DF50F964FC]" Type="string" Action="write" />
+            </Component>
+            <Component Id="cmpD7ED7C64BBAB8DF173FFA1211D2449D5" Guid="*">
+                <Class Id="{047E9C1E-5B14-38AC-81F1-A8467C623E15}" Context="InprocServer32" Description="System.Text.Json.Serialization.JsonExtensionDataAttribute" ThreadingModel="both" ForeignServer="mscoree.dll">
+                    <ProgId Id="System.Text.Json.Serialization.JsonExtensionDataAttribute" Description="System.Text.Json.Serialization.JsonExtensionDataAttribute" />
+                </Class>
+                <Class Id="{4871D430-1E74-3A21-AB33-3AD75CAFD34B}" Context="InprocServer32" Description="System.Text.Json.JsonSerializerOptions" ThreadingModel="both" ForeignServer="mscoree.dll">
+                    <ProgId Id="System.Text.Json.JsonSerializerOptions" Description="System.Text.Json.JsonSerializerOptions" />
+                </Class>
+                <Class Id="{B8EA6308-7CD5-3A54-8DE6-9D19FC91C685}" Context="InprocServer32" Description="System.Text.Json.Serialization.JsonIncludeAttribute" ThreadingModel="both" ForeignServer="mscoree.dll">
+                    <ProgId Id="System.Text.Json.Serialization.JsonIncludeAttribute" Description="System.Text.Json.Serialization.JsonIncludeAttribute" />
+                </Class>
+                <Class Id="{CADCA14F-696C-33BF-A95D-375EF74CCFA6}" Context="InprocServer32" Description="System.Text.Json.JsonException" ThreadingModel="both" ForeignServer="mscoree.dll">
+                    <ProgId Id="System.Text.Json.JsonException" Description="System.Text.Json.JsonException" />
+                </Class>
+                <Class Id="{EC2612FA-2271-3A4C-89D0-662F024B9C46}" Context="InprocServer32" Description="System.Text.Json.Serialization.JsonConstructorAttribute" ThreadingModel="both" ForeignServer="mscoree.dll">
+                    <ProgId Id="System.Text.Json.Serialization.JsonConstructorAttribute" Description="System.Text.Json.Serialization.JsonConstructorAttribute" />
+                </Class>
+                <Class Id="{F38D8E13-25A5-305D-A7E9-B3D2A66CA00F}" Context="InprocServer32" Description="System.Text.Json.Serialization.JsonStringEnumConverter" ThreadingModel="both" ForeignServer="mscoree.dll">
+                    <ProgId Id="System.Text.Json.Serialization.JsonStringEnumConverter" Description="System.Text.Json.Serialization.JsonStringEnumConverter" />
+                </Class>
+                <Class Id="{FE8DF775-CE54-32C5-876E-304B73D08E58}" Context="InprocServer32" Description="System.Text.Json.Serialization.JsonIgnoreAttribute" ThreadingModel="both" ForeignServer="mscoree.dll">
+                    <ProgId Id="System.Text.Json.Serialization.JsonIgnoreAttribute" Description="System.Text.Json.Serialization.JsonIgnoreAttribute" />
+                </Class>
+                <File Id="fil6877C3D5EDE41598A3A528B6AA9377B0" KeyPath="yes" Source="$(var.SourceDir)\System.Text.Json.dll" />
+                <RegistryValue Root="HKCR" Key="CLSID\{047E9C1E-5B14-38AC-81F1-A8467C623E15}\Implemented Categories\{62C8FE65-4EBB-45e7-B440-6E39B2CDBF29}" Value="" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{047E9C1E-5B14-38AC-81F1-A8467C623E15}\InprocServer32\5.0.0.0" Name="Class" Value="System.Text.Json.Serialization.JsonExtensionDataAttribute" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{047E9C1E-5B14-38AC-81F1-A8467C623E15}\InprocServer32\5.0.0.0" Name="Assembly" Value="System.Text.Json, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{047E9C1E-5B14-38AC-81F1-A8467C623E15}\InprocServer32\5.0.0.0" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{047E9C1E-5B14-38AC-81F1-A8467C623E15}\InprocServer32\5.0.0.0" Name="CodeBase" Value="file:///[#fil6877C3D5EDE41598A3A528B6AA9377B0]" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{047E9C1E-5B14-38AC-81F1-A8467C623E15}\InprocServer32" Name="Class" Value="System.Text.Json.Serialization.JsonExtensionDataAttribute" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{047E9C1E-5B14-38AC-81F1-A8467C623E15}\InprocServer32" Name="Assembly" Value="System.Text.Json, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{047E9C1E-5B14-38AC-81F1-A8467C623E15}\InprocServer32" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{047E9C1E-5B14-38AC-81F1-A8467C623E15}\InprocServer32" Name="CodeBase" Value="file:///[#fil6877C3D5EDE41598A3A528B6AA9377B0]" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{4871D430-1E74-3A21-AB33-3AD75CAFD34B}\Implemented Categories\{62C8FE65-4EBB-45e7-B440-6E39B2CDBF29}" Value="" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{4871D430-1E74-3A21-AB33-3AD75CAFD34B}\InprocServer32\5.0.0.0" Name="Class" Value="System.Text.Json.JsonSerializerOptions" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{4871D430-1E74-3A21-AB33-3AD75CAFD34B}\InprocServer32\5.0.0.0" Name="Assembly" Value="System.Text.Json, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{4871D430-1E74-3A21-AB33-3AD75CAFD34B}\InprocServer32\5.0.0.0" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{4871D430-1E74-3A21-AB33-3AD75CAFD34B}\InprocServer32\5.0.0.0" Name="CodeBase" Value="file:///[#fil6877C3D5EDE41598A3A528B6AA9377B0]" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{4871D430-1E74-3A21-AB33-3AD75CAFD34B}\InprocServer32" Name="Class" Value="System.Text.Json.JsonSerializerOptions" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{4871D430-1E74-3A21-AB33-3AD75CAFD34B}\InprocServer32" Name="Assembly" Value="System.Text.Json, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{4871D430-1E74-3A21-AB33-3AD75CAFD34B}\InprocServer32" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{4871D430-1E74-3A21-AB33-3AD75CAFD34B}\InprocServer32" Name="CodeBase" Value="file:///[#fil6877C3D5EDE41598A3A528B6AA9377B0]" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{B8EA6308-7CD5-3A54-8DE6-9D19FC91C685}\Implemented Categories\{62C8FE65-4EBB-45e7-B440-6E39B2CDBF29}" Value="" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{B8EA6308-7CD5-3A54-8DE6-9D19FC91C685}\InprocServer32\5.0.0.0" Name="Class" Value="System.Text.Json.Serialization.JsonIncludeAttribute" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{B8EA6308-7CD5-3A54-8DE6-9D19FC91C685}\InprocServer32\5.0.0.0" Name="Assembly" Value="System.Text.Json, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{B8EA6308-7CD5-3A54-8DE6-9D19FC91C685}\InprocServer32\5.0.0.0" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{B8EA6308-7CD5-3A54-8DE6-9D19FC91C685}\InprocServer32\5.0.0.0" Name="CodeBase" Value="file:///[#fil6877C3D5EDE41598A3A528B6AA9377B0]" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{B8EA6308-7CD5-3A54-8DE6-9D19FC91C685}\InprocServer32" Name="Class" Value="System.Text.Json.Serialization.JsonIncludeAttribute" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{B8EA6308-7CD5-3A54-8DE6-9D19FC91C685}\InprocServer32" Name="Assembly" Value="System.Text.Json, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{B8EA6308-7CD5-3A54-8DE6-9D19FC91C685}\InprocServer32" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{B8EA6308-7CD5-3A54-8DE6-9D19FC91C685}\InprocServer32" Name="CodeBase" Value="file:///[#fil6877C3D5EDE41598A3A528B6AA9377B0]" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{CADCA14F-696C-33BF-A95D-375EF74CCFA6}\Implemented Categories\{62C8FE65-4EBB-45e7-B440-6E39B2CDBF29}" Value="" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{CADCA14F-696C-33BF-A95D-375EF74CCFA6}\InprocServer32\5.0.0.0" Name="Class" Value="System.Text.Json.JsonException" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{CADCA14F-696C-33BF-A95D-375EF74CCFA6}\InprocServer32\5.0.0.0" Name="Assembly" Value="System.Text.Json, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{CADCA14F-696C-33BF-A95D-375EF74CCFA6}\InprocServer32\5.0.0.0" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{CADCA14F-696C-33BF-A95D-375EF74CCFA6}\InprocServer32\5.0.0.0" Name="CodeBase" Value="file:///[#fil6877C3D5EDE41598A3A528B6AA9377B0]" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{CADCA14F-696C-33BF-A95D-375EF74CCFA6}\InprocServer32" Name="Class" Value="System.Text.Json.JsonException" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{CADCA14F-696C-33BF-A95D-375EF74CCFA6}\InprocServer32" Name="Assembly" Value="System.Text.Json, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{CADCA14F-696C-33BF-A95D-375EF74CCFA6}\InprocServer32" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{CADCA14F-696C-33BF-A95D-375EF74CCFA6}\InprocServer32" Name="CodeBase" Value="file:///[#fil6877C3D5EDE41598A3A528B6AA9377B0]" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{EC2612FA-2271-3A4C-89D0-662F024B9C46}\Implemented Categories\{62C8FE65-4EBB-45e7-B440-6E39B2CDBF29}" Value="" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{EC2612FA-2271-3A4C-89D0-662F024B9C46}\InprocServer32\5.0.0.0" Name="Class" Value="System.Text.Json.Serialization.JsonConstructorAttribute" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{EC2612FA-2271-3A4C-89D0-662F024B9C46}\InprocServer32\5.0.0.0" Name="Assembly" Value="System.Text.Json, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{EC2612FA-2271-3A4C-89D0-662F024B9C46}\InprocServer32\5.0.0.0" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{EC2612FA-2271-3A4C-89D0-662F024B9C46}\InprocServer32\5.0.0.0" Name="CodeBase" Value="file:///[#fil6877C3D5EDE41598A3A528B6AA9377B0]" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{EC2612FA-2271-3A4C-89D0-662F024B9C46}\InprocServer32" Name="Class" Value="System.Text.Json.Serialization.JsonConstructorAttribute" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{EC2612FA-2271-3A4C-89D0-662F024B9C46}\InprocServer32" Name="Assembly" Value="System.Text.Json, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{EC2612FA-2271-3A4C-89D0-662F024B9C46}\InprocServer32" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{EC2612FA-2271-3A4C-89D0-662F024B9C46}\InprocServer32" Name="CodeBase" Value="file:///[#fil6877C3D5EDE41598A3A528B6AA9377B0]" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{F38D8E13-25A5-305D-A7E9-B3D2A66CA00F}\Implemented Categories\{62C8FE65-4EBB-45e7-B440-6E39B2CDBF29}" Value="" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{F38D8E13-25A5-305D-A7E9-B3D2A66CA00F}\InprocServer32\5.0.0.0" Name="Class" Value="System.Text.Json.Serialization.JsonStringEnumConverter" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{F38D8E13-25A5-305D-A7E9-B3D2A66CA00F}\InprocServer32\5.0.0.0" Name="Assembly" Value="System.Text.Json, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{F38D8E13-25A5-305D-A7E9-B3D2A66CA00F}\InprocServer32\5.0.0.0" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{F38D8E13-25A5-305D-A7E9-B3D2A66CA00F}\InprocServer32\5.0.0.0" Name="CodeBase" Value="file:///[#fil6877C3D5EDE41598A3A528B6AA9377B0]" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{F38D8E13-25A5-305D-A7E9-B3D2A66CA00F}\InprocServer32" Name="Class" Value="System.Text.Json.Serialization.JsonStringEnumConverter" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{F38D8E13-25A5-305D-A7E9-B3D2A66CA00F}\InprocServer32" Name="Assembly" Value="System.Text.Json, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{F38D8E13-25A5-305D-A7E9-B3D2A66CA00F}\InprocServer32" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{F38D8E13-25A5-305D-A7E9-B3D2A66CA00F}\InprocServer32" Name="CodeBase" Value="file:///[#fil6877C3D5EDE41598A3A528B6AA9377B0]" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{FE8DF775-CE54-32C5-876E-304B73D08E58}\Implemented Categories\{62C8FE65-4EBB-45e7-B440-6E39B2CDBF29}" Value="" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{FE8DF775-CE54-32C5-876E-304B73D08E58}\InprocServer32\5.0.0.0" Name="Class" Value="System.Text.Json.Serialization.JsonIgnoreAttribute" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{FE8DF775-CE54-32C5-876E-304B73D08E58}\InprocServer32\5.0.0.0" Name="Assembly" Value="System.Text.Json, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{FE8DF775-CE54-32C5-876E-304B73D08E58}\InprocServer32\5.0.0.0" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{FE8DF775-CE54-32C5-876E-304B73D08E58}\InprocServer32\5.0.0.0" Name="CodeBase" Value="file:///[#fil6877C3D5EDE41598A3A528B6AA9377B0]" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{FE8DF775-CE54-32C5-876E-304B73D08E58}\InprocServer32" Name="Class" Value="System.Text.Json.Serialization.JsonIgnoreAttribute" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{FE8DF775-CE54-32C5-876E-304B73D08E58}\InprocServer32" Name="Assembly" Value="System.Text.Json, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{FE8DF775-CE54-32C5-876E-304B73D08E58}\InprocServer32" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{FE8DF775-CE54-32C5-876E-304B73D08E58}\InprocServer32" Name="CodeBase" Value="file:///[#fil6877C3D5EDE41598A3A528B6AA9377B0]" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{0681ABAD-7E2D-3887-92B9-8D13F41030D4}\5.0.0.0" Name="Class" Value="System.Text.Json.JsonWriterOptions" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{0681ABAD-7E2D-3887-92B9-8D13F41030D4}\5.0.0.0" Name="Assembly" Value="System.Text.Json, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{0681ABAD-7E2D-3887-92B9-8D13F41030D4}\5.0.0.0" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{0681ABAD-7E2D-3887-92B9-8D13F41030D4}\5.0.0.0" Name="CodeBase" Value="file:///[#fil6877C3D5EDE41598A3A528B6AA9377B0]" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{0BBE9247-52FA-38A0-9024-9F08BEC180A4}\5.0.0.0" Name="Class" Value="System.Text.Json.JsonSerializerDefaults" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{0BBE9247-52FA-38A0-9024-9F08BEC180A4}\5.0.0.0" Name="Assembly" Value="System.Text.Json, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{0BBE9247-52FA-38A0-9024-9F08BEC180A4}\5.0.0.0" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{0BBE9247-52FA-38A0-9024-9F08BEC180A4}\5.0.0.0" Name="CodeBase" Value="file:///[#fil6877C3D5EDE41598A3A528B6AA9377B0]" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{14120EEF-A89B-3B90-B24C-5B76CBA827F1}\5.0.0.0" Name="Class" Value="System.Text.Json.JsonEncodedText" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{14120EEF-A89B-3B90-B24C-5B76CBA827F1}\5.0.0.0" Name="Assembly" Value="System.Text.Json, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{14120EEF-A89B-3B90-B24C-5B76CBA827F1}\5.0.0.0" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{14120EEF-A89B-3B90-B24C-5B76CBA827F1}\5.0.0.0" Name="CodeBase" Value="file:///[#fil6877C3D5EDE41598A3A528B6AA9377B0]" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{223ABDBA-1680-3260-9D80-FCA9559A5C1C}\5.0.0.0" Name="Class" Value="System.Text.Json.JsonElement" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{223ABDBA-1680-3260-9D80-FCA9559A5C1C}\5.0.0.0" Name="Assembly" Value="System.Text.Json, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{223ABDBA-1680-3260-9D80-FCA9559A5C1C}\5.0.0.0" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{223ABDBA-1680-3260-9D80-FCA9559A5C1C}\5.0.0.0" Name="CodeBase" Value="file:///[#fil6877C3D5EDE41598A3A528B6AA9377B0]" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{2E78987F-7525-3905-BE35-F3D7E0F6A04F}\5.0.0.0" Name="Class" Value="System.Text.Json.Serialization.JsonIgnoreCondition" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{2E78987F-7525-3905-BE35-F3D7E0F6A04F}\5.0.0.0" Name="Assembly" Value="System.Text.Json, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{2E78987F-7525-3905-BE35-F3D7E0F6A04F}\5.0.0.0" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{2E78987F-7525-3905-BE35-F3D7E0F6A04F}\5.0.0.0" Name="CodeBase" Value="file:///[#fil6877C3D5EDE41598A3A528B6AA9377B0]" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{4B797BEE-787C-344F-B38C-720D2E1EC28D}\5.0.0.0" Name="Class" Value="System.Text.Json.JsonTokenType" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{4B797BEE-787C-344F-B38C-720D2E1EC28D}\5.0.0.0" Name="Assembly" Value="System.Text.Json, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{4B797BEE-787C-344F-B38C-720D2E1EC28D}\5.0.0.0" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{4B797BEE-787C-344F-B38C-720D2E1EC28D}\5.0.0.0" Name="CodeBase" Value="file:///[#fil6877C3D5EDE41598A3A528B6AA9377B0]" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{7A6E4440-C26B-3FDB-8B22-5C74D1255018}\5.0.0.0" Name="Class" Value="System.Text.Json.JsonDocumentOptions" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{7A6E4440-C26B-3FDB-8B22-5C74D1255018}\5.0.0.0" Name="Assembly" Value="System.Text.Json, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{7A6E4440-C26B-3FDB-8B22-5C74D1255018}\5.0.0.0" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{7A6E4440-C26B-3FDB-8B22-5C74D1255018}\5.0.0.0" Name="CodeBase" Value="file:///[#fil6877C3D5EDE41598A3A528B6AA9377B0]" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{86CDFA68-EF16-32AA-A47B-EF33067DB88B}\5.0.0.0" Name="Class" Value="System.Text.Json.Serialization.JsonNumberHandling" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{86CDFA68-EF16-32AA-A47B-EF33067DB88B}\5.0.0.0" Name="Assembly" Value="System.Text.Json, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{86CDFA68-EF16-32AA-A47B-EF33067DB88B}\5.0.0.0" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{86CDFA68-EF16-32AA-A47B-EF33067DB88B}\5.0.0.0" Name="CodeBase" Value="file:///[#fil6877C3D5EDE41598A3A528B6AA9377B0]" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{954F5C40-B083-38E5-A08E-1DB4CC83A5FC}\5.0.0.0" Name="Class" Value="System.Text.Json.JsonElement+ArrayEnumerator" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{954F5C40-B083-38E5-A08E-1DB4CC83A5FC}\5.0.0.0" Name="Assembly" Value="System.Text.Json, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{954F5C40-B083-38E5-A08E-1DB4CC83A5FC}\5.0.0.0" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{954F5C40-B083-38E5-A08E-1DB4CC83A5FC}\5.0.0.0" Name="CodeBase" Value="file:///[#fil6877C3D5EDE41598A3A528B6AA9377B0]" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{978782EA-C358-3D9C-84AB-BE9CDBCEAF98}\5.0.0.0" Name="Class" Value="System.Text.Json.JsonReaderOptions" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{978782EA-C358-3D9C-84AB-BE9CDBCEAF98}\5.0.0.0" Name="Assembly" Value="System.Text.Json, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{978782EA-C358-3D9C-84AB-BE9CDBCEAF98}\5.0.0.0" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{978782EA-C358-3D9C-84AB-BE9CDBCEAF98}\5.0.0.0" Name="CodeBase" Value="file:///[#fil6877C3D5EDE41598A3A528B6AA9377B0]" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{A33B6BEA-131B-3690-8C0F-B90C60D3119A}\5.0.0.0" Name="Class" Value="System.Text.Json.JsonElement+ObjectEnumerator" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{A33B6BEA-131B-3690-8C0F-B90C60D3119A}\5.0.0.0" Name="Assembly" Value="System.Text.Json, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{A33B6BEA-131B-3690-8C0F-B90C60D3119A}\5.0.0.0" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{A33B6BEA-131B-3690-8C0F-B90C60D3119A}\5.0.0.0" Name="CodeBase" Value="file:///[#fil6877C3D5EDE41598A3A528B6AA9377B0]" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{BDCCA24D-88FB-376C-9C49-E1A36846DB46}\5.0.0.0" Name="Class" Value="System.Text.Json.Utf8JsonReader" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{BDCCA24D-88FB-376C-9C49-E1A36846DB46}\5.0.0.0" Name="Assembly" Value="System.Text.Json, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{BDCCA24D-88FB-376C-9C49-E1A36846DB46}\5.0.0.0" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{BDCCA24D-88FB-376C-9C49-E1A36846DB46}\5.0.0.0" Name="CodeBase" Value="file:///[#fil6877C3D5EDE41598A3A528B6AA9377B0]" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{C4AB462D-BFD6-39A7-8730-21ADD0B19A41}\5.0.0.0" Name="Class" Value="System.Text.Json.JsonReaderState" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{C4AB462D-BFD6-39A7-8730-21ADD0B19A41}\5.0.0.0" Name="Assembly" Value="System.Text.Json, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{C4AB462D-BFD6-39A7-8730-21ADD0B19A41}\5.0.0.0" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{C4AB462D-BFD6-39A7-8730-21ADD0B19A41}\5.0.0.0" Name="CodeBase" Value="file:///[#fil6877C3D5EDE41598A3A528B6AA9377B0]" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{CF864D09-B35E-3351-B9C6-181438A00197}\5.0.0.0" Name="Class" Value="System.Text.Json.JsonProperty" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{CF864D09-B35E-3351-B9C6-181438A00197}\5.0.0.0" Name="Assembly" Value="System.Text.Json, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{CF864D09-B35E-3351-B9C6-181438A00197}\5.0.0.0" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{CF864D09-B35E-3351-B9C6-181438A00197}\5.0.0.0" Name="CodeBase" Value="file:///[#fil6877C3D5EDE41598A3A528B6AA9377B0]" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{F0DD52F1-5A52-3E6D-8CDE-15060BBBE3BA}\5.0.0.0" Name="Class" Value="System.Text.Json.JsonCommentHandling" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{F0DD52F1-5A52-3E6D-8CDE-15060BBBE3BA}\5.0.0.0" Name="Assembly" Value="System.Text.Json, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{F0DD52F1-5A52-3E6D-8CDE-15060BBBE3BA}\5.0.0.0" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{F0DD52F1-5A52-3E6D-8CDE-15060BBBE3BA}\5.0.0.0" Name="CodeBase" Value="file:///[#fil6877C3D5EDE41598A3A528B6AA9377B0]" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{FBC9D7BD-EF5E-3627-B64B-16C30900ECC4}\5.0.0.0" Name="Class" Value="System.Text.Json.JsonValueKind" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{FBC9D7BD-EF5E-3627-B64B-16C30900ECC4}\5.0.0.0" Name="Assembly" Value="System.Text.Json, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{FBC9D7BD-EF5E-3627-B64B-16C30900ECC4}\5.0.0.0" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{FBC9D7BD-EF5E-3627-B64B-16C30900ECC4}\5.0.0.0" Name="CodeBase" Value="file:///[#fil6877C3D5EDE41598A3A528B6AA9377B0]" Type="string" Action="write" />
+            </Component>
+            <Component Id="cmp578FFB9DE8EDA2A9231A71A44C3803A5" Guid="*">
+                <File Id="fil9676EE3ACEDB317D8AF861E2C409A3F6" KeyPath="yes" Source="$(var.SourceDir)\System.Threading.Tasks.Extensions.dll" />
+                <RegistryValue Root="HKCR" Key="Record\{0F5B886C-7E6E-3E1E-9644-E3571AAC3850}\4.2.0.1" Name="Class" Value="System.Threading.Tasks.ValueTask" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{0F5B886C-7E6E-3E1E-9644-E3571AAC3850}\4.2.0.1" Name="Assembly" Value="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{0F5B886C-7E6E-3E1E-9644-E3571AAC3850}\4.2.0.1" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{0F5B886C-7E6E-3E1E-9644-E3571AAC3850}\4.2.0.1" Name="CodeBase" Value="file:///[#fil9676EE3ACEDB317D8AF861E2C409A3F6]" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{45EAEFE6-2BD9-34AF-96C8-02B031382D44}\4.2.0.1" Name="Class" Value="System.Threading.Tasks.Sources.ValueTaskSourceOnCompletedFlags" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{45EAEFE6-2BD9-34AF-96C8-02B031382D44}\4.2.0.1" Name="Assembly" Value="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{45EAEFE6-2BD9-34AF-96C8-02B031382D44}\4.2.0.1" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{45EAEFE6-2BD9-34AF-96C8-02B031382D44}\4.2.0.1" Name="CodeBase" Value="file:///[#fil9676EE3ACEDB317D8AF861E2C409A3F6]" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{91F59EF2-087E-3468-A566-609C7EF9EB83}\4.2.0.1" Name="Class" Value="System.Runtime.CompilerServices.ValueTaskAwaiter" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{91F59EF2-087E-3468-A566-609C7EF9EB83}\4.2.0.1" Name="Assembly" Value="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{91F59EF2-087E-3468-A566-609C7EF9EB83}\4.2.0.1" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{91F59EF2-087E-3468-A566-609C7EF9EB83}\4.2.0.1" Name="CodeBase" Value="file:///[#fil9676EE3ACEDB317D8AF861E2C409A3F6]" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{B53A0276-E1B4-398A-B3B0-1B6B57A488E2}\4.2.0.1" Name="Class" Value="System.Threading.Tasks.Sources.ValueTaskSourceStatus" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{B53A0276-E1B4-398A-B3B0-1B6B57A488E2}\4.2.0.1" Name="Assembly" Value="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{B53A0276-E1B4-398A-B3B0-1B6B57A488E2}\4.2.0.1" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{B53A0276-E1B4-398A-B3B0-1B6B57A488E2}\4.2.0.1" Name="CodeBase" Value="file:///[#fil9676EE3ACEDB317D8AF861E2C409A3F6]" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{B9CFC665-6151-31C9-9B0E-0F99D24CCD5B}\4.2.0.1" Name="Class" Value="System.Runtime.CompilerServices.ConfiguredValueTaskAwaitable+ConfiguredValueTaskAwaiter" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{B9CFC665-6151-31C9-9B0E-0F99D24CCD5B}\4.2.0.1" Name="Assembly" Value="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{B9CFC665-6151-31C9-9B0E-0F99D24CCD5B}\4.2.0.1" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{B9CFC665-6151-31C9-9B0E-0F99D24CCD5B}\4.2.0.1" Name="CodeBase" Value="file:///[#fil9676EE3ACEDB317D8AF861E2C409A3F6]" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{E0DCB9F6-ABA4-303D-9540-3C0F8672C59E}\4.2.0.1" Name="Class" Value="System.Runtime.CompilerServices.AsyncValueTaskMethodBuilder" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{E0DCB9F6-ABA4-303D-9540-3C0F8672C59E}\4.2.0.1" Name="Assembly" Value="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{E0DCB9F6-ABA4-303D-9540-3C0F8672C59E}\4.2.0.1" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{E0DCB9F6-ABA4-303D-9540-3C0F8672C59E}\4.2.0.1" Name="CodeBase" Value="file:///[#fil9676EE3ACEDB317D8AF861E2C409A3F6]" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{FDE7F5DE-1F77-312F-BD02-4E3EC85DDD5E}\4.2.0.1" Name="Class" Value="System.Runtime.CompilerServices.ConfiguredValueTaskAwaitable" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{FDE7F5DE-1F77-312F-BD02-4E3EC85DDD5E}\4.2.0.1" Name="Assembly" Value="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{FDE7F5DE-1F77-312F-BD02-4E3EC85DDD5E}\4.2.0.1" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="Record\{FDE7F5DE-1F77-312F-BD02-4E3EC85DDD5E}\4.2.0.1" Name="CodeBase" Value="file:///[#fil9676EE3ACEDB317D8AF861E2C409A3F6]" Type="string" Action="write" />
+            </Component>
+            <Component Id="cmp7964C303BA027BE990A3E8327EC91498" Guid="*">
+                <File Id="fil4F3DC2E517A3ADABE5047501AC692728" KeyPath="yes" Source="$(var.SourceDir)\System.ValueTuple.dll" />
+            </Component>
+            <Component Id="cmp24137436FFA2BCF8E6F59E73B42BFFD9" Guid="*">
+                <File Id="fil41D9D8158E5D14C63B1A107B349BE18D" KeyPath="yes" Source="$(var.SourceDir)\wi0009-48.ico" />
+            </Component>
+            <Directory Id="dir7E220EDC847AD7F674C92451C63AED27" Name="app.publish">
+                <Component Id="cmp7C06B40C758AC69FE50CAA1915333A21" Guid="*">
+                    <File Id="fil989487A067BCBA0C82A84DB7AB7A8848" KeyPath="yes" Source="$(var.SourceDir)\app.publish\GitLooker.exe" />
+                </Component>
+            </Directory>
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <ComponentGroup Id="GitLookerFiles">
+            <ComponentRef Id="cmp9E910694E9B5888F2FEA19E84EA85B4A" />
+            <ComponentRef Id="cmp1B7488CD97DEFFCFA20B422C3275C524" />
+            <ComponentRef Id="cmpB61B30DC09F058FF4C9D7E3594A7EA0C" />
+            <ComponentRef Id="cmpFE06F2B77604F0D53C7C2C2C78B8CB62" />
+            <ComponentRef Id="cmp2F21F49EA828391711B3CEA610552F89" />
+            <ComponentRef Id="cmpB6AB83539BED01D077A5A7E5AAAD7F1A" />
+            <ComponentRef Id="cmpE1E53F8BE527D309B49593872E530704" />
+            <ComponentRef Id="cmp798CC354064504187056111C63549C16" />
+            <ComponentRef Id="cmp713787F3CA6710CFA33F42BC7E2F9958" />
+            <ComponentRef Id="cmp336B029EB1D86590C13797B46CB02A9F" />
+            <ComponentRef Id="cmp2D71E778E02ED224B3FBB61C2B016B73" />
+            <ComponentRef Id="cmpE5716EA25FA7C6A31C850FD81DCF6A7B" />
+            <ComponentRef Id="cmpC6B016849FD1506FF9B5B9D92B44FF74" />
+            <ComponentRef Id="cmp5C35B3CAED3AB51DED0C70930B510066" />
+            <ComponentRef Id="cmpB297DA22AAB85C40A4A74B4FCEE211E7" />
+            <ComponentRef Id="cmpFAA29FF2D198ACC51A8FBB0D5418B9FB" />
+            <ComponentRef Id="cmp2D72717419004E353D7A30E3B172B47D" />
+            <ComponentRef Id="cmp460A257488453C293D293AA9B7141198" />
+            <ComponentRef Id="cmp3A55DF3B314D255DFBBFC565B24D09E0" />
+            <ComponentRef Id="cmp0D96EA111B87A357A1596E85A20E07BC" />
+            <ComponentRef Id="cmp6E9412CBD83DBDFF582B5FE05B6BC331" />
+            <ComponentRef Id="cmp2DC3078E5067AC710452F7A55F587F41" />
+            <ComponentRef Id="cmpA6BBA9A85C8CF71C5EFE583476475BFA" />
+            <ComponentRef Id="cmp3F0CFE4857281F0880D96F35A0768A38" />
+            <ComponentRef Id="cmpE48528C4F5932A4EFD89F7331108F45D" />
+            <ComponentRef Id="cmp2605C5FE51EF1E6A4EDC743EB8447557" />
+            <ComponentRef Id="cmpF31E3F5F965B919D4EF1F5F1782DDBA6" />
+            <ComponentRef Id="cmp6FEA0CD40F07BE97A5C3AFFD38B7DEAB" />
+            <ComponentRef Id="cmp6065E1313E95A9473D0FBEAD1BA86B56" />
+            <ComponentRef Id="cmpDF45DAEBE3E72EE69B477501E5F5420B" />
+            <ComponentRef Id="cmp5728BE79B5063C9C004E75A223649B14" />
+            <ComponentRef Id="cmpD7ED7C64BBAB8DF173FFA1211D2449D5" />
+            <ComponentRef Id="cmp578FFB9DE8EDA2A9231A71A44C3803A5" />
+            <ComponentRef Id="cmp7964C303BA027BE990A3E8327EC91498" />
+            <ComponentRef Id="cmp24137436FFA2BCF8E6F59E73B42BFFD9" />
+            <ComponentRef Id="cmp7C06B40C758AC69FE50CAA1915333A21" />
+        </ComponentGroup>
+    </Fragment>
+</Wix>
