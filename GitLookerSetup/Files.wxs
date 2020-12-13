@@ -23,9 +23,6 @@
                 <RegistryValue Root="HKCR" Key="CLSID\{D9A18817-0993-3602-AE91-C94E4DEB9453}\InprocServer32" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
                 <RegistryValue Root="HKCR" Key="CLSID\{D9A18817-0993-3602-AE91-C94E4DEB9453}\InprocServer32" Name="CodeBase" Value="file:///[#filE607453CA211DF3144383DFD441D5553]" Type="string" Action="write" />
             </Component>
-            <Component Id="cmpFE06F2B77604F0D53C7C2C2C78B8CB62" Guid="*">
-                <File Id="fil9572D4D8C11F864D7AB5102A9ACE2A55" KeyPath="yes" Source="$(var.SourceDir)\GitLooker.Core.pdb" />
-            </Component>
             <Component Id="cmp2F21F49EA828391711B3CEA610552F89" Guid="*">
                 <File Id="fil9633F43F4D997E5360DB087C04494EB4" KeyPath="yes" Source="$(var.SourceDir)\GitLooker.exe" />
             </Component>
@@ -40,9 +37,6 @@
             </Component>
             <Component Id="cmp713787F3CA6710CFA33F42BC7E2F9958" Guid="*">
                 <File Id="filE52903E1ED97D8E92276A1B7151A5088" KeyPath="yes" Source="$(var.SourceDir)\GitLooker.exe.manifest" />
-            </Component>
-            <Component Id="cmp336B029EB1D86590C13797B46CB02A9F" Guid="*">
-                <File Id="filAED2D59C6F0E201FC7134EA07E42435B" KeyPath="yes" Source="$(var.SourceDir)\GitLooker.pdb" />
             </Component>
             <Component Id="cmp2D71E778E02ED224B3FBB61C2B016B73" Guid="*">
                 <Class Id="{30DA29C6-7B10-3F95-A7BB-81896D4B24F9}" Context="InprocServer32" Description="GitLooker.Services.Repository.GitFileRepo" ThreadingModel="both" ForeignServer="mscoree.dll">
@@ -82,9 +76,6 @@
                 <RegistryValue Root="HKCR" Key="CLSID\{4C79F205-6819-3567-81C4-860EDD309075}\InprocServer32" Name="Assembly" Value="GitLooker.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" Type="string" Action="write" />
                 <RegistryValue Root="HKCR" Key="CLSID\{4C79F205-6819-3567-81C4-860EDD309075}\InprocServer32" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
                 <RegistryValue Root="HKCR" Key="CLSID\{4C79F205-6819-3567-81C4-860EDD309075}\InprocServer32" Name="CodeBase" Value="file:///[#filCDF0A1B6E26CFC2BED1862F159476220]" Type="string" Action="write" />
-            </Component>
-            <Component Id="cmpE5716EA25FA7C6A31C850FD81DCF6A7B" Guid="*">
-                <File Id="filE9987A244BAF3092E8C69A438BE4579E" KeyPath="yes" Source="$(var.SourceDir)\GitLooker.Services.pdb" />
             </Component>
             <Component Id="cmpC6B016849FD1506FF9B5B9D92B44FF74" Guid="*">
                 <Class Id="{51E6CA18-26DB-399A-891E-99D6D0C57C5A}" Context="InprocServer32" Description="System.Runtime.CompilerServices.EnumeratorCancellationAttribute" ThreadingModel="both" ForeignServer="mscoree.dll">
@@ -677,15 +668,12 @@
             <ComponentRef Id="cmp9E910694E9B5888F2FEA19E84EA85B4A" />
             <ComponentRef Id="cmp1B7488CD97DEFFCFA20B422C3275C524" />
             <ComponentRef Id="cmpB61B30DC09F058FF4C9D7E3594A7EA0C" />
-            <ComponentRef Id="cmpFE06F2B77604F0D53C7C2C2C78B8CB62" />
             <ComponentRef Id="cmp2F21F49EA828391711B3CEA610552F89" />
             <ComponentRef Id="cmpB6AB83539BED01D077A5A7E5AAAD7F1A" />
             <ComponentRef Id="cmpE1E53F8BE527D309B49593872E530704" />
             <ComponentRef Id="cmp798CC354064504187056111C63549C16" />
             <ComponentRef Id="cmp713787F3CA6710CFA33F42BC7E2F9958" />
-            <ComponentRef Id="cmp336B029EB1D86590C13797B46CB02A9F" />
             <ComponentRef Id="cmp2D71E778E02ED224B3FBB61C2B016B73" />
-            <ComponentRef Id="cmpE5716EA25FA7C6A31C850FD81DCF6A7B" />
             <ComponentRef Id="cmpC6B016849FD1506FF9B5B9D92B44FF74" />
             <ComponentRef Id="cmp5C35B3CAED3AB51DED0C70930B510066" />
             <ComponentRef Id="cmpB297DA22AAB85C40A4A74B4FCEE211E7" />
