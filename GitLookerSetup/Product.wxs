@@ -3,22 +3,26 @@
   <?define Manufacturer="FreeToUse"?>
   <?define ProductName="GitLooker"?>
   <?define Version="4.1.0"?>
-  <?define Description="Application can ease maintain large amount of repositories showing repo status on form. Also allow pull to update local sources with remote."?>
+  <?define Description="Application can ease maintain large amount of repositories showing repo status on form. Also allow pull to update local sources with remote."?> 
   
 	<Product Id="E09DAB85-DE2B-4DDD-AD97-A026E77975C2" Name="$(var.ProductName)Setup" Language="1033" Version="$(var.Version)" Manufacturer="$(var.Manufacturer)" UpgradeCode="7d1b0f10-75a4-49d7-845c-a87495edf091">
 		<Package Id="*" InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
 
 		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
 		<MediaTemplate EmbedCab="yes" />
-    
-		<Feature Id="ProductFeature" Title="GitLookerSetup" Level="1" Description="$(var.Description)" ConfigurableDirectory="INSTALLLOCATION">
-      <ComponentRef Id ="ApplicationShortcut"/>
-      <ComponentGroupRef Id="GitLookerFiles" />
-		</Feature>
 
-    <DirectoryRef Id="INSTALLLOCATION">
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFilesFolder">
+        <Directory Id="INSTALLLOCATION" Name="$(var.ProductName)Setup" />
+      </Directory>
+      <Directory Id="ProgramMenuFolder">
+        <Directory Id="ApplicationProgramsFolder" Name="$(var.ProductName)"/>
+      </Directory>
+    </Directory>
+    
+    <DirectoryRef Id="ApplicationProgramsFolder">
       <Component Id="ApplicationShortcut" Guid="CDFD4FFE-77CC-4429-A188-D530DD602F4F">
-        <Shortcut Id="ApplicationDesktopShortcut"
+        <Shortcut Id="ApplicationStartMenuShortcut"
                   Name="$(var.ProductName)"
                   Description="$(var.Description)"
                   Target="[INSTALLLOCATION]GitLooker.exe"
@@ -27,22 +31,13 @@
         <RegistryValue Root="HKCU" Key="Software\$(var.Manufacturer)\$(var.ProductName)" Name="installed" Type="integer" Value="1" KeyPath="yes"/>
       </Component>
     </DirectoryRef>
+
+    <Feature Id="ProductFeature" Title="$(var.ProductName)Setup" Level="1" Description="$(var.Description)" ConfigurableDirectory="INSTALLLOCATION">
+      <ComponentRef Id ="ApplicationShortcut"/>
+      <ComponentGroupRef Id="GitLookerFiles" />
+    </Feature>
   </Product>
 
-	<Fragment>
-		<Directory Id="TARGETDIR" Name="SourceDir">
-			<Directory Id="ProgramFilesFolder">
-				<Directory Id="INSTALLLOCATION" Name="GitLookerSetup" />
-			</Directory>
-		</Directory>
-	</Fragment>
-
-	<Fragment>
-		<ComponentGroup Id="ProductComponents" Directory="INSTALLLOCATION">
-			<!-- TODO: Remove the comments around this Component element and the ComponentRef below in order to add resources to this installer. -->
-			<!-- <Component Id="ProductComponent"> -->
-				<!-- TODO: Insert files, registry keys, and other resources here. -->
-			<!-- </Component> -->
-		</ComponentGroup>
+	<Fragment>    
 	</Fragment>
 </Wix>

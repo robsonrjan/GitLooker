@@ -4,7 +4,7 @@ using System.IO;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using System.Linq;
-using System.Windows.Forms;
+using System;
 
 namespace GitLooker.Configuration
 {
@@ -17,8 +17,8 @@ namespace GitLooker.Configuration
 
         public AppConfiguration()
         {
-            var configDir = Application.StartupPath;
-            appConfigPath = $"{configDir}\\Config";
+            var configDir = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            appConfigPath = $"{configDir}\\GitLooker";
             appConfigFullPath = $"{appConfigPath}\\{appConfigFileName}";
 
             if (!Directory.Exists(appConfigPath))
