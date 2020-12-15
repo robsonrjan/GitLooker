@@ -9,5 +9,5 @@ Git installation and configuration,
 Enabled powershell .
 
 
-To install -> download latest release version and go to GitLookerSetup\Release
+To install -> download latest release version and go to GitLookerSetup/bin/Release
 for MSI installable package.
