@@ -55,6 +55,7 @@
             this.remoteReposConfigToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.expectedReposConfigToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exortConfigurationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.importConfigurationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripTextBox4 = new System.Windows.Forms.ToolStripTextBox();
@@ -72,7 +73,8 @@
             this.updateStatusToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.checkOnToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.importConfigurationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
@@ -190,13 +192,16 @@
             // 
             this.toolStripMenuItem10.Name = "toolStripMenuItem10";
             this.toolStripMenuItem10.Size = new System.Drawing.Size(310, 24);
-            this.toolStripMenuItem10.Text = "executable path:";
+            this.toolStripMenuItem10.Text = "app to execute:";
             // 
             // toolStripTextBox2
             // 
             this.toolStripTextBox2.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.toolStripTextBox2.Name = "toolStripTextBox2";
             this.toolStripTextBox2.Size = new System.Drawing.Size(250, 23);
+            this.toolStripTextBox2.ToolTipText = "Choose executable file to memage selected repo, executable will be executed with " +
+    "repo full path.  Press [Insert] key to choose one.";
+            this.toolStripTextBox2.KeyDown += new System.Windows.Forms.KeyEventHandler(this.toolStripTextBox2_KeyDown);
             this.toolStripTextBox2.KeyUp += new System.Windows.Forms.KeyEventHandler(this.toolStripTextBox2_KeyUp);
             // 
             // toolStripMenuItem11
@@ -210,6 +215,7 @@
             this.toolStripTextBox3.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.toolStripTextBox3.Name = "toolStripTextBox3";
             this.toolStripTextBox3.Size = new System.Drawing.Size(250, 23);
+            this.toolStripTextBox3.ToolTipText = "Additional argument needed to proper pass to executable.";
             this.toolStripTextBox3.KeyUp += new System.Windows.Forms.KeyEventHandler(this.toolStripTextBox2_KeyUp);
             // 
             // toolStripMenuItem12
@@ -296,6 +302,13 @@
             this.exortConfigurationToolStripMenuItem.Size = new System.Drawing.Size(211, 24);
             this.exortConfigurationToolStripMenuItem.Text = "Export configuration";
             this.exortConfigurationToolStripMenuItem.Click += new System.EventHandler(this.exortConfigurationToolStripMenuItem_Click);
+            // 
+            // importConfigurationToolStripMenuItem
+            // 
+            this.importConfigurationToolStripMenuItem.Name = "importConfigurationToolStripMenuItem";
+            this.importConfigurationToolStripMenuItem.Size = new System.Drawing.Size(211, 24);
+            this.importConfigurationToolStripMenuItem.Text = "Import configuration";
+            this.importConfigurationToolStripMenuItem.Click += new System.EventHandler(this.importConfigurationToolStripMenuItem_Click);
             // 
             // toolStripMenuItem2
             // 
@@ -424,12 +437,9 @@
             this.checkOnToolStripMenuItem.Text = "Check on ";
             this.checkOnToolStripMenuItem.Click += new System.EventHandler(this.checkOnToolStripMenuItem_Click);
             // 
-            // importConfigurationToolStripMenuItem
+            // openFileDialog1
             // 
-            this.importConfigurationToolStripMenuItem.Name = "importConfigurationToolStripMenuItem";
-            this.importConfigurationToolStripMenuItem.Size = new System.Drawing.Size(211, 24);
-            this.importConfigurationToolStripMenuItem.Text = "Import configuration";
-            this.importConfigurationToolStripMenuItem.Click += new System.EventHandler(this.importConfigurationToolStripMenuItem_Click);
+            this.openFileDialog1.FileName = "openFileDialog1";
             // 
             // MainForm
             // 
@@ -503,6 +513,8 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
         private System.Windows.Forms.ToolStripMenuItem exortConfigurationToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem importConfigurationToolStripMenuItem;
+        private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.OpenFileDialog openFileDialog1;
     }
 }
 

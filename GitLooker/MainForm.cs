@@ -87,7 +87,7 @@ namespace GitLooker
             if (!string.IsNullOrEmpty(chosenPath))
                 GenerateAndUpdateRepos();
 
-            this.Text += $"    ver.{AppVersion.AssemblyVersion}";
+            this.Text = $"Git branch changes looker    ver.{AppVersion.AssemblyVersion}";
             this.notifyIcon1.Text = this.Text;
             isLoaded = true;
         }
@@ -498,6 +498,19 @@ namespace GitLooker
 
                 allReposControl.Clear();
                 Form1_Load(default, default);
+            }
+        }
+
+        private void toolStripTextBox2_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.KeyCode == Keys.Insert)
+            {
+                openFileDialog1.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);
+                openFileDialog1.Title = "Choose executable file to memage selected repo";
+                openFileDialog1.Multiselect = false;
+                openFileDialog1.FileName = toolStripTextBox2.Text;
+                if (openFileDialog1.ShowDialog() == DialogResult.OK)
+                    toolStripTextBox2.Text = openFileDialog1.FileName;
             }
         }
     }
