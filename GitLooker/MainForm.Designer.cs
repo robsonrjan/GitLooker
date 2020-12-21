@@ -199,8 +199,9 @@
             this.toolStripTextBox2.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.toolStripTextBox2.Name = "toolStripTextBox2";
             this.toolStripTextBox2.Size = new System.Drawing.Size(250, 23);
-            this.toolStripTextBox2.ToolTipText = "Choose executable file to memage selected repo, executable will be executed with " +
-    "repo full path.  Press [Insert] key to choose one.";
+            this.toolStripTextBox2.ToolTipText = @"Choose executable file to memage selected repo,
+executable will be executed with repo full path parameter.
+Press [Insert] key to choose one.";
             this.toolStripTextBox2.KeyDown += new System.Windows.Forms.KeyEventHandler(this.toolStripTextBox2_KeyDown);
             this.toolStripTextBox2.KeyUp += new System.Windows.Forms.KeyEventHandler(this.toolStripTextBox2_KeyUp);
             // 
@@ -215,7 +216,7 @@
             this.toolStripTextBox3.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.toolStripTextBox3.Name = "toolStripTextBox3";
             this.toolStripTextBox3.Size = new System.Drawing.Size(250, 23);
-            this.toolStripTextBox3.ToolTipText = "Additional argument needed to proper pass to executable.";
+            this.toolStripTextBox3.ToolTipText = "Additional argument needed to proper pass full path parameter to executable.";
             this.toolStripTextBox3.KeyUp += new System.Windows.Forms.KeyEventHandler(this.toolStripTextBox2_KeyUp);
             // 
             // toolStripMenuItem12

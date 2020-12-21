@@ -1,4 +1,5 @@
-﻿using GitLooker.Core.Configuration;
+﻿using GitLooker.Core;
+using GitLooker.Core.Configuration;
 using GitLooker.Core.Repository;
 using GitLooker.Core.Services;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,7 +12,7 @@ using System.Windows.Forms;
 
 namespace GitLooker
 {
-    public partial class MainForm : Form
+    public partial class MainForm : Form, IMainForm
     {
         private readonly IAppConfiguration appConfiguration;
         private readonly IAppSemaphoreSlim semaphore;
@@ -503,7 +504,7 @@ namespace GitLooker
 
         private void toolStripTextBox2_KeyDown(object sender, KeyEventArgs e)
         {
-            if(e.KeyCode == Keys.Insert)
+            if (e.KeyCode == Keys.Insert)
             {
                 openFileDialog1.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);
                 openFileDialog1.Title = "Choose executable file to memage selected repo";

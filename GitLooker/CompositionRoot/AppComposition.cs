@@ -1,5 +1,6 @@
 ﻿using Castle.DynamicProxy;
 using GitLooker.Configuration;
+using GitLooker.Core;
 using GitLooker.Core.Configuration;
 using GitLooker.Core.Repository;
 using GitLooker.Core.Services;
@@ -30,7 +31,7 @@ namespace GitLooker.CompositionRoot
                 .AddTransient<IRepoControlConfiguration>(service =>
                 {
                     var repoConfig = service.GetService<IAppConfiguration>();
-                    var mainForm = service.GetService<MainForm>();
+                    var mainForm = service.GetService<IMainForm>();
                     var semaphore = service.GetService<IAppSemaphoreSlim>();
                     return new RepoControlConfiguration(mainForm.CurrentRepoDdir, semaphore, mainForm.CurrentNewRepo, repoConfig.MainBranch);
                 })
@@ -47,13 +48,14 @@ namespace GitLooker.CompositionRoot
                 })
                 .AddTransient<RepoControl>(service =>
                 {
-                    var mainForm = service.GetService<MainForm>();
+                    var mainForm = service.GetService<IMainForm>();
                     var repoConfig = service.GetService<IRepoControlConfiguration>();
                     var commandProcessor = service.GetService<IRepoCommandProcessorController>();
                     var repoHolder = service.GetService<IRepoHolder>();
                     return new RepoControl(repoConfig, commandProcessor, mainForm.EndControl, repoHolder);
                 })
-                .AddSingleton<MainForm>();
+                .AddSingleton<MainForm>()
+                .AddSingleton<IMainForm>(sp => sp.GetService<MainForm>());
         }
     }
 }

@@ -1,10 +1,10 @@
 ﻿using GitLooker.Core.Configuration;
-using System.Collections.Generic;
-using System.IO;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
-using System.Linq;
 using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 
 namespace GitLooker.Configuration
 {

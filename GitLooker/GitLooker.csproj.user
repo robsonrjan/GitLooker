@@ -14,4 +14,18 @@
   <PropertyGroup>
     <EnableSecurityDebugging>false</EnableSecurityDebugging>
   </PropertyGroup>
+  <ItemGroup>
+    <Compile Update="MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="RepoControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="RepoList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Status.cs">
+      <SubType>Form</SubType>
+    </Compile>
+  </ItemGroup>
 </Project>
