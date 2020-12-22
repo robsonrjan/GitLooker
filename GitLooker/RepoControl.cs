@@ -200,6 +200,7 @@ namespace GitLooker
             }
             else if (needToPush)
             {
+                IsNeededUpdate = true;
                 this.Invoke(new Action(() =>
                 {
                     this.button2.BackgroundImage = global::GitLooker.Properties.Resources.move_task_up;
