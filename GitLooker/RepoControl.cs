@@ -28,9 +28,8 @@ namespace GitLooker
         public bool IsConnectionError { get; private set; }
         public string RepoConfiguration { get; private set; }
         public bool CanPull { get; private set; }
-
         internal bool IsNew { get; private set; }
-
+        internal bool IsNeededUpdate { get; private set; }
         public delegate void SelectRepo(RepoControl control);
         public event SelectRepo OnSelectRepo;
         public string RepoPath => repoPath;
@@ -108,6 +107,8 @@ namespace GitLooker
 
         private void SetStatusAfterCommandProcess(AppResult<IEnumerable<string>> returnValue)
         {
+            IsNeededUpdate = default;
+
             if (returnValue.IsSuccess)
             {
                 if (CheckIfExist(returnValue.Value.SelectMany(v => v)))
@@ -187,6 +188,7 @@ namespace GitLooker
 
             if (!needToPush && returnValue.Any(rtn => rtn.Contains("branch is behind")))
             {
+                IsNeededUpdate = true;
                 this.Invoke(new Action(() =>
                 {
                     this.button2.BackgroundImage = global::GitLooker.Properties.Resources.checkmark;

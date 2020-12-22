@@ -199,9 +199,8 @@
             this.toolStripTextBox2.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.toolStripTextBox2.Name = "toolStripTextBox2";
             this.toolStripTextBox2.Size = new System.Drawing.Size(250, 23);
-            this.toolStripTextBox2.ToolTipText = @"Choose executable file to memage selected repo,
-executable will be executed with repo full path parameter.
-Press [Insert] key to choose one.";
+            this.toolStripTextBox2.ToolTipText = "Choose executable file to memage selected repo,\r\nexecutable will be executed with" +
+    " repo full path parameter.\r\nPress [Insert] key to choose one.";
             this.toolStripTextBox2.KeyDown += new System.Windows.Forms.KeyEventHandler(this.toolStripTextBox2_KeyDown);
             this.toolStripTextBox2.KeyUp += new System.Windows.Forms.KeyEventHandler(this.toolStripTextBox2_KeyUp);
             // 
@@ -387,11 +386,13 @@ Press [Insert] key to choose one.";
             // notifyIcon1
             // 
             this.notifyIcon1.BalloonTipIcon = System.Windows.Forms.ToolTipIcon.Info;
-            this.notifyIcon1.BalloonTipText = "All repositories where checked for updates.";
+            this.notifyIcon1.BalloonTipText = "Some repositories needs updates.";
             this.notifyIcon1.BalloonTipTitle = "Git repo info";
             this.notifyIcon1.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon1.Icon")));
             this.notifyIcon1.Text = "notifyIcon1";
             this.notifyIcon1.Visible = true;
+            this.notifyIcon1.Click += new System.EventHandler(this.notifyIcon1_DoubleClick);
+            this.notifyIcon1.DoubleClick += new System.EventHandler(this.notifyIcon1_DoubleClick);
             // 
             // contextMenuStrip1
             // 

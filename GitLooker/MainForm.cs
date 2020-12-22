@@ -102,7 +102,8 @@ namespace GitLooker
                     endControl.SendToBack();
                     endControl.Select();
                     AddMissingRepositoriums();
-                    ShowCheckNotification();
+                    if (allReposControl.Any(c => c.IsNeededUpdate))
+                        ShowCheckNotification();
                 }
             }), null);
 
@@ -131,7 +132,7 @@ namespace GitLooker
                 CheckRepo(repo);
         }
 
-        private void CheckRepo(string repoDdir, string newRepo = default(string))
+        private void CheckRepo(string repoDdir, string newRepo = default)
         {
             CurrentRepoDdir = repoDdir;
             CurrentNewRepo = newRepo;
@@ -514,5 +515,8 @@ namespace GitLooker
                     toolStripTextBox2.Text = openFileDialog1.FileName;
             }
         }
+
+        private void notifyIcon1_DoubleClick(object sender, EventArgs e)
+            => this.WindowState = FormWindowState.Normal;
     }
 }
