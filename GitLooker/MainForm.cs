@@ -394,7 +394,7 @@ namespace GitLooker
         {
             try
             {
-                if (!string.IsNullOrWhiteSpace(toolStripTextBox2.Text))
+                if (!string.IsNullOrWhiteSpace(toolStripTextBox2.Text) && (currentRepo != default))
                     System.Diagnostics.Process.Start(toolStripTextBox2.Text, $@"{toolStripTextBox3.Text} ""{currentRepo.RepoPath}""");
             }
             catch (Exception ex) { MessageBox.Show(ex.Message, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error); }
@@ -409,7 +409,7 @@ namespace GitLooker
         private void contextMenuStrip1_Opening(object sender, System.ComponentModel.CancelEventArgs e)
         {
             if (toolStripMenuItem8.Visible = !string.IsNullOrWhiteSpace(toolStripTextBox2.Text))
-                toolStripMenuItem8.Text = $"Execute {toolStripTextBox2.Text.Split('\\').Last()}";
+                toolStripMenuItem8.Text = $"Execute {toolStripTextBox2.Text.Split('\\').Last()}    [Ctrl+M]";
 
             if (string.IsNullOrWhiteSpace(mainBranch) || (currentRepo == default) || currentRepo.IsMainBranch)
                 checkOnToolStripMenuItem.Visible = false;
@@ -518,5 +518,12 @@ namespace GitLooker
 
         private void notifyIcon1_DoubleClick(object sender, EventArgs e)
             => this.WindowState = FormWindowState.Normal;
+
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            if (keyData == (Keys.Control | Keys.M))
+                toolStripMenuItem8_Click(default, default);
+            return base.ProcessCmdKey(ref msg, keyData);
+        }
     }
 }

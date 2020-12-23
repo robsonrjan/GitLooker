@@ -7,8 +7,8 @@
     <StartupObject>GitLooker.Program</StartupObject>
     <LangVersion>8.0</LangVersion>
     <SignAssembly>false</SignAssembly>
-    <AssemblyVersion>4.1.1.3</AssemblyVersion>
-    <FileVersion>4.1.1.3</FileVersion>
+    <AssemblyVersion>4.1.1.4</AssemblyVersion>
+    <FileVersion>4.1.1.4</FileVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
