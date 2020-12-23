@@ -2,13 +2,13 @@
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
   <?define Manufacturer="FreeToUse"?>
   <?define ProductName="GitLooker"?>
-  <?define Version="4.1.1"?>
+  <?define Version="4.1.2"?>
   <?define Description="Application can ease maintain large amount of repositories showing repo status on form. Also allow pull to update local sources with remote."?> 
   
-	<Product Id="D0B69053-17A7-44DB-8D9F-F659527B01C4" Name="$(var.ProductName)Setup" Language="1033" Version="$(var.Version)" Manufacturer="$(var.Manufacturer)" UpgradeCode="E09DAB85-DE2B-4DDD-AD97-A026E77975C2">
-		<Package Id="*" InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
+	<Product Id="9CC24825-2F99-4A82-81E7-A2E8E447DCD9" Name="$(var.ProductName)Setup" Language="1033" Version="$(var.Version)" Manufacturer="$(var.Manufacturer)" UpgradeCode="E09DAB85-DE2B-4DDD-AD97-A026E77975C2">
+		<Package Id="1446ACF2-CB20-40B1-8ABF-1928619297CA" InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
 
-		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." AllowSameVersionUpgrades="no" />
+		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." AllowDowngrades="no" AllowSameVersionUpgrades="no" />
 		<MediaTemplate EmbedCab="yes" />
 
     <Directory Id="TARGETDIR" Name="SourceDir">

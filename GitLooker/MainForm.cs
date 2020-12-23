@@ -409,7 +409,7 @@ namespace GitLooker
         private void contextMenuStrip1_Opening(object sender, System.ComponentModel.CancelEventArgs e)
         {
             if (toolStripMenuItem8.Visible = !string.IsNullOrWhiteSpace(toolStripTextBox2.Text))
-                toolStripMenuItem8.Text = $"Execute {toolStripTextBox2.Text.Split('\\').Last()}    [Ctrl+M]";
+                toolStripMenuItem8.Text = $"Execute {toolStripTextBox2.Text.Split('\\').Last()}    [Ctrl+D]";
 
             if (string.IsNullOrWhiteSpace(mainBranch) || (currentRepo == default) || currentRepo.IsMainBranch)
                 checkOnToolStripMenuItem.Visible = false;
@@ -521,7 +521,7 @@ namespace GitLooker
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
-            if (keyData == (Keys.Control | Keys.M))
+            if (keyData == (Keys.Control | Keys.D))
                 toolStripMenuItem8_Click(default, default);
             return base.ProcessCmdKey(ref msg, keyData);
         }
