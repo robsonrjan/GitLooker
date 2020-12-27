@@ -523,6 +523,9 @@ namespace GitLooker
         {
             if (keyData == (Keys.Control | Keys.D))
                 toolStripMenuItem8_Click(default, default);
+            else if (keyData == (Keys.Shift | Keys.D))
+                updateStatusToolStripMenuItem_Click(default, default);
+
             return base.ProcessCmdKey(ref msg, keyData);
         }
     }

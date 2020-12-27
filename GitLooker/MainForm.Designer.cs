@@ -403,39 +403,39 @@
             this.toolStripSeparator4,
             this.checkOnToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(174, 98);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(204, 98);
             this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
             // 
             // toolStripMenuItem7
             // 
             this.toolStripMenuItem7.Name = "toolStripMenuItem7";
-            this.toolStripMenuItem7.Size = new System.Drawing.Size(173, 22);
+            this.toolStripMenuItem7.Size = new System.Drawing.Size(203, 22);
             this.toolStripMenuItem7.Text = "Open folder";
             this.toolStripMenuItem7.Click += new System.EventHandler(this.toolStripMenuItem7_Click);
             // 
             // toolStripMenuItem8
             // 
             this.toolStripMenuItem8.Name = "toolStripMenuItem8";
-            this.toolStripMenuItem8.Size = new System.Drawing.Size(173, 22);
+            this.toolStripMenuItem8.Size = new System.Drawing.Size(203, 22);
             this.toolStripMenuItem8.Text = "Execute command";
             this.toolStripMenuItem8.Click += new System.EventHandler(this.toolStripMenuItem8_Click);
             // 
             // updateStatusToolStripMenuItem
             // 
             this.updateStatusToolStripMenuItem.Name = "updateStatusToolStripMenuItem";
-            this.updateStatusToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
-            this.updateStatusToolStripMenuItem.Text = "Update status";
+            this.updateStatusToolStripMenuItem.Size = new System.Drawing.Size(203, 22);
+            this.updateStatusToolStripMenuItem.Text = "Update status   [Shift+D]";
             this.updateStatusToolStripMenuItem.Click += new System.EventHandler(this.updateStatusToolStripMenuItem_Click);
             // 
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(170, 6);
+            this.toolStripSeparator4.Size = new System.Drawing.Size(200, 6);
             // 
             // checkOnToolStripMenuItem
             // 
             this.checkOnToolStripMenuItem.Name = "checkOnToolStripMenuItem";
-            this.checkOnToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
+            this.checkOnToolStripMenuItem.Size = new System.Drawing.Size(203, 22);
             this.checkOnToolStripMenuItem.Text = "Check on ";
             this.checkOnToolStripMenuItem.Click += new System.EventHandler(this.checkOnToolStripMenuItem_Click);
             // 

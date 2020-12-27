@@ -5,7 +5,7 @@ namespace GitLooker.Services
 {
     public class AppService : IAppService
     {
-        private MainForm form;
+        private readonly MainForm form;
         public AppService(MainForm form)
         {
             this.form = form;
