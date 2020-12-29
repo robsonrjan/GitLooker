@@ -37,4 +37,5 @@
       <ComponentGroupRef Id="GitLookerFiles" />
     </Feature>
   </Product>
+  
 </Wix>
