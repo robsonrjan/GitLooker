@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace GitLooker.Configuration
 {
-    public sealed class AppConfiguration : IAppConfiguration
+    public class AppConfiguration : IAppConfiguration
     {
         private const string appConfigFileName = "GitLookerConfig.json";
         private readonly string appConfigPath;
@@ -30,47 +30,47 @@ namespace GitLooker.Configuration
             Open();
         }
 
-        public void Open(string configFile = default)
+        public virtual void Open(string configFile = default)
         {
             var builder = new ConfigurationBuilder();
             appConfig = builder.AddJsonFile(configFile ?? appConfigFullPath).Build().Get<AppConfig>();
         }
 
-        public string GitLookerPath
+        public virtual string GitLookerPath
         {
             get => appConfig.GitLookerPath;
             set => appConfig.GitLookerPath = value;
         }
 
-        public string MainBranch
+        public virtual string MainBranch
         {
             get => appConfig.MainBranch ?? "master";
             set => appConfig.MainBranch = value;
         }
 
-        public int RepoProcessingCount => appConfig.RepoProcessingCount;
+        public virtual int RepoProcessingCount => appConfig.RepoProcessingCount;
 
-        public int IntervalUpdateCheckHour
+        public virtual int IntervalUpdateCheckHour
         {
             get => appConfig.IntervalUpdateCheckHour;
             set => appConfig.IntervalUpdateCheckHour = value;
         }
 
-        public string Command
+        public virtual string Command
         {
             get => appConfig.Command;
             set => appConfig.Command = value;
         }
 
-        public string Arguments
+        public virtual string Arguments
         {
             get => appConfig.Arguments;
             set => appConfig.Arguments = value;
         }
 
-        public void Save() => SaveConfig();
+        public virtual void Save() => SaveConfig();
 
-        public IList<string> ExpectedRemoteRepos
+        public virtual IList<string> ExpectedRemoteRepos
         {
             get => appConfig.ExpectedRemoteRepos;
             set
@@ -80,9 +80,27 @@ namespace GitLooker.Configuration
             }
         }
 
+        public virtual string ProjectCommand
+        {
+            get => appConfig.ProjectCommand;
+            set => appConfig.ProjectCommand = value;
+        }
+
+        public virtual string ProjectArguments
+        {
+            get => appConfig.ProjectArguments;
+            set => appConfig.ProjectArguments = value;
+        }
+
+        public virtual string ProjectExtension
+        {
+            get => appConfig.ProjectExtension;
+            set => appConfig.ProjectExtension = value;
+        }
+
         private void SaveConfig(string configFile = default)
             => File.WriteAllText(configFile ?? appConfigFullPath, JsonConvert.SerializeObject(appConfig ?? new AppConfig()));
 
-        public void SaveAs(string configFile) => SaveConfig(configFile);
+        public virtual void SaveAs(string configFile) => SaveConfig(configFile);
     }
 }

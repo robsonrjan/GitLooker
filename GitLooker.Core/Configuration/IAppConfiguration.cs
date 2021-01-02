@@ -6,6 +6,9 @@ namespace GitLooker.Core.Configuration
     {
         string Arguments { get; set; }
         string Command { get; set; }
+        string ProjectCommand { get; set; }
+        string ProjectArguments { get; set; }
+        string ProjectExtension { get; set; }
         string GitLookerPath { get; set; }
         int IntervalUpdateCheckHour { get; set; }
         string MainBranch { get; set; }

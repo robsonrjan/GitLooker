@@ -19,6 +19,7 @@ namespace GitLooker
         private readonly IServiceProvider serviceProvider;
         private readonly IRepoHolder repoHolder;
         private readonly IGitFileRepo gitFileRepo;
+        private readonly IProjectFileRepo projectFileRepo;
 
         private string chosenPath = string.Empty;
         private List<RepoControl> allReposControl;
@@ -34,7 +35,7 @@ namespace GitLooker
         public string CurrentNewRepo { get; private set; }
 
         public MainForm(IServiceProvider serviceProvider, IAppSemaphoreSlim appSemaphoreSlim,
-            IAppConfiguration appConfiguration, IRepoHolder repoHolder, IGitFileRepo gitFileRepo)
+            IAppConfiguration appConfiguration, IRepoHolder repoHolder, IGitFileRepo gitFileRepo, IProjectFileRepo projectFileRepo)
         {
             InitializeComponent();
             this.repoHolder = repoHolder;
@@ -45,6 +46,7 @@ namespace GitLooker
             this.appConfiguration = appConfiguration;
             this.serviceProvider = serviceProvider;
             this.gitFileRepo = gitFileRepo;
+            this.projectFileRepo = projectFileRepo;
         }
 
         private void SetWorkingPathToolStripMenuItem_Click(object sender, EventArgs e)
@@ -82,6 +84,9 @@ namespace GitLooker
             intervalUpdateCheckHour = appConfiguration.IntervalUpdateCheckHour;
             toolStripTextBox2.Text = appConfiguration.Command;
             toolStripTextBox3.Text = appConfiguration.Arguments;
+            toolStripTextBox5.Text = appConfiguration.ProjectCommand;
+            toolStripTextBox6.Text = appConfiguration.ProjectArguments;
+            toolStripTextBox7.Text = appConfiguration.ProjectExtension;
             SetMenueCheckerValue();
             ReadRepositoriumConfiguration();
 
@@ -378,7 +383,7 @@ namespace GitLooker
                 System.Diagnostics.Process.Start("explorer", currentRepo.RepoPath);
         }
 
-        private void toolStripTextBox2_KeyUp(object sender, KeyEventArgs e)
+        private void SaveConfiguration(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
@@ -386,6 +391,9 @@ namespace GitLooker
 
                 appConfiguration.Command = toolStripTextBox2.Text;
                 appConfiguration.Arguments = toolStripTextBox3.Text;
+                appConfiguration.ProjectCommand = toolStripTextBox5.Text;
+                appConfiguration.ProjectArguments = toolStripTextBox6.Text;
+                appConfiguration.ProjectExtension = toolStripTextBox7.Text;
                 appConfiguration.Save();
             }
         }
@@ -400,6 +408,9 @@ namespace GitLooker
             catch (Exception ex) { MessageBox.Show(ex.Message, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error); }
         }
 
+        private void toolStripMenuItem14_Click(object sender, EventArgs e)
+            => FindAllProjectFiles(toolStripTextBox5.Text);
+
         private void updateStatusToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (currentRepo != default)
@@ -409,7 +420,13 @@ namespace GitLooker
         private void contextMenuStrip1_Opening(object sender, System.ComponentModel.CancelEventArgs e)
         {
             if (toolStripMenuItem8.Visible = !string.IsNullOrWhiteSpace(toolStripTextBox2.Text))
-                toolStripMenuItem8.Text = $"Execute {toolStripTextBox2.Text.Split('\\').Last()}    [Ctrl+D]";
+                toolStripMenuItem8.Text = $"Manage repo [Ctrl+D]";
+
+            if (toolStripMenuItem14.Visible = !string.IsNullOrWhiteSpace(toolStripTextBox5.Text))
+            {
+                toolStripMenuItem14.Text = $"Manage project [Ctrl+F]";
+                FindAllProjectFiles(toolStripTextBox5.Text);
+            }
 
             if (string.IsNullOrWhiteSpace(mainBranch) || (currentRepo == default) || currentRepo.IsMainBranch)
                 checkOnToolStripMenuItem.Visible = false;
@@ -506,14 +523,7 @@ namespace GitLooker
         private void toolStripTextBox2_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Insert)
-            {
-                openFileDialog1.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);
-                openFileDialog1.Title = "Choose executable file to memage selected repo";
-                openFileDialog1.Multiselect = false;
-                openFileDialog1.FileName = toolStripTextBox2.Text;
-                if (openFileDialog1.ShowDialog() == DialogResult.OK)
-                    toolStripTextBox2.Text = openFileDialog1.FileName;
-            }
+                toolStripTextBox2.Text = GetFileName("Choose executable file to memage selected repo");
         }
 
         private void notifyIcon1_DoubleClick(object sender, EventArgs e)
@@ -525,8 +535,41 @@ namespace GitLooker
                 toolStripMenuItem8_Click(default, default);
             else if (keyData == (Keys.Shift | Keys.D))
                 updateStatusToolStripMenuItem_Click(default, default);
+            else if (keyData == (Keys.Control | Keys.F))
+                toolStripMenuItem14_Click(default, default);
 
             return base.ProcessCmdKey(ref msg, keyData);
+        }
+
+        private void toolStripTextBox5_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Insert)
+                toolStripTextBox2.Text = GetFileName("Choose executable file to memage selected project");
+        }
+
+        private string GetFileName(string titleText)
+        {
+            string result = default;
+            openFileDialog1.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);
+            openFileDialog1.Title = titleText;
+            openFileDialog1.Multiselect = false;
+            openFileDialog1.FileName = toolStripTextBox2.Text;
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+                result = openFileDialog1.FileName;
+            return result;
+        }
+
+        private void FindAllProjectFiles(string path)
+        {
+            try
+            {
+                var projectFiles = projectFileRepo.GetAsync(path, appConfiguration.ProjectExtension);
+
+
+                //if (!string.IsNullOrWhiteSpace(toolStripTextBox2.Text) && (currentRepo != default))
+                //    System.Diagnostics.Process.Start(toolStripTextBox2.Text, $@"{toolStripTextBox3.Text} ""{currentRepo.RepoPath}""");
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error); }
         }
     }
 }

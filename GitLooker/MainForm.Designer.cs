@@ -45,6 +45,12 @@
             this.toolStripTextBox2 = new System.Windows.Forms.ToolStripTextBox();
             this.toolStripMenuItem11 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripTextBox3 = new System.Windows.Forms.ToolStripTextBox();
+            this.executeAppToManageProjectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripTextBox5 = new System.Windows.Forms.ToolStripTextBox();
+            this.toolStripMenuItem6 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripTextBox6 = new System.Windows.Forms.ToolStripTextBox();
+            this.toolStripMenuItem13 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripTextBox7 = new System.Windows.Forms.ToolStripTextBox();
             this.toolStripMenuItem12 = new System.Windows.Forms.ToolStripMenuItem();
             this.checkToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.checkStatusToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -75,6 +81,7 @@
             this.checkOnToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.toolStripMenuItem14 = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
@@ -114,6 +121,12 @@
             this.toolStripTextBox2,
             this.toolStripMenuItem11,
             this.toolStripTextBox3,
+            this.executeAppToManageProjectToolStripMenuItem,
+            this.toolStripTextBox5,
+            this.toolStripMenuItem6,
+            this.toolStripTextBox6,
+            this.toolStripMenuItem13,
+            this.toolStripTextBox7,
             this.toolStripMenuItem12});
             this.fileToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
@@ -192,7 +205,7 @@
             // 
             this.toolStripMenuItem10.Name = "toolStripMenuItem10";
             this.toolStripMenuItem10.Size = new System.Drawing.Size(310, 24);
-            this.toolStripMenuItem10.Text = "app to execute:";
+            this.toolStripMenuItem10.Text = "execute app to manage repo:";
             // 
             // toolStripTextBox2
             // 
@@ -202,13 +215,14 @@
             this.toolStripTextBox2.ToolTipText = "Choose executable file to memage selected repo,\r\nexecutable will be executed with" +
     " repo full path parameter.\r\nPress [Insert] key to choose one.";
             this.toolStripTextBox2.KeyDown += new System.Windows.Forms.KeyEventHandler(this.toolStripTextBox2_KeyDown);
-            this.toolStripTextBox2.KeyUp += new System.Windows.Forms.KeyEventHandler(this.toolStripTextBox2_KeyUp);
+            this.toolStripTextBox2.KeyUp += new System.Windows.Forms.KeyEventHandler(this.SaveConfiguration);
             // 
             // toolStripMenuItem11
             // 
+            this.toolStripMenuItem11.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Italic);
             this.toolStripMenuItem11.Name = "toolStripMenuItem11";
             this.toolStripMenuItem11.Size = new System.Drawing.Size(310, 24);
-            this.toolStripMenuItem11.Text = "arguments:";
+            this.toolStripMenuItem11.Text = "argument:";
             // 
             // toolStripTextBox3
             // 
@@ -216,7 +230,53 @@
             this.toolStripTextBox3.Name = "toolStripTextBox3";
             this.toolStripTextBox3.Size = new System.Drawing.Size(250, 23);
             this.toolStripTextBox3.ToolTipText = "Additional argument needed to proper pass full path parameter to executable.";
-            this.toolStripTextBox3.KeyUp += new System.Windows.Forms.KeyEventHandler(this.toolStripTextBox2_KeyUp);
+            this.toolStripTextBox3.KeyUp += new System.Windows.Forms.KeyEventHandler(this.SaveConfiguration);
+            // 
+            // executeAppToManageProjectToolStripMenuItem
+            // 
+            this.executeAppToManageProjectToolStripMenuItem.Name = "executeAppToManageProjectToolStripMenuItem";
+            this.executeAppToManageProjectToolStripMenuItem.Size = new System.Drawing.Size(310, 24);
+            this.executeAppToManageProjectToolStripMenuItem.Text = "execute app to manage project";
+            // 
+            // toolStripTextBox5
+            // 
+            this.toolStripTextBox5.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.toolStripTextBox5.Name = "toolStripTextBox5";
+            this.toolStripTextBox5.Size = new System.Drawing.Size(250, 23);
+            this.toolStripTextBox5.ToolTipText = "Choose executable file to memage selected project,\r\nexecutable will be executed w" +
+    "ith repo full path parameter.\r\nPress [Insert] key to choose one.";
+            this.toolStripTextBox5.KeyDown += new System.Windows.Forms.KeyEventHandler(this.toolStripTextBox5_KeyDown);
+            this.toolStripTextBox5.KeyUp += new System.Windows.Forms.KeyEventHandler(this.SaveConfiguration);
+            // 
+            // toolStripMenuItem6
+            // 
+            this.toolStripMenuItem6.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Italic);
+            this.toolStripMenuItem6.Name = "toolStripMenuItem6";
+            this.toolStripMenuItem6.Size = new System.Drawing.Size(310, 24);
+            this.toolStripMenuItem6.Text = "argument:";
+            // 
+            // toolStripTextBox6
+            // 
+            this.toolStripTextBox6.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.toolStripTextBox6.Name = "toolStripTextBox6";
+            this.toolStripTextBox6.Size = new System.Drawing.Size(250, 23);
+            this.toolStripTextBox6.ToolTipText = "Additional argument needed to proper pass full path parameter to executable.";
+            this.toolStripTextBox6.KeyUp += new System.Windows.Forms.KeyEventHandler(this.SaveConfiguration);
+            // 
+            // toolStripMenuItem13
+            // 
+            this.toolStripMenuItem13.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Italic);
+            this.toolStripMenuItem13.Name = "toolStripMenuItem13";
+            this.toolStripMenuItem13.Size = new System.Drawing.Size(310, 24);
+            this.toolStripMenuItem13.Text = "file extension:";
+            // 
+            // toolStripTextBox7
+            // 
+            this.toolStripTextBox7.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.toolStripTextBox7.Name = "toolStripTextBox7";
+            this.toolStripTextBox7.Size = new System.Drawing.Size(250, 23);
+            this.toolStripTextBox7.ToolTipText = "Additional argument needed to proper pass full path parameter to executable.";
+            this.toolStripTextBox7.KeyUp += new System.Windows.Forms.KeyEventHandler(this.SaveConfiguration);
             // 
             // toolStripMenuItem12
             // 
@@ -399,49 +459,57 @@
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItem7,
             this.toolStripMenuItem8,
+            this.toolStripMenuItem14,
             this.updateStatusToolStripMenuItem,
             this.toolStripSeparator4,
             this.checkOnToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(204, 98);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(274, 142);
             this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
             // 
             // toolStripMenuItem7
             // 
             this.toolStripMenuItem7.Name = "toolStripMenuItem7";
-            this.toolStripMenuItem7.Size = new System.Drawing.Size(203, 22);
+            this.toolStripMenuItem7.Size = new System.Drawing.Size(273, 22);
             this.toolStripMenuItem7.Text = "Open folder";
             this.toolStripMenuItem7.Click += new System.EventHandler(this.toolStripMenuItem7_Click);
             // 
             // toolStripMenuItem8
             // 
             this.toolStripMenuItem8.Name = "toolStripMenuItem8";
-            this.toolStripMenuItem8.Size = new System.Drawing.Size(203, 22);
-            this.toolStripMenuItem8.Text = "Execute command";
+            this.toolStripMenuItem8.Size = new System.Drawing.Size(273, 22);
+            this.toolStripMenuItem8.Text = "Execute command to manage repo";
             this.toolStripMenuItem8.Click += new System.EventHandler(this.toolStripMenuItem8_Click);
             // 
             // updateStatusToolStripMenuItem
             // 
             this.updateStatusToolStripMenuItem.Name = "updateStatusToolStripMenuItem";
-            this.updateStatusToolStripMenuItem.Size = new System.Drawing.Size(203, 22);
+            this.updateStatusToolStripMenuItem.Size = new System.Drawing.Size(273, 22);
             this.updateStatusToolStripMenuItem.Text = "Update status   [Shift+D]";
             this.updateStatusToolStripMenuItem.Click += new System.EventHandler(this.updateStatusToolStripMenuItem_Click);
             // 
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(200, 6);
+            this.toolStripSeparator4.Size = new System.Drawing.Size(270, 6);
             // 
             // checkOnToolStripMenuItem
             // 
             this.checkOnToolStripMenuItem.Name = "checkOnToolStripMenuItem";
-            this.checkOnToolStripMenuItem.Size = new System.Drawing.Size(203, 22);
+            this.checkOnToolStripMenuItem.Size = new System.Drawing.Size(273, 22);
             this.checkOnToolStripMenuItem.Text = "Check on ";
             this.checkOnToolStripMenuItem.Click += new System.EventHandler(this.checkOnToolStripMenuItem_Click);
             // 
             // openFileDialog1
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
+            // 
+            // toolStripMenuItem14
+            // 
+            this.toolStripMenuItem14.Name = "toolStripMenuItem14";
+            this.toolStripMenuItem14.Size = new System.Drawing.Size(273, 22);
+            this.toolStripMenuItem14.Text = "Execute command to manage project";
+            this.toolStripMenuItem14.Click += new System.EventHandler(this.toolStripMenuItem14_Click);
             // 
             // MainForm
             // 
@@ -517,6 +585,13 @@
         private System.Windows.Forms.ToolStripMenuItem importConfigurationToolStripMenuItem;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
+        private System.Windows.Forms.ToolStripMenuItem executeAppToManageProjectToolStripMenuItem;
+        private System.Windows.Forms.ToolStripTextBox toolStripTextBox5;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem6;
+        private System.Windows.Forms.ToolStripTextBox toolStripTextBox6;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem13;
+        private System.Windows.Forms.ToolStripTextBox toolStripTextBox7;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem14;
     }
 }
 

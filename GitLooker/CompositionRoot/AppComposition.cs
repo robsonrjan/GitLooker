@@ -23,6 +23,7 @@ namespace GitLooker.CompositionRoot
                 .AddSingleton<IAppConfiguration, AppConfiguration>()
                 .AddSingleton<IRepoHolder, RepoHolder>()
                 .AddSingleton<IGitFileRepo, GitFileRepo>()
+                .AddSingleton<IProjectFileRepo, ProjectFileRepo>()
                 .AddSingleton<IAppSemaphoreSlim>(service =>
                 {
                     var config = service.GetService<IAppConfiguration>();
