@@ -1,15 +1,16 @@
 ﻿using GitLooker.Core.Repository;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using System;
 
 namespace GitLooker.Services.Repository
 {
     public class ProjectFileRepo : IProjectFileRepo
     {
+        private const int MaxLevelOfDepth = 2;
         private SemaphoreSlim listSlimLocker = new SemaphoreSlim(1, 1);
 
         public Task<IList<string>> GetAsync(string path, string extension)
@@ -30,16 +31,21 @@ namespace GitLooker.Services.Repository
                 throw new ArgumentException(nameof(extension), nameof(extension));
         }
 
-        private void FindProjectFiles(string path, string extension, IList<string> projectFileList)
+        private void FindProjectFiles(string path, string extension, IList<string> projectFileList, int levelOfDepth = 0)
         {
             var files = Directory.GetFiles(path);
             var dirs = Directory.GetDirectories(path);
 
-            files.Where(f => f.EndsWith(extension)).ToList()
-                .ForEach(f => AddThreadSafeToList(projectFileList, f));
+            foreach (var f in files.Where(f => f.EndsWith(extension)))
+                AddThreadSafeToList(projectFileList, f);
 
-            dirs.AsParallel()
-                .ForAll(dir => FindProjectFiles(dir, extension, projectFileList));
+            if (++levelOfDepth >= MaxLevelOfDepth) return;
+
+            dirs.Where(d => !d.Contains("\\.") &&
+                        !d.EndsWith("bin", StringComparison.InvariantCultureIgnoreCase) &&
+                        !d.EndsWith("obj", StringComparison.InvariantCultureIgnoreCase))
+                .AsParallel()
+                .ForAll(dir => FindProjectFiles(dir, extension, projectFileList, levelOfDepth));
         }
 
         private void AddThreadSafeToList(IList<string> list, string item)

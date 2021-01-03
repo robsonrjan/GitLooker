@@ -23,14 +23,14 @@ namespace GitLooker.Unit.Test.GitLooker.Services.Repository
         public void AfterEach() => RemoveRepoData();
 
         [Test]
-        public async Task GetAsync_all_project_files()
+        public async Task GetAsync_all_project_upToThirdLevelFolders_files()
         {
             const string projectExtension = "sln";
             PrepareRepoData();
 
             var projectFiles = await projectFileRepo.GetAsync(repoPath, projectExtension);
 
-            projectFiles.Should().NotContain($"abc.{projectExtension}").And.HaveCount(41);
+            projectFiles.Should().NotContain($"abc.{projectExtension}").And.HaveCount(21);
         }
 
         [TestCase(null)]

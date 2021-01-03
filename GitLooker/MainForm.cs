@@ -19,7 +19,6 @@ namespace GitLooker
         private readonly IServiceProvider serviceProvider;
         private readonly IRepoHolder repoHolder;
         private readonly IGitFileRepo gitFileRepo;
-        private readonly IProjectFileRepo projectFileRepo;
 
         private string chosenPath = string.Empty;
         private List<RepoControl> allReposControl;
@@ -35,7 +34,7 @@ namespace GitLooker
         public string CurrentNewRepo { get; private set; }
 
         public MainForm(IServiceProvider serviceProvider, IAppSemaphoreSlim appSemaphoreSlim,
-            IAppConfiguration appConfiguration, IRepoHolder repoHolder, IGitFileRepo gitFileRepo, IProjectFileRepo projectFileRepo)
+            IAppConfiguration appConfiguration, IRepoHolder repoHolder, IGitFileRepo gitFileRepo)
         {
             InitializeComponent();
             this.repoHolder = repoHolder;
@@ -46,7 +45,6 @@ namespace GitLooker
             this.appConfiguration = appConfiguration;
             this.serviceProvider = serviceProvider;
             this.gitFileRepo = gitFileRepo;
-            this.projectFileRepo = projectFileRepo;
         }
 
         private void SetWorkingPathToolStripMenuItem_Click(object sender, EventArgs e)
@@ -98,6 +96,11 @@ namespace GitLooker
             isLoaded = true;
         }
 
+        private void FindAllProjectFiles()
+        {
+
+        }
+
         private void SemaphoreIsUsed(bool isProccesing)
             => this.Invoke(new Action(() =>
             {
@@ -121,10 +124,10 @@ namespace GitLooker
 
         private void ReadRepositoriumConfiguration() => repoHolder.ExpectedRemoteList = appConfiguration.ExpectedRemoteRepos;
 
-
         private void GenerateAndUpdateRepos()
         {
-            if (Directory.Exists(chosenPath)) CheckForGitRepo(chosenPath);
+            if (Directory.Exists(chosenPath))
+                CheckForGitRepo(chosenPath);
             CheckToolStripMenuItem_Click(null, null);
 
             if (!allReposControl.Any() && !string.IsNullOrEmpty(chosenPath))
@@ -134,10 +137,10 @@ namespace GitLooker
         private void CheckForGitRepo(string chosenPath)
         {
             foreach (var repo in gitFileRepo.Get(chosenPath))
-                CheckRepo(repo);
+                AddRepo(repo);
         }
 
-        private void CheckRepo(string repoDdir, string newRepo = default)
+        private void AddRepo(string repoDdir, string newRepo = default)
         {
             CurrentRepoDdir = repoDdir;
             CurrentNewRepo = newRepo;
@@ -189,7 +192,7 @@ namespace GitLooker
             repoHolder.ExpectedRemoteList.Where(NotInRepoConfig).ToList()
                 .ForEach(config =>
                 {
-                    CheckRepo(chosenPath, config);
+                    AddRepo(chosenPath, config);
                     Application.DoEvents();
                     Application.DoEvents();
                     toolStripMenuItem2.Visible = true;
@@ -273,7 +276,7 @@ namespace GitLooker
                     this.Invoke(new Action(() =>
                     {
                         ctr.Dispose();
-                        CheckRepo(repoPath);
+                        AddRepo(repoPath);
                     }), null);
                 }
                 else
@@ -403,13 +406,13 @@ namespace GitLooker
             try
             {
                 if (!string.IsNullOrWhiteSpace(toolStripTextBox2.Text) && (currentRepo != default))
-                    System.Diagnostics.Process.Start(toolStripTextBox2.Text, $@"{toolStripTextBox3.Text} ""{currentRepo.RepoPath}""");
+                    System.Diagnostics.Process.Start(toolStripTextBox2.Text, $@"{PrepareArgument(toolStripTextBox3.Text)}""{currentRepo.RepoPath}""");
             }
             catch (Exception ex) { MessageBox.Show(ex.Message, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error); }
         }
 
         private void toolStripMenuItem14_Click(object sender, EventArgs e)
-            => FindAllProjectFiles(toolStripTextBox5.Text);
+            => ManageProjectFilesAsync(toolStripTextBox5.Text);
 
         private void updateStatusToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -423,10 +426,7 @@ namespace GitLooker
                 toolStripMenuItem8.Text = $"Manage repo [Ctrl+D]";
 
             if (toolStripMenuItem14.Visible = !string.IsNullOrWhiteSpace(toolStripTextBox5.Text))
-            {
                 toolStripMenuItem14.Text = $"Manage project [Ctrl+F]";
-                FindAllProjectFiles(toolStripTextBox5.Text);
-            }
 
             if (string.IsNullOrWhiteSpace(mainBranch) || (currentRepo == default) || currentRepo.IsMainBranch)
                 checkOnToolStripMenuItem.Visible = false;
@@ -532,11 +532,20 @@ namespace GitLooker
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
             if (keyData == (Keys.Control | Keys.D))
+            {
                 toolStripMenuItem8_Click(default, default);
+                return default;
+            }
             else if (keyData == (Keys.Shift | Keys.D))
+            {
                 updateStatusToolStripMenuItem_Click(default, default);
+                return default;
+            }
             else if (keyData == (Keys.Control | Keys.F))
+            {
                 toolStripMenuItem14_Click(default, default);
+                return default;
+            }
 
             return base.ProcessCmdKey(ref msg, keyData);
         }
@@ -559,17 +568,47 @@ namespace GitLooker
             return result;
         }
 
-        private void FindAllProjectFiles(string path)
+        private Task ManageProjectFilesAsync(string path)
         {
             try
             {
-                var projectFiles = projectFileRepo.GetAsync(path, appConfiguration.ProjectExtension);
+                repoHolder.FindRepoProjectFilesAsync(currentRepo.RepoPath, appConfiguration.ProjectExtension)
+                    .ContinueWith(
+                        task =>
+                        {
+                            if (task.IsCompleted)
+                                ExecuteProjectManager(path);
+                            else if(task.Exception != default)
+                                MessageBox.Show(task.Exception.Message, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        });
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error); }
+            
+            return Task.CompletedTask;
+        }
 
+        private void ExecuteProjectManager(string path)
+        {
+            string mainProjectFile = default;
+            try
+            {
+                var projectFiles = repoHolder.GetProjectFiles(currentRepo.RepoPath);
+                if (projectFiles?.Any() ?? false)
+                {
+                    if (projectFiles.Count() > 1)
+                    {
+                        // display user to choose one
+                    }
+                    mainProjectFile = projectFiles.First();
 
-                //if (!string.IsNullOrWhiteSpace(toolStripTextBox2.Text) && (currentRepo != default))
-                //    System.Diagnostics.Process.Start(toolStripTextBox2.Text, $@"{toolStripTextBox3.Text} ""{currentRepo.RepoPath}""");
+                    if (!string.IsNullOrWhiteSpace(path) && (currentRepo != default))
+                        System.Diagnostics.Process.Start(path, $@"{PrepareArgument(toolStripTextBox6.Text)}""{mainProjectFile}""");
+                }
             }
             catch (Exception ex) { MessageBox.Show(ex.Message, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error); }
         }
+
+        private string PrepareArgument(string argument)
+            => (string.IsNullOrWhiteSpace(argument) ? string.Empty : $"{argument} ");
     }
 }

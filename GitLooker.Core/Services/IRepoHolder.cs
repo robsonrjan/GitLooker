@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace GitLooker.Core.Services
 {
@@ -7,5 +8,7 @@ namespace GitLooker.Core.Services
         IList<string> RepoRemoteList { get; }
         IList<string> ExpectedRemoteList { get; set; }
         void AddRemoteRepoThreadSefe(string repo);
+        IEnumerable<string> GetProjectFiles(string repoPath);
+        Task FindRepoProjectFilesAsync(string repoPath, string fileExtension);
     }
 }
