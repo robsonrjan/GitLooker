@@ -27,7 +27,6 @@ namespace GitLooker
         private bool isLoaded;
         private string mainBranch = "master";
         private RepoControl currentRepo;
-        private bool updatedManual;
 
         public Panel EndControl => endControl;
         public string CurrentRepoDdir { get; private set; }
@@ -96,11 +95,6 @@ namespace GitLooker
             isLoaded = true;
         }
 
-        private void FindAllProjectFiles()
-        {
-
-        }
-
         private void SemaphoreIsUsed(bool isProccesing)
             => this.Invoke(new Action(() =>
             {
@@ -118,8 +112,7 @@ namespace GitLooker
         private void ShowCheckNotification()
         {
             if (intervalUpdateCheckHour == 0) return;
-            if (updatedManual) notifyIcon1.ShowBalloonTip(3000);
-            updatedManual = false;
+            notifyIcon1.ShowBalloonTip(3000);
         }
 
         private void ReadRepositoriumConfiguration() => repoHolder.ExpectedRemoteList = appConfiguration.ExpectedRemoteRepos;
@@ -167,12 +160,11 @@ namespace GitLooker
 
             foreach (var cntr in allReposControl.OrderByDescending(c => c.Parent.Controls.GetChildIndex(c)))
                 cntr.UpdateRepoInfo();
-            updatedManual = true;
         }
 
         private void DeleteDisposedRepos()
         {
-            foreach (var ctr in allReposControl.Where(c => c.Parent == null).ToList())
+            foreach (var ctr in allReposControl.Where(c => c.Parent == default).ToList())
             {
                 allReposControl.Remove(ctr);
                 ctr.Dispose();
@@ -284,7 +276,7 @@ namespace GitLooker
                     this.Invoke(new Action(() => RemoveUnUsed(ctr)), null);
                 }
             }
-            catch (Exception) { }
+            catch (Exception ex) { MessageBox.Show(ex.Message, "Exception", MessageBoxButtons.OK, MessageBoxIcon.Error); }
             finally
             {
                 semaphore.Release();
@@ -307,47 +299,27 @@ namespace GitLooker
 
         private void SetMenueCheckerValue()
         {
-            switch (intervalUpdateCheckHour)
+            toolStripComboBox1.SelectedIndex = intervalUpdateCheckHour switch
             {
-                case 1:
-                    toolStripComboBox1.SelectedIndex = 1;
-                    break;
-                case 2:
-                    toolStripComboBox1.SelectedIndex = 2;
-                    break;
-                case 3:
-                    toolStripComboBox1.SelectedIndex = 3;
-                    break;
-                case 4:
-                    toolStripComboBox1.SelectedIndex = 4;
-                    break;
-                default:
-                    toolStripComboBox1.SelectedIndex = 0;
-                    break;
-            }
+                1 => 1,
+                2 => 2,
+                3 => 3,
+                4 => 4,
+                _ => 0
+            };
         }
 
         private void toolStripComboBox1_Click(object sender, EventArgs e)
         {
             if (!isLoaded) return;
-            switch (toolStripComboBox1.SelectedItem)
+            intervalUpdateCheckHour = toolStripComboBox1.SelectedItem switch
             {
-                case "1 hour":
-                    intervalUpdateCheckHour = 1;
-                    break;
-                case "2 hours":
-                    intervalUpdateCheckHour = 2;
-                    break;
-                case "3 hours":
-                    intervalUpdateCheckHour = 3;
-                    break;
-                case "4 hours":
-                    intervalUpdateCheckHour = 4;
-                    break;
-                default:
-                    intervalUpdateCheckHour = 0;
-                    break;
-            }
+                "1 hour" => 1,
+                "2 hours" => 2,
+                "3 hours" => 3,
+                "4 hours" => 4,
+                _ => 0
+            };
             appConfiguration.IntervalUpdateCheckHour = intervalUpdateCheckHour;
             appConfiguration.Save();
 
@@ -469,7 +441,6 @@ namespace GitLooker
         {
             foreach (var cntr in allReposControl.Where(repo => repo.CanPull))
                 cntr.PullRepo();
-            updatedManual = true;
         }
 
         private void checkToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
@@ -482,7 +453,6 @@ namespace GitLooker
         {
             foreach (var cntr in allReposControl.Where(repo => repo.IsConnectionError))
                 cntr.UpdateRepoInfo();
-            updatedManual = true;
         }
 
         private void exortConfigurationToolStripMenuItem_Click(object sender, EventArgs e)
