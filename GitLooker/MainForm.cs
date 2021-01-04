@@ -412,7 +412,7 @@ namespace GitLooker
         }
 
         private void toolStripMenuItem14_Click(object sender, EventArgs e)
-            => ManageProjectFilesAsync(toolStripTextBox5.Text);
+            => ManageProjectFilesAsync(toolStripTextBox7.Text);
 
         private void updateStatusToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -425,7 +425,7 @@ namespace GitLooker
             if (toolStripMenuItem8.Visible = !string.IsNullOrWhiteSpace(toolStripTextBox2.Text))
                 toolStripMenuItem8.Text = $"Manage repo [Ctrl+D]";
 
-            if (toolStripMenuItem14.Visible = !string.IsNullOrWhiteSpace(toolStripTextBox5.Text))
+            if (toolStripMenuItem14.Visible = !string.IsNullOrWhiteSpace(toolStripTextBox7.Text))
                 toolStripMenuItem14.Text = $"Manage project [Ctrl+F]";
 
             if (string.IsNullOrWhiteSpace(mainBranch) || (currentRepo == default) || currentRepo.IsMainBranch)
@@ -523,7 +523,7 @@ namespace GitLooker
         private void toolStripTextBox2_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Insert)
-                toolStripTextBox2.Text = GetFileName("Choose executable file to memage selected repo");
+                toolStripTextBox2.Text = GetFileName("Choose executable file to memage selected repo", toolStripTextBox2.Text);
         }
 
         private void notifyIcon1_DoubleClick(object sender, EventArgs e)
@@ -553,31 +553,31 @@ namespace GitLooker
         private void toolStripTextBox5_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Insert)
-                toolStripTextBox2.Text = GetFileName("Choose executable file to memage selected project");
+                toolStripTextBox2.Text = GetFileName("Choose executable file to memage selected project", toolStripTextBox5.Text);
         }
 
-        private string GetFileName(string titleText)
+        private string GetFileName(string titleText, string fileName)
         {
             string result = default;
             openFileDialog1.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);
             openFileDialog1.Title = titleText;
             openFileDialog1.Multiselect = false;
-            openFileDialog1.FileName = toolStripTextBox2.Text;
+            openFileDialog1.FileName = fileName;
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
                 result = openFileDialog1.FileName;
             return result;
         }
 
-        private Task ManageProjectFilesAsync(string path)
+        private Task ManageProjectFilesAsync(string extension)
         {
             try
             {
-                repoHolder.FindRepoProjectFilesAsync(currentRepo.RepoPath, appConfiguration.ProjectExtension)
+                repoHolder.FindRepoProjectFilesAsync(currentRepo.RepoPath, extension)
                     .ContinueWith(
                         task =>
                         {
                             if (task.IsCompleted)
-                                ExecuteProjectManager(path);
+                                ExecuteProjectManager(toolStripTextBox5.Text);
                             else if(task.Exception != default)
                                 MessageBox.Show(task.Exception.Message, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
                         });
@@ -601,8 +601,13 @@ namespace GitLooker
                     }
                     mainProjectFile = projectFiles.First();
 
-                    if (!string.IsNullOrWhiteSpace(path) && (currentRepo != default))
-                        System.Diagnostics.Process.Start(path, $@"{PrepareArgument(toolStripTextBox6.Text)}""{mainProjectFile}""");
+                    if (currentRepo != default)
+                    {
+                        if (!string.IsNullOrWhiteSpace(path))
+                            System.Diagnostics.Process.Start(path, $@"{PrepareArgument(toolStripTextBox6.Text)}""{mainProjectFile}""");
+                        else
+                            System.Diagnostics.Process.Start($@"""{mainProjectFile}""");
+                    }
                 }
             }
             catch (Exception ex) { MessageBox.Show(ex.Message, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error); }

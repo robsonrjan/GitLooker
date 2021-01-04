@@ -229,7 +229,7 @@
             this.toolStripTextBox3.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.toolStripTextBox3.Name = "toolStripTextBox3";
             this.toolStripTextBox3.Size = new System.Drawing.Size(250, 23);
-            this.toolStripTextBox3.ToolTipText = "Additional argument needed to proper pass full path parameter to executable.";
+            this.toolStripTextBox3.ToolTipText = "[optional] Additional argument needed to proper pass full path parameter to executable.";
             this.toolStripTextBox3.KeyUp += new System.Windows.Forms.KeyEventHandler(this.SaveConfiguration);
             // 
             // executeAppToManageProjectToolStripMenuItem
@@ -243,7 +243,7 @@
             this.toolStripTextBox5.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.toolStripTextBox5.Name = "toolStripTextBox5";
             this.toolStripTextBox5.Size = new System.Drawing.Size(250, 23);
-            this.toolStripTextBox5.ToolTipText = "Choose executable file to memage selected project,\r\nexecutable will be executed w" +
+            this.toolStripTextBox5.ToolTipText = "[optional] Choose executable file to memage selected project,\r\nexecutable will be executed w" +
     "ith repo full path parameter.\r\nPress [Insert] key to choose one.";
             this.toolStripTextBox5.KeyDown += new System.Windows.Forms.KeyEventHandler(this.toolStripTextBox5_KeyDown);
             this.toolStripTextBox5.KeyUp += new System.Windows.Forms.KeyEventHandler(this.SaveConfiguration);
@@ -260,7 +260,7 @@
             this.toolStripTextBox6.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.toolStripTextBox6.Name = "toolStripTextBox6";
             this.toolStripTextBox6.Size = new System.Drawing.Size(250, 23);
-            this.toolStripTextBox6.ToolTipText = "Additional argument needed to proper pass full path parameter to executable.";
+            this.toolStripTextBox6.ToolTipText = "[optional] Additional argument needed to proper pass full path parameter to executable.";
             this.toolStripTextBox6.KeyUp += new System.Windows.Forms.KeyEventHandler(this.SaveConfiguration);
             // 
             // toolStripMenuItem13
@@ -275,7 +275,7 @@
             this.toolStripTextBox7.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.toolStripTextBox7.Name = "toolStripTextBox7";
             this.toolStripTextBox7.Size = new System.Drawing.Size(250, 23);
-            this.toolStripTextBox7.ToolTipText = "Additional argument needed to proper pass full path parameter to executable.";
+            this.toolStripTextBox7.ToolTipText = "Project file extension";
             this.toolStripTextBox7.KeyUp += new System.Windows.Forms.KeyEventHandler(this.SaveConfiguration);
             // 
             // toolStripMenuItem12
