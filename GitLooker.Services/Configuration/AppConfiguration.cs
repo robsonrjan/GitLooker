@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
-namespace GitLooker.Configuration
+namespace GitLooker.Services.Configuration
 {
     public class AppConfiguration : IAppConfiguration
     {
@@ -15,9 +15,9 @@ namespace GitLooker.Configuration
         private readonly string appConfigFullPath;
         private AppConfig appConfig;
 
-        public AppConfiguration()
+        public AppConfiguration(string configFilePath = default)
         {
-            var configDir = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            var configDir = configFilePath ?? Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
             appConfigPath = $"{configDir}\\GitLooker";
             appConfigFullPath = $"{appConfigPath}\\{appConfigFileName}";
 

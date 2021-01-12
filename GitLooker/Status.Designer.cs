@@ -71,7 +71,6 @@
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "Status";
             this.Text = "Git command status";
-            this.Load += new System.EventHandler(this.Status_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

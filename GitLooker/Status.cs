@@ -15,11 +15,6 @@ namespace GitLooker
             button1.Visible = canReset;
         }
 
-        private void Status_Load(object sender, EventArgs e)
-        {
-
-        }
-
         private void Button1_Click(object sender, EventArgs e)
         {
             forceWithRebase?.Invoke();

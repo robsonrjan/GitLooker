@@ -1,5 +1,5 @@
 ﻿using GitLooker.CompositionRoot;
-using GitLooker.Core.Services;
+using GitLooker.Core.Startup;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.IO;
@@ -20,7 +20,7 @@ namespace GitLooker
                 servises.AddApp();
 
                 using var servisesProvider = servises.BuildServiceProvider();
-                servisesProvider.GetService<IAppService>().StartApp(arg);
+                servisesProvider.GetService<IStartup>().StartApp(arg);
             }
             catch (Exception ex)
             {

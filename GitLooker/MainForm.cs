@@ -105,15 +105,9 @@ namespace GitLooker
                     endControl.Select();
                     AddMissingRepositoriums();
                     if (allReposControl.Any(c => c.IsNeededUpdate))
-                        ShowCheckNotification();
+                        notifyIcon1.ShowBalloonTip(3000);
                 }
             }), null);
-
-        private void ShowCheckNotification()
-        {
-            if (intervalUpdateCheckHour == 0) return;
-            notifyIcon1.ShowBalloonTip(3000);
-        }
 
         private void ReadRepositoriumConfiguration() => repoHolder.ExpectedRemoteList = appConfiguration.ExpectedRemoteRepos;
 
@@ -548,12 +542,12 @@ namespace GitLooker
                         {
                             if (task.IsCompleted)
                                 ExecuteProjectManager(toolStripTextBox5.Text);
-                            else if(task.Exception != default)
+                            else if (task.Exception != default)
                                 MessageBox.Show(task.Exception.Message, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
                         });
             }
             catch (Exception ex) { MessageBox.Show(ex.Message, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error); }
-            
+
             return Task.CompletedTask;
         }
 

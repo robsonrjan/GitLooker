@@ -1,16 +1,16 @@
 ﻿using Castle.DynamicProxy;
-using GitLooker.Configuration;
 using GitLooker.Core;
 using GitLooker.Core.Configuration;
 using GitLooker.Core.Repository;
 using GitLooker.Core.Services;
-using GitLooker.Services;
+using GitLooker.Core.Startup;
 using GitLooker.Services.CommandProcessor;
 using GitLooker.Services.Configuration;
 using GitLooker.Services.interceptors;
 using GitLooker.Services.Repository;
 using GitLooker.Services.Services;
 using Microsoft.Extensions.DependencyInjection;
+using ST = GitLooker.Startup;
 
 namespace GitLooker.CompositionRoot
 {
@@ -19,7 +19,7 @@ namespace GitLooker.CompositionRoot
         public static IServiceCollection AddApp(this IServiceCollection services)
         {
             return services
-                .AddSingleton<IAppService, AppService>()
+                .AddSingleton<IStartup, ST.Startup>()
                 .AddSingleton<IAppConfiguration, AppConfiguration>()
                 .AddSingleton<IRepoHolder, RepoHolder>()
                 .AddSingleton<IGitFileRepo, GitFileRepo>()

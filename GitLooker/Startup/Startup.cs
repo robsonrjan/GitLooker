@@ -1,12 +1,12 @@
-﻿using GitLooker.Core.Services;
+﻿using GitLooker.Core.Startup;
 using System.Windows.Forms;
 
-namespace GitLooker.Services
+namespace GitLooker.Startup
 {
-    public class AppService : IAppService
+    public class Startup : IStartup
     {
         private readonly MainForm form;
-        public AppService(MainForm form)
+        public Startup(MainForm form)
         {
             this.form = form;
         }
