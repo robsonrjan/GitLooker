@@ -1,4 +1,4 @@
-﻿namespace GitLooker
+﻿namespace GitLooker.Controls
 {
     partial class Status
     {

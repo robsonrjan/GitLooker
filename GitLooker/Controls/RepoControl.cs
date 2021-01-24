@@ -9,7 +9,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace GitLooker
+namespace GitLooker.Controls
 {
     public partial class RepoControl : UserControl
     {
@@ -17,7 +17,7 @@ namespace GitLooker
         private readonly DirectoryInfo workingDir;
         private readonly IRepoCommandProcessorController commandProcessor;
         private readonly IRepoHolder repoHolder;
-        private readonly Control endControl;
+        private readonly IRepoControlConfiguration repoConfiguration;
         private string currentRespond;
         private string branchOn = "Pull current branch";
         private string newRepoConfiguration;
@@ -35,13 +35,14 @@ namespace GitLooker
         public string RepoPath => repoPath;
         public string RepoName { get; }
 
-        public RepoControl(IRepoControlConfiguration repoConfiguration, IRepoCommandProcessorController commandProcessor,
-            Control endControl, IRepoHolder repoHolder)
+        public RepoControl(IRepoControlConfiguration repoConfiguration,
+            IRepoCommandProcessorController commandProcessor,
+            IRepoHolder repoHolder)
         {
             InitializeComponent();
             this.label1.Text = this.repoPath = repoConfiguration?.RepoPath ?? string.Empty;
             this.commandProcessor = commandProcessor;
-            this.endControl = endControl;
+            this.repoConfiguration = repoConfiguration;
             this.repoHolder = repoHolder;
             RepoName = this.repoPath?.Split('\\').LastOrDefault() ?? string.Empty;
 
@@ -244,9 +245,9 @@ namespace GitLooker
         private void MarkControl()
         {
             int indexOfThis = Parent.Controls.GetChildIndex(this);
-            int indexOfcontrol = endControl.Parent.Controls.GetChildIndex(endControl);
+            int indexOfcontrol = repoConfiguration.EndControl.Parent.Controls.GetChildIndex(repoConfiguration.EndControl);
             if (indexOfcontrol > indexOfThis) indexOfThis++;
-            endControl.Parent.Controls.SetChildIndex(endControl, indexOfThis - 1);
+            repoConfiguration.EndControl.Parent.Controls.SetChildIndex(repoConfiguration.EndControl, indexOfThis - 1);
 
             label1_DoubleClick(default, default);
         }

@@ -19,7 +19,7 @@ namespace GitLooker.Unit.Test.GitLooker.Services.CommandProcessor
         public void BeforeEach()
         {
             powerShell = Mock.Of<IPowersShell>();
-            Mock.Get(powerShell).Setup(p => p.Execute(It.Is<string>(p => p.Contains(workingDir)), It.IsAny<bool>()))
+            Mock.Get(powerShell).Setup(p => p.Execute(It.Is<string>(o => o.Contains(workingDir)), It.IsAny<bool>()))
                 .Returns(() => new[] { workingDir });
             repoCommandProcessor = new RepoCommandProcessor(powerShell);
         }
@@ -79,7 +79,7 @@ namespace GitLooker.Unit.Test.GitLooker.Services.CommandProcessor
         [TestCase("(push) 1 2 3 4", "3")]
         public void RemoteConfig_executes(string executionResult, string expectedResult)
         {
-            Mock.Get(powerShell).Setup(p => p.Execute(It.Is<string>(p => p.Contains(workingDir)), It.IsAny<bool>()))
+            Mock.Get(powerShell).Setup(p => p.Execute(It.Is<string>(pr => pr.Contains(workingDir)), It.IsAny<bool>()))
                 .Returns(() => new[] { executionResult });
 
             var result = repoCommandProcessor.RemoteConfig(workingDir);

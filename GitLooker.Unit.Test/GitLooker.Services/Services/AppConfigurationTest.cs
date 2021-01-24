@@ -37,17 +37,17 @@ namespace GitLooker.Unit.Test.GitLooker.Services.Services
         {
             var appConfig = testedObj.GetValueOfPrivateField("appConfig");
 
-            appConfig.Should().BeOfType<AppConfig>();
-            appConfig.As<AppConfig>().ExpectedRemoteRepos.Should().HaveCount(0);
-            appConfig.As<AppConfig>().MainBranch.Should().Be("master");
-            appConfig.As<AppConfig>().RepoProcessingCount.Should().Be(3);
-            appConfig.As<AppConfig>().ProjectArguments.Should().Be(string.Empty);
-            appConfig.As<AppConfig>().ProjectCommand.Should().Be(string.Empty);
-            appConfig.As<AppConfig>().ProjectExtension.Should().Be(string.Empty);
-            appConfig.As<AppConfig>().GitLookerPath.Should().Be(string.Empty);
-            appConfig.As<AppConfig>().Command.Should().Be(string.Empty);
-            appConfig.As<AppConfig>().Arguments.Should().Be(string.Empty);
-            appConfig.As<AppConfig>().IntervalUpdateCheckHour.Should().Be(0);
+            appConfig.Should().BeOfType<RepoConfig>();
+            appConfig.As<RepoConfig>().ExpectedRemoteRepos.Should().HaveCount(0);
+            appConfig.As<RepoConfig>().MainBranch.Should().Be("master");
+            appConfig.As<RepoConfig>().RepoProcessingCount.Should().Be(3);
+            appConfig.As<RepoConfig>().ProjectArguments.Should().Be(string.Empty);
+            appConfig.As<RepoConfig>().ProjectCommand.Should().Be(string.Empty);
+            appConfig.As<RepoConfig>().ProjectExtension.Should().Be(string.Empty);
+            appConfig.As<RepoConfig>().GitLookerPath.Should().Be(string.Empty);
+            appConfig.As<RepoConfig>().Command.Should().Be(string.Empty);
+            appConfig.As<RepoConfig>().Arguments.Should().Be(string.Empty);
+            appConfig.As<RepoConfig>().IntervalUpdateCheckHour.Should().Be(0);
         }
 
         [Test]
@@ -104,8 +104,8 @@ namespace GitLooker.Unit.Test.GitLooker.Services.Services
             testedObj.ProjectExtension = "ProjectExtension";
         }
 
-        private AppConfig CreateNewAppConfig()
-            => new AppConfig
+        private RepoConfig CreateNewAppConfig()
+            => new RepoConfig
             {
                 Arguments = "xArguments",
                 Command = "xCommand",

@@ -1,4 +1,5 @@
 ﻿using Castle.DynamicProxy;
+using GitLooker.Controls;
 using GitLooker.Core;
 using GitLooker.Core.Configuration;
 using GitLooker.Core.Repository;
@@ -20,26 +21,19 @@ namespace GitLooker.CompositionRoot
         {
             return services
                 .AddSingleton<IStartup, ST.Startup>()
+                .AddSingleton<IMainForm, MainForm>()
                 .AddSingleton<IAppConfiguration, AppConfiguration>()
                 .AddSingleton<IRepoHolder, RepoHolder>()
                 .AddSingleton<IGitFileRepo, GitFileRepo>()
                 .AddSingleton<IProjectFileRepo, ProjectFileRepo>()
-                .AddSingleton<IAppSemaphoreSlim>(service =>
-                {
-                    var config = service.GetService<IAppConfiguration>();
-                    return new AppSemaphoreSlim(config.RepoProcessingCount);
-                })
-                .AddTransient<IRepoControlConfiguration>(service =>
-                {
-                    var repoConfig = service.GetService<IAppConfiguration>();
-                    var mainForm = service.GetService<IMainForm>();
-                    var semaphore = service.GetService<IAppSemaphoreSlim>();
-                    return new RepoControlConfiguration(mainForm.CurrentRepoDdir, semaphore, mainForm.CurrentNewRepo, repoConfig.MainBranch);
-                })
+                .AddSingleton<ITabsRepoBuilder, TabsRepoBuilder>()
+                .AddSingleton<IAppSemaphoreSlim, AppSemaphoreSlim>()
+                .AddTransient<IRepoControlConfiguration, RepoControlConfiguration>()
                 .AddTransient<IPowersShell, PowersShell>()
                 .AddTransient<IRepoCommandProcessor, RepoCommandProcessor>()
                 .AddTransient<RepoCommandProcessorController>()
                 .AddTransient<SemaphoreInteractionInterceptor>()
+                .AddTransient<TabReposControl>()
                 .AddTransient(service =>
                 {
                     var myInterceptedClass = service.GetService<RepoCommandProcessorController>();
@@ -47,16 +41,7 @@ namespace GitLooker.CompositionRoot
                     var proxy = new ProxyGenerator();
                     return proxy.CreateInterfaceProxyWithTargetInterface<IRepoCommandProcessorController>(myInterceptedClass, interceptor);
                 })
-                .AddTransient<RepoControl>(service =>
-                {
-                    var mainForm = service.GetService<IMainForm>();
-                    var repoConfig = service.GetService<IRepoControlConfiguration>();
-                    var commandProcessor = service.GetService<IRepoCommandProcessorController>();
-                    var repoHolder = service.GetService<IRepoHolder>();
-                    return new RepoControl(repoConfig, commandProcessor, mainForm.EndControl, repoHolder);
-                })
-                .AddSingleton<MainForm>()
-                .AddSingleton<IMainForm>(sp => sp.GetService<MainForm>());
+                .AddTransient<RepoControl>();
         }
     }
 }

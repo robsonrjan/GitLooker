@@ -67,24 +67,22 @@
             this.toolStripTextBox4 = new System.Windows.Forms.ToolStripTextBox();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.endControl = new System.Windows.Forms.Panel();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
-            this.panel2 = new System.Windows.Forms.Panel();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItem7 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem8 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem14 = new System.Windows.Forms.ToolStripMenuItem();
             this.updateStatusToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.checkOnToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.toolStripMenuItem14 = new System.Windows.Forms.ToolStripMenuItem();
+            this.reposCatalogs = new System.Windows.Forms.TabControl();
             this.menuStrip1.SuspendLayout();
-            this.panel1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
+            this.reposCatalogs.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -229,7 +227,8 @@
             this.toolStripTextBox3.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.toolStripTextBox3.Name = "toolStripTextBox3";
             this.toolStripTextBox3.Size = new System.Drawing.Size(250, 23);
-            this.toolStripTextBox3.ToolTipText = "[optional] Additional argument needed to proper pass full path parameter to executable.";
+            this.toolStripTextBox3.ToolTipText = "[optional] Additional argument needed to proper pass full path parameter to execu" +
+    "table.";
             this.toolStripTextBox3.KeyUp += new System.Windows.Forms.KeyEventHandler(this.SaveConfiguration);
             // 
             // executeAppToManageProjectToolStripMenuItem
@@ -243,8 +242,8 @@
             this.toolStripTextBox5.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.toolStripTextBox5.Name = "toolStripTextBox5";
             this.toolStripTextBox5.Size = new System.Drawing.Size(250, 23);
-            this.toolStripTextBox5.ToolTipText = "[optional] Choose executable file to memage selected project,\r\nexecutable will be executed w" +
-    "ith repo full path parameter.\r\nPress [Insert] key to choose one.";
+            this.toolStripTextBox5.ToolTipText = "[optional] Choose executable file to memage selected project,\r\nexecutable will be" +
+    " executed with repo full path parameter.\r\nPress [Insert] key to choose one.";
             this.toolStripTextBox5.KeyDown += new System.Windows.Forms.KeyEventHandler(this.toolStripTextBox5_KeyDown);
             this.toolStripTextBox5.KeyUp += new System.Windows.Forms.KeyEventHandler(this.SaveConfiguration);
             // 
@@ -260,7 +259,8 @@
             this.toolStripTextBox6.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.toolStripTextBox6.Name = "toolStripTextBox6";
             this.toolStripTextBox6.Size = new System.Drawing.Size(250, 23);
-            this.toolStripTextBox6.ToolTipText = "[optional] Additional argument needed to proper pass full path parameter to executable.";
+            this.toolStripTextBox6.ToolTipText = "[optional] Additional argument needed to proper pass full path parameter to execu" +
+    "table.";
             this.toolStripTextBox6.KeyUp += new System.Windows.Forms.KeyEventHandler(this.SaveConfiguration);
             // 
             // toolStripMenuItem13
@@ -408,35 +408,6 @@
             this.imageList1.ImageSize = new System.Drawing.Size(16, 16);
             this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
             // 
-            // panel1
-            // 
-            this.panel1.AutoScroll = true;
-            this.panel1.BackColor = System.Drawing.Color.White;
-            this.panel1.Controls.Add(this.endControl);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(0, 31);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(584, 730);
-            this.panel1.TabIndex = 1;
-            // 
-            // endControl
-            // 
-            this.endControl.BackColor = System.Drawing.Color.DarkSlateGray;
-            this.endControl.Dock = System.Windows.Forms.DockStyle.Top;
-            this.endControl.Location = new System.Drawing.Point(0, 0);
-            this.endControl.Name = "endControl";
-            this.endControl.Size = new System.Drawing.Size(584, 1);
-            this.endControl.TabIndex = 3;
-            // 
-            // panel2
-            // 
-            this.panel2.BackColor = System.Drawing.Color.LightCyan;
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel2.Location = new System.Drawing.Point(0, 29);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(584, 2);
-            this.panel2.TabIndex = 2;
-            // 
             // timer1
             // 
             this.timer1.Enabled = true;
@@ -464,7 +435,7 @@
             this.toolStripSeparator4,
             this.checkOnToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(274, 142);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(274, 120);
             this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
             // 
             // toolStripMenuItem7
@@ -480,6 +451,13 @@
             this.toolStripMenuItem8.Size = new System.Drawing.Size(273, 22);
             this.toolStripMenuItem8.Text = "Execute command to manage repo";
             this.toolStripMenuItem8.Click += new System.EventHandler(this.toolStripMenuItem8_Click);
+            // 
+            // toolStripMenuItem14
+            // 
+            this.toolStripMenuItem14.Name = "toolStripMenuItem14";
+            this.toolStripMenuItem14.Size = new System.Drawing.Size(273, 22);
+            this.toolStripMenuItem14.Text = "Execute command to manage project";
+            this.toolStripMenuItem14.Click += new System.EventHandler(this.toolStripMenuItem14_Click);
             // 
             // updateStatusToolStripMenuItem
             // 
@@ -504,20 +482,22 @@
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
-            // toolStripMenuItem14
+            // reposCatalogs
             // 
-            this.toolStripMenuItem14.Name = "toolStripMenuItem14";
-            this.toolStripMenuItem14.Size = new System.Drawing.Size(273, 22);
-            this.toolStripMenuItem14.Text = "Execute command to manage project";
-            this.toolStripMenuItem14.Click += new System.EventHandler(this.toolStripMenuItem14_Click);
+            this.reposCatalogs.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.reposCatalogs.Font = new System.Drawing.Font("Segoe UI", 8F);
+            this.reposCatalogs.Location = new System.Drawing.Point(0, 29);
+            this.reposCatalogs.Name = "reposCatalogs";
+            this.reposCatalogs.SelectedIndex = 0;
+            this.reposCatalogs.Size = new System.Drawing.Size(584, 732);
+            this.reposCatalogs.TabIndex = 1;
             // 
             // MainForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(584, 761);
-            this.Controls.Add(this.panel1);
-            this.Controls.Add(this.panel2);
+            this.Controls.Add(this.reposCatalogs);
             this.Controls.Add(this.menuStrip1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -531,8 +511,8 @@
             this.Load += new System.EventHandler(this.Form1_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            this.panel1.ResumeLayout(false);
             this.contextMenuStrip1.ResumeLayout(false);
+            this.reposCatalogs.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -545,16 +525,13 @@
         private System.Windows.Forms.ToolStripMenuItem setWorkingPathToolStripMenuItem;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
         private System.Windows.Forms.ImageList imageList1;
-        private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.ColorDialog colorDialog1;
         private System.Windows.Forms.ToolStripMenuItem checkToolStripMenuItem;
-        private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem configurationToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem remoteReposConfigToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem expectedReposConfigToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
-        private System.Windows.Forms.Panel endControl;
         private System.Windows.Forms.ToolStripComboBox toolStripComboBox1;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem3;
@@ -592,6 +569,7 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem13;
         private System.Windows.Forms.ToolStripTextBox toolStripTextBox7;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem14;
+        private System.Windows.Forms.TabControl reposCatalogs;
     }
 }
 

@@ -24,7 +24,7 @@ namespace GitLooker.Unit.Test.GitLooker.Services.Repository
         [Test]
         public void Get_check_dir_return_proper_repo_location()
         {
-            var expectedValue = @$"{Directory.GetCurrentDirectory()}\{repoDir}";
+            var expectedValue = $"{Directory.GetCurrentDirectory()}\\{repoDir}";
             var result = gitFileRepo.Get(Directory.GetCurrentDirectory());
 
             result.Should().NotBeNullOrEmpty();
@@ -35,14 +35,14 @@ namespace GitLooker.Unit.Test.GitLooker.Services.Repository
         {
             if (!Directory.Exists(repoDir))
                 Directory.CreateDirectory(repoDir);
-            if (!Directory.Exists(@$"{repoDir}\test.git"))
-                Directory.CreateDirectory(@$"{repoDir}\\test.git");
+            if (!Directory.Exists($"{repoDir}\\test.git"))
+                Directory.CreateDirectory($"{repoDir}\\test.git");
         }
 
         private void CleanDir()
         {
-            if (Directory.Exists(@$"{repoDir}\test.git"))
-                Directory.Delete(@$"{repoDir}\test.git");
+            if (Directory.Exists($"{repoDir}\\test.git"))
+                Directory.Delete($"{repoDir}\\test.git");
             if (Directory.Exists(repoDir))
                 Directory.Delete(repoDir);
         }

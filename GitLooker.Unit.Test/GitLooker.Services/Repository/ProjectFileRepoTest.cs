@@ -71,12 +71,12 @@ namespace GitLooker.Unit.Test.GitLooker.Services.Repository
                 Directory.CreateDirectory($"{repoPath}\\dir-{d}");
                 filesList.ToList().ForEach(f => fileSafeWriter($"{repoPath}\\dir-{d}\\{d}.{extensionLevelOne++}"));
                 fileSafeWriter($"{repoPath}\\dir-{d}\\abc.sln");
-                catalogList.ToList().ForEach(d =>
+                catalogList.ToList().ForEach(dd =>
                 {
                     int extensionLevelTwo = 0;
-                    Directory.CreateDirectory($"{repoPath}\\dir-{d}\\dir-{d}");
-                    filesList.ToList().ForEach(f => fileSafeWriter($"{repoPath}\\dir-{d}\\dir-{d}\\{d}.{extensionLevelTwo++}"));
-                    fileSafeWriter($"{repoPath}\\dir-{d}\\dir-{d}\\abc.sln");
+                    Directory.CreateDirectory($"{repoPath}\\dir-{dd}\\dir-{dd}");
+                    filesList.ToList().ForEach(f => fileSafeWriter($"{repoPath}\\dir-{dd}\\dir-{dd}\\{dd}.{extensionLevelTwo++}"));
+                    fileSafeWriter($"{repoPath}\\dir-{dd}\\dir-{dd}\\abc.sln");
                 });
             });
 

@@ -1,4 +1,5 @@
-﻿using GitLooker.Core.Services;
+﻿using GitLooker.Core.Configuration;
+using GitLooker.Core.Services;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -13,9 +14,9 @@ namespace GitLooker.Services.Services
         public Action<bool> OnUse { get => isUsed; set => isUsed = value; }
         public int MaxRepoProcessingCount => repoProcessingCount;
 
-        public AppSemaphoreSlim(int repoProcessingCount)
+        public AppSemaphoreSlim(IAppConfiguration appConfiguration)
         {
-            this.repoProcessingCount = repoProcessingCount;
+            this.repoProcessingCount = appConfiguration.RepoProcessingCount;
             semaphoreSlim = new SemaphoreSlim(repoProcessingCount);
         }
 

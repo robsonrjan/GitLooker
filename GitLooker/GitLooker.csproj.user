@@ -18,14 +18,17 @@
     <Compile Update="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="RepoControl.cs">
+    <Compile Update="Controls\RepoControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="RepoList.cs">
+    <Compile Update="Controls\RepoList.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="Status.cs">
+    <Compile Update="Controls\Status.cs">
       <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Controls\TabReposControl.cs">
+      <SubType>Component</SubType>
     </Compile>
   </ItemGroup>
 </Project>

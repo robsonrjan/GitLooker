@@ -27,4 +27,8 @@
     <ProjectReference Include="..\GitLooker.Core\GitLooker.Core.csproj" />   
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="System.Windows.Forms" />
+  </ItemGroup>
+
 </Project>

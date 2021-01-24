@@ -1,4 +1,6 @@
-﻿namespace GitLooker.Core.Services
+﻿using System.Windows.Forms;
+
+namespace GitLooker.Core.Services
 {
     public interface IRepoControlConfiguration
     {
@@ -6,5 +8,6 @@
         IAppSemaphoreSlim Semaphore { get; }
         string NewRepo { get; }
         string MainBranch { get; }
+        Control EndControl { get; }
     }
 }

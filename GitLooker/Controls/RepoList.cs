@@ -1,6 +1,6 @@
 ﻿using System.Windows.Forms;
 
-namespace GitLooker
+namespace GitLooker.Controls
 {
     public partial class RepoList : Form
     {

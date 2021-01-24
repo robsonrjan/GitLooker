@@ -44,7 +44,7 @@ namespace GitLooker.Services.CommandProcessor
                 var errors = default(IEnumerable<string>);
 
                 pipeLine.Commands.AddScript(command);
-                var returnValue = pipeLine.Invoke()?.Select(p => p.ToString()) ?? default(IEnumerable<string>);
+                var returnValue = pipeLine.Invoke()?.Select(p => p.ToString()) ?? default;
 
                 if (pipeLine.HadErrors)
                     errors = pipeLine.Error.ReadToEnd().Select(err => err.ToString()).ToList();

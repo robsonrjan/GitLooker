@@ -1,7 +1,7 @@
 ﻿using GitLooker.Core.Configuration;
-using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -30,77 +30,113 @@ namespace GitLooker.Services.Configuration
             Open();
         }
 
+        public int CurrentIndex { get; set; } = 0;
+
+        public RepoConfig this[int index]
+        {
+            get => appConfig.RepoConfigs[index];
+            set => appConfig.RepoConfigs[index] = value;
+        }
+
         public virtual void Open(string configFile = default)
         {
-            var builder = new ConfigurationBuilder();
-            appConfig = builder.AddJsonFile(configFile ?? appConfigFullPath).Build().Get<AppConfig>();
+            try
+            {
+                var configText = File.ReadAllText(configFile ?? appConfigFullPath);
+
+                if (!CheckForOldConfigAndConvertToNew(configText))
+                    appConfig = JsonConvert.DeserializeObject<AppConfig>(configText);
+            }
+            catch (Exception)
+            {
+                SaveConfig();
+                throw;
+            }
         }
 
         public virtual string GitLookerPath
         {
-            get => appConfig.GitLookerPath;
-            set => appConfig.GitLookerPath = value;
+            get => appConfig.RepoConfigs[CurrentIndex].GitLookerPath;
+            set => appConfig.RepoConfigs[CurrentIndex].GitLookerPath = value;
         }
 
         public virtual string MainBranch
         {
-            get => appConfig.MainBranch ?? "master";
-            set => appConfig.MainBranch = value;
+            get => appConfig.RepoConfigs[CurrentIndex].MainBranch ?? "master";
+            set => appConfig.RepoConfigs[CurrentIndex].MainBranch = value;
         }
 
         public virtual int RepoProcessingCount => appConfig.RepoProcessingCount;
 
         public virtual int IntervalUpdateCheckHour
         {
-            get => appConfig.IntervalUpdateCheckHour;
-            set => appConfig.IntervalUpdateCheckHour = value;
+            get => appConfig.RepoConfigs[CurrentIndex].IntervalUpdateCheckHour;
+            set => appConfig.RepoConfigs[CurrentIndex].IntervalUpdateCheckHour = value;
         }
 
         public virtual string Command
         {
-            get => appConfig.Command;
-            set => appConfig.Command = value;
+            get => appConfig.RepoConfigs[CurrentIndex].Command;
+            set => appConfig.RepoConfigs[CurrentIndex].Command = value;
         }
 
         public virtual string Arguments
         {
-            get => appConfig.Arguments;
-            set => appConfig.Arguments = value;
+            get => appConfig.RepoConfigs[CurrentIndex].Arguments;
+            set => appConfig.RepoConfigs[CurrentIndex].Arguments = value;
         }
 
         public virtual void Save() => SaveConfig();
 
         public virtual IList<string> ExpectedRemoteRepos
         {
-            get => appConfig.ExpectedRemoteRepos;
+            get => appConfig.RepoConfigs[CurrentIndex].ExpectedRemoteRepos;
             set
             {
-                appConfig.ExpectedRemoteRepos = value.ToList();
+                appConfig.RepoConfigs[CurrentIndex].ExpectedRemoteRepos = value.ToList();
                 SaveConfig();
             }
         }
 
         public virtual string ProjectCommand
         {
-            get => appConfig.ProjectCommand;
-            set => appConfig.ProjectCommand = value;
+            get => appConfig.RepoConfigs[CurrentIndex].ProjectCommand;
+            set => appConfig.RepoConfigs[CurrentIndex].ProjectCommand = value;
         }
 
         public virtual string ProjectArguments
         {
-            get => appConfig.ProjectArguments;
-            set => appConfig.ProjectArguments = value;
+            get => appConfig.RepoConfigs[CurrentIndex].ProjectArguments;
+            set => appConfig.RepoConfigs[CurrentIndex].ProjectArguments = value;
         }
 
         public virtual string ProjectExtension
         {
-            get => appConfig.ProjectExtension;
-            set => appConfig.ProjectExtension = value;
+            get => appConfig.RepoConfigs[CurrentIndex].ProjectExtension;
+            set => appConfig.RepoConfigs[CurrentIndex].ProjectExtension = value;
+        }
+
+        public virtual void SaveAs(string configFile) => SaveConfig(configFile);
+
+        private bool CheckForOldConfigAndConvertToNew(string configText)
+        {
+            RepoConfig oldConfig;
+            if (!configText.StartsWith("{\"Version\":\"1.0.1\""))
+            {
+                oldConfig = JsonConvert.DeserializeObject<RepoConfig>(configText);
+                appConfig = new AppConfig { RepoConfigs = new List<RepoConfig> { oldConfig } };
+                SaveConfig();
+                return true;
+            }
+            else
+                return false;
         }
 
         private void SaveConfig(string configFile = default)
-            => File.WriteAllText(configFile ?? appConfigFullPath, JsonConvert.SerializeObject(appConfig ?? new AppConfig()));
+            => File.WriteAllText(configFile ?? appConfigFullPath, JsonConvert.SerializeObject(appConfig
+                ?? new AppConfig { RepoConfigs = new List<RepoConfig> { new RepoConfig() } }));
 
-        public virtual void SaveAs(string configFile) => SaveConfig(configFile);
+        public IEnumerator<RepoConfig> GetEnumerator() => appConfig.RepoConfigs.GetEnumerator();
+        IEnumerator IEnumerable.GetEnumerator() => appConfig.RepoConfigs.GetEnumerator();
     }
 }

@@ -2,7 +2,7 @@
 
 namespace GitLooker.Core.Configuration
 {
-    public interface IAppConfiguration
+    public interface IAppConfiguration : IEnumerable<RepoConfig>
     {
         string Arguments { get; set; }
         string Command { get; set; }
@@ -17,5 +17,7 @@ namespace GitLooker.Core.Configuration
         void Save();
         void SaveAs(string configFile = default);
         void Open(string configFile = default);
+        int CurrentIndex { get; set; }
+        RepoConfig this[int index] { get; set; }
     }
 }
