@@ -1,6 +1,5 @@
 ﻿using FluentAssertions;
 using GitLooker.Core.Services;
-using GitLooker.Services.Configuration;
 using NUnit.Framework;
 using System;
 

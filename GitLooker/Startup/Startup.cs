@@ -1,5 +1,4 @@
-﻿using GitLooker.Core;
-using GitLooker.Core.Startup;
+﻿using GitLooker.Core.Startup;
 using System.Windows.Forms;
 
 namespace GitLooker.Startup
@@ -7,9 +6,9 @@ namespace GitLooker.Startup
     public class Startup : IStartup
     {
         private readonly MainForm form;
-        public Startup(IMainForm form)
+        public Startup(MainForm form)
         {
-            this.form = form as MainForm;
+            this.form = form;
         }
 
         public void StartApp(string[] arg)

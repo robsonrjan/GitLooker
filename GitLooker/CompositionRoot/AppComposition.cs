@@ -1,6 +1,5 @@
 ﻿using Castle.DynamicProxy;
 using GitLooker.Controls;
-using GitLooker.Core;
 using GitLooker.Core.Configuration;
 using GitLooker.Core.Repository;
 using GitLooker.Core.Services;
@@ -21,14 +20,13 @@ namespace GitLooker.CompositionRoot
         {
             return services
                 .AddSingleton<IStartup, ST.Startup>()
-                .AddSingleton<IMainForm, MainForm>()
+                .AddSingleton<MainForm>()
                 .AddSingleton<IAppConfiguration, AppConfiguration>()
                 .AddSingleton<IRepoHolder, RepoHolder>()
                 .AddSingleton<IGitFileRepo, GitFileRepo>()
                 .AddSingleton<IProjectFileRepo, ProjectFileRepo>()
                 .AddSingleton<ITabsRepoBuilder, TabsRepoBuilder>()
                 .AddSingleton<IAppSemaphoreSlim, AppSemaphoreSlim>()
-                .AddTransient<IRepoControlConfiguration, RepoControlConfiguration>()
                 .AddTransient<IPowersShell, PowersShell>()
                 .AddTransient<IRepoCommandProcessor, RepoCommandProcessor>()
                 .AddTransient<RepoCommandProcessorController>()

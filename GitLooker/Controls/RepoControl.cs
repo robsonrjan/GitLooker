@@ -13,17 +13,15 @@ namespace GitLooker.Controls
 {
     public partial class RepoControl : UserControl
     {
-        private readonly string repoPath;
-        private readonly DirectoryInfo workingDir;
+        private DirectoryInfo workingDir;
         private readonly IRepoCommandProcessorController commandProcessor;
-        private readonly IRepoHolder repoHolder;
-        private readonly IRepoControlConfiguration repoConfiguration;
+        private string repoPath;
         private string currentRespond;
         private string branchOn = "Pull current branch";
         private string newRepoConfiguration;
         private bool canReset;
-        private string newRepoName = default(string);
-        private readonly string mainBranch;
+        private string newRepoName = default;
+        private string mainBranch;
         public bool IsMainBranch { get; private set; }
         public bool IsConnectionError { get; private set; }
         public string RepoConfiguration { get; private set; }
@@ -32,30 +30,30 @@ namespace GitLooker.Controls
         internal bool IsNeededUpdate { get; private set; }
         public delegate void SelectRepo(RepoControl control);
         public event SelectRepo OnSelectRepo;
-        public string RepoPath => repoPath;
-        public string RepoName { get; }
+        public string RepoPath { get => repoPath; set => repoPath = value ?? string.Empty; }
+        public string RepoName { get; private set; }
+        public Control EndControl { get; set; }
+        public string NewRepo { get => newRepoConfiguration; set => newRepoConfiguration = value ?? string.Empty; }
+        public string MainBranch { get => mainBranch; set => mainBranch = value ?? string.Empty; }
 
-        public RepoControl(IRepoControlConfiguration repoConfiguration,
-            IRepoCommandProcessorController commandProcessor,
-            IRepoHolder repoHolder)
+        public RepoControl(IRepoCommandProcessorController commandProcessor)
         {
             InitializeComponent();
-            this.label1.Text = this.repoPath = repoConfiguration?.RepoPath ?? string.Empty;
             this.commandProcessor = commandProcessor;
-            this.repoConfiguration = repoConfiguration;
-            this.repoHolder = repoHolder;
-            RepoName = this.repoPath?.Split('\\').LastOrDefault() ?? string.Empty;
+            toolTip1.SetToolTip(this.button1, "pull");
+            button1.Enabled = false;
+        }
 
+        protected override void OnLoad(EventArgs e)
+        {
+            this.label1.Text = this.repoPath;
+            RepoName = this.repoPath?.Split('\\').LastOrDefault() ?? string.Empty;
             workingDir = new DirectoryInfo(repoPath);
             this.label1.Text = workingDir.Name;
-            newRepoConfiguration = repoConfiguration?.NewRepo ?? string.Empty;
-            mainBranch = repoConfiguration.MainBranch;
             IsNew = !string.IsNullOrEmpty(newRepoConfiguration);
             if (IsNew)
                 ConfigureAsToClone();
-
-            this.toolTip1.SetToolTip(this.button1, "pull");
-            this.button1.Enabled = false;
+            base.OnLoad(e);
         }
 
         public string GetNewRepoName
@@ -245,9 +243,9 @@ namespace GitLooker.Controls
         private void MarkControl()
         {
             int indexOfThis = Parent.Controls.GetChildIndex(this);
-            int indexOfcontrol = repoConfiguration.EndControl.Parent.Controls.GetChildIndex(repoConfiguration.EndControl);
+            int indexOfcontrol = EndControl.Parent.Controls.GetChildIndex(EndControl);
             if (indexOfcontrol > indexOfThis) indexOfThis++;
-            repoConfiguration.EndControl.Parent.Controls.SetChildIndex(repoConfiguration.EndControl, indexOfThis - 1);
+            EndControl.Parent.Controls.SetChildIndex(EndControl, indexOfThis - 1);
 
             label1_DoubleClick(default, default);
         }

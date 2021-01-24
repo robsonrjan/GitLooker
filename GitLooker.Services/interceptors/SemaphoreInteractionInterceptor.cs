@@ -10,8 +10,8 @@ namespace GitLooker.Services.interceptors
     {
         private readonly IAppSemaphoreSlim operationSemaphore;
 
-        public SemaphoreInteractionInterceptor(IRepoControlConfiguration repoConfiguration)
-            => operationSemaphore = repoConfiguration?.Semaphore ?? throw new ArgumentNullException(nameof(repoConfiguration));
+        public SemaphoreInteractionInterceptor(IAppSemaphoreSlim appSemaphoreSlim)
+            => operationSemaphore = appSemaphoreSlim ?? throw new ArgumentNullException(nameof(appSemaphoreSlim));
 
         public void Intercept(IInvocation invocation)
         {

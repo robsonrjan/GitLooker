@@ -40,7 +40,6 @@ namespace GitLooker.Unit.Test.GitLooker.Services.Services
             appConfig.Should().BeOfType<RepoConfig>();
             appConfig.As<RepoConfig>().ExpectedRemoteRepos.Should().HaveCount(0);
             appConfig.As<RepoConfig>().MainBranch.Should().Be("master");
-            appConfig.As<RepoConfig>().RepoProcessingCount.Should().Be(3);
             appConfig.As<RepoConfig>().ProjectArguments.Should().Be(string.Empty);
             appConfig.As<RepoConfig>().ProjectCommand.Should().Be(string.Empty);
             appConfig.As<RepoConfig>().ProjectExtension.Should().Be(string.Empty);
@@ -116,7 +115,6 @@ namespace GitLooker.Unit.Test.GitLooker.Services.Services
                 ProjectArguments = "xProjectArguments",
                 ProjectCommand = "xProjectCommand",
                 ProjectExtension = "xProjectExtension",
-                RepoProcessingCount = 99
             };
     }
 

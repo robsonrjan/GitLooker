@@ -82,7 +82,6 @@
             this.reposCatalogs = new System.Windows.Forms.TabControl();
             this.menuStrip1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
-            this.reposCatalogs.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -512,7 +511,6 @@
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.contextMenuStrip1.ResumeLayout(false);
-            this.reposCatalogs.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 

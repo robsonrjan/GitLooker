@@ -1,7 +1,5 @@
 ﻿using GitLooker.Controls;
-using GitLooker.Core;
 using GitLooker.Core.Configuration;
-using GitLooker.Core.Repository;
 using GitLooker.Core.Services;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -13,7 +11,7 @@ using System.Windows.Forms;
 
 namespace GitLooker
 {
-    public partial class MainForm : Form, IMainForm
+    public partial class MainForm : Form
     {
         private readonly IAppConfiguration appConfiguration;
         private readonly IAppSemaphoreSlim semaphore;
@@ -23,7 +21,7 @@ namespace GitLooker
         private RepoControl currentRepo;
         private TabReposControl currentTabControl;
 
-        public Control EndControl => currentTabControl.RepoEndControl;
+        public Control EndControl { get; set; }
         public string CurrentRepoDdir { get; set; }
         public string CurrentNewRepo { get; set; }
 
@@ -65,9 +63,17 @@ namespace GitLooker
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            GenerateAndUpdateRepos();
+            tabsRepoBuilder.BuildTabs(reposCatalogs, Repo_OnSelectRepo);
             reposCatalogs.TabIndexChanged += ReposCatalogs_TabIndexChanged;
-            reposCatalogs.SelectedIndex = appConfiguration.CurrentIndex;
+
+            if (reposCatalogs.SelectedIndex != appConfiguration.CurrentIndex)
+                reposCatalogs.SelectedIndex = appConfiguration.CurrentIndex;
+            else
+                ReposCatalogs_TabIndexChanged(default, default);
+
+            GenerateAndUpdateRepos();
+
+
 
             SetMenueCheckerValue();
             ReadRepositoriumConfiguration();
@@ -82,8 +88,13 @@ namespace GitLooker
             if (currentTabControl == default)
                 throw new ArgumentNullException("Selected Tab cannot be null");
 
-            appConfiguration.CurrentIndex = currentTabControl.RepoIndex;
 
+
+
+            appConfiguration.CurrentIndex = currentTabControl.RepoIndex;
+            this.toolTip1.SetToolTip(this.reposCatalogs, appConfiguration.GitLookerPath);
+
+            toolStripTextBox1.Text = appConfiguration.MainBranch;
             toolStripTextBox2.Text = appConfiguration.Command;
             toolStripTextBox3.Text = appConfiguration.Arguments;
             toolStripTextBox5.Text = appConfiguration.ProjectCommand;
@@ -109,9 +120,9 @@ namespace GitLooker
 
         private void GenerateAndUpdateRepos()
         {
-            tabsRepoBuilder.Build(reposCatalogs, Repo_OnSelectRepo);
-            
-            
+
+
+
 
             CheckToolStripMenuItem_Click(null, null);
 
@@ -133,9 +144,10 @@ namespace GitLooker
             toolStripMenuItem4.Text = $"Updated: {currentTabControl.RepoLastTimeUpdate.ToLocalTime().ToString("HH:mm dddd")}";
             CheackAndRemovedNewRepos();
             DeleteDisposedRepos();
-
+#if !DEBUG
             foreach (var cntr in currentTabControl.OrderByDescending(c => c.Parent.Controls.GetChildIndex(c)))
                 cntr.UpdateRepoInfo();
+#endif
         }
 
         private void DeleteDisposedRepos()
@@ -160,7 +172,7 @@ namespace GitLooker
             currentTabControl.RepoHolder.ExpectedRemoteList.Where(NotInRepoConfig).ToList()
                 .ForEach(config =>
                 {
-                    tabsRepoBuilder.AddRepo(Repo_OnSelectRepo, currentTabControl, appConfiguration.GitLookerPath, config);
+                    tabsRepoBuilder.BuildRepo(Repo_OnSelectRepo, currentTabControl, appConfiguration.GitLookerPath, config);
                     Application.DoEvents();
                     Application.DoEvents();
                     toolStripMenuItem2.Visible = true;
@@ -244,7 +256,7 @@ namespace GitLooker
                     this.Invoke(new Action(() =>
                     {
                         ctr.Dispose();
-                        tabsRepoBuilder.AddRepo(Repo_OnSelectRepo, currentTabControl, appConfiguration.GitLookerPath, repoPath);
+                        tabsRepoBuilder.BuildRepo(Repo_OnSelectRepo, currentTabControl, appConfiguration.GitLookerPath, repoPath);
                     }), null);
                 }
                 else

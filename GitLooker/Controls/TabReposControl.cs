@@ -51,8 +51,9 @@ namespace GitLooker.Controls
             get => repoConfiguration;
             set
             {
-                if (string.IsNullOrWhiteSpace(value?.GitLookerPath))
-                    Name = Text = new DirectoryInfo(value.GitLookerPath).Name;
+                if (!string.IsNullOrWhiteSpace(value?.GitLookerPath))
+                    Name = Text = new DirectoryInfo(value.GitLookerPath).Name.ToLowerInvariant();
+
                 repoConfiguration = value;
             }
         }
