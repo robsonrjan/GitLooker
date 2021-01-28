@@ -88,7 +88,7 @@ namespace GitLooker.Services.Configuration
 
         public virtual void Save() => SaveConfig();
 
-        public virtual IList<string> ExpectedRemoteRepos
+        public virtual List<string> ExpectedRemoteRepos
         {
             get => appConfig.RepoConfigs[CurrentIndex].ExpectedRemoteRepos;
             set

@@ -13,7 +13,7 @@ namespace GitLooker.Core.Configuration
         int IntervalUpdateCheckHour { get; set; }
         string MainBranch { get; set; }
         int RepoProcessingCount { get; }
-        IList<string> ExpectedRemoteRepos { get; set; }
+        List<string> ExpectedRemoteRepos { get; set; }
         void Save();
         void SaveAs(string configFile = default);
         void Open(string configFile = default);

@@ -64,7 +64,7 @@ namespace GitLooker
         private void Form1_Load(object sender, EventArgs e)
         {
             tabsRepoBuilder.BuildTabs(reposCatalogs, Repo_OnSelectRepo);
-            reposCatalogs.TabIndexChanged += ReposCatalogs_TabIndexChanged;
+            reposCatalogs.Selected += ReposCatalogs_TabIndexChanged;
 
             if (reposCatalogs.SelectedIndex != appConfiguration.CurrentIndex)
                 reposCatalogs.SelectedIndex = appConfiguration.CurrentIndex;
@@ -87,8 +87,6 @@ namespace GitLooker
             currentTabControl = reposCatalogs.SelectedTab as TabReposControl;
             if (currentTabControl == default)
                 throw new ArgumentNullException("Selected Tab cannot be null");
-
-
 
 
             appConfiguration.CurrentIndex = currentTabControl.RepoIndex;
@@ -116,7 +114,7 @@ namespace GitLooker
                 }
             }), null);
 
-        private void ReadRepositoriumConfiguration() => currentTabControl.RepoHolder.ExpectedRemoteList = appConfiguration.ExpectedRemoteRepos;
+        private void ReadRepositoriumConfiguration() => currentTabControl.RepoConfiguration.ExpectedRemoteRepos = appConfiguration.ExpectedRemoteRepos;
 
         private void GenerateAndUpdateRepos()
         {
@@ -144,10 +142,10 @@ namespace GitLooker
             toolStripMenuItem4.Text = $"Updated: {currentTabControl.RepoLastTimeUpdate.ToLocalTime().ToString("HH:mm dddd")}";
             CheackAndRemovedNewRepos();
             DeleteDisposedRepos();
-#if !DEBUG
+
             foreach (var cntr in currentTabControl.OrderByDescending(c => c.Parent.Controls.GetChildIndex(c)))
                 cntr.UpdateRepoInfo();
-#endif
+
         }
 
         private void DeleteDisposedRepos()
@@ -161,15 +159,15 @@ namespace GitLooker
 
         private void CheackAndRemovedNewRepos()
         {
-            foreach (var ctrRepo in currentTabControl.Where(repo => repo.IsNew && !currentTabControl.RepoHolder.ExpectedRemoteList.Contains(repo.RepoConfiguration)))
+            foreach (var ctrRepo in currentTabControl.Where(repo => repo.IsNew && !currentTabControl.RepoConfiguration.ExpectedRemoteRepos.Contains(repo.RepoConfiguration)))
                 ctrRepo.Dispose();
         }
 
-        private bool NotInRepoConfig(string config) => !currentTabControl.RepoHolder.RepoRemoteList.Any(r => r?.ToLower() == config?.ToLower())
+        private bool NotInRepoConfig(string config) => !currentTabControl.Any(r => r.RepoConfiguration?.ToLower() == config?.ToLower())
             && !currentTabControl.Any(ctr => ctr.RepoConfiguration?.ToLower() == config?.ToLower());
         private void AddMissingRepositoriums()
         {
-            currentTabControl.RepoHolder.ExpectedRemoteList.Where(NotInRepoConfig).ToList()
+            currentTabControl.RepoConfiguration.ExpectedRemoteRepos.Where(NotInRepoConfig).ToList()
                 .ForEach(config =>
                 {
                     tabsRepoBuilder.BuildRepo(Repo_OnSelectRepo, currentTabControl, appConfiguration.GitLookerPath, config);
@@ -182,20 +180,22 @@ namespace GitLooker
         private void remoteReposConfigToolStripMenuItem_Click(object sender, EventArgs e)
         {
             RepoList repoList = new RepoList();
-            repoList.repoText.Lines = currentTabControl.RepoHolder.RepoRemoteList.ToArray();
+            repoList.repoText.Lines = currentTabControl.ReposAllControl
+                .Where(r => !string.IsNullOrWhiteSpace(r.RepoConfiguration))
+                .Select(r => r.RepoConfiguration).ToArray();
             repoList.ShowDialog();
         }
 
-        private string ToLower(string text) => text.ToLower();
+        private string ToLower(string text) => text.ToLowerInvariant();
 
         private void expectedReposConfigToolStripMenuItem_Click(object sender, EventArgs e)
         {
             RepoList repoList = new RepoList();
-            repoList.repoText.Lines = currentTabControl.RepoHolder.ExpectedRemoteList.ToArray();
+            repoList.repoText.Lines = appConfiguration.ExpectedRemoteRepos.ToArray();
             repoList.ShowDialog();
 
-            currentTabControl.RepoHolder.ExpectedRemoteList = repoList.repoText.Lines.Select(ToLower).Distinct().ToList();
-            appConfiguration.ExpectedRemoteRepos = currentTabControl.RepoHolder.ExpectedRemoteList;
+            appConfiguration.ExpectedRemoteRepos = repoList.repoText.Lines.Select(ToLower).Distinct().ToList();
+            appConfiguration.Save();
         }
 
         private async void toolStripMenuItem2_Click(object sender, EventArgs e)

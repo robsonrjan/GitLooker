@@ -81,14 +81,13 @@ namespace GitLooker.Controls
             Controls.Add(endControl);
             allReposControl.ForEach(r => r.Dispose());
             allReposControl.Clear();
-            repoHolder.RepoRemoteList.Clear();
         }
 
         public void RepoRemove(RepoControl ctr)
         {
             Controls.Remove(ctr);
             allReposControl.Remove(ctr);
-            repoHolder.ExpectedRemoteList.Remove(ctr.RepoConfiguration);
+            repoConfiguration.ExpectedRemoteRepos.Remove(ctr.RepoConfiguration);
             ctr.Dispose();
         }
 

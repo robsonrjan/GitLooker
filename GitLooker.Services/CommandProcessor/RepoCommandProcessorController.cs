@@ -10,21 +10,16 @@ namespace GitLooker.Services.CommandProcessor
     public class RepoCommandProcessorController : IRepoCommandProcessorController
     {
         private readonly IRepoCommandProcessor repoCommandProcessor;
-        private readonly IRepoHolder repoHolder;
         private bool isConfigured = default;
 
         public IList<MethodInfo> CommonCommandActions { get; }
 
-        public RepoCommandProcessorController(IRepoCommandProcessor repoCommandProcessor, IRepoHolder repoHolder)
+        public RepoCommandProcessorController(IRepoCommandProcessor repoCommandProcessor)
         {
             if (repoCommandProcessor == default)
                 throw new ArgumentNullException(nameof(repoCommandProcessor));
 
-            if (repoHolder == default)
-                throw new ArgumentNullException(nameof(repoHolder));
-
             this.repoCommandProcessor = repoCommandProcessor;
-            this.repoHolder = repoHolder;
 
             CommonCommandActions = typeof(IRepoCommandProcessor)
                 .GetMethods()
@@ -68,8 +63,6 @@ namespace GitLooker.Services.CommandProcessor
         {
             string repoConfiguration = default;
             var repoConfig = result.Value.SelectMany(v => v).First();
-            if (!string.IsNullOrEmpty(repoConfig))
-                repoHolder.RepoRemoteList.Add(repoConfiguration = repoConfig.ToLower());
             isConfigured = true;
             return repoConfiguration;
         }

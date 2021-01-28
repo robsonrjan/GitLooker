@@ -1,5 +1,7 @@
 ﻿using FluentAssertions;
+using GitLooker.Core.Configuration;
 using GitLooker.Services.Services;
+using Moq;
 using NUnit.Framework;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -11,11 +13,15 @@ namespace GitLooker.Unit.Test.GitLooker.Services.Services
     {
         private const int maxRepoProcessingCount = 3;
         private AppSemaphoreSlim appSemaphoreSlim;
+        private IAppConfiguration appConfiguration;
 
         [SetUp]
         public void BeforeEach()
         {
-            appSemaphoreSlim = new AppSemaphoreSlim(maxRepoProcessingCount);
+            appConfiguration = Mock.Of<IAppConfiguration>();
+            Mock.Get(appConfiguration).Setup(a => a.RepoProcessingCount)
+                .Returns(maxRepoProcessingCount);
+            appSemaphoreSlim = new AppSemaphoreSlim(appConfiguration);
         }
 
         [TearDown]

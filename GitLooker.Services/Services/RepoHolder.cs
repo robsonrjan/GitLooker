@@ -9,18 +9,12 @@ namespace GitLooker.Services.Services
 {
     public class RepoHolder : IRepoHolder
     {
-        public IList<string> RepoRemoteList { get; }
-        public IList<string> ExpectedRemoteList { get; set; }
-
-        private object addLocker = new object();
         private readonly IProjectFileRepo projectFileRepo;
         private List<Task> TaskProjectFilesHolderList;
         public ConcurrentDictionary<string, IEnumerable<string>> projectFiles;
 
         public RepoHolder(IProjectFileRepo projectFileRepo)
         {
-            RepoRemoteList = new List<string>();
-            ExpectedRemoteList = new List<string>();
             projectFiles = new ConcurrentDictionary<string, IEnumerable<string>>();
             TaskProjectFilesHolderList = new List<Task>();
 
@@ -32,12 +26,6 @@ namespace GitLooker.Services.Services
             if (!projectFiles.ContainsKey(repoPath) && TaskProjectFilesHolderList.Any())
                 Task.WaitAll(TaskProjectFilesHolderList.ToArray());
             return projectFiles[repoPath];
-        }
-
-        public void AddRemoteRepoThreadSefe(string repo)
-        {
-            lock (addLocker)
-                RepoRemoteList.Add(repo);
         }
 
         public Task FindRepoProjectFilesAsync(string repoPath, string fileExtension)
