@@ -40,64 +40,68 @@ namespace GitLooker
 
         private void SetWorkingPathToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (!string.IsNullOrEmpty(appConfiguration.GitLookerPath))
-                folderBrowserDialog1.SelectedPath = appConfiguration.GitLookerPath;
+            var allRepos = appConfiguration.Select(c => c.GitLookerPath).ToList();
+            var repoSources = new RepoSources(folderBrowserDialog1, allRepos);
 
-            folderBrowserDialog1.ShowDialog();
-            var path = folderBrowserDialog1.SelectedPath;
-            if (!string.IsNullOrEmpty(path) && (appConfiguration.GitLookerPath != path))
-            {
-                Clear();
-                appConfiguration.GitLookerPath = path;
-                appConfiguration.Save();
-                GenerateAndUpdateRepos();
-            }
+            repoSources.ShowDialog();
+            var newRepoList = repoSources.RepoList ?? Enumerable.Empty<string>();
+            RemoveRepoTab(GetRepoTabs().Where(r => !newRepoList.Contains(r.RepoConfiguration.GitLookerPath)));
 
+            foreach (var newRepo in newRepoList.Where(r => !GetRepoTabs().Any(t => t.RepoConfiguration.GitLookerPath == r)))
+                tabsRepoBuilder.BuildTab(reposCatalogs, Repo_OnSelectRepo, newRepo);
+
+            appConfiguration.Save();
+            SetCurrentTab();
+            GenerateAndUpdateRepos();
         }
 
-        private void Clear()
+        private void RemoveRepoTab(IEnumerable<TabReposControl> removedRepos)
         {
-            currentTabControl.RepoClearControls();
-            toolStripMenuItem2.Visible = false;
+            foreach (var tab in removedRepos)
+            {
+                appConfiguration.Remove(tab.RepoConfiguration);
+                reposCatalogs.TabPages.Remove(tab);
+                tab.Dispose();
+            }
+        }
+
+        private IEnumerable<TabReposControl> GetRepoTabs()
+        {
+            foreach(var tab in reposCatalogs.TabPages)
+            {
+                if (tab is TabReposControl repoTab)
+                    yield return repoTab;
+            }
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
             tabsRepoBuilder.BuildTabs(reposCatalogs, Repo_OnSelectRepo);
             reposCatalogs.Selected += ReposCatalogs_TabIndexChanged;
-
-            if (reposCatalogs.SelectedIndex != appConfiguration.CurrentIndex)
-                reposCatalogs.SelectedIndex = appConfiguration.CurrentIndex;
-            else
-                ReposCatalogs_TabIndexChanged(default, default);
-
+            SetCurrentTab();
             GenerateAndUpdateRepos();
-
-
-
-            SetMenueCheckerValue();
-            ReadRepositoriumConfiguration();
 
             this.Text = $"Git branch changes looker    ver.{AppVersion.AssemblyVersion}";
             this.notifyIcon1.Text = this.Text;
         }
 
-        private void ReposCatalogs_TabIndexChanged(object sender, EventArgs e)
+        private void ReposCatalogs_TabIndexChanged(object sender, EventArgs e) => SetCurrentTab();
+
+        private void SetCurrentTab()
         {
             currentTabControl = reposCatalogs.SelectedTab as TabReposControl;
             if (currentTabControl == default)
                 throw new ArgumentNullException("Selected Tab cannot be null");
 
+            this.toolTip1.SetToolTip(this.reposCatalogs, currentTabControl.RepoConfiguration.GitLookerPath);
 
-            appConfiguration.CurrentIndex = currentTabControl.RepoIndex;
-            this.toolTip1.SetToolTip(this.reposCatalogs, appConfiguration.GitLookerPath);
-
-            toolStripTextBox1.Text = appConfiguration.MainBranch;
-            toolStripTextBox2.Text = appConfiguration.Command;
-            toolStripTextBox3.Text = appConfiguration.Arguments;
-            toolStripTextBox5.Text = appConfiguration.ProjectCommand;
-            toolStripTextBox6.Text = appConfiguration.ProjectArguments;
-            toolStripTextBox7.Text = appConfiguration.ProjectExtension;
+            SetMenueCheckerValue();
+            toolStripTextBox1.Text = currentTabControl.RepoConfiguration.MainBranch;
+            toolStripTextBox2.Text = currentTabControl.RepoConfiguration.Command;
+            toolStripTextBox3.Text = currentTabControl.RepoConfiguration.Arguments;
+            toolStripTextBox5.Text = currentTabControl.RepoConfiguration.ProjectCommand;
+            toolStripTextBox6.Text = currentTabControl.RepoConfiguration.ProjectArguments;
+            toolStripTextBox7.Text = currentTabControl.RepoConfiguration.ProjectExtension;
         }
 
         private void SemaphoreIsUsed(bool isProccesing)
@@ -114,19 +118,9 @@ namespace GitLooker
                 }
             }), null);
 
-        private void ReadRepositoriumConfiguration() => currentTabControl.RepoConfiguration.ExpectedRemoteRepos = appConfiguration.ExpectedRemoteRepos;
-
         private void GenerateAndUpdateRepos()
         {
-
-
-
-
-            CheckToolStripMenuItem_Click(null, null);
-
-            if (!currentTabControl.ReposAllControl.Any() && !string.IsNullOrEmpty(appConfiguration.GitLookerPath))
-                AddMissingRepositoriums();
-
+            UpdateAll();
             currentTabControl.RepoIsLoaded = true;
         }
 
@@ -136,45 +130,35 @@ namespace GitLooker
             currentRepo.ContextMenuStrip = this.contextMenuStrip1;
         }
 
-        private void CheckToolStripMenuItem_Click(object sender, EventArgs e)
+        private void CheckToolStripMenuItem_Click(object sender, EventArgs e) => UpdateAll();
+
+        private void UpdateAll(IEnumerable<string> cloneRepos = default)
         {
             currentTabControl.RepoLastTimeUpdate = DateTime.UtcNow;
             toolStripMenuItem4.Text = $"Updated: {currentTabControl.RepoLastTimeUpdate.ToLocalTime().ToString("HH:mm dddd")}";
-            CheackAndRemovedNewRepos();
-            DeleteDisposedRepos();
 
-            foreach (var cntr in currentTabControl.OrderByDescending(c => c.Parent.Controls.GetChildIndex(c)))
+            foreach (var cntr in currentTabControl.Where(r => cloneRepos?.Contains(r.RepoPath) ?? true).OrderByDescending(c => c.Parent.Controls.GetChildIndex(c)))
                 cntr.UpdateRepoInfo();
-
         }
 
-        private void DeleteDisposedRepos()
-        {
-            foreach (var ctr in currentTabControl.Where(c => c.Parent == default).ToList())
-            {
-                currentTabControl.ReposAllControl.Remove(ctr);
-                ctr.Dispose();
-            }
-        }
-
-        private void CheackAndRemovedNewRepos()
-        {
-            foreach (var ctrRepo in currentTabControl.Where(repo => repo.IsNew && !currentTabControl.RepoConfiguration.ExpectedRemoteRepos.Contains(repo.RepoConfiguration)))
-                ctrRepo.Dispose();
-        }
-
-        private bool NotInRepoConfig(string config) => !currentTabControl.Any(r => r.RepoConfiguration?.ToLower() == config?.ToLower())
-            && !currentTabControl.Any(ctr => ctr.RepoConfiguration?.ToLower() == config?.ToLower());
+        private bool NotInRepoConfig(string config) => !currentTabControl.Any(ctr => ctr.RepoConfiguration?.ToLower() == config?.ToLower());
         private void AddMissingRepositoriums()
         {
-            currentTabControl.RepoConfiguration.ExpectedRemoteRepos.Where(NotInRepoConfig).ToList()
-                .ForEach(config =>
+            Task.Run(() =>
+            {
+                Task.Delay(500).GetAwaiter().GetResult();
+                this.Invoke(new Action(() =>
                 {
-                    tabsRepoBuilder.BuildRepo(Repo_OnSelectRepo, currentTabControl, appConfiguration.GitLookerPath, config);
-                    Application.DoEvents();
-                    Application.DoEvents();
-                    toolStripMenuItem2.Visible = true;
-                });
+                    currentTabControl.RepoConfiguration.ExpectedRemoteRepos.Where(NotInRepoConfig).ToList()
+                        .ForEach(config =>
+                        {
+                            tabsRepoBuilder.BuildRepo(Repo_OnSelectRepo, currentTabControl, currentTabControl.RepoConfiguration.GitLookerPath, config);
+                            Application.DoEvents();
+                            Application.DoEvents();
+                            toolStripMenuItem2.Visible = true;
+                        });
+                }), default);
+            });
         }
 
         private void remoteReposConfigToolStripMenuItem_Click(object sender, EventArgs e)
@@ -191,10 +175,10 @@ namespace GitLooker
         private void expectedReposConfigToolStripMenuItem_Click(object sender, EventArgs e)
         {
             RepoList repoList = new RepoList();
-            repoList.repoText.Lines = appConfiguration.ExpectedRemoteRepos.ToArray();
+            repoList.repoText.Lines = currentTabControl.RepoConfiguration.ExpectedRemoteRepos.ToArray();
             repoList.ShowDialog();
 
-            appConfiguration.ExpectedRemoteRepos = repoList.repoText.Lines.Select(ToLower).Distinct().ToList();
+            currentTabControl.RepoConfiguration.ExpectedRemoteRepos = repoList.repoText.Lines.Select(ToLower).Distinct().ToList();
             appConfiguration.Save();
         }
 
@@ -208,12 +192,13 @@ namespace GitLooker
 
         private async Task CloneNewRepoAsync(IRepoCommandProcessor commandProc)
         {
-            List<Task> runningClons = new List<Task>();
+            List<Task<string>> runningClons = new List<Task<string>>();
             try
             {
                 await WaitLeaveOneAsync();
-                currentTabControl.Where(ctr => ctr.IsNew).ToList()
-                    .ForEach(ctr => runningClons.Add(Task.Run(() => CloneRepoProcessAsync(commandProc, ctr))));
+                var toCloneRepos = currentTabControl.Where(ctr => ctr.IsNew).ToList();
+                foreach (var ctr in toCloneRepos)
+                    runningClons.Add(Task.Run(() => CloneRepoProcessAsync(commandProc, ctr)));
 
                 Task.Run(() => UpdateCloneReposAsync(runningClons));
             }
@@ -223,12 +208,12 @@ namespace GitLooker
             }
         }
 
-        private async void UpdateCloneReposAsync(List<Task> runningClons)
+        private async void UpdateCloneReposAsync(List<Task<string>> runningClons)
         {
-            await Task.WhenAll(runningClons);
+            var result = await Task.WhenAll(runningClons);
 
             ReleaceAll();
-            CheckToolStripMenuItem_Click(null, null);
+            UpdateAll(result);
         }
 
         private async Task WaitLeaveOneAsync()
@@ -243,20 +228,23 @@ namespace GitLooker
                 semaphore.Release();
         }
 
-        private async Task CloneRepoProcessAsync(IRepoCommandProcessor commandProc, RepoControl ctr)
+        private async Task<string> CloneRepoProcessAsync(IRepoCommandProcessor commandProc, RepoControl ctr)
         {
+            string clonedRepos = default;
             try
             {
                 await semaphore.WaitAsync();
                 ctr.Invoke(new Action(() => ctr.HighlightLabel()), null);
-                var result = commandProc.ClonRepo(appConfiguration.GitLookerPath, ctr.RepoConfiguration);
-                var repoPath = $@"{appConfiguration.GitLookerPath}\{ctr.GetNewRepoName}";
+                var result = commandProc.ClonRepo(currentTabControl.RepoConfiguration.GitLookerPath, ctr.RepoConfiguration);
+                var repoPath = $@"{currentTabControl.RepoConfiguration.GitLookerPath}\{ctr.GetNewRepoName}";
                 if (Directory.Exists(repoPath))
                 {
                     this.Invoke(new Action(() =>
                     {
-                        ctr.Dispose();
-                        tabsRepoBuilder.BuildRepo(Repo_OnSelectRepo, currentTabControl, appConfiguration.GitLookerPath, repoPath);
+                        currentTabControl.RepoRemove(ctr);
+                        Application.DoEvents();
+                        tabsRepoBuilder.BuildRepo(Repo_OnSelectRepo, currentTabControl, (clonedRepos = repoPath));
+                        Application.DoEvents();
                     }), null);
                 }
                 else
@@ -269,7 +257,8 @@ namespace GitLooker
             {
                 semaphore.Release();
             }
-            ctr.Dispose();
+
+            return clonedRepos;
         }
 
         private void RemoveUnUsed(RepoControl ctr) => currentTabControl.RepoRemove(ctr);
@@ -282,7 +271,7 @@ namespace GitLooker
 
         private void SetMenueCheckerValue()
         {
-            toolStripComboBox1.SelectedIndex = appConfiguration.IntervalUpdateCheckHour switch
+            toolStripComboBox1.SelectedIndex = currentTabControl.RepoConfiguration.IntervalUpdateCheckHour switch
             {
                 1 => 1,
                 2 => 2,
@@ -295,7 +284,7 @@ namespace GitLooker
         private void toolStripComboBox1_Click(object sender, EventArgs e)
         {
             if (!currentTabControl.RepoIsLoaded) return;
-            appConfiguration.IntervalUpdateCheckHour = toolStripComboBox1.SelectedItem switch
+            currentTabControl.RepoConfiguration.IntervalUpdateCheckHour = toolStripComboBox1.SelectedItem switch
             {
                 "1 hour" => 1,
                 "2 hours" => 2,
@@ -310,10 +299,10 @@ namespace GitLooker
         private void timer1_Tick(object sender, EventArgs e)
         {
 
-            if (appConfiguration.IntervalUpdateCheckHour > 0)
+            if (currentTabControl.RepoConfiguration.IntervalUpdateCheckHour > 0)
             {
-                if (currentTabControl.RepoLastTimeUpdate.AddHours(appConfiguration.IntervalUpdateCheckHour) < DateTime.UtcNow)
-                    CheckToolStripMenuItem_Click(null, null);
+                if (currentTabControl.RepoLastTimeUpdate.AddHours(currentTabControl.RepoConfiguration.IntervalUpdateCheckHour) < DateTime.UtcNow)
+                    UpdateAll();
             }
 
             foreach (var tab in reposCatalogs.TabPages)
@@ -333,13 +322,13 @@ namespace GitLooker
         {
             if (e.KeyCode == Keys.Enter)
             {
-                if (appConfiguration.MainBranch == toolStripTextBox1.Text) return;
-                appConfiguration.MainBranch = toolStripTextBox1.Text;
+                if (currentTabControl.RepoConfiguration.MainBranch == toolStripTextBox1.Text) return;
+                currentTabControl.RepoConfiguration.MainBranch = toolStripTextBox1.Text;
                 fileToolStripMenuItem.HideDropDown();
 
                 appConfiguration.Save();
                 fileToolStripMenuItem.HideDropDown();
-                Clear();
+
                 GenerateAndUpdateRepos();
             }
         }
@@ -356,11 +345,11 @@ namespace GitLooker
             {
                 fileToolStripMenuItem.HideDropDown();
 
-                appConfiguration.Command = toolStripTextBox2.Text;
-                appConfiguration.Arguments = toolStripTextBox3.Text;
-                appConfiguration.ProjectCommand = toolStripTextBox5.Text;
-                appConfiguration.ProjectArguments = toolStripTextBox6.Text;
-                appConfiguration.ProjectExtension = toolStripTextBox7.Text;
+                currentTabControl.RepoConfiguration.Command = toolStripTextBox2.Text;
+                currentTabControl.RepoConfiguration.Arguments = toolStripTextBox3.Text;
+                currentTabControl.RepoConfiguration.ProjectCommand = toolStripTextBox5.Text;
+                currentTabControl.RepoConfiguration.ProjectArguments = toolStripTextBox6.Text;
+                currentTabControl.RepoConfiguration.ProjectExtension = toolStripTextBox7.Text;
                 appConfiguration.Save();
             }
         }
@@ -392,12 +381,12 @@ namespace GitLooker
             if (toolStripMenuItem14.Visible = !string.IsNullOrWhiteSpace(toolStripTextBox7.Text))
                 toolStripMenuItem14.Text = $"Manage project [Ctrl+F]";
 
-            if (string.IsNullOrWhiteSpace(appConfiguration.MainBranch) || (currentRepo == default) || currentRepo.IsMainBranch)
+            if (string.IsNullOrWhiteSpace(currentTabControl.RepoConfiguration.MainBranch) || (currentRepo == default) || currentRepo.IsMainBranch)
                 checkOnToolStripMenuItem.Visible = false;
             else
             {
                 checkOnToolStripMenuItem.Visible = true;
-                checkOnToolStripMenuItem.Text = $"Check on: {appConfiguration.MainBranch}";
+                checkOnToolStripMenuItem.Text = $"Check on: {currentTabControl.RepoConfiguration.MainBranch}";
             }
         }
 
@@ -426,7 +415,7 @@ namespace GitLooker
         private void checkOnToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (currentRepo != default)
-                currentRepo.CheckOutBranch(appConfiguration.MainBranch);
+                currentRepo.CheckOutBranch(currentTabControl.RepoConfiguration.MainBranch);
         }
 
         private void pullAllToolStripMenuItem_Click(object sender, EventArgs e)

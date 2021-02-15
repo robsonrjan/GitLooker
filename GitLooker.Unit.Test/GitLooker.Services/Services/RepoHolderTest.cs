@@ -3,9 +3,7 @@ using GitLooker.Core.Repository;
 using GitLooker.Services.Services;
 using Moq;
 using NUnit.Framework;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace GitLooker.Unit.Test.GitLooker.Services.Services

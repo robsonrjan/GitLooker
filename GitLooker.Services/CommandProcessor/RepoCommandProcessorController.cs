@@ -61,10 +61,9 @@ namespace GitLooker.Services.CommandProcessor
 
         private string RemoteConfig(AppResult<IEnumerable<string>> result)
         {
-            string repoConfiguration = default;
             var repoConfig = result.Value.SelectMany(v => v).First();
             isConfigured = true;
-            return repoConfiguration;
+            return repoConfig;
         }
     }
 }

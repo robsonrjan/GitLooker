@@ -57,7 +57,6 @@ namespace GitLooker.Controls
                 repoConfiguration = value;
             }
         }
-        public int RepoIndex { get; set; }
 
         public Panel RepoEndControl => endControl;
 
@@ -74,14 +73,6 @@ namespace GitLooker.Controls
         public DateTime RepoLastTimeUpdate { get; set; }
 
         public bool RepoIsLoaded { get; set; }
-
-        public void RepoClearControls()
-        {
-            Controls.Clear();
-            Controls.Add(endControl);
-            allReposControl.ForEach(r => r.Dispose());
-            allReposControl.Clear();
-        }
 
         public void RepoRemove(RepoControl ctr)
         {

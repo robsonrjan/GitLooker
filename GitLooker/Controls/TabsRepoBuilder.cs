@@ -27,15 +27,29 @@ namespace GitLooker.Controls
 
         public void BuildTabs(TabControl reposCatalogs, SelectRepo onSelectRepoEvent)
         {
-            foreach (var item in appConfiguration.Select((value, index) => (Index: index, Config: value)))
+            foreach (var config in appConfiguration)
+                BuildTab(reposCatalogs, onSelectRepoEvent, config);
+        }
+
+        public void BuildTab(TabControl reposCatalogs, SelectRepo onSelectRepoEvent, RepoConfig repo)
+        {
+            var newTab = serviceProvider.GetService<TabReposControl>();
+            newTab.RepoConfiguration = repo;
+            newTab.BackColor = Color.White;
+            reposCatalogs.Controls.Add(newTab);
+            CheckForGitRepo(newTab, onSelectRepoEvent);
+        }
+
+        public void BuildTab(TabControl reposCatalogs, SelectRepo onSelectRepoEvent, string repoPath)
+        {
+            if(!Directory.Exists(repoPath))
             {
-                var newTab = serviceProvider.GetService<TabReposControl>();
-                newTab.RepoIndex = item.Index;
-                newTab.RepoConfiguration = item.Config;
-                newTab.BackColor = Color.White;
-                reposCatalogs.Controls.Add(newTab);
-                CheckForGitRepo(newTab, onSelectRepoEvent);
+                MessageBox.Show($"Path {repoPath} is not valid.", "Invalid repo path", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             }
+            var config = new RepoConfig { GitLookerPath = repoPath };
+            appConfiguration.Add(config);
+            BuildTab(reposCatalogs, onSelectRepoEvent, config);
         }
 
         public void ReBuildRepos(TabReposControl repoControl, SelectRepo onSelectRepoEvent) => CheckForGitRepo(repoControl, onSelectRepoEvent);

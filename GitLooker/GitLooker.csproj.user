@@ -15,8 +15,8 @@
     <EnableSecurityDebugging>false</EnableSecurityDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Update="MainForm.cs">
-      <SubType>Form</SubType>
+    <Compile Update="Controls\EntryControl.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Update="Controls\RepoControl.cs">
       <SubType>UserControl</SubType>
@@ -24,11 +24,17 @@
     <Compile Update="Controls\RepoList.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Controls\RepoSources.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Controls\Status.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Controls\TabReposControl.cs">
       <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="MainForm.cs">
+      <SubType>Form</SubType>
     </Compile>
   </ItemGroup>
 </Project>
