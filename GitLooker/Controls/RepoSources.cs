@@ -18,6 +18,8 @@ namespace GitLooker.Controls
         private Button button3;
         private EntryControl currentEntry;
 
+        public string ChosenSolution => currentEntry.Text;
+
         public IEnumerable<string> RepoList => repoList;
 
         public RepoSources(FolderBrowserDialog folderBrowserDialog, List<string> repoList) : this()
@@ -27,6 +29,22 @@ namespace GitLooker.Controls
 
             foreach (var repo in repoList)
                 AddEntry(repo);
+
+            Text = "Repo sources";
+        }
+
+        public RepoSources(List<string> repoList) : this()
+        {
+            folderBrowserDialog = default;
+            this.repoList = repoList;
+
+            foreach (var repo in repoList)
+                AddEntry(repo);
+
+            Text = "Pick solution";
+            button1.Visible = false;
+            button2.Visible = false;
+            button3.Text = "Choose and close";
         }
 
         private void AddEntry(string value)
@@ -40,7 +58,8 @@ namespace GitLooker.Controls
         private void Entry_Click(object sender, EventArgs e)
         {
             currentEntry = sender as EntryControl;
-            currentEntry.ContextMenuStrip = contextMenuStrip1;
+            if (folderBrowserDialog != default)
+                currentEntry.ContextMenuStrip = contextMenuStrip1;
         }
 
         public RepoSources() => InitializeComponent();

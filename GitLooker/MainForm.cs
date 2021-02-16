@@ -134,11 +134,15 @@ namespace GitLooker
 
         private void UpdateAll(IEnumerable<string> cloneRepos = default)
         {
-            currentTabControl.RepoLastTimeUpdate = DateTime.UtcNow;
-            toolStripMenuItem4.Text = $"Updated: {currentTabControl.RepoLastTimeUpdate.ToLocalTime().ToString("HH:mm dddd")}";
-
+            UpdateTimeInfo();
             foreach (var cntr in currentTabControl.Where(r => cloneRepos?.Contains(r.RepoPath) ?? true).OrderByDescending(c => c.Parent.Controls.GetChildIndex(c)))
                 cntr.UpdateRepoInfo();
+        }
+
+        private void UpdateTimeInfo()
+        {
+            currentTabControl.RepoLastTimeUpdate = DateTime.UtcNow;
+            toolStripMenuItem4.Text = $"Updated: {currentTabControl.RepoLastTimeUpdate.ToLocalTime().ToString("HH:mm dddd")}";
         }
 
         private bool NotInRepoConfig(string config) => !currentTabControl.Any(ctr => ctr.RepoConfiguration?.ToLower() == config?.ToLower());
@@ -298,18 +302,12 @@ namespace GitLooker
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-
-            if (currentTabControl.RepoConfiguration.IntervalUpdateCheckHour > 0)
-            {
-                if (currentTabControl.RepoLastTimeUpdate.AddHours(currentTabControl.RepoConfiguration.IntervalUpdateCheckHour) < DateTime.UtcNow)
-                    UpdateAll();
-            }
+            UpdateTimeInfo();
 
             foreach (var tab in reposCatalogs.TabPages)
             {
-                var itemTab = (TabReposControl)tab;
-
-                if (!itemTab.Equals(currentTabControl) && (itemTab.RepoConfiguration.IntervalUpdateCheckHour > 0))
+                var itemTab = tab as TabReposControl;
+                if (itemTab.RepoConfiguration.IntervalUpdateCheckHour > 0)
                 {
                     if (itemTab.RepoLastTimeUpdate.AddHours(itemTab.RepoConfiguration.IntervalUpdateCheckHour) < DateTime.UtcNow)
                         foreach (var ctr in itemTab)
@@ -541,6 +539,10 @@ namespace GitLooker
         private void ExecuteProjectManager(string path)
         {
             string mainProjectFile = default;
+
+            if (currentRepo == default)
+                return;
+
             try
             {
                 var projectFiles = currentTabControl.RepoHolder.GetProjectFiles(currentRepo.RepoPath);
@@ -548,17 +550,19 @@ namespace GitLooker
                 {
                     if (projectFiles.Count() > 1)
                     {
-                        // display user to choose one
+                        var pickForm = new RepoSources(projectFiles.ToList());
+                        pickForm.ShowDialog();
+                        mainProjectFile = pickForm.ChosenSolution;
+                        if (string.IsNullOrWhiteSpace(mainProjectFile))
+                            mainProjectFile = projectFiles.First();
                     }
-                    mainProjectFile = projectFiles.First();
+                    else
+                        mainProjectFile = projectFiles.First();
 
-                    if (currentRepo != default)
-                    {
-                        if (!string.IsNullOrWhiteSpace(path))
-                            System.Diagnostics.Process.Start(path, $@"{PrepareArgument(toolStripTextBox6.Text)}""{mainProjectFile}""");
-                        else
-                            System.Diagnostics.Process.Start($@"""{mainProjectFile}""");
-                    }
+                    if (!string.IsNullOrWhiteSpace(path))
+                        System.Diagnostics.Process.Start(path, $@"{PrepareArgument(toolStripTextBox6.Text)}""{mainProjectFile}""");
+                    else
+                        System.Diagnostics.Process.Start($@"""{mainProjectFile}""");
                 }
             }
             catch (Exception ex) { MessageBox.Show(ex.Message, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error); }

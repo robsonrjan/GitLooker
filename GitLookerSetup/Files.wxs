@@ -5,14 +5,35 @@
             <Component Id="cmp9E910694E9B5888F2FEA19E84EA85B4A" Guid="*">
                 <File Id="fil0C3E2365E1340BC0C3736DE7E464783D" KeyPath="yes" Source="$(var.SourceDir)\Castle.Core.dll" />
             </Component>
-            <Component Id="cmp1B7488CD97DEFFCFA20B422C3275C524" Guid="*">
-                <File Id="fil51F8FE15F0A6D97F858C9942553E9EE8" KeyPath="yes" Source="$(var.SourceDir)\GitLooker.application" />
-            </Component>
             <Component Id="cmpB61B30DC09F058FF4C9D7E3594A7EA0C" Guid="*">
+                <Class Id="{1CB7D0EC-40FF-3373-BFDB-7EDB6B351FAC}" Context="InprocServer32" Description="GitLooker.Core.Configuration.RepoConfig" ThreadingModel="both" ForeignServer="mscoree.dll">
+                    <ProgId Id="GitLooker.Core.Configuration.RepoConfig" Description="GitLooker.Core.Configuration.RepoConfig" />
+                </Class>
+                <Class Id="{C8F14069-9908-3647-BAFF-4F556CE0A669}" Context="InprocServer32" Description="GitLooker.Core.Configuration.RepoConfigOldVer" ThreadingModel="both" ForeignServer="mscoree.dll">
+                    <ProgId Id="GitLooker.Core.Configuration.RepoConfigOldVer" Description="GitLooker.Core.Configuration.RepoConfigOldVer" />
+                </Class>
                 <Class Id="{D9A18817-0993-3602-AE91-C94E4DEB9453}" Context="InprocServer32" Description="GitLooker.Core.Configuration.AppConfig" ThreadingModel="both" ForeignServer="mscoree.dll">
                     <ProgId Id="GitLooker.Core.Configuration.AppConfig" Description="GitLooker.Core.Configuration.AppConfig" />
                 </Class>
                 <File Id="filE607453CA211DF3144383DFD441D5553" KeyPath="yes" Source="$(var.SourceDir)\GitLooker.Core.dll" />
+                <RegistryValue Root="HKCR" Key="CLSID\{1CB7D0EC-40FF-3373-BFDB-7EDB6B351FAC}\Implemented Categories\{62C8FE65-4EBB-45e7-B440-6E39B2CDBF29}" Value="" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{1CB7D0EC-40FF-3373-BFDB-7EDB6B351FAC}\InprocServer32\1.0.0.0" Name="Class" Value="GitLooker.Core.Configuration.RepoConfig" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{1CB7D0EC-40FF-3373-BFDB-7EDB6B351FAC}\InprocServer32\1.0.0.0" Name="Assembly" Value="GitLooker.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{1CB7D0EC-40FF-3373-BFDB-7EDB6B351FAC}\InprocServer32\1.0.0.0" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{1CB7D0EC-40FF-3373-BFDB-7EDB6B351FAC}\InprocServer32\1.0.0.0" Name="CodeBase" Value="file:///[#filE607453CA211DF3144383DFD441D5553]" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{1CB7D0EC-40FF-3373-BFDB-7EDB6B351FAC}\InprocServer32" Name="Class" Value="GitLooker.Core.Configuration.RepoConfig" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{1CB7D0EC-40FF-3373-BFDB-7EDB6B351FAC}\InprocServer32" Name="Assembly" Value="GitLooker.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{1CB7D0EC-40FF-3373-BFDB-7EDB6B351FAC}\InprocServer32" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{1CB7D0EC-40FF-3373-BFDB-7EDB6B351FAC}\InprocServer32" Name="CodeBase" Value="file:///[#filE607453CA211DF3144383DFD441D5553]" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{C8F14069-9908-3647-BAFF-4F556CE0A669}\Implemented Categories\{62C8FE65-4EBB-45e7-B440-6E39B2CDBF29}" Value="" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{C8F14069-9908-3647-BAFF-4F556CE0A669}\InprocServer32\1.0.0.0" Name="Class" Value="GitLooker.Core.Configuration.RepoConfigOldVer" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{C8F14069-9908-3647-BAFF-4F556CE0A669}\InprocServer32\1.0.0.0" Name="Assembly" Value="GitLooker.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{C8F14069-9908-3647-BAFF-4F556CE0A669}\InprocServer32\1.0.0.0" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{C8F14069-9908-3647-BAFF-4F556CE0A669}\InprocServer32\1.0.0.0" Name="CodeBase" Value="file:///[#filE607453CA211DF3144383DFD441D5553]" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{C8F14069-9908-3647-BAFF-4F556CE0A669}\InprocServer32" Name="Class" Value="GitLooker.Core.Configuration.RepoConfigOldVer" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{C8F14069-9908-3647-BAFF-4F556CE0A669}\InprocServer32" Name="Assembly" Value="GitLooker.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{C8F14069-9908-3647-BAFF-4F556CE0A669}\InprocServer32" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{C8F14069-9908-3647-BAFF-4F556CE0A669}\InprocServer32" Name="CodeBase" Value="file:///[#filE607453CA211DF3144383DFD441D5553]" Type="string" Action="write" />
                 <RegistryValue Root="HKCR" Key="CLSID\{D9A18817-0993-3602-AE91-C94E4DEB9453}\Implemented Categories\{62C8FE65-4EBB-45e7-B440-6E39B2CDBF29}" Value="" Type="string" Action="write" />
                 <RegistryValue Root="HKCR" Key="CLSID\{D9A18817-0993-3602-AE91-C94E4DEB9453}\InprocServer32\1.0.0.0" Name="Class" Value="GitLooker.Core.Configuration.AppConfig" Type="string" Action="write" />
                 <RegistryValue Root="HKCR" Key="CLSID\{D9A18817-0993-3602-AE91-C94E4DEB9453}\InprocServer32\1.0.0.0" Name="Assembly" Value="GitLooker.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" Type="string" Action="write" />
@@ -26,27 +47,18 @@
             <Component Id="cmp2F21F49EA828391711B3CEA610552F89" Guid="*">
                 <File Id="fil9633F43F4D997E5360DB087C04494EB4" KeyPath="yes" Source="$(var.SourceDir)\GitLooker.exe" />
             </Component>
-            <Component Id="cmpB6AB83539BED01D077A5A7E5AAAD7F1A" Guid="*">
-                <File Id="fil7B09FFA298A374E9124D7E072FDCEED3" KeyPath="yes" Source="$(var.SourceDir)\GitLooker.exe.CodeAnalysisLog.xml" />
-            </Component>
             <Component Id="cmpE1E53F8BE527D309B49593872E530704" Guid="*">
                 <File Id="filD99768F7E546B103989A7D3DF5EFAF62" KeyPath="yes" Source="$(var.SourceDir)\GitLooker.exe.config" />
-            </Component>
-            <Component Id="cmp798CC354064504187056111C63549C16" Guid="*">
-                <File Id="fil0145AE9EB2B895883B3C2EA9C2337356" KeyPath="yes" Source="$(var.SourceDir)\GitLooker.exe.lastcodeanalysissucceeded" />
-            </Component>
-            <Component Id="cmp713787F3CA6710CFA33F42BC7E2F9958" Guid="*">
-                <File Id="filE52903E1ED97D8E92276A1B7151A5088" KeyPath="yes" Source="$(var.SourceDir)\GitLooker.exe.manifest" />
             </Component>
             <Component Id="cmp2D71E778E02ED224B3FBB61C2B016B73" Guid="*">
                 <Class Id="{30DA29C6-7B10-3F95-A7BB-81896D4B24F9}" Context="InprocServer32" Description="GitLooker.Services.Repository.GitFileRepo" ThreadingModel="both" ForeignServer="mscoree.dll">
                     <ProgId Id="GitLooker.Services.Repository.GitFileRepo" Description="GitLooker.Services.Repository.GitFileRepo" />
                 </Class>
-                <Class Id="{38420CFD-C595-3F75-AA97-29EAD54C4EC0}" Context="InprocServer32" Description="GitLooker.Services.Services.RepoHolder" ThreadingModel="both" ForeignServer="mscoree.dll">
-                    <ProgId Id="GitLooker.Services.Services.RepoHolder" Description="GitLooker.Services.Services.RepoHolder" />
-                </Class>
                 <Class Id="{4C79F205-6819-3567-81C4-860EDD309075}" Context="InprocServer32" Description="GitLooker.Services.CommandProcessor.PowersShell" ThreadingModel="both" ForeignServer="mscoree.dll">
                     <ProgId Id="GitLooker.Services.CommandProcessor.PowersShell" Description="GitLooker.Services.CommandProcessor.PowersShell" />
+                </Class>
+                <Class Id="{F529CCAB-B00E-3D71-9A06-28D71FB11C53}" Context="InprocServer32" Description="GitLooker.Services.Repository.ProjectFileRepo" ThreadingModel="both" ForeignServer="mscoree.dll">
+                    <ProgId Id="GitLooker.Services.Repository.ProjectFileRepo" Description="GitLooker.Services.Repository.ProjectFileRepo" />
                 </Class>
                 <File Id="filCDF0A1B6E26CFC2BED1862F159476220" KeyPath="yes" Source="$(var.SourceDir)\GitLooker.Services.dll" />
                 <RegistryValue Root="HKCR" Key="CLSID\{30DA29C6-7B10-3F95-A7BB-81896D4B24F9}\Implemented Categories\{62C8FE65-4EBB-45e7-B440-6E39B2CDBF29}" Value="" Type="string" Action="write" />
@@ -58,15 +70,6 @@
                 <RegistryValue Root="HKCR" Key="CLSID\{30DA29C6-7B10-3F95-A7BB-81896D4B24F9}\InprocServer32" Name="Assembly" Value="GitLooker.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" Type="string" Action="write" />
                 <RegistryValue Root="HKCR" Key="CLSID\{30DA29C6-7B10-3F95-A7BB-81896D4B24F9}\InprocServer32" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
                 <RegistryValue Root="HKCR" Key="CLSID\{30DA29C6-7B10-3F95-A7BB-81896D4B24F9}\InprocServer32" Name="CodeBase" Value="file:///[#filCDF0A1B6E26CFC2BED1862F159476220]" Type="string" Action="write" />
-                <RegistryValue Root="HKCR" Key="CLSID\{38420CFD-C595-3F75-AA97-29EAD54C4EC0}\Implemented Categories\{62C8FE65-4EBB-45e7-B440-6E39B2CDBF29}" Value="" Type="string" Action="write" />
-                <RegistryValue Root="HKCR" Key="CLSID\{38420CFD-C595-3F75-AA97-29EAD54C4EC0}\InprocServer32\1.0.0.0" Name="Class" Value="GitLooker.Services.Services.RepoHolder" Type="string" Action="write" />
-                <RegistryValue Root="HKCR" Key="CLSID\{38420CFD-C595-3F75-AA97-29EAD54C4EC0}\InprocServer32\1.0.0.0" Name="Assembly" Value="GitLooker.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" Type="string" Action="write" />
-                <RegistryValue Root="HKCR" Key="CLSID\{38420CFD-C595-3F75-AA97-29EAD54C4EC0}\InprocServer32\1.0.0.0" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
-                <RegistryValue Root="HKCR" Key="CLSID\{38420CFD-C595-3F75-AA97-29EAD54C4EC0}\InprocServer32\1.0.0.0" Name="CodeBase" Value="file:///[#filCDF0A1B6E26CFC2BED1862F159476220]" Type="string" Action="write" />
-                <RegistryValue Root="HKCR" Key="CLSID\{38420CFD-C595-3F75-AA97-29EAD54C4EC0}\InprocServer32" Name="Class" Value="GitLooker.Services.Services.RepoHolder" Type="string" Action="write" />
-                <RegistryValue Root="HKCR" Key="CLSID\{38420CFD-C595-3F75-AA97-29EAD54C4EC0}\InprocServer32" Name="Assembly" Value="GitLooker.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" Type="string" Action="write" />
-                <RegistryValue Root="HKCR" Key="CLSID\{38420CFD-C595-3F75-AA97-29EAD54C4EC0}\InprocServer32" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
-                <RegistryValue Root="HKCR" Key="CLSID\{38420CFD-C595-3F75-AA97-29EAD54C4EC0}\InprocServer32" Name="CodeBase" Value="file:///[#filCDF0A1B6E26CFC2BED1862F159476220]" Type="string" Action="write" />
                 <RegistryValue Root="HKCR" Key="CLSID\{4C79F205-6819-3567-81C4-860EDD309075}\Implemented Categories\{62C8FE65-4EBB-45e7-B440-6E39B2CDBF29}" Value="" Type="string" Action="write" />
                 <RegistryValue Root="HKCR" Key="CLSID\{4C79F205-6819-3567-81C4-860EDD309075}\InprocServer32\1.0.0.0" Name="Class" Value="GitLooker.Services.CommandProcessor.PowersShell" Type="string" Action="write" />
                 <RegistryValue Root="HKCR" Key="CLSID\{4C79F205-6819-3567-81C4-860EDD309075}\InprocServer32\1.0.0.0" Name="Assembly" Value="GitLooker.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" Type="string" Action="write" />
@@ -76,6 +79,15 @@
                 <RegistryValue Root="HKCR" Key="CLSID\{4C79F205-6819-3567-81C4-860EDD309075}\InprocServer32" Name="Assembly" Value="GitLooker.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" Type="string" Action="write" />
                 <RegistryValue Root="HKCR" Key="CLSID\{4C79F205-6819-3567-81C4-860EDD309075}\InprocServer32" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
                 <RegistryValue Root="HKCR" Key="CLSID\{4C79F205-6819-3567-81C4-860EDD309075}\InprocServer32" Name="CodeBase" Value="file:///[#filCDF0A1B6E26CFC2BED1862F159476220]" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{F529CCAB-B00E-3D71-9A06-28D71FB11C53}\Implemented Categories\{62C8FE65-4EBB-45e7-B440-6E39B2CDBF29}" Value="" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{F529CCAB-B00E-3D71-9A06-28D71FB11C53}\InprocServer32\1.0.0.0" Name="Class" Value="GitLooker.Services.Repository.ProjectFileRepo" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{F529CCAB-B00E-3D71-9A06-28D71FB11C53}\InprocServer32\1.0.0.0" Name="Assembly" Value="GitLooker.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{F529CCAB-B00E-3D71-9A06-28D71FB11C53}\InprocServer32\1.0.0.0" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{F529CCAB-B00E-3D71-9A06-28D71FB11C53}\InprocServer32\1.0.0.0" Name="CodeBase" Value="file:///[#filCDF0A1B6E26CFC2BED1862F159476220]" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{F529CCAB-B00E-3D71-9A06-28D71FB11C53}\InprocServer32" Name="Class" Value="GitLooker.Services.Repository.ProjectFileRepo" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{F529CCAB-B00E-3D71-9A06-28D71FB11C53}\InprocServer32" Name="Assembly" Value="GitLooker.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{F529CCAB-B00E-3D71-9A06-28D71FB11C53}\InprocServer32" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{F529CCAB-B00E-3D71-9A06-28D71FB11C53}\InprocServer32" Name="CodeBase" Value="file:///[#filCDF0A1B6E26CFC2BED1862F159476220]" Type="string" Action="write" />
             </Component>
             <Component Id="cmpC6B016849FD1506FF9B5B9D92B44FF74" Guid="*">
                 <Class Id="{51E6CA18-26DB-399A-891E-99D6D0C57C5A}" Context="InprocServer32" Description="System.Runtime.CompilerServices.EnumeratorCancellationAttribute" ThreadingModel="both" ForeignServer="mscoree.dll">
@@ -244,43 +256,43 @@
                 <RegistryValue Root="HKCR" Key="Record\{49E0C5C7-1D04-3AC9-A5BA-3B706A6BDFB4}\5.0.0.0" Name="CodeBase" Value="file:///[#fil08108FB4DD042466AF6FE0B12964426D]" Type="string" Action="write" />
             </Component>
             <Component Id="cmp0D96EA111B87A357A1596E85A20E07BC" Guid="*">
-                <Class Id="{38E40A7E-C5EF-37C5-9CAC-9A8422995E6C}" Context="InprocServer32" Description="Microsoft.Extensions.DependencyInjection.ServiceProviderOptions" ThreadingModel="both" ForeignServer="mscoree.dll">
+                <Class Id="{4FA4827D-A1B9-3D9D-911E-6D2BB8D8F84D}" Context="InprocServer32" Description="Microsoft.Extensions.DependencyInjection.ServiceProviderOptions" ThreadingModel="both" ForeignServer="mscoree.dll">
                     <ProgId Id="Microsoft.Extensions.DependencyInjection.ServiceProviderOptions" Description="Microsoft.Extensions.DependencyInjection.ServiceProviderOptions" />
                 </Class>
-                <Class Id="{509950A3-A56C-382C-849D-4BFA4F83DC56}" Context="InprocServer32" Description="Microsoft.Extensions.DependencyInjection.DefaultServiceProviderFactory" ThreadingModel="both" ForeignServer="mscoree.dll">
+                <Class Id="{C03DFF50-ADDD-35E9-9EA1-B680D4C496C0}" Context="InprocServer32" Description="Microsoft.Extensions.DependencyInjection.DefaultServiceProviderFactory" ThreadingModel="both" ForeignServer="mscoree.dll">
                     <ProgId Id="Microsoft.Extensions.DependencyInjection.DefaultServiceProviderFactory" Description="Microsoft.Extensions.DependencyInjection.DefaultServiceProviderFactory" />
                 </Class>
-                <Class Id="{82D07A83-AB9C-3B92-A39D-17F84077122C}" Context="InprocServer32" Description="Microsoft.Extensions.DependencyInjection.ServiceCollection" ThreadingModel="both" ForeignServer="mscoree.dll">
+                <Class Id="{CAB8B611-4028-3AAA-B893-492719D486E1}" Context="InprocServer32" Description="Microsoft.Extensions.DependencyInjection.ServiceCollection" ThreadingModel="both" ForeignServer="mscoree.dll">
                     <ProgId Id="Microsoft.Extensions.DependencyInjection.ServiceCollection" Description="Microsoft.Extensions.DependencyInjection.ServiceCollection" />
                 </Class>
                 <File Id="filA152DC934E2B48380ADBEBBCB98803C2" KeyPath="yes" Source="$(var.SourceDir)\Microsoft.Extensions.DependencyInjection.dll" />
-                <RegistryValue Root="HKCR" Key="CLSID\{38E40A7E-C5EF-37C5-9CAC-9A8422995E6C}\Implemented Categories\{62C8FE65-4EBB-45e7-B440-6E39B2CDBF29}" Value="" Type="string" Action="write" />
-                <RegistryValue Root="HKCR" Key="CLSID\{38E40A7E-C5EF-37C5-9CAC-9A8422995E6C}\InprocServer32\5.0.0.0" Name="Class" Value="Microsoft.Extensions.DependencyInjection.ServiceProviderOptions" Type="string" Action="write" />
-                <RegistryValue Root="HKCR" Key="CLSID\{38E40A7E-C5EF-37C5-9CAC-9A8422995E6C}\InprocServer32\5.0.0.0" Name="Assembly" Value="Microsoft.Extensions.DependencyInjection, Version=5.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60" Type="string" Action="write" />
-                <RegistryValue Root="HKCR" Key="CLSID\{38E40A7E-C5EF-37C5-9CAC-9A8422995E6C}\InprocServer32\5.0.0.0" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
-                <RegistryValue Root="HKCR" Key="CLSID\{38E40A7E-C5EF-37C5-9CAC-9A8422995E6C}\InprocServer32\5.0.0.0" Name="CodeBase" Value="file:///[#filA152DC934E2B48380ADBEBBCB98803C2]" Type="string" Action="write" />
-                <RegistryValue Root="HKCR" Key="CLSID\{38E40A7E-C5EF-37C5-9CAC-9A8422995E6C}\InprocServer32" Name="Class" Value="Microsoft.Extensions.DependencyInjection.ServiceProviderOptions" Type="string" Action="write" />
-                <RegistryValue Root="HKCR" Key="CLSID\{38E40A7E-C5EF-37C5-9CAC-9A8422995E6C}\InprocServer32" Name="Assembly" Value="Microsoft.Extensions.DependencyInjection, Version=5.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60" Type="string" Action="write" />
-                <RegistryValue Root="HKCR" Key="CLSID\{38E40A7E-C5EF-37C5-9CAC-9A8422995E6C}\InprocServer32" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
-                <RegistryValue Root="HKCR" Key="CLSID\{38E40A7E-C5EF-37C5-9CAC-9A8422995E6C}\InprocServer32" Name="CodeBase" Value="file:///[#filA152DC934E2B48380ADBEBBCB98803C2]" Type="string" Action="write" />
-                <RegistryValue Root="HKCR" Key="CLSID\{509950A3-A56C-382C-849D-4BFA4F83DC56}\Implemented Categories\{62C8FE65-4EBB-45e7-B440-6E39B2CDBF29}" Value="" Type="string" Action="write" />
-                <RegistryValue Root="HKCR" Key="CLSID\{509950A3-A56C-382C-849D-4BFA4F83DC56}\InprocServer32\5.0.0.0" Name="Class" Value="Microsoft.Extensions.DependencyInjection.DefaultServiceProviderFactory" Type="string" Action="write" />
-                <RegistryValue Root="HKCR" Key="CLSID\{509950A3-A56C-382C-849D-4BFA4F83DC56}\InprocServer32\5.0.0.0" Name="Assembly" Value="Microsoft.Extensions.DependencyInjection, Version=5.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60" Type="string" Action="write" />
-                <RegistryValue Root="HKCR" Key="CLSID\{509950A3-A56C-382C-849D-4BFA4F83DC56}\InprocServer32\5.0.0.0" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
-                <RegistryValue Root="HKCR" Key="CLSID\{509950A3-A56C-382C-849D-4BFA4F83DC56}\InprocServer32\5.0.0.0" Name="CodeBase" Value="file:///[#filA152DC934E2B48380ADBEBBCB98803C2]" Type="string" Action="write" />
-                <RegistryValue Root="HKCR" Key="CLSID\{509950A3-A56C-382C-849D-4BFA4F83DC56}\InprocServer32" Name="Class" Value="Microsoft.Extensions.DependencyInjection.DefaultServiceProviderFactory" Type="string" Action="write" />
-                <RegistryValue Root="HKCR" Key="CLSID\{509950A3-A56C-382C-849D-4BFA4F83DC56}\InprocServer32" Name="Assembly" Value="Microsoft.Extensions.DependencyInjection, Version=5.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60" Type="string" Action="write" />
-                <RegistryValue Root="HKCR" Key="CLSID\{509950A3-A56C-382C-849D-4BFA4F83DC56}\InprocServer32" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
-                <RegistryValue Root="HKCR" Key="CLSID\{509950A3-A56C-382C-849D-4BFA4F83DC56}\InprocServer32" Name="CodeBase" Value="file:///[#filA152DC934E2B48380ADBEBBCB98803C2]" Type="string" Action="write" />
-                <RegistryValue Root="HKCR" Key="CLSID\{82D07A83-AB9C-3B92-A39D-17F84077122C}\Implemented Categories\{62C8FE65-4EBB-45e7-B440-6E39B2CDBF29}" Value="" Type="string" Action="write" />
-                <RegistryValue Root="HKCR" Key="CLSID\{82D07A83-AB9C-3B92-A39D-17F84077122C}\InprocServer32\5.0.0.0" Name="Class" Value="Microsoft.Extensions.DependencyInjection.ServiceCollection" Type="string" Action="write" />
-                <RegistryValue Root="HKCR" Key="CLSID\{82D07A83-AB9C-3B92-A39D-17F84077122C}\InprocServer32\5.0.0.0" Name="Assembly" Value="Microsoft.Extensions.DependencyInjection, Version=5.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60" Type="string" Action="write" />
-                <RegistryValue Root="HKCR" Key="CLSID\{82D07A83-AB9C-3B92-A39D-17F84077122C}\InprocServer32\5.0.0.0" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
-                <RegistryValue Root="HKCR" Key="CLSID\{82D07A83-AB9C-3B92-A39D-17F84077122C}\InprocServer32\5.0.0.0" Name="CodeBase" Value="file:///[#filA152DC934E2B48380ADBEBBCB98803C2]" Type="string" Action="write" />
-                <RegistryValue Root="HKCR" Key="CLSID\{82D07A83-AB9C-3B92-A39D-17F84077122C}\InprocServer32" Name="Class" Value="Microsoft.Extensions.DependencyInjection.ServiceCollection" Type="string" Action="write" />
-                <RegistryValue Root="HKCR" Key="CLSID\{82D07A83-AB9C-3B92-A39D-17F84077122C}\InprocServer32" Name="Assembly" Value="Microsoft.Extensions.DependencyInjection, Version=5.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60" Type="string" Action="write" />
-                <RegistryValue Root="HKCR" Key="CLSID\{82D07A83-AB9C-3B92-A39D-17F84077122C}\InprocServer32" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
-                <RegistryValue Root="HKCR" Key="CLSID\{82D07A83-AB9C-3B92-A39D-17F84077122C}\InprocServer32" Name="CodeBase" Value="file:///[#filA152DC934E2B48380ADBEBBCB98803C2]" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{4FA4827D-A1B9-3D9D-911E-6D2BB8D8F84D}\Implemented Categories\{62C8FE65-4EBB-45e7-B440-6E39B2CDBF29}" Value="" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{4FA4827D-A1B9-3D9D-911E-6D2BB8D8F84D}\InprocServer32\5.0.0.1" Name="Class" Value="Microsoft.Extensions.DependencyInjection.ServiceProviderOptions" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{4FA4827D-A1B9-3D9D-911E-6D2BB8D8F84D}\InprocServer32\5.0.0.1" Name="Assembly" Value="Microsoft.Extensions.DependencyInjection, Version=5.0.0.1, Culture=neutral, PublicKeyToken=adb9793829ddae60" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{4FA4827D-A1B9-3D9D-911E-6D2BB8D8F84D}\InprocServer32\5.0.0.1" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{4FA4827D-A1B9-3D9D-911E-6D2BB8D8F84D}\InprocServer32\5.0.0.1" Name="CodeBase" Value="file:///[#filA152DC934E2B48380ADBEBBCB98803C2]" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{4FA4827D-A1B9-3D9D-911E-6D2BB8D8F84D}\InprocServer32" Name="Class" Value="Microsoft.Extensions.DependencyInjection.ServiceProviderOptions" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{4FA4827D-A1B9-3D9D-911E-6D2BB8D8F84D}\InprocServer32" Name="Assembly" Value="Microsoft.Extensions.DependencyInjection, Version=5.0.0.1, Culture=neutral, PublicKeyToken=adb9793829ddae60" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{4FA4827D-A1B9-3D9D-911E-6D2BB8D8F84D}\InprocServer32" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{4FA4827D-A1B9-3D9D-911E-6D2BB8D8F84D}\InprocServer32" Name="CodeBase" Value="file:///[#filA152DC934E2B48380ADBEBBCB98803C2]" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{C03DFF50-ADDD-35E9-9EA1-B680D4C496C0}\Implemented Categories\{62C8FE65-4EBB-45e7-B440-6E39B2CDBF29}" Value="" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{C03DFF50-ADDD-35E9-9EA1-B680D4C496C0}\InprocServer32\5.0.0.1" Name="Class" Value="Microsoft.Extensions.DependencyInjection.DefaultServiceProviderFactory" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{C03DFF50-ADDD-35E9-9EA1-B680D4C496C0}\InprocServer32\5.0.0.1" Name="Assembly" Value="Microsoft.Extensions.DependencyInjection, Version=5.0.0.1, Culture=neutral, PublicKeyToken=adb9793829ddae60" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{C03DFF50-ADDD-35E9-9EA1-B680D4C496C0}\InprocServer32\5.0.0.1" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{C03DFF50-ADDD-35E9-9EA1-B680D4C496C0}\InprocServer32\5.0.0.1" Name="CodeBase" Value="file:///[#filA152DC934E2B48380ADBEBBCB98803C2]" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{C03DFF50-ADDD-35E9-9EA1-B680D4C496C0}\InprocServer32" Name="Class" Value="Microsoft.Extensions.DependencyInjection.DefaultServiceProviderFactory" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{C03DFF50-ADDD-35E9-9EA1-B680D4C496C0}\InprocServer32" Name="Assembly" Value="Microsoft.Extensions.DependencyInjection, Version=5.0.0.1, Culture=neutral, PublicKeyToken=adb9793829ddae60" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{C03DFF50-ADDD-35E9-9EA1-B680D4C496C0}\InprocServer32" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{C03DFF50-ADDD-35E9-9EA1-B680D4C496C0}\InprocServer32" Name="CodeBase" Value="file:///[#filA152DC934E2B48380ADBEBBCB98803C2]" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{CAB8B611-4028-3AAA-B893-492719D486E1}\Implemented Categories\{62C8FE65-4EBB-45e7-B440-6E39B2CDBF29}" Value="" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{CAB8B611-4028-3AAA-B893-492719D486E1}\InprocServer32\5.0.0.1" Name="Class" Value="Microsoft.Extensions.DependencyInjection.ServiceCollection" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{CAB8B611-4028-3AAA-B893-492719D486E1}\InprocServer32\5.0.0.1" Name="Assembly" Value="Microsoft.Extensions.DependencyInjection, Version=5.0.0.1, Culture=neutral, PublicKeyToken=adb9793829ddae60" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{CAB8B611-4028-3AAA-B893-492719D486E1}\InprocServer32\5.0.0.1" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{CAB8B611-4028-3AAA-B893-492719D486E1}\InprocServer32\5.0.0.1" Name="CodeBase" Value="file:///[#filA152DC934E2B48380ADBEBBCB98803C2]" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{CAB8B611-4028-3AAA-B893-492719D486E1}\InprocServer32" Name="Class" Value="Microsoft.Extensions.DependencyInjection.ServiceCollection" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{CAB8B611-4028-3AAA-B893-492719D486E1}\InprocServer32" Name="Assembly" Value="Microsoft.Extensions.DependencyInjection, Version=5.0.0.1, Culture=neutral, PublicKeyToken=adb9793829ddae60" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{CAB8B611-4028-3AAA-B893-492719D486E1}\InprocServer32" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{CAB8B611-4028-3AAA-B893-492719D486E1}\InprocServer32" Name="CodeBase" Value="file:///[#filA152DC934E2B48380ADBEBBCB98803C2]" Type="string" Action="write" />
             </Component>
             <Component Id="cmp6E9412CBD83DBDFF582B5FE05B6BC331" Guid="*">
                 <Class Id="{5ADE9196-0861-3625-9D08-7C397F267FBC}" Context="InprocServer32" Description="Microsoft.Extensions.FileProviders.NotFoundDirectoryContents" ThreadingModel="both" ForeignServer="mscoree.dll">
@@ -656,23 +668,14 @@
             <Component Id="cmp24137436FFA2BCF8E6F59E73B42BFFD9" Guid="*">
                 <File Id="fil41D9D8158E5D14C63B1A107B349BE18D" KeyPath="yes" Source="$(var.SourceDir)\wi0009-48.ico" />
             </Component>
-            <Directory Id="dir7E220EDC847AD7F674C92451C63AED27" Name="app.publish">
-                <Component Id="cmp7C06B40C758AC69FE50CAA1915333A21" Guid="*">
-                    <File Id="fil989487A067BCBA0C82A84DB7AB7A8848" KeyPath="yes" Source="$(var.SourceDir)\app.publish\GitLooker.exe" />
-                </Component>
-            </Directory>
         </DirectoryRef>
     </Fragment>
     <Fragment>
         <ComponentGroup Id="GitLookerFiles">
             <ComponentRef Id="cmp9E910694E9B5888F2FEA19E84EA85B4A" />
-            <ComponentRef Id="cmp1B7488CD97DEFFCFA20B422C3275C524" />
             <ComponentRef Id="cmpB61B30DC09F058FF4C9D7E3594A7EA0C" />
             <ComponentRef Id="cmp2F21F49EA828391711B3CEA610552F89" />
-            <ComponentRef Id="cmpB6AB83539BED01D077A5A7E5AAAD7F1A" />
             <ComponentRef Id="cmpE1E53F8BE527D309B49593872E530704" />
-            <ComponentRef Id="cmp798CC354064504187056111C63549C16" />
-            <ComponentRef Id="cmp713787F3CA6710CFA33F42BC7E2F9958" />
             <ComponentRef Id="cmp2D71E778E02ED224B3FBB61C2B016B73" />
             <ComponentRef Id="cmpC6B016849FD1506FF9B5B9D92B44FF74" />
             <ComponentRef Id="cmp5C35B3CAED3AB51DED0C70930B510066" />
@@ -697,7 +700,6 @@
             <ComponentRef Id="cmp578FFB9DE8EDA2A9231A71A44C3803A5" />
             <ComponentRef Id="cmp7964C303BA027BE990A3E8327EC91498" />
             <ComponentRef Id="cmp24137436FFA2BCF8E6F59E73B42BFFD9" />
-            <ComponentRef Id="cmp7C06B40C758AC69FE50CAA1915333A21" />
         </ComponentGroup>
     </Fragment>
 </Wix>
