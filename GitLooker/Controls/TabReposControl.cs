@@ -42,6 +42,7 @@ namespace GitLooker.Controls
             TabIndex = 0;
             Text = "repo";
             Controls.Add(endControl);
+            AutoScroll = true;
 
             ResumeLayout(false);
         }

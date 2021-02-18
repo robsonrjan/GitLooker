@@ -65,7 +65,7 @@ namespace GitLooker.Services.Configuration
         private bool CheckForOldConfigAndConvertToNew(string configText)
         {
             RepoConfigOldVer oldConfig;
-            if (!configText.StartsWith("{\"Version\":\"1.0.1\""))
+            if (!configText.Contains("\"Version\""))
             {
                 oldConfig = JsonConvert.DeserializeObject<RepoConfigOldVer>(configText);
                 appConfig = new AppConfig { RepoConfigs = new List<RepoConfig> { oldConfig } };

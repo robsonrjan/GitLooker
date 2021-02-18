@@ -17,6 +17,8 @@ namespace GitLooker
         private readonly IAppSemaphoreSlim semaphore;
         private readonly ITabsRepoBuilder tabsRepoBuilder;
         private readonly IServiceProvider serviceProvider;
+        private volatile bool isUpdating;
+        private TabReposControl nextState;
 
         private RepoControl currentRepo;
         private TabReposControl currentTabControl;
@@ -89,10 +91,24 @@ namespace GitLooker
 
         private void SetCurrentTab()
         {
+            if (isUpdating)
+            {
+                nextState = reposCatalogs.SelectedTab as TabReposControl;
+                return;
+            }
+
             currentTabControl = reposCatalogs.SelectedTab as TabReposControl;
             if (currentTabControl == default)
-                throw new ArgumentNullException("Selected Tab cannot be null");
+            {
+                MessageBox.Show("No repositories configured.");
+                return;
+            }
 
+            SetState();
+        }
+
+        private void SetState()
+        {
             this.toolTip1.SetToolTip(this.reposCatalogs, currentTabControl.RepoConfiguration.GitLookerPath);
 
             SetMenueCheckerValue();
@@ -107,11 +123,17 @@ namespace GitLooker
         private void SemaphoreIsUsed(bool isProccesing)
             => this.Invoke(new Action(() =>
             {
-                toolStripMenuItem2.Enabled = checkToolStripMenuItem.Enabled = !(toolStripMenuItem1.Visible = isProccesing);
+                toolStripMenuItem2.Enabled = checkToolStripMenuItem.Enabled = !(toolStripMenuItem1.Visible = isUpdating = isProccesing);
                 if (!isProccesing)
                 {
                     currentTabControl.RepoEndControl.SendToBack();
                     currentTabControl.RepoEndControl.Select();
+                    if (nextState != default)
+                    {
+                        currentTabControl = nextState;
+                        nextState = default;
+                        SetState();
+                    }
                     AddMissingRepositoriums();
                     if (currentTabControl.ReposAllControl.Any(c => c.IsNeededUpdate))
                         notifyIcon1.ShowBalloonTip(3000);
@@ -120,6 +142,7 @@ namespace GitLooker
 
         private void GenerateAndUpdateRepos()
         {
+            if (currentTabControl == default) return;
             UpdateAll();
             currentTabControl.RepoIsLoaded = true;
         }
@@ -302,8 +325,7 @@ namespace GitLooker
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            UpdateTimeInfo();
-
+            if (currentTabControl == default) return;
             foreach (var tab in reposCatalogs.TabPages)
             {
                 var itemTab = tab as TabReposControl;
@@ -314,6 +336,7 @@ namespace GitLooker
                             ctr.UpdateRepoInfo();
                 }
             }
+            UpdateTimeInfo();
         }
 
         private void toolStripTextBox1_KeyUp(object sender, KeyEventArgs e)

@@ -10,7 +10,7 @@ namespace GitLooker.Services.Repository
 {
     public class ProjectFileRepo : IProjectFileRepo
     {
-        private const int MaxLevelOfDepth = 2;
+        private const int MaxLevelOfDepth = 4;
         private SemaphoreSlim listSlimLocker = new SemaphoreSlim(1, 1);
 
         public Task<IList<string>> GetAsync(string path, string extension)
