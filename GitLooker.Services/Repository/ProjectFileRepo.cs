@@ -33,8 +33,11 @@ namespace GitLooker.Services.Repository
 
         private void FindProjectFiles(string path, string extension, IList<string> projectFileList, int levelOfDepth = 0)
         {
-            var files = Directory.GetFiles(path);
-            var dirs = Directory.GetDirectories(path);
+            var files = Directory.GetFiles(path, $"*{extension}");
+            IEnumerable<string> dirs = Enumerable.Empty<string>();
+
+            if(!(files?.Any() ?? false))
+                dirs = Directory.GetDirectories(path);
 
             foreach (var f in files.Where(f => f.EndsWith(extension)))
                 AddThreadSafeToList(projectFileList, f);

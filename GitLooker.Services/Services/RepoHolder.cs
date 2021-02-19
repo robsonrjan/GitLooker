@@ -31,8 +31,8 @@ namespace GitLooker.Services.Services
         public Task FindRepoProjectFilesAsync(string repoPath, string fileExtension)
         {
             if (!projectFiles.ContainsKey(repoPath) && !string.IsNullOrWhiteSpace(fileExtension))
-                TaskProjectFilesHolderList.Add(Task.Run(async ()
-                    => projectFiles.TryAdd(repoPath, await projectFileRepo.GetAsync(repoPath, fileExtension))));
+                TaskProjectFilesHolderList.Add(Task.Run(()
+                    => projectFiles.TryAdd(repoPath, projectFileRepo.GetAsync(repoPath, fileExtension).GetAwaiter().GetResult())));
 
             return Task.CompletedTask;
         }
