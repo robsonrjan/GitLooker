@@ -2,7 +2,7 @@
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
   <?define Manufacturer="FreeToUse"?>
   <?define ProductName="GitLooker"?>
-  <?define Version="5.0.0.3"?>
+  <?define Version="5.0.0.4"?>
   <?define Description="Application can ease maintain large amount of repositories showing repo status on form. Also allow pull to update local sources with remote."?> 
   
 	<Product Id="*" Name="$(var.ProductName)Setup" Language="1033" Version="$(var.Version)" Manufacturer="$(var.Manufacturer)" UpgradeCode="E09DAB85-DE2B-4DDD-AD97-A026E77975C2">

@@ -134,11 +134,18 @@ namespace GitLooker
                         nextState = default;
                         SetState();
                     }
-                    AddMissingRepositoriums();
-                    if (currentTabControl.ReposAllControl.Any(c => c.IsNeededUpdate))
-                        notifyIcon1.ShowBalloonTip(3000);
+                    CheckStatusAsync();
                 }
             }), null);
+
+        private async Task CheckStatusAsync()
+        {
+            await Task.Delay(1000);
+            AddMissingRepositoriums();
+            if (currentTabControl.ReposAllControl.Any(c => c.IsNeededUpdate))
+                notifyIcon1.ShowBalloonTip(3000);
+            await Task.CompletedTask;
+        }
 
         private void GenerateAndUpdateRepos()
         {
