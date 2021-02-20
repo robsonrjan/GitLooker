@@ -44,9 +44,7 @@ namespace GitLooker.Services.Repository
 
             if (++levelOfDepth >= MaxLevelOfDepth) return;
 
-            dirs.Where(d => !d.Contains("\\.") &&
-                        !d.EndsWith("bin", StringComparison.InvariantCultureIgnoreCase) &&
-                        !d.EndsWith("obj", StringComparison.InvariantCultureIgnoreCase))
+            dirs.Where(d => !d.Contains("\\."))
                 .AsParallel()
                 .ForAll(dir => FindProjectFiles(dir, extension, projectFileList, levelOfDepth));
         }

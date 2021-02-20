@@ -150,7 +150,7 @@ namespace GitLooker.Controls
             ||
             respound.ToLower().Contains("does not exist or you do not have permissions")
             ||
-            respound.ToLower().Contains("fatal: repository")
+            respound.ToLower().Contains("fatal:")
             ||
             respound.ToLower().Contains("received http code 403 from")))
             {

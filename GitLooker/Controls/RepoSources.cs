@@ -29,8 +29,6 @@ namespace GitLooker.Controls
 
             foreach (var repo in repoList)
                 AddEntry(repo);
-
-            Text = "Repo sources";
         }
 
         public RepoSources(List<string> repoList) : this()
