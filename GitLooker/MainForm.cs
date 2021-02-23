@@ -69,7 +69,7 @@ namespace GitLooker
 
         private IEnumerable<TabReposControl> GetRepoTabs()
         {
-            foreach(var tab in reposCatalogs.TabPages)
+            foreach (var tab in reposCatalogs.TabPages)
             {
                 if (tab is TabReposControl repoTab)
                     yield return repoTab;
@@ -128,6 +128,7 @@ namespace GitLooker
                 {
                     currentTabControl.RepoEndControl.SendToBack();
                     currentTabControl.RepoEndControl.Select();
+                    AddMissingRepositoriums(currentTabControl);
                     if (nextState != default)
                     {
                         currentTabControl = nextState;
@@ -141,7 +142,7 @@ namespace GitLooker
         private async Task CheckStatusAsync()
         {
             await Task.Delay(1000);
-            AddMissingRepositoriums();
+            UpdateTimeInfo();
             if (currentTabControl.ReposAllControl.Any(c => c.IsNeededUpdate))
                 notifyIcon1.ShowBalloonTip(3000);
             await Task.CompletedTask;
@@ -164,7 +165,6 @@ namespace GitLooker
 
         private void UpdateAll(IEnumerable<string> cloneRepos = default)
         {
-            UpdateTimeInfo();
             foreach (var cntr in currentTabControl.Where(r => cloneRepos?.Contains(r.RepoPath) ?? true).OrderByDescending(c => c.Parent.Controls.GetChildIndex(c)))
                 cntr.UpdateRepoInfo();
         }
@@ -175,15 +175,16 @@ namespace GitLooker
             toolStripMenuItem4.Text = $"Updated: {currentTabControl.RepoLastTimeUpdate.ToLocalTime().ToString("HH:mm dddd")}";
         }
 
-        private bool NotInRepoConfig(string config) => !currentTabControl.Any(ctr => ctr.RepoConfiguration?.ToLower() == config?.ToLower());
-        private void AddMissingRepositoriums()
+        private bool NotInRepoConfig(string config, TabReposControl currentTab) => !currentTab.Any(ctr => ctr.RepoConfiguration?.ToLower() == config?.ToLower());
+        private void AddMissingRepositoriums(TabReposControl currentTab) //
         {
             Task.Run(() =>
             {
                 Task.Delay(500).GetAwaiter().GetResult();
                 this.Invoke(new Action(() =>
                 {
-                    currentTabControl.RepoConfiguration.ExpectedRemoteRepos.Where(NotInRepoConfig).ToList()
+                    currentTab.RepoConfiguration.ExpectedRemoteRepos.Where(repo => NotInRepoConfig(repo, currentTab))
+                        .ToList()
                         .ForEach(config =>
                         {
                             tabsRepoBuilder.BuildRepo(Repo_OnSelectRepo, currentTabControl, currentTabControl.RepoConfiguration.GitLookerPath, config);
@@ -343,7 +344,6 @@ namespace GitLooker
                             ctr.UpdateRepoInfo();
                 }
             }
-            UpdateTimeInfo();
         }
 
         private void toolStripTextBox1_KeyUp(object sender, KeyEventArgs e)

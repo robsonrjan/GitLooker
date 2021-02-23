@@ -183,7 +183,7 @@ namespace GitLooker.Controls
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if(folderBrowserDialog.ShowDialog() == DialogResult.OK)
+            if (folderBrowserDialog.ShowDialog() == DialogResult.OK)
                 AddEntry(folderBrowserDialog.SelectedPath);
         }
 
@@ -199,7 +199,7 @@ namespace GitLooker.Controls
         private void RepoSources_FormClosing(object sender, FormClosingEventArgs e)
         {
             repoList.Clear();
-            foreach(var ctr in panel1.Controls)
+            foreach (var ctr in panel1.Controls)
             {
                 var entry = ctr as EntryControl;
                 if (entry != default)

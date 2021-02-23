@@ -36,7 +36,7 @@ namespace GitLooker.Services.Repository
             var files = Directory.GetFiles(path, $"*{extension}");
             IEnumerable<string> dirs = Enumerable.Empty<string>();
 
-            if(!(files?.Any() ?? false))
+            if (!(files?.Any() ?? false))
                 dirs = Directory.GetDirectories(path);
 
             foreach (var f in files.Where(f => f.EndsWith(extension)))

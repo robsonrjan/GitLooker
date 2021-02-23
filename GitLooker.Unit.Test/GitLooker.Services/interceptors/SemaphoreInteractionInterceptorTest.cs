@@ -13,7 +13,6 @@ namespace GitLooker.Unit.Test.GitLooker.Services.interceptors
     public class SemaphoreInteractionInterceptorTest
     {
         private SemaphoreInteractionInterceptor semaphoreInteractionInterceptor;
-        public IRepoControlConfiguration repoConfiguration;
         private IAppSemaphoreSlim appSemaphoreSlim;
         private Castle.DynamicProxy.IInvocation invocation1;
         private Castle.DynamicProxy.IInvocation invocation2;
@@ -33,11 +32,9 @@ namespace GitLooker.Unit.Test.GitLooker.Services.interceptors
             Mock.Get(invocation2).Setup(i => i.Proceed()).Callback(NoExecute);
 
             appSemaphoreSlim = Mock.Of<IAppSemaphoreSlim>();
-            repoConfiguration = Mock.Of<IRepoControlConfiguration>();
-            Mock.Get(repoConfiguration).Setup(config => config.Semaphore).Returns(appSemaphoreSlim);
             hasExecuted = default;
 
-            semaphoreInteractionInterceptor = new SemaphoreInteractionInterceptor(repoConfiguration);
+            semaphoreInteractionInterceptor = new SemaphoreInteractionInterceptor(appSemaphoreSlim);
         }
 
         [Test]

@@ -2,7 +2,6 @@
 using GitLooker.Core;
 using GitLooker.Core.Services;
 using GitLooker.Services.CommandProcessor;
-using Moq;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
@@ -16,32 +15,27 @@ namespace GitLooker.Unit.Test.GitLooker.Services.CommandProcessor
     {
         private RepoCommandProcessorController repoCommandProcessorController;
         private IRepoCommandProcessor repoCommandProcessor;
-        private IRepoHolder repoHolder;
         private static bool hasBeenExecuted;
         private IEnumerable<MethodInfo> commands;
-        private List<String> holderRepoList;
         private static int executionCount;
 
         [SetUp]
         public void BeforeEach()
         {
-            holderRepoList = new List<string>();
             repoCommandProcessor = new RepoCommandProcessorForTest();
-            repoHolder = Mock.Of<IRepoHolder>();
-            Mock.Get(repoHolder).Setup(r => r.RepoRemoteList).Returns(holderRepoList);
-            repoCommandProcessorController = new RepoCommandProcessorController(repoCommandProcessor, repoHolder);
+            repoCommandProcessorController = new RepoCommandProcessorController(repoCommandProcessor);
             commands = repoCommandProcessorController.CommonCommandActions;
             hasBeenExecuted = default;
             executionCount = default;
         }
 
-        [TestCase("CheckOutBranch", 0, null)]
-        [TestCase("CheckRepo", 0, null)]
-        [TestCase("ClonRepo", 0, null)]
-        [TestCase("PullRepo", 0, null)]
-        [TestCase("RemoteConfig", 1, "remoteconfig")]
-        [TestCase("ResetRepo", 0, null)]
-        public void Execute_check_all_execution(string commandName, int reposCount, object specialValue)
+        [TestCase("CheckOutBranch", null)]
+        [TestCase("CheckRepo", null)]
+        [TestCase("ClonRepo", null)]
+        [TestCase("PullRepo", null)]
+        [TestCase("RemoteConfig", "RemoteConfig")]
+        [TestCase("ResetRepo", null)]
+        public void Execute_check_all_execution(string commandName, object specialValue)
         {
             bool hasInvoked = default;
             Action checkInvokation = () => hasInvoked = true;
@@ -55,7 +49,6 @@ namespace GitLooker.Unit.Test.GitLooker.Services.CommandProcessor
             result.IsSuccess.Should().BeTrue();
             result.SpecialValue.Should().Be(specialValue);
             result.Value.Should().BeEquivalentTo(new[] { new[] { commandName } });
-            holderRepoList.Should().HaveCount(reposCount);
             executionCount.Should().Be(1);
             hasInvoked.Should().BeTrue();
         }
@@ -66,7 +59,7 @@ namespace GitLooker.Unit.Test.GitLooker.Services.CommandProcessor
             var commamdNames = new[] { "CheckOutBranch", "RemoteConfig", "ClonRepo" };
             bool hasInvoked = default;
             int reposCount = 1;
-            object specialValue = "remoteconfig";
+            object specialValue = "RemoteConfig";
             Action checkInvokation = () => hasInvoked = true;
             IEnumerable<string> options = new[] { default(string), default(string), default(string) };
             var commandForTest = commands.Where(c => commamdNames.Contains(c.Name));
@@ -81,7 +74,6 @@ namespace GitLooker.Unit.Test.GitLooker.Services.CommandProcessor
                 new[] { "CheckOutBranch" },
                 new[] { "ClonRepo" }
             });
-            holderRepoList.Should().HaveCount(reposCount);
             executionCount.Should().Be(commamdNames.Count());
             hasInvoked.Should().BeTrue();
         }
@@ -89,20 +81,10 @@ namespace GitLooker.Unit.Test.GitLooker.Services.CommandProcessor
         [Test]
         public void Constructor_for_parameter_repoCommandProcessor_isNull_throwException()
         {
-            Action actionCheck = () => new RepoCommandProcessorController(default, repoHolder);
+            Action actionCheck = () => new RepoCommandProcessorController(default);
 
             actionCheck.Should().Throw<ArgumentException>()
                 .Which.ParamName.Should().Be(nameof(repoCommandProcessor));
-        }
-
-        [Test]
-        public void Constructor_for_parameter_repoHolder_isNull_throwException()
-        {
-            IRepoHolder repoHolder = default;
-            Action actionCheck = () => new RepoCommandProcessorController(repoCommandProcessor, repoHolder);
-
-            actionCheck.Should().Throw<ArgumentException>()
-                .Which.ParamName.Should().Be(nameof(repoHolder));
         }
 
         [Test]

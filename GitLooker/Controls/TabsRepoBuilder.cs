@@ -4,7 +4,6 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Drawing;
 using System.IO;
-using System.Linq;
 using System.Windows.Forms;
 using static GitLooker.Controls.RepoControl;
 
@@ -42,7 +41,7 @@ namespace GitLooker.Controls
 
         public void BuildTab(TabControl reposCatalogs, SelectRepo onSelectRepoEvent, string repoPath)
         {
-            if(!Directory.Exists(repoPath))
+            if (!Directory.Exists(repoPath))
             {
                 MessageBox.Show($"Path {repoPath} is not valid.", "Invalid repo path", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;

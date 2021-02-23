@@ -30,7 +30,7 @@ namespace GitLooker.Unit.Test.GitLooker.Services.Repository
 
             var projectFiles = await projectFileRepo.GetAsync(repoPath, projectExtension);
 
-            projectFiles.Should().NotContain($"abc.{projectExtension}").And.HaveCount(21);
+            projectFiles.Should().NotContain($"abc.{projectExtension}").And.HaveCount(1);
         }
 
         [TestCase(null)]
