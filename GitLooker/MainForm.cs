@@ -19,7 +19,6 @@ namespace GitLooker
         private readonly IServiceProvider serviceProvider;
         private volatile bool isUpdating;
         private TabReposControl nextState;
-        private volatile bool isAutoUpdated;
 
         private RepoControl currentRepo;
         private TabReposControl currentTabControl;
@@ -124,7 +123,7 @@ namespace GitLooker
         private void SemaphoreIsUsed(bool isProccesing)
             => this.Invoke(new Action(() =>
             {
-                toolStripMenuItem2.Enabled = checkToolStripMenuItem.Enabled = !(toolStripMenuItem1.Visible = isUpdating = isProccesing);
+                toolStripMenuItem2.Enabled = checkToolStripMenuItem.Enabled = !(toolStripMenuItem1.Visible = isProccesing);
                 if (!isProccesing)
                 {
                     currentTabControl.RepoEndControl.SendToBack();
@@ -138,6 +137,8 @@ namespace GitLooker
                     }
                     CheckStatusAsync();
                 }
+                else
+                    isUpdating = true;
             }), null);
 
         private async Task CheckStatusAsync()
@@ -146,6 +147,7 @@ namespace GitLooker
             UpdateTimeInfo();
             if (currentTabControl.ReposAllControl.Any(c => c.IsNeededUpdate))
                 notifyIcon1.ShowBalloonTip(3000);
+            isUpdating = false;
             await Task.CompletedTask;
         }
 
@@ -334,28 +336,17 @@ namespace GitLooker
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            if (isAutoUpdated || (currentTabControl == default)) return;
-            isAutoUpdated = true;
-            try
+            if (isUpdating || (currentTabControl == default)) return;
+
+            foreach (var tab in reposCatalogs.TabPages)
             {
-                foreach (var tab in reposCatalogs.TabPages)
+                var itemTab = tab as TabReposControl;
+                if (itemTab.RepoConfiguration.IntervalUpdateCheckHour > 0)
                 {
-                    var itemTab = tab as TabReposControl;
-                    if (itemTab.RepoConfiguration.IntervalUpdateCheckHour > 0)
-                    {
-                        if (itemTab.RepoLastTimeUpdate.AddHours(itemTab.RepoConfiguration.IntervalUpdateCheckHour) < DateTime.UtcNow)
-                            foreach (var ctr in itemTab)
-                                ctr.UpdateRepoInfo();
-                    }
+                    if (itemTab.RepoLastTimeUpdate.AddHours(itemTab.RepoConfiguration.IntervalUpdateCheckHour) < DateTime.UtcNow)
+                        foreach (var ctr in itemTab)
+                            ctr.UpdateRepoInfo();
                 }
-            }
-            catch(Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Update error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            finally
-            {
-                isAutoUpdated = false;
             }
         }
 
