@@ -19,6 +19,7 @@ namespace GitLooker
         private readonly IServiceProvider serviceProvider;
         private volatile bool isUpdating;
         private TabReposControl nextState;
+        private volatile bool isAutoUpdated;
 
         private RepoControl currentRepo;
         private TabReposControl currentTabControl;
@@ -333,16 +334,28 @@ namespace GitLooker
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            if (currentTabControl == default) return;
-            foreach (var tab in reposCatalogs.TabPages)
+            if (isAutoUpdated || (currentTabControl == default)) return;
+            isAutoUpdated = true;
+            try
             {
-                var itemTab = tab as TabReposControl;
-                if (itemTab.RepoConfiguration.IntervalUpdateCheckHour > 0)
+                foreach (var tab in reposCatalogs.TabPages)
                 {
-                    if (itemTab.RepoLastTimeUpdate.AddHours(itemTab.RepoConfiguration.IntervalUpdateCheckHour) < DateTime.UtcNow)
-                        foreach (var ctr in itemTab)
-                            ctr.UpdateRepoInfo();
+                    var itemTab = tab as TabReposControl;
+                    if (itemTab.RepoConfiguration.IntervalUpdateCheckHour > 0)
+                    {
+                        if (itemTab.RepoLastTimeUpdate.AddHours(itemTab.RepoConfiguration.IntervalUpdateCheckHour) < DateTime.UtcNow)
+                            foreach (var ctr in itemTab)
+                                ctr.UpdateRepoInfo();
+                    }
                 }
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Update error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                isAutoUpdated = false;
             }
         }
 
