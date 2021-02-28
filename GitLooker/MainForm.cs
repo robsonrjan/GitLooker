@@ -123,7 +123,6 @@ namespace GitLooker
         private void SemaphoreIsUsed(bool isProccesing)
             => this.Invoke(new Action(() =>
             {
-                toolStripMenuItem2.Enabled = checkToolStripMenuItem.Enabled = !(toolStripMenuItem1.Visible = isProccesing);
                 if (!isProccesing)
                 {
                     currentTabControl.RepoEndControl.SendToBack();
@@ -137,8 +136,13 @@ namespace GitLooker
                     }
                     CheckStatusAsync();
                 }
-                else
+                else if (!isUpdating)
+                {
+                    toolStripMenuItem2.Enabled = false;
+                    checkToolStripMenuItem.Enabled = false;
+                    toolStripMenuItem1.Visible = true;
                     isUpdating = true;
+                }
             }), null);
 
         private async Task CheckStatusAsync()
@@ -148,6 +152,9 @@ namespace GitLooker
             if (currentTabControl.ReposAllControl.Any(c => c.IsNeededUpdate))
                 notifyIcon1.ShowBalloonTip(3000);
             isUpdating = false;
+            toolStripMenuItem2.Enabled = true; ;
+            checkToolStripMenuItem.Enabled = true;
+            toolStripMenuItem1.Visible = false;
             await Task.CompletedTask;
         }
 
