@@ -38,74 +38,29 @@ namespace GitLooker.Unit.Test.GitLooker.Services.Services
         {
             var appConfig = testedObj.FirstOrDefault();
 
-            appConfig.Should().BeOfType<RepoConfig>();
-            appConfig.As<RepoConfig>().ExpectedRemoteRepos.Should().HaveCount(0);
-            appConfig.As<RepoConfig>().MainBranch.Should().Be("master");
-            appConfig.As<RepoConfig>().ProjectArguments.Should().Be(string.Empty);
-            appConfig.As<RepoConfig>().ProjectCommand.Should().Be(string.Empty);
-            appConfig.As<RepoConfig>().ProjectExtension.Should().Be(string.Empty);
-            appConfig.As<RepoConfig>().GitLookerPath.Should().Be(string.Empty);
-            appConfig.As<RepoConfig>().Command.Should().Be(string.Empty);
-            appConfig.As<RepoConfig>().Arguments.Should().Be(string.Empty);
-            appConfig.As<RepoConfig>().IntervalUpdateCheckHour.Should().Be(0);
+            appConfig.Should().BeNull();
+            testedObj.RepoProcessingCount.Should().Be(3);
+            testedObj.Version.Should().Be("1.0.1");
         }
 
         [Test]
-        public void SeveConfig_and_open_should_be_same()
-        {
-            SetNewAppConfig();
-            testedObj.Save();
-            IList<string> expectedrepos = new List<string> { "ExpectedRemoteRepos" };
-
-            testedObj.Open();
-
-            testedObj.FirstOrDefault().Arguments.Should().Be("Arguments");
-            testedObj.FirstOrDefault().Command.Should().Be("Command");
-            testedObj.FirstOrDefault().ExpectedRemoteRepos.Should().BeEquivalentTo(expectedrepos);
-            testedObj.FirstOrDefault().GitLookerPath.Should().Be("GitLookerPath");
-            testedObj.FirstOrDefault().IntervalUpdateCheckHour.Should().Be(999);
-            testedObj.FirstOrDefault().MainBranch.Should().Be("MainBranch");
-            testedObj.FirstOrDefault().ProjectArguments.Should().Be("ProjectArguments");
-            testedObj.FirstOrDefault().ProjectCommand.Should().Be("ProjectCommand");
-            testedObj.FirstOrDefault().ProjectExtension.Should().Be("ProjectExtension");
-        }
-
-        [Test]
-        public void OpenCustomAppConfigFile()
+        public void OpenOldVersionAppConfigFileShouldBeToNewOne()
         {
             var appCustomConfigPileFullPath = $"{Environment.CurrentDirectory}\\GitLooker\\GitLookerConfigTest.json";
+            if (File.Exists(appCustomConfigPileFullPath))
+                File.Delete(appCustomConfigPileFullPath);
             File.WriteAllText(appCustomConfigPileFullPath, JsonConvert.SerializeObject(CreateNewAppConfig()));
-            IList<string> expectedrepos = new List<string> { "xExpectedRemoteRepos" };
 
             testedObj.Open(appCustomConfigPileFullPath);
+            var appConfig = testedObj.FirstOrDefault();
 
-            testedObj.FirstOrDefault().Arguments.Should().Be("xArguments");
-            testedObj.FirstOrDefault().Command.Should().Be("xCommand");
-            testedObj.FirstOrDefault().ExpectedRemoteRepos.Should().BeEquivalentTo(expectedrepos);
-            testedObj.FirstOrDefault().GitLookerPath.Should().Be("xGitLookerPath");
-            testedObj.FirstOrDefault().IntervalUpdateCheckHour.Should().Be(888);
-            testedObj.FirstOrDefault().MainBranch.Should().Be("xMainBranch");
-            testedObj.FirstOrDefault().ProjectArguments.Should().Be("xProjectArguments");
-            testedObj.FirstOrDefault().ProjectCommand.Should().Be("xProjectCommand");
-            testedObj.FirstOrDefault().ProjectExtension.Should().Be("xProjectExtension");
+            appConfig.Should().BeNull();
             testedObj.RepoProcessingCount.Should().Be(99);
+            testedObj.Version.Should().Be("1.0.1");
         }
 
-        private void SetNewAppConfig()
-        {
-            testedObj.FirstOrDefault().Arguments = "Arguments";
-            testedObj.FirstOrDefault().Command = "Command";
-            testedObj.FirstOrDefault().ExpectedRemoteRepos = new List<string> { "ExpectedRemoteRepos" };
-            testedObj.FirstOrDefault().GitLookerPath = "GitLookerPath";
-            testedObj.FirstOrDefault().IntervalUpdateCheckHour = 999;
-            testedObj.FirstOrDefault().MainBranch = "MainBranch";
-            testedObj.FirstOrDefault().ProjectArguments = "ProjectArguments";
-            testedObj.FirstOrDefault().ProjectCommand = "ProjectCommand";
-            testedObj.FirstOrDefault().ProjectExtension = "ProjectExtension";
-        }
-
-        private RepoConfig CreateNewAppConfig()
-            => new RepoConfig
+        private RepoConfigOldVer CreateNewAppConfig()
+            => new RepoConfigOldVer
             {
                 Arguments = "xArguments",
                 Command = "xCommand",
@@ -116,6 +71,7 @@ namespace GitLooker.Unit.Test.GitLooker.Services.Services
                 ProjectArguments = "xProjectArguments",
                 ProjectCommand = "xProjectCommand",
                 ProjectExtension = "xProjectExtension",
+                RepoProcessingCount = 99
             };
     }
 

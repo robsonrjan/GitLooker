@@ -46,6 +46,8 @@ namespace GitLooker.Services.Configuration
             Validate();
         }
 
+        public string Version => appConfig.Version;
+
         public virtual int RepoProcessingCount => appConfig.RepoProcessingCount;
 
         public virtual void Save() => SaveConfig();

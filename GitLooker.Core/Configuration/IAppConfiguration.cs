@@ -11,5 +11,6 @@ namespace GitLooker.Core.Configuration
         void Save();
         void SaveAs(string configFile);
         void Remove(RepoConfig config);
+        string Version { get; }
     }
 }
