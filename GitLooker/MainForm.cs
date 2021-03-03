@@ -543,12 +543,12 @@ namespace GitLooker
         private void toolStripTextBox5_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Insert)
-                toolStripTextBox2.Text = GetFileName("Choose executable file to memage selected project", toolStripTextBox5.Text);
+                toolStripTextBox5.Text = GetFileName("Choose executable file to memage selected project", toolStripTextBox5.Text);
         }
 
         private string GetFileName(string titleText, string fileName)
         {
-            string result = default;
+            string result = fileName;
             openFileDialog1.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);
             openFileDialog1.Title = titleText;
             openFileDialog1.Multiselect = false;
