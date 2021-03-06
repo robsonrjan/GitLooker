@@ -457,7 +457,7 @@ namespace GitLooker
             if (toolStripMenuItem8.Visible = !string.IsNullOrWhiteSpace(toolStripTextBox2.Text))
                 toolStripMenuItem8.Text = $"Manage repo [Ctrl+D]";
 
-            if (toolStripMenuItem14.Visible = !string.IsNullOrWhiteSpace(toolStripTextBox7.Text))
+            if (toolStripMenuItem14.Visible = !string.IsNullOrWhiteSpace(toolStripTextBox5.Text) || !string.IsNullOrWhiteSpace(toolStripTextBox7.Text))
                 toolStripMenuItem14.Text = $"Manage project [Ctrl+F]";
 
             if (string.IsNullOrWhiteSpace(currentTabControl.RepoConfiguration.MainBranch) || (currentRepo == default) || currentRepo.IsMainBranch)
@@ -603,22 +603,25 @@ namespace GitLooker
         {
             try
             {
-                currentTabControl.RepoHolder.FindRepoProjectFilesAsync(currentRepo.RepoPath, extension)
-                    .ContinueWith(
-                        task =>
-                        {
-                            if (task.IsCompleted)
-                                ExecuteProjectManager(toolStripTextBox5.Text);
-                            else if (task.Exception != default)
-                                MessageBox.Show(task.Exception.Message, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        });
+                if (!string.IsNullOrWhiteSpace(extension))
+                    currentTabControl.RepoHolder.FindRepoProjectFilesAsync(currentRepo.RepoPath, extension)
+                        .ContinueWith(
+                            task =>
+                            {
+                                if (task.IsCompleted)
+                                    ExecuteProjectManager(toolStripTextBox5.Text, true);
+                                else if (task.Exception != default)
+                                    MessageBox.Show(task.Exception.Message, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            });
+                else if (!string.IsNullOrWhiteSpace(toolStripTextBox5.Text))
+                    ExecuteProjectManager(toolStripTextBox5.Text, false);
             }
             catch (Exception ex) { MessageBox.Show(ex.Message, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error); }
 
             return Task.CompletedTask;
         }
 
-        private void ExecuteProjectManager(string path)
+        private void ExecuteProjectManager(string path, bool isExtension)
         {
             string mainProjectFile = default;
 
@@ -627,8 +630,8 @@ namespace GitLooker
 
             try
             {
-                var projectFiles = currentTabControl.RepoHolder.GetProjectFiles(currentRepo.RepoPath);
-                if (projectFiles?.Any() ?? false)
+                var projectFiles = isExtension ? currentTabControl.RepoHolder.GetProjectFiles(currentRepo.RepoPath) : Enumerable.Empty<string>();
+                if (isExtension && (projectFiles?.Any() ?? false))
                 {
                     if (projectFiles.Count() > 1)
                     {
@@ -646,6 +649,8 @@ namespace GitLooker
                     else
                         System.Diagnostics.Process.Start($@"""{mainProjectFile}""");
                 }
+                else if (!isExtension && !string.IsNullOrWhiteSpace(path))
+                    System.Diagnostics.Process.Start(path, $@"{PrepareArgument(toolStripTextBox6.Text)}""{currentRepo.RepoPath}""");
             }
             catch (Exception ex) { MessageBox.Show(ex.Message, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error); }
         }
