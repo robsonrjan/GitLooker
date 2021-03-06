@@ -19,6 +19,7 @@ namespace GitLooker
         private readonly IServiceProvider serviceProvider;
         private volatile bool isUpdating;
         private TabReposControl nextState;
+        private bool noReposLoaded;
 
         private RepoControl currentRepo;
         private TabReposControl currentTabControl;
@@ -47,6 +48,12 @@ namespace GitLooker
 
             repoSources.ShowDialog();
             var newRepoList = repoSources.RepoList ?? Enumerable.Empty<string>();
+
+            if (!newRepoList.Any()) return;
+
+            if (noReposLoaded)
+                SetMenuFunctionIfNoRepos(false);
+
             RemoveRepoTab(GetRepoTabs().Where(r => !newRepoList.Contains(r.RepoConfiguration.GitLookerPath)));
 
             foreach (var newRepo in newRepoList.Where(r => !GetRepoTabs().Any(t => t.RepoConfiguration.GitLookerPath == r)))
@@ -78,13 +85,32 @@ namespace GitLooker
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            tabsRepoBuilder.BuildTabs(reposCatalogs, Repo_OnSelectRepo);
-            reposCatalogs.Selected += ReposCatalogs_TabIndexChanged;
-            SetCurrentTab();
-            GenerateAndUpdateRepos();
+            if (appConfiguration.Any())
+            {
+                tabsRepoBuilder.BuildTabs(reposCatalogs, Repo_OnSelectRepo);
+                reposCatalogs.Selected += ReposCatalogs_TabIndexChanged;
+                SetCurrentTab();
+                GenerateAndUpdateRepos();
+            }
+            else
+            {
+                SetMenuFunctionIfNoRepos(true);
+                MessageBox.Show("No repositories configured.");
+            }
 
             this.Text = $"Git branch changes looker    ver.{AppVersion.AssemblyVersion}";
             this.notifyIcon1.Text = this.Text;
+        }
+
+        private void SetMenuFunctionIfNoRepos(bool disable)
+        {
+            noReposLoaded = disable;
+
+            foreach (dynamic item in menuStrip1.Items)
+                item.Enabled = disable ? (item.Text == "File") : !disable;
+
+            foreach (dynamic item in fileToolStripMenuItem.DropDownItems)
+                item.Visible = disable ? (item.Name == "setWorkingPathToolStripMenuItem") : !disable;
         }
 
         private void ReposCatalogs_TabIndexChanged(object sender, EventArgs e) => SetCurrentTab();
@@ -98,11 +124,9 @@ namespace GitLooker
             }
 
             currentTabControl = reposCatalogs.SelectedTab as TabReposControl;
+
             if (currentTabControl == default)
-            {
-                MessageBox.Show("No repositories configured.");
                 return;
-            }
 
             SetState();
         }
@@ -152,7 +176,7 @@ namespace GitLooker
             if (currentTabControl.ReposAllControl.Any(c => c.IsNeededUpdate))
                 notifyIcon1.ShowBalloonTip(3000);
             isUpdating = false;
-            toolStripMenuItem2.Enabled = true; ;
+            toolStripMenuItem2.Enabled = true;
             checkToolStripMenuItem.Enabled = true;
             toolStripMenuItem1.Visible = false;
             await Task.CompletedTask;
@@ -175,9 +199,25 @@ namespace GitLooker
 
         private void UpdateAll(IEnumerable<string> cloneRepos = default)
         {
+            CheckForRemovedRepos()();
+
             foreach (var cntr in currentTabControl.Where(r => cloneRepos?.Contains(r.RepoPath) ?? true).OrderByDescending(c => c.Parent.Controls.GetChildIndex(c)))
                 cntr.UpdateRepoInfo();
         }
+
+        private Action CheckForRemovedRepos()
+            => () =>
+            {
+                var repoToRemove = currentTabControl.Where(r => r.IsNew && !currentTabControl.RepoConfiguration.ExpectedRemoteRepos.Contains(r.RepoConfiguration))
+                .ToList();
+
+                repoToRemove.AddRange(currentTabControl.Where(r => !Directory.Exists(r.RepoPath)));
+
+                foreach (var repo in repoToRemove)
+                    currentTabControl.RepoRemove(repo);
+
+                toolStripMenuItem2.Visible = currentTabControl.Any(r => r.IsNew);
+            };
 
         private void UpdateTimeInfo()
         {
@@ -502,10 +542,11 @@ namespace GitLooker
             {
                 appConfiguration.Open(openFileDialog.FileName);
                 appConfiguration.Save();
-                foreach (var ctr in currentTabControl)
-                    ctr.Dispose();
 
-                currentTabControl.ReposAllControl.Clear();
+                foreach (dynamic tab in reposCatalogs.TabPages)
+                    tab.Dispose();
+                reposCatalogs.TabPages.Clear();
+
                 Form1_Load(default, default);
             }
         }
