@@ -1,5 +1,6 @@
 ﻿using GitLooker.Core.Configuration;
 using GitLooker.Core.Services;
+using Microsoft.WindowsAPICodePack.Taskbar;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -14,6 +15,7 @@ namespace GitLooker.Controls
         private readonly List<RepoControl> allReposControl;
         private readonly IRepoHolder repoHolder;
         private RepoConfig repoConfiguration;
+        private ThumbnailToolBarButton thumbnailToolBarButton;
 
         public TabReposControl(IRepoHolder repoHolder)
         {

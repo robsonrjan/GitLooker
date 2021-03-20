@@ -2,8 +2,10 @@
 using GitLooker.Core.Configuration;
 using GitLooker.Core.Services;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.WindowsAPICodePack.Taskbar;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -13,6 +15,8 @@ namespace GitLooker
 {
     public partial class MainForm : Form
     {
+        private const string ThumbnailButtonTextPrefix = "Check status for ";
+
         private readonly IAppConfiguration appConfiguration;
         private readonly IAppSemaphoreSlim semaphore;
         private readonly ITabsRepoBuilder tabsRepoBuilder;
@@ -20,6 +24,7 @@ namespace GitLooker
         private volatile bool isUpdating;
         private TabReposControl nextState;
         private bool noReposLoaded;
+        private readonly List<ThumbnailToolBarButton> buttonForTaskList;
 
         private RepoControl currentRepo;
         private TabReposControl currentTabControl;
@@ -39,6 +44,7 @@ namespace GitLooker
             this.appConfiguration = appConfiguration;
             this.tabsRepoBuilder = tabsRepoBuilder;
             this.serviceProvider = serviceProvider;
+            buttonForTaskList = new List<ThumbnailToolBarButton>();
         }
 
         private void SetWorkingPathToolStripMenuItem_Click(object sender, EventArgs e)
@@ -91,6 +97,7 @@ namespace GitLooker
                 reposCatalogs.Selected += ReposCatalogs_TabIndexChanged;
                 SetCurrentTab();
                 GenerateAndUpdateRepos();
+                ThumbnailToolShow();
             }
             else
             {
@@ -102,15 +109,45 @@ namespace GitLooker
             this.notifyIcon1.Text = this.Text;
         }
 
+        private void ThumbnailToolShow()
+        {
+            foreach (var tab in GetRepoTabs())
+            {
+                var itemTab = tab as TabReposControl;
+                var buttonForTask = new ThumbnailToolBarButton(Properties.Resources.Flag_green, $"{ThumbnailButtonTextPrefix}{itemTab.Text}");
+                buttonForTask.Click += UptateToolBars;
+                buttonForTask.Visible = true;
+                buttonForTaskList.Add(buttonForTask);
+            }
+
+            if (buttonForTaskList.Any())
+                TaskbarManager.Instance.ThumbnailToolBars.AddButtons(this.Handle, buttonForTaskList.ToArray());
+        }
+
+        private void UptateToolBars(object sender, ThumbnailButtonClickedEventArgs e)
+        {            
+            if (sender is ThumbnailToolBarButton barButton)
+            {
+                var repoTabName = barButton.Tooltip.Replace(ThumbnailButtonTextPrefix, "");
+                var tab = GetRepoTabs().FirstOrDefault(t => t.Text == repoTabName);
+                if (tab != default)
+                    foreach (var ctr in tab)
+                        ctr.UpdateRepoInfo();
+            }
+        }
+
         private void SetMenuFunctionIfNoRepos(bool disable)
         {
             noReposLoaded = disable;
 
             foreach (dynamic item in menuStrip1.Items)
-                item.Enabled = disable ? (item.Text == "File") : !disable;
+                item.Enabled = disable ? (item.Text == "File") || (item.Text == "Configuration") : !disable;
 
             foreach (dynamic item in fileToolStripMenuItem.DropDownItems)
                 item.Visible = disable ? (item.Name == "setWorkingPathToolStripMenuItem") : !disable;
+
+            foreach (dynamic item in configurationToolStripMenuItem.DropDownItems)
+                item.Visible = disable ? (item.Name == "importConfigurationToolStripMenuItem") : !disable;
         }
 
         private void ReposCatalogs_TabIndexChanged(object sender, EventArgs e) => SetCurrentTab();
@@ -179,7 +216,35 @@ namespace GitLooker
             toolStripMenuItem2.Enabled = true;
             checkToolStripMenuItem.Enabled = true;
             toolStripMenuItem1.Visible = false;
+            UpdateTabButtonIcon();
             await Task.CompletedTask;
+        }
+
+        private void UpdateTabButtonIcon()
+        {
+            foreach(var tab in GetRepoTabs())
+            {
+                if (tab.Any(ctr => ctr.IsConnectionError))
+                {
+                    iconUpdate(tab.Text, Properties.Resources.Flag_red);
+                    return;
+                }
+
+                if (tab.Any(ctr => ctr.IsNeededUpdate))
+                {
+                    iconUpdate(tab.Text, Properties.Resources.Flag_blue);
+                    return;
+                }
+
+                iconUpdate(tab.Text, Properties.Resources.Flag_green);
+            }
+
+            void iconUpdate(string repoName, Icon icon)
+            {
+                var buuton = buttonForTaskList.FirstOrDefault(tab => tab.Tooltip.EndsWith(repoName));
+                if (buuton != default)
+                    buuton.Icon = icon;
+            }
         }
 
         private void GenerateAndUpdateRepos()

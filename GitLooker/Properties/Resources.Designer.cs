@@ -61,6 +61,16 @@ namespace GitLooker.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon _406_down {
+            get {
+                object obj = ResourceManager.GetObject("_406_down", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap agt_action_fail {
@@ -127,6 +137,36 @@ namespace GitLooker.Properties {
             get {
                 object obj = ResourceManager.GetObject("checkmark", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon Flag_blue {
+            get {
+                object obj = ResourceManager.GetObject("Flag_blue", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon Flag_green {
+            get {
+                object obj = ResourceManager.GetObject("Flag_green", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon Flag_red {
+            get {
+                object obj = ResourceManager.GetObject("Flag_red", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
             }
         }
         
