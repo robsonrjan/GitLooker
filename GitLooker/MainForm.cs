@@ -241,7 +241,7 @@ namespace GitLooker
 
             void iconUpdate(string repoName, Icon icon)
             {
-                var buuton = buttonForTaskList.FirstOrDefault(tab => tab.Tooltip.EndsWith(repoName));
+                var buuton = buttonForTaskList.FirstOrDefault(tab => tab.Tooltip.Replace(ThumbnailButtonTextPrefix, "") == repoName);
                 if (buuton != default)
                     buuton.Icon = icon;
             }
