@@ -36,6 +36,8 @@ Clone repos if they not present on the list.
 
 ![repo1.png](img/repo7.png "repo1.png")
 
-To install -> download latest release version and go to GitLookerSetup/bin/Release
-for MSI installable package.
+To install -> 
+- [Microsoft Store](https://www.microsoft.com/store/apps/9PK6TGX9T87P) 
+- download latest release version and go to GitLookerSetup/bin/Release
+for [MSI installable package](https://github.com/robsonrjan/GitLooker/releases).
 
