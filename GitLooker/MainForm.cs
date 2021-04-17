@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.WindowsAPICodePack.Taskbar;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -24,6 +25,7 @@ namespace GitLooker
         private volatile bool isUpdating;
         private TabReposControl nextState;
         private bool noReposLoaded;
+        private volatile bool isCloning;
         private readonly List<ThumbnailToolBarButton> buttonForTaskList;
 
         private RepoControl currentRepo;
@@ -184,6 +186,7 @@ namespace GitLooker
         private void SemaphoreIsUsed(bool isProccesing)
             => this.Invoke(new Action(() =>
             {
+                if (isCloning) return;
                 if (!isProccesing)
                 {
                     currentTabControl.RepoEndControl.SendToBack();
@@ -204,7 +207,7 @@ namespace GitLooker
                     toolStripMenuItem1.Visible = true;
                     isUpdating = true;
                 }
-            }), null);
+            }), default);
 
         private async Task CheckStatusAsync()
         {
@@ -266,8 +269,11 @@ namespace GitLooker
         {
             CheckForRemovedRepos()();
 
-            foreach (var cntr in currentTabControl.Where(r => cloneRepos?.Contains(r.RepoPath) ?? true).OrderByDescending(c => c.Parent.Controls.GetChildIndex(c)))
-                cntr.UpdateRepoInfo();
+            if (!currentTabControl.Any())
+                AddMissingRepositoriums(currentTabControl);
+            else
+                foreach (var cntr in currentTabControl.Where(r => cloneRepos?.Contains(r.RepoPath) ?? true).OrderByDescending(c => c.Parent.Controls.GetChildIndex(c)))
+                    cntr.UpdateRepoInfo();
         }
 
         private Action CheckForRemovedRepos()
@@ -342,7 +348,10 @@ namespace GitLooker
 
         private async Task CloneNewRepoAsync(IRepoCommandProcessor commandProc)
         {
-            List<Task<string>> runningClons = new List<Task<string>>();
+            checkToolStripMenuItem.Enabled = !(isCloning = true);
+            toolStripMenuItem1.Visible = isCloning;
+
+            List <Task<string>> runningClons = new List<Task<string>>();
             try
             {
                 await WaitLeaveOneAsync();
@@ -361,6 +370,12 @@ namespace GitLooker
         private async void UpdateCloneReposAsync(List<Task<string>> runningClons)
         {
             var result = await Task.WhenAll(runningClons);
+
+            Invoke(new Action(() =>
+            {
+                checkToolStripMenuItem.Enabled = !(isCloning = false);
+                toolStripMenuItem1.Visible = isCloning;
+            }), default);           
 
             ReleaceAll();
             UpdateAll(result);
@@ -384,7 +399,7 @@ namespace GitLooker
             try
             {
                 await semaphore.WaitAsync();
-                ctr.Invoke(new Action(() => ctr.HighlightLabel()), null);
+                ctr.Invoke(new Action(() => ctr.HighlightLabel()), default);
                 var result = commandProc.ClonRepo(currentTabControl.RepoConfiguration.GitLookerPath, ctr.RepoConfiguration);
                 var repoPath = $@"{currentTabControl.RepoConfiguration.GitLookerPath}\{ctr.GetNewRepoName}";
                 if (Directory.Exists(repoPath))
@@ -395,11 +410,11 @@ namespace GitLooker
                         Application.DoEvents();
                         tabsRepoBuilder.BuildRepo(Repo_OnSelectRepo, currentTabControl, (clonedRepos = repoPath));
                         Application.DoEvents();
-                    }), null);
+                    }), default);
                 }
                 else
                 {
-                    this.Invoke(new Action(() => RemoveUnUsed(ctr)), null);
+                    this.Invoke(new Action(() => RemoveUnUsed(ctr)), default);
                 }
             }
             catch (Exception ex) { MessageBox.Show(ex.Message, "Exception", MessageBoxButtons.OK, MessageBoxIcon.Error); }
@@ -722,5 +737,21 @@ namespace GitLooker
 
         private string PrepareArgument(string argument)
             => (string.IsNullOrWhiteSpace(argument) ? string.Empty : $"{argument} ");
+
+        private void homeToolStripMenuItem_Click(object sender, EventArgs e)
+            => StartProcess("https://github.com/robsonrjan/GitLooker");
+
+        private void licenseToolStripMenuItem_Click(object sender, EventArgs e)
+            => StartProcess("https://github.com/robsonrjan/GitLooker/blob/master/LICENSE");
+
+        private void StartProcess(string processInfo)
+        {
+            Process wwwProcess = new Process();
+            wwwProcess.StartInfo = new ProcessStartInfo(processInfo);
+            wwwProcess.Start();
+        }
+
+        private void reportAProblemToolStripMenuItem_Click(object sender, EventArgs e)
+            => StartProcess("https://github.com/robsonrjan/GitLooker/issues");
     }
 }

@@ -117,7 +117,7 @@ namespace GitLooker.Controls
                 }
 
                 currentRespond += string.Join(Environment.NewLine, returnValue.Value.SelectMany(v => v).ToArray());
-                this.Invoke(new Action(() => { this.label1.ForeColor = Color.Navy; }), null);
+                this.Invoke(new Action(() => { this.label1.ForeColor = Color.Navy; }), default);
             }
             else
                 SetErrorForRepo(returnValue.Error.FirstOrDefault());
@@ -125,12 +125,12 @@ namespace GitLooker.Controls
 
         public void HighlightLabel() => this.label1.ForeColor = Color.DarkGreen;
 
-        private void SetErrorForRepo(Exception ex = null)
+        private void SetErrorForRepo(Exception ex = default)
         {
             if (ex != default)
             {
                 currentRespond = ex.Message;
-                this.Invoke(new Action(() => SetErrorForRepo()), null);
+                this.Invoke(new Action(() => SetErrorForRepo()), default);
                 return;
             }
 
@@ -161,7 +161,7 @@ namespace GitLooker.Controls
                     this.button2.BackgroundImage = global::GitLooker.Properties.Resources.agt_action_fail;
                     this.button1.BackgroundImage = global::GitLooker.Properties.Resources.checkmark;
                     this.SendToBack();
-                }), null);
+                }), default);
             }
             else if (responseValue.Any(respound => respound.ToLower().Contains("could not resolve host:")
                 || (respound.ToLower().Contains("failed to connect to") && respound.ToLower().Contains("timed out"))))
@@ -173,7 +173,7 @@ namespace GitLooker.Controls
                     this.button2.BackgroundImage = global::GitLooker.Properties.Resources.checkmark;
                     this.button1.BackgroundImage = global::GitLooker.Properties.Resources.networkx;
                     this.SendToBack();
-                }), null);
+                }), default);
             }
             return returnValue;
         }
@@ -195,7 +195,7 @@ namespace GitLooker.Controls
                     this.button1.Enabled = true;
                     this.SendToBack();
                     this.CanPull = true;
-                }), null);
+                }), default);
             }
             else if (needToPush)
             {
@@ -214,7 +214,7 @@ namespace GitLooker.Controls
                     this.button1.BackgroundImage = global::GitLooker.Properties.Resources.checkedbox;
                     if (IsMainBranch)
                         this.BringToFront();
-                }), null);
+                }), default);
             }
         }
 
@@ -226,7 +226,7 @@ namespace GitLooker.Controls
                 this.Invoke(new Action(() =>
                 {
                     this.label2.Text = branchOn;
-                }), null);
+                }), default);
             }
         }
 
@@ -291,11 +291,11 @@ namespace GitLooker.Controls
             foreach (var command in commnds)
                 commandList.Add(commandProcessor.CommonCommandActions.FirstOrDefault(k => k.Name == command));
 
-            this.Invoke(new Action(() => { this.button2.Enabled = this.button1.Enabled = false; }), null);
-            var result = commandProcessor.Execute(commandList, parameters, () => this.Invoke(new Action(() => HighlightLabel()), null));
+            this.Invoke(new Action(() => { this.button2.Enabled = this.button1.Enabled = false; }), default);
+            var result = commandProcessor.Execute(commandList, parameters, () => this.Invoke(new Action(() => HighlightLabel()), default));
 
             SetStatusAfterCommandProcess(result);
-            this.Invoke(new Action(() => { this.button2.Enabled = true; }), null);
+            this.Invoke(new Action(() => { this.button2.Enabled = true; }), default);
             return result;
         }
     }

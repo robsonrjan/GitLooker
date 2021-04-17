@@ -63,6 +63,9 @@
             this.exortConfigurationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.importConfigurationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem15 = new System.Windows.Forms.ToolStripMenuItem();
+            this.homeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.licenseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripTextBox4 = new System.Windows.Forms.ToolStripTextBox();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
@@ -80,6 +83,7 @@
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.reposCatalogs = new System.Windows.Forms.TabControl();
+            this.reportAProblemToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -93,6 +97,7 @@
             this.toolStripMenuItem1,
             this.configurationToolStripMenuItem,
             this.toolStripMenuItem2,
+            this.toolStripMenuItem15,
             this.toolStripMenuItem4,
             this.toolStripTextBox4});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
@@ -382,6 +387,30 @@
             this.toolStripMenuItem2.Visible = false;
             this.toolStripMenuItem2.Click += new System.EventHandler(this.toolStripMenuItem2_Click);
             // 
+            // toolStripMenuItem15
+            // 
+            this.toolStripMenuItem15.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.homeToolStripMenuItem,
+            this.licenseToolStripMenuItem,
+            this.reportAProblemToolStripMenuItem});
+            this.toolStripMenuItem15.Name = "toolStripMenuItem15";
+            this.toolStripMenuItem15.Size = new System.Drawing.Size(44, 23);
+            this.toolStripMenuItem15.Text = "Help";
+            // 
+            // homeToolStripMenuItem
+            // 
+            this.homeToolStripMenuItem.Name = "homeToolStripMenuItem";
+            this.homeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.homeToolStripMenuItem.Text = "Home www";
+            this.homeToolStripMenuItem.Click += new System.EventHandler(this.homeToolStripMenuItem_Click);
+            // 
+            // licenseToolStripMenuItem
+            // 
+            this.licenseToolStripMenuItem.Name = "licenseToolStripMenuItem";
+            this.licenseToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.licenseToolStripMenuItem.Text = "License";
+            this.licenseToolStripMenuItem.Click += new System.EventHandler(this.licenseToolStripMenuItem_Click);
+            // 
             // toolStripMenuItem4
             // 
             this.toolStripMenuItem4.Font = new System.Drawing.Font("Segoe UI", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
@@ -491,6 +520,13 @@
             this.reposCatalogs.Size = new System.Drawing.Size(584, 732);
             this.reposCatalogs.TabIndex = 1;
             // 
+            // reportAProblemToolStripMenuItem
+            // 
+            this.reportAProblemToolStripMenuItem.Name = "reportAProblemToolStripMenuItem";
+            this.reportAProblemToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.reportAProblemToolStripMenuItem.Text = "Report a problem";
+            this.reportAProblemToolStripMenuItem.Click += new System.EventHandler(this.reportAProblemToolStripMenuItem_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -568,6 +604,10 @@
         private System.Windows.Forms.ToolStripTextBox toolStripTextBox7;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem14;
         private System.Windows.Forms.TabControl reposCatalogs;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem15;
+        private System.Windows.Forms.ToolStripMenuItem homeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem licenseToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem reportAProblemToolStripMenuItem;
     }
 }
 

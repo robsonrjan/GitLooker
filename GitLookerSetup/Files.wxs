@@ -431,6 +431,27 @@
                 <RegistryValue Root="HKCR" Key="Record\{E031FC3B-FDF8-335A-9152-A47DD0F26468}\5.0.0.0" Name="RuntimeVersion" Value="v4.0.30319" Type="string" Action="write" />
                 <RegistryValue Root="HKCR" Key="Record\{E031FC3B-FDF8-335A-9152-A47DD0F26468}\5.0.0.0" Name="CodeBase" Value="file:///[#fil80FDAED837E1309C520672B226073BB4]" Type="string" Action="write" />
             </Component>
+            <Component Id="cmp7CED0031F4719A7B74F4DD6CE3BB7A97" Guid="*">
+                <File Id="fil8AA454A3657E260319539D39795D4DC4" KeyPath="yes" Source="$(var.SourceDir)\Microsoft.WindowsAPICodePack.dll" />
+            </Component>
+            <Component Id="cmp08888C3498DD2917310A0F92D94DBC10" Guid="*">
+                <Class Id="{1D3AA1DA-9765-315D-BC2D-6B6914709F04}" Context="InprocServer32" Description="MS.WindowsAPICodePack.Internal.ExplorerBrowserViewEvents" ThreadingModel="both" ForeignServer="mscoree.dll">
+                    <ProgId Id="MS.WindowsAPICodePack.Internal.ExplorerBrowserViewEvents" Description="MS.WindowsAPICodePack.Internal.ExplorerBrowserViewEvents" />
+                </Class>
+                <File Id="filBD42284A9EEEE69AA747D417287B5FFE" KeyPath="yes" Source="$(var.SourceDir)\Microsoft.WindowsAPICodePack.Shell.dll" />
+                <RegistryValue Root="HKCR" Key="CLSID\{1D3AA1DA-9765-315D-BC2D-6B6914709F04}\Implemented Categories\{62C8FE65-4EBB-45e7-B440-6E39B2CDBF29}" Value="" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{1D3AA1DA-9765-315D-BC2D-6B6914709F04}\InprocServer32\1.1.0.0" Name="Class" Value="MS.WindowsAPICodePack.Internal.ExplorerBrowserViewEvents" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{1D3AA1DA-9765-315D-BC2D-6B6914709F04}\InprocServer32\1.1.0.0" Name="Assembly" Value="Microsoft.WindowsAPICodePack.Shell, Version=1.1.0.0, Culture=neutral, PublicKeyToken=null" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{1D3AA1DA-9765-315D-BC2D-6B6914709F04}\InprocServer32\1.1.0.0" Name="RuntimeVersion" Value="v2.0.50727" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{1D3AA1DA-9765-315D-BC2D-6B6914709F04}\InprocServer32\1.1.0.0" Name="CodeBase" Value="file:///[#filBD42284A9EEEE69AA747D417287B5FFE]" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{1D3AA1DA-9765-315D-BC2D-6B6914709F04}\InprocServer32" Name="Class" Value="MS.WindowsAPICodePack.Internal.ExplorerBrowserViewEvents" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{1D3AA1DA-9765-315D-BC2D-6B6914709F04}\InprocServer32" Name="Assembly" Value="Microsoft.WindowsAPICodePack.Shell, Version=1.1.0.0, Culture=neutral, PublicKeyToken=null" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{1D3AA1DA-9765-315D-BC2D-6B6914709F04}\InprocServer32" Name="RuntimeVersion" Value="v2.0.50727" Type="string" Action="write" />
+                <RegistryValue Root="HKCR" Key="CLSID\{1D3AA1DA-9765-315D-BC2D-6B6914709F04}\InprocServer32" Name="CodeBase" Value="file:///[#filBD42284A9EEEE69AA747D417287B5FFE]" Type="string" Action="write" />
+            </Component>
+            <Component Id="cmpDAA036C6546077906943A68D9BFB8C97" Guid="*">
+                <File Id="fil4A78F331F6296073511CBC14D7DA85C6" KeyPath="yes" Source="$(var.SourceDir)\Microsoft.WindowsAPICodePack.ShellExtensions.dll" />
+            </Component>
             <Component Id="cmpE48528C4F5932A4EFD89F7331108F45D" Guid="*">
                 <File Id="filF1B84C2C6BCC693224B7A7959445B74F" KeyPath="yes" Source="$(var.SourceDir)\Newtonsoft.Json.dll" />
             </Component>
@@ -689,6 +710,9 @@
             <ComponentRef Id="cmp2DC3078E5067AC710452F7A55F587F41" />
             <ComponentRef Id="cmpA6BBA9A85C8CF71C5EFE583476475BFA" />
             <ComponentRef Id="cmp3F0CFE4857281F0880D96F35A0768A38" />
+            <ComponentRef Id="cmp7CED0031F4719A7B74F4DD6CE3BB7A97" />
+            <ComponentRef Id="cmp08888C3498DD2917310A0F92D94DBC10" />
+            <ComponentRef Id="cmpDAA036C6546077906943A68D9BFB8C97" />
             <ComponentRef Id="cmpE48528C4F5932A4EFD89F7331108F45D" />
             <ComponentRef Id="cmp2605C5FE51EF1E6A4EDC743EB8447557" />
             <ComponentRef Id="cmpF31E3F5F965B919D4EF1F5F1782DDBA6" />
