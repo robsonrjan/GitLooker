@@ -27,7 +27,7 @@ namespace GitLooker.CompositionRoot
                 .AddSingleton<IProjectFileRepo, ProjectFileRepo>()
                 .AddSingleton<ITabsRepoBuilder, TabsRepoBuilder>()
                 .AddSingleton<IAppSemaphoreSlim, AppSemaphoreSlim>()
-                .AddTransient<IPowersShell, PowersShell>()
+                .AddTransient<IProcessShell, ProcessShell>()
                 .AddTransient<IRepoCommandProcessor, RepoCommandProcessor>()
                 .AddTransient<RepoCommandProcessorController>()
                 .AddTransient<SemaphoreInteractionInterceptor>()

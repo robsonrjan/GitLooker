@@ -25,7 +25,6 @@ namespace GitLooker
         private volatile bool isUpdating;
         private TabReposControl nextState;
         private bool noReposLoaded;
-        private volatile bool isCloning;
         private readonly List<ThumbnailToolBarButton> buttonForTaskList;
 
         private RepoControl currentRepo;
@@ -127,7 +126,7 @@ namespace GitLooker
         }
 
         private void UptateToolBars(object sender, ThumbnailButtonClickedEventArgs e)
-        {            
+        {
             if (sender is ThumbnailToolBarButton barButton)
             {
                 var repoTabName = barButton.Tooltip.Replace(ThumbnailButtonTextPrefix, "");
@@ -186,7 +185,6 @@ namespace GitLooker
         private void SemaphoreIsUsed(bool isProccesing)
             => this.Invoke(new Action(() =>
             {
-                if (isCloning) return;
                 if (!isProccesing)
                 {
                     currentTabControl.RepoEndControl.SendToBack();
@@ -225,7 +223,7 @@ namespace GitLooker
 
         private void UpdateTabButtonIcon()
         {
-            foreach(var tab in GetRepoTabs())
+            foreach (var tab in GetRepoTabs())
             {
                 if (tab.Any(ctr => ctr.IsConnectionError))
                 {
@@ -296,13 +294,13 @@ namespace GitLooker
             toolStripMenuItem4.Text = $"Updated: {currentTabControl.RepoLastTimeUpdate.ToLocalTime().ToString("HH:mm dddd")}";
         }
 
-        private bool NotInRepoConfig(string config, TabReposControl currentTab) => !currentTab.Any(ctr => ctr.RepoConfiguration?.ToLower() == config?.ToLower());
+        private bool NotInRepoConfig(string config, TabReposControl currentTab) => !currentTab.Any(ctr => ctr.RepoConfiguration?.Equals(config, StringComparison.InvariantCultureIgnoreCase) == true);
         private void AddMissingRepositoriums(TabReposControl currentTab) //
         {
             Task.Run(() =>
             {
                 Task.Delay(500).GetAwaiter().GetResult();
-                this.Invoke(new Action(() =>
+                Invoke(new Action(() =>
                 {
                     currentTab.RepoConfiguration.ExpectedRemoteRepos.Where(repo => NotInRepoConfig(repo, currentTab))
                         .ToList()
@@ -348,10 +346,7 @@ namespace GitLooker
 
         private async Task CloneNewRepoAsync(IRepoCommandProcessor commandProc)
         {
-            checkToolStripMenuItem.Enabled = !(isCloning = true);
-            toolStripMenuItem1.Visible = isCloning;
-
-            List <Task<string>> runningClons = new List<Task<string>>();
+            List<Task<string>> runningClons = new List<Task<string>>();
             try
             {
                 await WaitLeaveOneAsync();
@@ -370,13 +365,6 @@ namespace GitLooker
         private async void UpdateCloneReposAsync(List<Task<string>> runningClons)
         {
             var result = await Task.WhenAll(runningClons);
-
-            Invoke(new Action(() =>
-            {
-                checkToolStripMenuItem.Enabled = !(isCloning = false);
-                toolStripMenuItem1.Visible = isCloning;
-            }), default);           
-
             ReleaceAll();
             UpdateAll(result);
         }
@@ -553,7 +541,7 @@ namespace GitLooker
         {
             if (e.KeyCode == Keys.Enter)
             {
-                var filterRepo = currentTabControl.Where(r => r.RepoName.ToLower().Contains(toolStripTextBox4.Text.ToLower())).OrderByDescending(r => r.RepoName);
+                var filterRepo = currentTabControl.Where(r => r.RepoName.ToLowerInvariant().Contains(toolStripTextBox4.Text.ToLowerInvariant())).OrderByDescending(r => r.RepoName);
                 foreach (var repo in filterRepo)
                     repo.SendToBack();
             }

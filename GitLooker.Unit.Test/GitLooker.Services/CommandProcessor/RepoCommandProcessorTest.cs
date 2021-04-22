@@ -1,77 +1,78 @@
 ﻿using FluentAssertions;
+using GitLooker.Core;
 using GitLooker.Core.Services;
 using GitLooker.Services.CommandProcessor;
 using Moq;
 using NUnit.Framework;
 using System;
+using System.Collections.Generic;
 
 namespace GitLooker.Unit.Test.GitLooker.Services.CommandProcessor
 {
     [TestFixture]
     public class RepoCommandProcessorTest
     {
-        private const string workingDir = nameof(workingDir);
-        private const string configRepo = nameof(configRepo);
+        private Command configRepo = new Command { Exec = "Exec", Args = "Args" };
         private IRepoCommandProcessor repoCommandProcessor;
-        private IPowersShell powerShell;
+        private IProcessShell processShell;
 
         [SetUp]
         public void BeforeEach()
         {
-            powerShell = Mock.Of<IPowersShell>();
-            Mock.Get(powerShell).Setup(p => p.Execute(It.Is<string>(o => o.Contains(workingDir)), It.IsAny<bool>()))
-                .Returns(() => new[] { workingDir });
-            repoCommandProcessor = new RepoCommandProcessor(powerShell);
+            processShell = Mock.Of<IProcessShell>();
+            Mock.Get(processShell).Setup(p => p.Execute(It.IsAny<IEnumerable<Command>>()))
+                .Returns(() => new[] { nameof(configRepo) });
+            repoCommandProcessor = new RepoCommandProcessor(processShell);
         }
 
         [Test]
-        public void Constructor_for_parameter_powerShell_isNull_throwException()
+        public void Constructor_for_parameter_processsShell_isNull_throwException()
         {
             Action actionCheck = () => new RepoCommandProcessor(default);
 
             actionCheck.Should().Throw<ArgumentException>()
-                .Which.ParamName.Should().Be(nameof(powerShell));
+                .Which.ParamName.Should().Be(nameof(processShell));
         }
 
         [Test]
         public void CheckRepo_executes()
         {
-            var result = repoCommandProcessor.CheckRepo(workingDir);
+            var result = repoCommandProcessor.CheckRepo(nameof(configRepo));
 
-            Mock.Get(powerShell).Verify(p => p.Execute(It.IsAny<string>(), It.IsAny<bool>()), Times.Once);
+            Mock.Get(processShell).Verify(p => p.Execute(It.IsAny<IEnumerable<Command>>()), Times.Once);
             result.Error.Should().BeNullOrEmpty();
             result.IsSuccess.Should().BeTrue();
             result.SpecialValue.Should().BeNull();
             result.Value.Should().BeEquivalentTo(new[] {
-                new[] { workingDir.ToLower() }
+                new[] { nameof(configRepo).ToLowerInvariant() }
             });
         }
 
         [Test]
         public void ClonRepo_executes()
         {
-            var result = repoCommandProcessor.ClonRepo(workingDir, configRepo);
+            var result = repoCommandProcessor.ClonRepo(nameof(configRepo), nameof(configRepo));
 
-            Mock.Get(powerShell).Verify(p => p.Execute(It.IsAny<string>(), It.IsAny<bool>()), Times.Once);
+            Mock.Get(processShell).Verify(p => p.Execute(It.IsAny<IEnumerable<Command>>()), Times.Once);
             result.Error.Should().BeNullOrEmpty();
             result.IsSuccess.Should().BeTrue();
             result.SpecialValue.Should().BeNull();
             result.Value.Should().BeEquivalentTo(new[] {
-                new[] { workingDir.ToLower() }
+                new[] { nameof(configRepo).ToLowerInvariant() }
             });
         }
 
         [Test]
         public void PullRepo_executes()
         {
-            var result = repoCommandProcessor.PullRepo(workingDir);
+            var result = repoCommandProcessor.PullRepo(nameof(configRepo));
 
-            Mock.Get(powerShell).Verify(p => p.Execute(It.IsAny<string>(), It.IsAny<bool>()), Times.Once);
+            Mock.Get(processShell).Verify(p => p.Execute(It.IsAny<IEnumerable<Command>>()), Times.Once);
             result.Error.Should().BeNullOrEmpty();
             result.IsSuccess.Should().BeTrue();
             result.SpecialValue.Should().BeNull();
             result.Value.Should().BeEquivalentTo(new[] {
-                new[] { workingDir.ToLower() }
+                new[] { nameof(configRepo).ToLowerInvariant() }
             });
         }
 
@@ -79,12 +80,12 @@ namespace GitLooker.Unit.Test.GitLooker.Services.CommandProcessor
         [TestCase("(push) 1 2 3 4", "3")]
         public void RemoteConfig_executes(string executionResult, string expectedResult)
         {
-            Mock.Get(powerShell).Setup(p => p.Execute(It.Is<string>(pr => pr.Contains(workingDir)), It.IsAny<bool>()))
+            Mock.Get(processShell).Setup(p => p.Execute(It.IsAny<IEnumerable<Command>>()))
                 .Returns(() => new[] { executionResult });
 
-            var result = repoCommandProcessor.RemoteConfig(workingDir);
+            var result = repoCommandProcessor.RemoteConfig(nameof(configRepo));
 
-            Mock.Get(powerShell).Verify(p => p.Execute(It.IsAny<string>(), It.IsAny<bool>()), Times.Once);
+            Mock.Get(processShell).Verify(p => p.Execute(It.IsAny<IEnumerable<Command>>()), Times.Once);
             result.Error.Should().BeNullOrEmpty();
             result.IsSuccess.Should().BeTrue();
             result.SpecialValue.Should().BeNull();
@@ -96,28 +97,28 @@ namespace GitLooker.Unit.Test.GitLooker.Services.CommandProcessor
         [Test]
         public void ResetRepo_executes()
         {
-            var result = repoCommandProcessor.ResetRepo(workingDir);
+            var result = repoCommandProcessor.ResetRepo(nameof(configRepo));
 
-            Mock.Get(powerShell).Verify(p => p.Execute(It.IsAny<string>(), It.IsAny<bool>()), Times.Once);
+            Mock.Get(processShell).Verify(p => p.Execute(It.IsAny<IEnumerable<Command>>()), Times.Once);
             result.Error.Should().BeNullOrEmpty();
             result.IsSuccess.Should().BeTrue();
             result.SpecialValue.Should().BeNull();
             result.Value.Should().BeEquivalentTo(new[] {
-                new[] { workingDir.ToLower() }
+                new[] { nameof(configRepo).ToLowerInvariant() }
             });
         }
 
         [Test]
         public void CheckOutBranch_executes()
         {
-            var result = repoCommandProcessor.CheckOutBranch(workingDir, configRepo);
+            var result = repoCommandProcessor.CheckOutBranch(nameof(configRepo), nameof(configRepo));
 
-            Mock.Get(powerShell).Verify(p => p.Execute(It.IsAny<string>(), It.IsAny<bool>()), Times.Once);
+            Mock.Get(processShell).Verify(p => p.Execute(It.IsAny<IEnumerable<Command>>()), Times.Once);
             result.Error.Should().BeNullOrEmpty();
             result.IsSuccess.Should().BeTrue();
             result.SpecialValue.Should().BeNull();
             result.Value.Should().BeEquivalentTo(new[] {
-                new[] { workingDir.ToLower() }
+                new[] { nameof(configRepo).ToLowerInvariant() }
             });
         }
     }

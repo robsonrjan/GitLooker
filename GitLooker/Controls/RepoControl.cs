@@ -146,32 +146,32 @@ namespace GitLooker.Controls
         {
             bool returnValue = true;
             IsConnectionError = false;
-            if (responseValue.Any(respound => respound.ToLower().Contains("repository not found")
+            if (responseValue.Any(respound => respound.ToLowerInvariant().Contains("repository not found")
             ||
-            respound.ToLower().Contains("does not exist or you do not have permissions")
+            respound.ToLowerInvariant().Contains("does not exist or you do not have permissions")
             ||
-            respound.ToLower().Contains("fatal:")
+            respound.ToLowerInvariant().Contains("fatal:")
             ||
-            respound.ToLower().Contains("received http code 403 from")))
+            respound.ToLowerInvariant().Contains("received http code 403 from")))
             {
                 IsConnectionError = true;
                 returnValue = false;
                 this.Invoke(new Action(() =>
                 {
-                    this.button2.BackgroundImage = global::GitLooker.Properties.Resources.agt_action_fail;
-                    this.button1.BackgroundImage = global::GitLooker.Properties.Resources.checkmark;
+                    this.button2.BackgroundImage = Properties.Resources.agt_action_fail;
+                    this.button1.BackgroundImage = Properties.Resources.checkmark;
                     this.SendToBack();
                 }), default);
             }
-            else if (responseValue.Any(respound => respound.ToLower().Contains("could not resolve host:")
-                || (respound.ToLower().Contains("failed to connect to") && respound.ToLower().Contains("timed out"))))
+            else if (responseValue.Any(respound => respound.ToLowerInvariant().Contains("could not resolve host:")
+                || (respound.ToLowerInvariant().Contains("failed to connect to") && respound.ToLowerInvariant().Contains("timed out"))))
             {
                 IsConnectionError = true;
                 returnValue = false;
                 this.Invoke(new Action(() =>
                 {
-                    this.button2.BackgroundImage = global::GitLooker.Properties.Resources.checkmark;
-                    this.button1.BackgroundImage = global::GitLooker.Properties.Resources.networkx;
+                    this.button2.BackgroundImage = Properties.Resources.checkmark;
+                    this.button1.BackgroundImage = Properties.Resources.networkx;
                     this.SendToBack();
                 }), default);
             }
@@ -292,10 +292,10 @@ namespace GitLooker.Controls
                 commandList.Add(commandProcessor.CommonCommandActions.FirstOrDefault(k => k.Name == command));
 
             this.Invoke(new Action(() => { this.button2.Enabled = this.button1.Enabled = false; }), default);
-            var result = commandProcessor.Execute(commandList, parameters, () => this.Invoke(new Action(() => HighlightLabel()), default));
+            var result = commandProcessor.Execute(commandList, parameters, () => Invoke(new Action(() => HighlightLabel()), default));
 
             SetStatusAfterCommandProcess(result);
-            this.Invoke(new Action(() => { this.button2.Enabled = true; }), default);
+            this.Invoke(new Action(() => { button2.Enabled = true; }), default);
             return result;
         }
     }
