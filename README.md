@@ -2,8 +2,7 @@
 
 **Pre requirements:**
 
-Git - installed and configured,  
-Enabled powershell.
+Git - installed and configured.
 
 **Repositorium changes watcher**
 
