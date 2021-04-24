@@ -8,7 +8,7 @@ namespace GitLooker.Services.Services
 {
     public class AppSemaphoreSlim : IAppSemaphoreSlim
     {
-        private const int DueTimeMs = 500;
+        private const int DueTimeMs = 300;
         private readonly SemaphoreSlim semaphoreSlim;
         private readonly int repoProcessingCount;
         private Action<bool> isUsed;
@@ -48,14 +48,14 @@ namespace GitLooker.Services.Services
         {
             semaphoreSlim.Release(count);
             if (isUsed != default)
-                PrepareCallBackAction(obj => isUsed(semaphoreSlim.CurrentCount == repoProcessingCount));
+                PrepareCallBackAction(obj => isUsed(semaphoreSlim.CurrentCount != repoProcessingCount));
         }
 
         public async Task WaitAsync()
         {
             await semaphoreSlim.WaitAsync();
             if (isUsed != default)
-                PrepareCallBackAction(obj => isUsed(semaphoreSlim.CurrentCount == repoProcessingCount));
+                PrepareCallBackAction(obj => isUsed(semaphoreSlim.CurrentCount != repoProcessingCount));
         }
 
         public int CurrentCount => semaphoreSlim.CurrentCount;
