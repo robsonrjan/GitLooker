@@ -17,7 +17,7 @@ namespace GitLooker
     public partial class MainForm : Form
     {
         private const string ThumbnailButtonTextPrefix = "Check status for ";
-
+        private const int MillisecondsDelayToLetAllUpdatesToFinish = 500;
         private readonly IAppConfiguration appConfiguration;
         private readonly IAppSemaphoreSlim semaphore;
         private readonly ITabsRepoBuilder tabsRepoBuilder;
@@ -209,7 +209,7 @@ namespace GitLooker
 
         private async Task CheckStatusAsync()
         {
-            await Task.Delay(1000);
+            await Task.Delay(MillisecondsDelayToLetAllUpdatesToFinish);
             UpdateTimeInfo();
             if (currentTabControl.ReposAllControl.Any(c => c.IsNeededUpdate))
                 notifyIcon1.ShowBalloonTip(3000);
@@ -299,7 +299,7 @@ namespace GitLooker
         {
             Task.Run(() =>
             {
-                Task.Delay(500).GetAwaiter().GetResult();
+                Task.Delay(MillisecondsDelayToLetAllUpdatesToFinish).GetAwaiter().GetResult();
                 Invoke(new Action(() =>
                 {
                     currentTab.RepoConfiguration.ExpectedRemoteRepos.Where(repo => NotInRepoConfig(repo, currentTab))
@@ -334,6 +334,7 @@ namespace GitLooker
 
             currentTabControl.RepoConfiguration.ExpectedRemoteRepos = repoList.repoText.Lines.Select(ToLower).Distinct().ToList();
             appConfiguration.Save();
+            AddMissingRepositoriums(currentTabControl);
         }
 
         private async void toolStripMenuItem2_Click(object sender, EventArgs e)

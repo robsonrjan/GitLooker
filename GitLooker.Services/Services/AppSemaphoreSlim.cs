@@ -33,20 +33,23 @@ namespace GitLooker.Services.Services
         public void Wait()
         {
             semaphoreSlim.Wait();
-            if (isUsed != default)
-                PrepareCallBackAction(obj => isUsed(semaphoreSlim.CurrentCount != repoProcessingCount));
+            OnEvent();
         }
 
         public void Release()
         {
             semaphoreSlim.Release();
-            if (isUsed != default)
-                PrepareCallBackAction(obj => isUsed(semaphoreSlim.CurrentCount != repoProcessingCount));
+            OnEvent();
         }
 
         public void Release(int count)
         {
             semaphoreSlim.Release(count);
+            OnEvent();
+        }
+
+        private void OnEvent()
+        {
             if (isUsed != default)
                 PrepareCallBackAction(obj => isUsed(semaphoreSlim.CurrentCount != repoProcessingCount));
         }
@@ -54,8 +57,7 @@ namespace GitLooker.Services.Services
         public async Task WaitAsync()
         {
             await semaphoreSlim.WaitAsync();
-            if (isUsed != default)
-                PrepareCallBackAction(obj => isUsed(semaphoreSlim.CurrentCount != repoProcessingCount));
+            OnEvent();
         }
 
         public int CurrentCount => semaphoreSlim.CurrentCount;
