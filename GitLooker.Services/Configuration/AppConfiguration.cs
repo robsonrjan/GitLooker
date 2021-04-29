@@ -14,11 +14,15 @@ namespace GitLooker.Services.Configuration
         private readonly string appConfigFullPath;
         private AppConfig appConfig;
 
+        public static string Location { get; private set; }
+
         public AppConfiguration(string configFilePath = default)
         {
             var configDir = configFilePath ?? Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
             appConfigPath = $"{configDir}\\GitLooker";
             appConfigFullPath = $"{appConfigPath}\\{appConfigFileName}";
+
+            Location = appConfigFullPath;
 
             if (!Directory.Exists(appConfigPath))
                 Directory.CreateDirectory(appConfigPath);

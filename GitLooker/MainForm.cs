@@ -1,6 +1,7 @@
 ﻿using GitLooker.Controls;
 using GitLooker.Core.Configuration;
 using GitLooker.Core.Services;
+using GitLooker.Services.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.WindowsAPICodePack.Taskbar;
 using System;
@@ -742,5 +743,8 @@ namespace GitLooker
 
         private void reportAProblemToolStripMenuItem_Click(object sender, EventArgs e)
             => StartProcess("https://github.com/robsonrjan/GitLooker/issues");
+
+        private void editConfigurationToolStripMenuItem_Click(object sender, EventArgs e)
+            => StartProcess(AppConfiguration.Location);
     }
 }

@@ -34,7 +34,6 @@ namespace GitLooker.Services.CommandProcessor
                         result.Add(output);
 
                     pr.WaitForExit();
-
                 }
 
                 return result;

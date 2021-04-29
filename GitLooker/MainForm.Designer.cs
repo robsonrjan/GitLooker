@@ -66,6 +66,7 @@
             this.toolStripMenuItem15 = new System.Windows.Forms.ToolStripMenuItem();
             this.homeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.licenseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.reportAProblemToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripTextBox4 = new System.Windows.Forms.ToolStripTextBox();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
@@ -83,7 +84,9 @@
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.reposCatalogs = new System.Windows.Forms.TabControl();
-            this.reportAProblemToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.editConfigurationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             this.menuStrip1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -337,8 +340,11 @@
             // configurationToolStripMenuItem
             // 
             this.configurationToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.remoteReposConfigToolStripMenuItem,
+            this.editConfigurationToolStripMenuItem,
+            this.toolStripSeparator5,
             this.expectedReposConfigToolStripMenuItem,
+            this.remoteReposConfigToolStripMenuItem,
+            this.toolStripSeparator6,
             this.exortConfigurationToolStripMenuItem,
             this.importConfigurationToolStripMenuItem});
             this.configurationToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 10F);
@@ -410,6 +416,13 @@
             this.licenseToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.licenseToolStripMenuItem.Text = "License";
             this.licenseToolStripMenuItem.Click += new System.EventHandler(this.licenseToolStripMenuItem_Click);
+            // 
+            // reportAProblemToolStripMenuItem
+            // 
+            this.reportAProblemToolStripMenuItem.Name = "reportAProblemToolStripMenuItem";
+            this.reportAProblemToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.reportAProblemToolStripMenuItem.Text = "Report a problem";
+            this.reportAProblemToolStripMenuItem.Click += new System.EventHandler(this.reportAProblemToolStripMenuItem_Click);
             // 
             // toolStripMenuItem4
             // 
@@ -520,12 +533,22 @@
             this.reposCatalogs.Size = new System.Drawing.Size(584, 732);
             this.reposCatalogs.TabIndex = 1;
             // 
-            // reportAProblemToolStripMenuItem
+            // editConfigurationToolStripMenuItem
             // 
-            this.reportAProblemToolStripMenuItem.Name = "reportAProblemToolStripMenuItem";
-            this.reportAProblemToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.reportAProblemToolStripMenuItem.Text = "Report a problem";
-            this.reportAProblemToolStripMenuItem.Click += new System.EventHandler(this.reportAProblemToolStripMenuItem_Click);
+            this.editConfigurationToolStripMenuItem.Name = "editConfigurationToolStripMenuItem";
+            this.editConfigurationToolStripMenuItem.Size = new System.Drawing.Size(211, 24);
+            this.editConfigurationToolStripMenuItem.Text = "Edit configuration";
+            this.editConfigurationToolStripMenuItem.Click += new System.EventHandler(this.editConfigurationToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator5
+            // 
+            this.toolStripSeparator5.Name = "toolStripSeparator5";
+            this.toolStripSeparator5.Size = new System.Drawing.Size(208, 6);
+            // 
+            // toolStripSeparator6
+            // 
+            this.toolStripSeparator6.Name = "toolStripSeparator6";
+            this.toolStripSeparator6.Size = new System.Drawing.Size(208, 6);
             // 
             // MainForm
             // 
@@ -608,6 +631,9 @@
         private System.Windows.Forms.ToolStripMenuItem homeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem licenseToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem reportAProblemToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem editConfigurationToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
     }
 }
 
