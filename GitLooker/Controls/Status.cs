@@ -10,7 +10,7 @@ namespace GitLooker.Controls
         public Status(string text, Action forceWithRebase, bool canReset)
         {
             InitializeComponent();
-            this.textBox1.Text = text;
+            textBox1.Text = text;
             this.forceWithRebase = forceWithRebase;
             button1.Visible = canReset;
         }
@@ -18,7 +18,7 @@ namespace GitLooker.Controls
         private void Button1_Click(object sender, EventArgs e)
         {
             forceWithRebase?.Invoke();
-            this.Close();
+            Close();
         }
 
     }

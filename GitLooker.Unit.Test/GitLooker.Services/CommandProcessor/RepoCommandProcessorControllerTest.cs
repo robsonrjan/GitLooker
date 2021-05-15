@@ -131,42 +131,42 @@ namespace GitLooker.Unit.Test.GitLooker.Services.CommandProcessor
         {
             public AppResult<IEnumerable<string>> CheckOutBranch(string workingDir, string branch)
             {
-                RepoCommandProcessorControllerTest.hasBeenExecuted = true;
+                hasBeenExecuted = true;
                 executionCount++;
                 return new AppResult<IEnumerable<string>>(new[] { nameof(CheckOutBranch) });
             }
 
             public AppResult<IEnumerable<string>> CheckRepo(string workingDir)
             {
-                RepoCommandProcessorControllerTest.hasBeenExecuted = true;
+                hasBeenExecuted = true;
                 executionCount++;
                 return new AppResult<IEnumerable<string>>(new[] { nameof(CheckRepo) }); ;
             }
 
             public AppResult<IEnumerable<string>> ClonRepo(string workingDir, string repoConfig)
             {
-                RepoCommandProcessorControllerTest.hasBeenExecuted = true;
+                hasBeenExecuted = true;
                 executionCount++;
                 return new AppResult<IEnumerable<string>>(new[] { nameof(ClonRepo) }); ;
             }
 
             public AppResult<IEnumerable<string>> PullRepo(string workingDir)
             {
-                RepoCommandProcessorControllerTest.hasBeenExecuted = true;
+                hasBeenExecuted = true;
                 executionCount++;
                 return new AppResult<IEnumerable<string>>(new[] { nameof(PullRepo) }); ;
             }
 
             public AppResult<IEnumerable<string>> RemoteConfig(string workingDir)
             {
-                RepoCommandProcessorControllerTest.hasBeenExecuted = true;
+                hasBeenExecuted = true;
                 executionCount++;
                 return new AppResult<IEnumerable<string>>(new[] { nameof(RemoteConfig) }); ;
             }
 
             public AppResult<IEnumerable<string>> ResetRepo(string workingDi)
             {
-                RepoCommandProcessorControllerTest.hasBeenExecuted = true;
+                hasBeenExecuted = true;
                 executionCount++;
                 return new AppResult<IEnumerable<string>>(new[] { nameof(ResetRepo) }); ;
             }

@@ -3,6 +3,7 @@ using GitLooker.Core.Services;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -16,7 +17,6 @@ namespace GitLooker.Controls
         private DirectoryInfo workingDir;
         private readonly IRepoCommandProcessorController commandProcessor;
         private string repoPath;
-        private string currentRespond;
         private string branchOn = "Pull current branch";
         private string newRepoConfiguration;
         private bool canReset;
@@ -35,21 +35,23 @@ namespace GitLooker.Controls
         public Control EndControl { get; set; }
         public string NewRepo { get => newRepoConfiguration; set => newRepoConfiguration = value ?? string.Empty; }
         public string MainBranch { get => mainBranch; set => mainBranch = value ?? string.Empty; }
+        private readonly SortedDictionary<DateTime, string> allResponds;
 
         public RepoControl(IRepoCommandProcessorController commandProcessor)
         {
             InitializeComponent();
             this.commandProcessor = commandProcessor;
-            toolTip1.SetToolTip(this.button1, "pull");
+            toolTip1.SetToolTip(button1, "pull");
             button1.Enabled = false;
+            allResponds = new SortedDictionary<DateTime, string>();
         }
 
         protected override void OnLoad(EventArgs e)
         {
-            this.label1.Text = this.repoPath;
-            RepoName = this.repoPath?.Split('\\').LastOrDefault() ?? string.Empty;
+            label1.Text = repoPath;
+            RepoName = repoPath?.Split('\\').LastOrDefault() ?? string.Empty;
             workingDir = new DirectoryInfo(repoPath);
-            this.label1.Text = workingDir.Name;
+            label1.Text = workingDir.Name;
             IsNew = !string.IsNullOrEmpty(newRepoConfiguration);
             if (IsNew)
                 ConfigureAsToClone();
@@ -69,14 +71,17 @@ namespace GitLooker.Controls
             }
         }
 
+        private string GetRespond
+            => string.Join(Environment.NewLine, allResponds.Select(keyPair => $"------ Sesion: {keyPair.Key.ToString(CultureInfo.CurrentCulture.DateTimeFormat.LongTimePattern)}   {keyPair.Key.ToString(CultureInfo.CurrentCulture.DateTimeFormat.LongDatePattern)}{Environment.NewLine}{keyPair.Value}{Environment.NewLine}").ToArray());
+
         private void ConfigureAsToClone()
         {
-            this.button2.BackgroundImage = global::GitLooker.Properties.Resources.cancel;
-            this.button1.BackgroundImage = global::GitLooker.Properties.Resources.cancel;
-            this.button1.Enabled = false;
-            this.button2.Enabled = false;
-            this.toolTip1.SetToolTip(this.button1, "repo to clone");
-            this.label1.Text = GetNewRepoName;
+            button2.BackgroundImage = Properties.Resources.cancel;
+            button1.BackgroundImage = Properties.Resources.cancel;
+            button1.Enabled = false;
+            button2.Enabled = false;
+            toolTip1.SetToolTip(button1, "repo to clone");
+            label1.Text = GetNewRepoName;
             RepoConfiguration = newRepoConfiguration;
         }
 
@@ -88,7 +93,7 @@ namespace GitLooker.Controls
 
             if (!Directory.Exists(workingDir.FullName))
             {
-                this.Dispose();
+                Dispose();
                 return;
             }
 
@@ -116,30 +121,30 @@ namespace GitLooker.Controls
                     CheckStatus(returnValue.Value.SelectMany(v => v));
                 }
 
-                currentRespond += string.Join(Environment.NewLine, returnValue.Value.SelectMany(v => v).ToArray());
-                this.Invoke(new Action(() => { this.label1.ForeColor = Color.Navy; }), default);
+                allResponds.Add(DateTime.Now, string.Join(Environment.NewLine, returnValue.Value.SelectMany(v => v).ToArray()));
+                Invoke(new Action(() => { label1.ForeColor = Color.Navy; }), default);
             }
             else
                 SetErrorForRepo(returnValue.Error.FirstOrDefault());
         }
 
-        public void HighlightLabel() => this.label1.ForeColor = Color.DarkGreen;
+        public void HighlightLabel() => label1.ForeColor = Color.DarkGreen;
 
         private void SetErrorForRepo(Exception ex = default)
         {
             if (ex != default)
             {
-                currentRespond = ex.Message;
-                this.Invoke(new Action(() => SetErrorForRepo()), default);
+                allResponds.Add(DateTime.Now, ex.Message);
+                Invoke(new Action(() => SetErrorForRepo()), default);
                 return;
             }
 
-            this.label1.ForeColor = Color.Red;
-            this.button2.BackgroundImage = global::GitLooker.Properties.Resources.agt_action_fail;
-            this.button1.BackgroundImage = global::GitLooker.Properties.Resources.agt_action_fail;
+            label1.ForeColor = Color.Red;
+            button2.BackgroundImage = Properties.Resources.agt_action_fail;
+            button1.BackgroundImage = Properties.Resources.agt_action_fail;
             Application.DoEvents();
             Application.DoEvents();
-            this.button1.Enabled = false;
+            button1.Enabled = false;
         }
 
         private bool CheckIfExist(IEnumerable<string> responseValue)
@@ -156,11 +161,11 @@ namespace GitLooker.Controls
             {
                 IsConnectionError = true;
                 returnValue = false;
-                this.Invoke(new Action(() =>
+                Invoke(new Action(() =>
                 {
-                    this.button2.BackgroundImage = Properties.Resources.agt_action_fail;
-                    this.button1.BackgroundImage = Properties.Resources.checkmark;
-                    this.SendToBack();
+                    button2.BackgroundImage = Properties.Resources.agt_action_fail;
+                    button1.BackgroundImage = Properties.Resources.checkmark;
+                    SendToBack();
                 }), default);
             }
             else if (responseValue.Any(respound => respound.ToLowerInvariant().Contains("could not resolve host:")
@@ -168,11 +173,11 @@ namespace GitLooker.Controls
             {
                 IsConnectionError = true;
                 returnValue = false;
-                this.Invoke(new Action(() =>
+                Invoke(new Action(() =>
                 {
-                    this.button2.BackgroundImage = Properties.Resources.checkmark;
-                    this.button1.BackgroundImage = Properties.Resources.networkx;
-                    this.SendToBack();
+                    button2.BackgroundImage = Properties.Resources.checkmark;
+                    button1.BackgroundImage = Properties.Resources.networkx;
+                    SendToBack();
                 }), default);
             }
             return returnValue;
@@ -183,37 +188,37 @@ namespace GitLooker.Controls
             bool needToPush = returnValue.Any(rtn => rtn.Contains("git push") || rtn.Contains("git add") || rtn.Contains("git checkout "));
             IsMainBranch = branchOn.EndsWith(mainBranch);
             canReset = true && needToPush && IsMainBranch;
-            this.CanPull = false;
+            CanPull = false;
 
             if (!needToPush && returnValue.Any(rtn => rtn.Contains("branch is behind")))
             {
                 IsNeededUpdate = true;
-                this.Invoke(new Action(() =>
+                Invoke(new Action(() =>
                 {
-                    this.button2.BackgroundImage = global::GitLooker.Properties.Resources.checkmark;
-                    this.button1.BackgroundImage = global::GitLooker.Properties.Resources.agt_update_misc;
-                    this.button1.Enabled = true;
-                    this.SendToBack();
-                    this.CanPull = true;
+                    button2.BackgroundImage = Properties.Resources.checkmark;
+                    button1.BackgroundImage = Properties.Resources.agt_update_misc;
+                    button1.Enabled = true;
+                    SendToBack();
+                    CanPull = true;
                 }), default);
             }
             else if (needToPush)
             {
                 IsNeededUpdate = true;
-                this.Invoke(new Action(() =>
+                Invoke(new Action(() =>
                 {
-                    this.button2.BackgroundImage = global::GitLooker.Properties.Resources.move_task_up;
-                    this.button1.BackgroundImage = global::GitLooker.Properties.Resources.agt_add_to_autorun;
+                    button2.BackgroundImage = Properties.Resources.move_task_up;
+                    button1.BackgroundImage = Properties.Resources.agt_add_to_autorun;
                 }));
             }
             else
             {
-                this.Invoke(new Action(() =>
+                Invoke(new Action(() =>
                 {
-                    this.button2.BackgroundImage = global::GitLooker.Properties.Resources.button_ok;
-                    this.button1.BackgroundImage = global::GitLooker.Properties.Resources.checkedbox;
+                    button2.BackgroundImage = Properties.Resources.button_ok;
+                    button1.BackgroundImage = Properties.Resources.checkedbox;
                     if (IsMainBranch)
-                        this.BringToFront();
+                        BringToFront();
                 }), default);
             }
         }
@@ -223,9 +228,9 @@ namespace GitLooker.Controls
             if (returnValue.Any(rtn => rtn.StartsWith("on branch")))
             {
                 branchOn = string.Format("Working {0}", returnValue.FirstOrDefault(x => x.StartsWith("on branch")));
-                this.Invoke(new Action(() =>
+                Invoke(new Action(() =>
                 {
-                    this.label2.Text = branchOn;
+                    label2.Text = branchOn;
                 }), default);
             }
         }
@@ -234,7 +239,6 @@ namespace GitLooker.Controls
 
         private void Button1_Click(object sender, EventArgs e)
         {
-            currentRespond = string.Empty;
             var currentBranch = label1.Text;
             Task.Factory.StartNew(() => PullRepoProcess(currentBranch));
             MarkControl();
@@ -258,16 +262,13 @@ namespace GitLooker.Controls
 
         private void Button2_Click(object sender, EventArgs e)
         {
-            var status = new Status(currentRespond, () => DelegateResetMethod(), canReset);
+            var status = new Status(GetRespond, () => DelegateResetMethod(), canReset);
             status.ShowDialog();
             MarkControl();
         }
 
         private void DelegateResetMethod()
-        {
-            currentRespond = string.Empty;
-            Task.Factory.StartNew(() => ResetRepoProcess());
-        }
+            => Task.Factory.StartNew(() => ResetRepoProcess());
 
         private void ResetRepoProcess()
             => RunCommands(new[] { "ResetRepo", "CheckRepo" });
@@ -291,11 +292,11 @@ namespace GitLooker.Controls
             foreach (var command in commnds)
                 commandList.Add(commandProcessor.CommonCommandActions.FirstOrDefault(k => k.Name == command));
 
-            this.Invoke(new Action(() => { this.button2.Enabled = this.button1.Enabled = false; }), default);
+            Invoke(new Action(() => { button2.Enabled = button1.Enabled = false; }), default);
             var result = commandProcessor.Execute(commandList, parameters, () => Invoke(new Action(() => HighlightLabel()), default));
 
             SetStatusAfterCommandProcess(result);
-            this.Invoke(new Action(() => { button2.Enabled = true; }), default);
+            Invoke(new Action(() => { button2.Enabled = true; }), default);
             return result;
         }
     }

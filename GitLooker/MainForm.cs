@@ -107,8 +107,8 @@ namespace GitLooker
                 MessageBox.Show("No repositories configured.");
             }
 
-            this.Text = $"Git branch changes looker    ver.{AppVersion.AssemblyVersion}";
-            this.notifyIcon1.Text = this.Text;
+            Text = $"Git branch changes looker    ver.{AppVersion.AssemblyVersion}";
+            notifyIcon1.Text = Text;
         }
 
         private void ThumbnailToolShow()
@@ -123,7 +123,7 @@ namespace GitLooker
             }
 
             if (buttonForTaskList.Any())
-                TaskbarManager.Instance.ThumbnailToolBars.AddButtons(this.Handle, buttonForTaskList.ToArray());
+                TaskbarManager.Instance.ThumbnailToolBars.AddButtons(Handle, buttonForTaskList.ToArray());
         }
 
         private void UptateToolBars(object sender, ThumbnailButtonClickedEventArgs e)
@@ -172,7 +172,7 @@ namespace GitLooker
 
         private void SetState()
         {
-            this.toolTip1.SetToolTip(this.reposCatalogs, currentTabControl.RepoConfiguration.GitLookerPath);
+            toolTip1.SetToolTip(reposCatalogs, currentTabControl.RepoConfiguration.GitLookerPath);
 
             SetMenueCheckerValue();
             toolStripTextBox1.Text = currentTabControl.RepoConfiguration.MainBranch;
@@ -184,7 +184,7 @@ namespace GitLooker
         }
 
         private void SemaphoreIsUsed(bool isProccesing)
-            => this.Invoke(new Action(() =>
+            => Invoke(new Action(() =>
             {
                 if (!isProccesing)
                 {
@@ -259,7 +259,7 @@ namespace GitLooker
         private void Repo_OnSelectRepo(RepoControl control)
         {
             currentRepo = control;
-            currentRepo.ContextMenuStrip = this.contextMenuStrip1;
+            currentRepo.ContextMenuStrip = contextMenuStrip1;
         }
 
         private void CheckToolStripMenuItem_Click(object sender, EventArgs e) => UpdateAll();
@@ -394,7 +394,7 @@ namespace GitLooker
                 var repoPath = $@"{currentTabControl.RepoConfiguration.GitLookerPath}\{ctr.GetNewRepoName}";
                 if (Directory.Exists(repoPath))
                 {
-                    this.Invoke(new Action(() =>
+                    Invoke(new Action(() =>
                     {
                         currentTabControl.RepoRemove(ctr);
                         Application.DoEvents();
@@ -404,7 +404,7 @@ namespace GitLooker
                 }
                 else
                 {
-                    this.Invoke(new Action(() => RemoveUnUsed(ctr)), default);
+                    Invoke(new Action(() => RemoveUnUsed(ctr)), default);
                 }
             }
             catch (Exception ex) { MessageBox.Show(ex.Message, "Exception", MessageBoxButtons.OK, MessageBoxIcon.Error); }
@@ -485,7 +485,7 @@ namespace GitLooker
         private void toolStripMenuItem7_Click(object sender, EventArgs e)
         {
             if (currentRepo != default)
-                System.Diagnostics.Process.Start("explorer", currentRepo.RepoPath);
+                Process.Start("explorer", currentRepo.RepoPath);
         }
 
         private void SaveConfiguration(object sender, KeyEventArgs e)
@@ -508,9 +508,9 @@ namespace GitLooker
             try
             {
                 if (!string.IsNullOrWhiteSpace(toolStripTextBox2.Text) && (currentRepo != default))
-                    System.Diagnostics.Process.Start(toolStripTextBox2.Text, $@"{PrepareArgument(toolStripTextBox3.Text)}""{currentRepo.RepoPath}""");
+                    Process.Start(toolStripTextBox2.Text, $@"{PrepareArgument(toolStripTextBox3.Text)}""{currentRepo.RepoPath}""");
             }
-            catch (Exception ex) { MessageBox.Show(ex.Message, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error); }
+            catch (Exception ex) { MessageBox.Show(ex.Message, Text, MessageBoxButtons.OK, MessageBoxIcon.Error); }
         }
 
         private void toolStripMenuItem14_Click(object sender, EventArgs e)
@@ -628,7 +628,7 @@ namespace GitLooker
         }
 
         private void notifyIcon1_DoubleClick(object sender, EventArgs e)
-            => this.WindowState = FormWindowState.Normal;
+            => WindowState = FormWindowState.Normal;
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
@@ -681,12 +681,12 @@ namespace GitLooker
                                 if (task.IsCompleted)
                                     ExecuteProjectManager(toolStripTextBox5.Text, true);
                                 else if (task.Exception != default)
-                                    MessageBox.Show(task.Exception.Message, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    MessageBox.Show(task.Exception.Message, Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
                             });
                 else if (!string.IsNullOrWhiteSpace(toolStripTextBox5.Text))
                     ExecuteProjectManager(toolStripTextBox5.Text, false);
             }
-            catch (Exception ex) { MessageBox.Show(ex.Message, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error); }
+            catch (Exception ex) { MessageBox.Show(ex.Message, Text, MessageBoxButtons.OK, MessageBoxIcon.Error); }
 
             return Task.CompletedTask;
         }
@@ -715,14 +715,14 @@ namespace GitLooker
                         mainProjectFile = projectFiles.First();
 
                     if (!string.IsNullOrWhiteSpace(path))
-                        System.Diagnostics.Process.Start(path, $@"{PrepareArgument(toolStripTextBox6.Text)}""{mainProjectFile}""");
+                        Process.Start(path, $@"{PrepareArgument(toolStripTextBox6.Text)}""{mainProjectFile}""");
                     else
-                        System.Diagnostics.Process.Start($@"""{mainProjectFile}""");
+                        Process.Start($@"""{mainProjectFile}""");
                 }
                 else if (!isExtension && !string.IsNullOrWhiteSpace(path))
-                    System.Diagnostics.Process.Start(path, $@"{PrepareArgument(toolStripTextBox6.Text)}""{currentRepo.RepoPath}""");
+                    Process.Start(path, $@"{PrepareArgument(toolStripTextBox6.Text)}""{currentRepo.RepoPath}""");
             }
-            catch (Exception ex) { MessageBox.Show(ex.Message, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error); }
+            catch (Exception ex) { MessageBox.Show(ex.Message, Text, MessageBoxButtons.OK, MessageBoxIcon.Error); }
         }
 
         private string PrepareArgument(string argument)

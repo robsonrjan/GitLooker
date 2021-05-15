@@ -22,8 +22,8 @@ namespace GitLooker.Unit.Test.GitLooker.Services.interceptors
         [SetUp]
         public void BeforeEach()
         {
-            var methodInfo1 = this.GetType().GetMethod("Execute");
-            var methodInfo2 = this.GetType().GetMethod("NoExecute");
+            var methodInfo1 = GetType().GetMethod("Execute");
+            var methodInfo2 = GetType().GetMethod("NoExecute");
             invocation1 = Mock.Of<Castle.DynamicProxy.IInvocation>();
             Mock.Get(invocation1).Setup(i => i.Method).Returns(methodInfo1);
             Mock.Get(invocation1).Setup(i => i.Proceed()).Callback(Execute);

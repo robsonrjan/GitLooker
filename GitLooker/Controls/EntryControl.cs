@@ -17,7 +17,7 @@ namespace GitLooker.Controls
             Dock = DockStyle.Top;
             FlatStyle = FlatStyle.Flat;
             FlatAppearance.BorderSize = 0;
-            Font = new Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(238)));
             Image = Properties.Resources.line;
             ImageAlign = ContentAlignment.BottomCenter;
             Location = new Point(0, 0);
@@ -33,12 +33,12 @@ namespace GitLooker.Controls
 
         private void EntryControl_LostFocus(object sender, EventArgs e)
         {
-            this.BackColor = Parent.BackColor;
+            BackColor = Parent.BackColor;
         }
 
         private void onFocus(object sender, EventArgs e)
         {
-            this.BackColor = Color.FromArgb(247, 247, 247);
+            BackColor = Color.FromArgb(247, 247, 247);
         }
     }
 }

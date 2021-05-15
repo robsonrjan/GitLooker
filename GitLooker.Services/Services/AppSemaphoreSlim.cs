@@ -18,7 +18,7 @@ namespace GitLooker.Services.Services
 
         public AppSemaphoreSlim(IAppConfiguration appConfiguration)
         {
-            this.repoProcessingCount = appConfiguration.RepoProcessingCount;
+            repoProcessingCount = appConfiguration.RepoProcessingCount;
             semaphoreSlim = new SemaphoreSlim(repoProcessingCount);
         }
 
