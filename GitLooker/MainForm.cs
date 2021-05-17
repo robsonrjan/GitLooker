@@ -266,7 +266,7 @@ namespace GitLooker
 
         private void UpdateAll(IEnumerable<string> cloneRepos = default)
         {
-            CheckForRemovedRepos()();
+            CheckForRemovedRepos();
 
             if (!currentTabControl.Any())
                 AddMissingRepositoriums(currentTabControl);
@@ -275,19 +275,18 @@ namespace GitLooker
                     cntr.UpdateRepoInfo();
         }
 
-        private Action CheckForRemovedRepos()
-            => () =>
-            {
-                var repoToRemove = currentTabControl.Where(r => r.IsNew && !currentTabControl.RepoConfiguration.ExpectedRemoteRepos.Contains(r.RepoConfiguration))
-                .ToList();
+        private void CheckForRemovedRepos()
+        {
+            var repoToRemove = currentTabControl.Where(r => r.IsNew && !currentTabControl.RepoConfiguration.ExpectedRemoteRepos.Contains(r.RepoConfiguration))
+            .ToList();
 
-                repoToRemove.AddRange(currentTabControl.Where(r => !Directory.Exists(r.RepoPath)));
+            repoToRemove.AddRange(currentTabControl.Where(r => !Directory.Exists(r.RepoPath)));
 
-                foreach (var repo in repoToRemove)
-                    currentTabControl.RepoRemove(repo);
+            foreach (var repo in repoToRemove)
+                currentTabControl.RepoRemove(repo);
 
-                toolStripMenuItem2.Visible = currentTabControl.Any(r => r.IsNew);
-            };
+            toolStripMenuItem2.Visible = currentTabControl.Any(r => r.IsNew);
+        }
 
         private void UpdateTimeInfo()
         {
@@ -335,7 +334,10 @@ namespace GitLooker
 
             currentTabControl.RepoConfiguration.ExpectedRemoteRepos = repoList.repoText.Lines.Select(ToLower).Distinct().ToList();
             appConfiguration.Save();
-            AddMissingRepositoriums(currentTabControl);
+
+            CheckForRemovedRepos();
+            if (currentTabControl.Any() && currentTabControl.ReposAllControl.Any(r => !string.IsNullOrWhiteSpace(r.RepoConfiguration)))
+                AddMissingRepositoriums(currentTabControl);
         }
 
         private async void toolStripMenuItem2_Click(object sender, EventArgs e)
