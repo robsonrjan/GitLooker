@@ -332,7 +332,7 @@ namespace GitLooker
             repoList.repoText.Lines = currentTabControl.RepoConfiguration.ExpectedRemoteRepos.ToArray();
             repoList.ShowDialog();
 
-            currentTabControl.RepoConfiguration.ExpectedRemoteRepos = repoList.repoText.Lines.Select(ToLower).Distinct().ToList();
+            currentTabControl.RepoConfiguration.ExpectedRemoteRepos = repoList.repoText.Lines.Select(ToLower).Distinct().Where(r => !string.IsNullOrWhiteSpace(r)).ToList();
             appConfiguration.Save();
 
             CheckForRemovedRepos();
