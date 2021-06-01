@@ -43,10 +43,11 @@ namespace GitLooker.Unit.Test.GitLooker.Services.Services
                 actionTasksList.Add(Task.Run(() =>
                 {
                     appSemaphoreSlim.Wait();
-                    Task.Delay(500);
+                    Task.Delay(500).GetAwaiter().GetResult();
                 }));
             }
             await Task.WhenAll(actionTasksList);
+            await Task.Delay(1000);
 
             reachMax.Should().BeTrue();
 
