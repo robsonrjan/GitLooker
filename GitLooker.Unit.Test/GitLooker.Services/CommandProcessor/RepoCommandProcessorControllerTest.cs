@@ -150,6 +150,11 @@ namespace GitLooker.Unit.Test.GitLooker.Services.CommandProcessor
                 return new AppResult<IEnumerable<string>>(new[] { nameof(ClonRepo) }); ;
             }
 
+            public AppResult<IEnumerable<string>> GetVersion(string executable = null)
+            {
+                throw new NotImplementedException();
+            }
+
             public AppResult<IEnumerable<string>> PullRepo(string workingDir)
             {
                 hasBeenExecuted = true;

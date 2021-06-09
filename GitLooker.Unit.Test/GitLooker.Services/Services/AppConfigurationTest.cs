@@ -1,6 +1,8 @@
 ﻿using FluentAssertions;
 using GitLooker.Core.Configuration;
+using GitLooker.Core.Validators;
 using GitLooker.Services.Configuration;
+using Moq;
 using Newtonsoft.Json;
 using NUnit.Framework;
 using System;
@@ -16,11 +18,13 @@ namespace GitLooker.Unit.Test.GitLooker.Services.Services
     {
         private AppConfiguration testedObj;
         private string appConfigPileFullPath;
+        private IGitValidator gitValidator;
 
         [SetUp]
         public void BeforeEach()
         {
-            testedObj = new AppConfiguration(Environment.CurrentDirectory);
+            gitValidator = Mock.Of<IGitValidator>();
+            testedObj = new AppConfiguration(gitValidator, Environment.CurrentDirectory);
             appConfigPileFullPath = $"{Environment.CurrentDirectory}\\GitLooker\\GitLookerConfig.json";
         }
 
@@ -40,7 +44,7 @@ namespace GitLooker.Unit.Test.GitLooker.Services.Services
 
             appConfig.Should().BeNull();
             testedObj.RepoProcessingCount.Should().Be(3);
-            testedObj.Version.Should().Be("1.0.1");
+            testedObj.Version.Should().Be("1.0.2");
         }
 
         [Test]
@@ -56,7 +60,7 @@ namespace GitLooker.Unit.Test.GitLooker.Services.Services
 
             appConfig.Should().BeNull();
             testedObj.RepoProcessingCount.Should().Be(99);
-            testedObj.Version.Should().Be("1.0.1");
+            testedObj.Version.Should().Be("1.0.2");
         }
 
         private RepoConfigOldVer CreateNewAppConfig()

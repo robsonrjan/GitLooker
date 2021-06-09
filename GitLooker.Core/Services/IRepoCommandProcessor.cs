@@ -2,7 +2,7 @@
 
 namespace GitLooker.Core.Services
 {
-    public interface IRepoCommandProcessor
+    public interface IRepoCommandProcessor : IGitVersion
     {
         AppResult<IEnumerable<string>> CheckRepo(string workingDir);
         AppResult<IEnumerable<string>> PullRepo(string workingDir);

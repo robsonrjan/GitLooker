@@ -93,6 +93,8 @@ namespace GitLooker
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            notifyIcon1.Text = Text = $"Repos watcher ver.{AppVersion.AssemblyVersion}";
+            CheckGitSetup();
             if (appConfiguration.Any())
             {
                 tabsRepoBuilder.BuildTabs(reposCatalogs, Repo_OnSelectRepo);
@@ -106,9 +108,18 @@ namespace GitLooker
                 SetMenuFunctionIfNoRepos(true);
                 MessageBox.Show("No repositories configured.");
             }
+        }
 
-            Text = $"Git branch changes looker    ver.{AppVersion.AssemblyVersion}";
-            notifyIcon1.Text = Text;
+        private void CheckGitSetup()
+        {
+            if (string.IsNullOrWhiteSpace(appConfiguration.GitVersion))
+            {
+                MessageBox.Show($"There is no Git installed or not configured.{Environment.NewLine}From 'Configuration' choose 'Edit configuration' and fill 'GitLocation' section then restart application.", "Git configuration", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                checkToolStripMenuItem.Visible = false;
+                toolStripMenuItem2.Visible = false;
+            }
+            else
+                Text = $"{Text}, Git ver.{appConfiguration.GitVersion}";
         }
 
         private void ThumbnailToolShow()
@@ -266,6 +277,9 @@ namespace GitLooker
 
         private void UpdateAll(IEnumerable<string> cloneRepos = default)
         {
+            if (string.IsNullOrWhiteSpace(appConfiguration.GitVersion))
+                return;
+
             CheckForRemovedRepos();
 
             if (!currentTabControl.Any())

@@ -1,4 +1,5 @@
 ﻿using GitLooker.Core.Configuration;
+using GitLooker.Core.Validators;
 using Newtonsoft.Json;
 using System;
 using System.Collections;
@@ -12,17 +13,20 @@ namespace GitLooker.Services.Configuration
         private const string appConfigFileName = "GitLookerConfig.json";
         private readonly string appConfigPath;
         private readonly string appConfigFullPath;
+        private readonly IGitValidator gitValidator;
+
         private AppConfig appConfig;
 
         public static string Location { get; private set; }
 
-        public AppConfiguration(string configFilePath = default)
+        public AppConfiguration(IGitValidator gitValidator, string configFilePath = default)
         {
             var configDir = configFilePath ?? Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
             appConfigPath = $"{configDir}\\GitLooker";
             appConfigFullPath = $"{appConfigPath}\\{appConfigFileName}";
 
             Location = appConfigFullPath;
+            this.gitValidator = gitValidator;
 
             if (!Directory.Exists(appConfigPath))
                 Directory.CreateDirectory(appConfigPath);
@@ -41,6 +45,12 @@ namespace GitLooker.Services.Configuration
 
                 if (!CheckForOldConfigAndConvertToNew(configText))
                     appConfig = JsonConvert.DeserializeObject<AppConfig>(configText);
+
+                if (!appConfig.Version.Equals(AppConfig.CurrentVersion))
+                {
+                    appConfig.Version = AppConfig.CurrentVersion;
+                    SaveConfig();
+                }
             }
             catch (Exception)
             {
@@ -48,11 +58,28 @@ namespace GitLooker.Services.Configuration
                 throw;
             }
             Validate();
+
+            if (gitValidator.TryToFind(appConfig.GitLocation, out var gitInfo))
+            {
+                if (string.IsNullOrWhiteSpace(appConfig.GitLocation))
+                {
+                    appConfig.GitLocation = gitInfo.Executable;
+                    SaveConfig();
+                }
+                GitVersion = gitInfo.Version;
+            }
+            else
+            {
+                appConfig.GitLocation = default;
+                SaveConfig();
+            }
         }
 
         public string Version => appConfig.Version;
 
         public virtual int RepoProcessingCount => appConfig.RepoProcessingCount;
+
+        public string GitVersion { get; set; }
 
         public virtual void Save() => SaveConfig();
 

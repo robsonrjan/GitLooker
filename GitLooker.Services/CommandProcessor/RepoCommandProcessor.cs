@@ -8,7 +8,7 @@ namespace GitLooker.Services.CommandProcessor
 {
     public class RepoCommandProcessor : IRepoCommandProcessor
     {
-        private const string Executable = "git";
+        internal static string Executable = "git";
 
         private static Command commandUpdate(string workingDir) => new Command { Exec = Executable, Args = string.Format("-C \"{0}\" remote update", workingDir) };
         private static Command commandStatus(string workingDir) => new Command { Exec = Executable, Args = string.Format("-C \"{0}\"  status", workingDir) };
@@ -18,6 +18,7 @@ namespace GitLooker.Services.CommandProcessor
         private static Command commandRemoteConfig(string workingDir) => new Command { Exec = Executable, Args = string.Format("-C \"{0}\"  remote -v", workingDir) };
         private static Command commandCloneRepo(string workingDir, string repoConfig) => new Command { Exec = Executable, Args = string.Format("-C \"{0}\"  clone {1}", workingDir, repoConfig) };
         private static Command commandCheckOut(string workingDir, string branch) => new Command { Exec = Executable, Args = string.Format("-C \"{0}\"  checkout \"{1}\"", workingDir, branch) };
+        private static Command version(string executable = default) => new Command { Exec = executable ?? Executable, Args = "--version" };
 
         private readonly IProcessShell processShell;
 
@@ -54,6 +55,16 @@ namespace GitLooker.Services.CommandProcessor
         private static IEnumerable<Command> GenerateCheckOutCommand(string workingDir, string branch) => new Command[] {
                 commandCheckOut(workingDir, branch)
             };
+
+        public AppResult<IEnumerable<string>> GetVersion(string executable = default)
+        {
+            var result = ReturnValue(processShell.Execute(new[] { version(executable) }));
+
+            if (result.IsSuccess && !string.IsNullOrWhiteSpace(executable))
+                Executable = executable;
+
+            return result;
+        }
 
         public AppResult<IEnumerable<string>> CheckRepo(string workingDir)
         {

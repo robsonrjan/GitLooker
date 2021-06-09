@@ -4,6 +4,7 @@ using GitLooker.Core.Configuration;
 using GitLooker.Core.Repository;
 using GitLooker.Core.Services;
 using GitLooker.Core.Startup;
+using GitLooker.Core.Validators;
 using GitLooker.Services.CommandProcessor;
 using GitLooker.Services.Configuration;
 using GitLooker.Services.interceptors;
@@ -27,6 +28,8 @@ namespace GitLooker.CompositionRoot
                 .AddSingleton<IProjectFileRepo, ProjectFileRepo>()
                 .AddSingleton<ITabsRepoBuilder, TabsRepoBuilder>()
                 .AddSingleton<IAppSemaphoreSlim, AppSemaphoreSlim>()
+                .AddSingleton<IGitVersion, RepoCommandProcessor>()
+                .AddSingleton<IGitValidator, GitValidator>()
                 .AddTransient<IProcessShell, ProcessShell>()
                 .AddTransient<IRepoCommandProcessor, RepoCommandProcessor>()
                 .AddTransient<RepoCommandProcessorController>()
