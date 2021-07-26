@@ -230,7 +230,18 @@ namespace GitLooker
             checkToolStripMenuItem.Enabled = true;
             toolStripMenuItem1.Visible = false;
             UpdateTabButtonIcon();
+            UpdateExpectedRepos();
             await Task.CompletedTask;
+        }
+
+        private void UpdateExpectedRepos()
+        {
+            currentTabControl.Where(r => r.IsNew)
+                .ToList().ForEach(r =>
+                {
+                    if (currentTabControl.Any(c => !c.IsNew && string.Equals(c.RepoConfiguration, r.NewRepo, StringComparison.InvariantCultureIgnoreCase)))
+                        currentTabControl.RepoRemove(r);
+                });
         }
 
         private void UpdateTabButtonIcon()

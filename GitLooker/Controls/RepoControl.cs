@@ -62,7 +62,7 @@ namespace GitLooker.Controls
         {
             get
             {
-                if (newRepoName == default(string))
+                if (newRepoName == default)
                 {
                     var parts = newRepoConfiguration.Split('/');
                     newRepoName = parts[parts.Length - 1].Replace(".git", "");
