@@ -1,9 +1,6 @@
 ﻿using GitLooker.Core.Repository;
 using GitLooker.Core.Services;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace GitLooker.Services.Services
 {

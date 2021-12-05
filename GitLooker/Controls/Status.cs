@@ -1,7 +1,4 @@
-﻿using System;
-using System.Windows.Forms;
-
-namespace GitLooker.Controls
+﻿namespace GitLooker.Controls
 {
     public partial class Status : Form
     {

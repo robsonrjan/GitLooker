@@ -1,7 +1,5 @@
 ﻿using GitLooker.Core;
 using GitLooker.Core.Services;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 
 namespace GitLooker.Services.CommandProcessor

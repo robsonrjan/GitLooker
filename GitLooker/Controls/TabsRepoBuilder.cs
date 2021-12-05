@@ -1,10 +1,6 @@
 ﻿using GitLooker.Core.Configuration;
 using GitLooker.Core.Repository;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Drawing;
-using System.IO;
-using System.Windows.Forms;
 using static GitLooker.Controls.RepoControl;
 
 namespace GitLooker.Controls

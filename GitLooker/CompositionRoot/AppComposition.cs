@@ -30,6 +30,7 @@ namespace GitLooker.CompositionRoot
                 .AddSingleton<IAppSemaphoreSlim, AppSemaphoreSlim>()
                 .AddSingleton<IGitVersion, RepoCommandProcessor>()
                 .AddSingleton<IGitValidator, GitValidator>()
+                .AddSingleton(typeof(ILoggingService<>), typeof(LoggingService<>))
                 .AddTransient<IProcessShell, ProcessShell>()
                 .AddTransient<IRepoCommandProcessor, RepoCommandProcessor>()
                 .AddTransient<RepoCommandProcessorController>()

@@ -1,14 +1,7 @@
 ﻿using GitLooker.Core;
 using GitLooker.Core.Services;
-using System;
-using System.Collections.Generic;
-using System.Drawing;
 using System.Globalization;
-using System.IO;
-using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace GitLooker.Controls
 {

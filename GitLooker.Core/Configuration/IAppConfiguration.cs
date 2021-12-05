@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace GitLooker.Core.Configuration
+﻿namespace GitLooker.Core.Configuration
 {
     public interface IAppConfiguration : IEnumerable<RepoConfig>
     {

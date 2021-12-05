@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace GitLooker.Core.Repository
+﻿namespace GitLooker.Core.Repository
 {
     public interface IGitFileRepo
     {

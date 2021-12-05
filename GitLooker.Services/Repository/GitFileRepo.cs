@@ -1,7 +1,4 @@
 ﻿using GitLooker.Core.Repository;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 
 namespace GitLooker.Services.Repository
 {

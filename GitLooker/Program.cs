@@ -1,17 +1,16 @@
 ﻿using GitLooker.CompositionRoot;
 using GitLooker.Core.Startup;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.IO;
-using System.Windows.Forms;
 
 namespace GitLooker
 {
     static class Program
     {
         [STAThread]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Usage", "CA2208:Instantiate argument exceptions correctly", Justification = "<Pending>")]
         static void Main(string[] arg)
         {
+            IStartup? app;
             try
             {
                 BeforeStart();
@@ -20,7 +19,8 @@ namespace GitLooker
                 servises.AddApp();
 
                 using var servisesProvider = servises.BuildServiceProvider();
-                servisesProvider.GetService<IStartup>().StartApp(arg);
+                if ((app = servisesProvider?.GetService<IStartup>()) == null) throw new ArgumentNullException(nameof(servisesProvider));
+                app.StartApp(arg);
             }
             catch (Exception ex)
             {

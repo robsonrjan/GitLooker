@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Windows.Forms;
-
-namespace GitLooker.Controls
+﻿namespace GitLooker.Controls
 {
     public class RepoSources : Form
     {

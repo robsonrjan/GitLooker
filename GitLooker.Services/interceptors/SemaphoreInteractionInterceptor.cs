@@ -1,8 +1,6 @@
 ﻿using Castle.DynamicProxy;
 using GitLooker.Core;
 using GitLooker.Core.Services;
-using System;
-using System.Collections.Generic;
 
 namespace GitLooker.Services.interceptors
 {

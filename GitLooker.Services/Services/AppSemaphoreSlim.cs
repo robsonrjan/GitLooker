@@ -1,8 +1,5 @@
 ﻿using GitLooker.Core.Configuration;
 using GitLooker.Core.Services;
-using System;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace GitLooker.Services.Services
 {

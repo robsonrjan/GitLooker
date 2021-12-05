@@ -2,8 +2,6 @@
 using GitLooker.Core.Services;
 using GitLooker.Core.Validators;
 using GitLooker.Services.CommandProcessor;
-using System;
-using System.Linq;
 
 namespace GitLooker.Services.Configuration
 {

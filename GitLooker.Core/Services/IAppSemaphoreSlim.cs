@@ -1,7 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
-
-namespace GitLooker.Core.Services
+﻿namespace GitLooker.Core.Services
 {
     public interface IAppSemaphoreSlim : IDisposable
     {

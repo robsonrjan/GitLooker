@@ -58,8 +58,11 @@
             this.pullAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.configurationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.remoteReposConfigToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.editConfigurationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.expectedReposConfigToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.remoteReposConfigToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             this.exortConfigurationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.importConfigurationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
@@ -84,9 +87,6 @@
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.reposCatalogs = new System.Windows.Forms.TabControl();
-            this.editConfigurationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             this.menuStrip1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -352,6 +352,25 @@
             this.configurationToolStripMenuItem.Size = new System.Drawing.Size(105, 23);
             this.configurationToolStripMenuItem.Text = "Configuration";
             // 
+            // editConfigurationToolStripMenuItem
+            // 
+            this.editConfigurationToolStripMenuItem.Name = "editConfigurationToolStripMenuItem";
+            this.editConfigurationToolStripMenuItem.Size = new System.Drawing.Size(211, 24);
+            this.editConfigurationToolStripMenuItem.Text = "Edit configuration";
+            this.editConfigurationToolStripMenuItem.Click += new System.EventHandler(this.editConfigurationToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator5
+            // 
+            this.toolStripSeparator5.Name = "toolStripSeparator5";
+            this.toolStripSeparator5.Size = new System.Drawing.Size(208, 6);
+            // 
+            // expectedReposConfigToolStripMenuItem
+            // 
+            this.expectedReposConfigToolStripMenuItem.Name = "expectedReposConfigToolStripMenuItem";
+            this.expectedReposConfigToolStripMenuItem.Size = new System.Drawing.Size(205, 24);
+            this.expectedReposConfigToolStripMenuItem.Text = "Repos to clone";
+            this.expectedReposConfigToolStripMenuItem.Click += new System.EventHandler(this.expectedReposConfigToolStripMenuItem_Click);
+            // 
             // remoteReposConfigToolStripMenuItem
             // 
             this.remoteReposConfigToolStripMenuItem.Name = "remoteReposConfigToolStripMenuItem";
@@ -359,12 +378,10 @@
             this.remoteReposConfigToolStripMenuItem.Text = "Remote repos config";
             this.remoteReposConfigToolStripMenuItem.Click += new System.EventHandler(this.remoteReposConfigToolStripMenuItem_Click);
             // 
-            // expectedReposConfigToolStripMenuItem
+            // toolStripSeparator6
             // 
-            this.expectedReposConfigToolStripMenuItem.Name = "expectedReposConfigToolStripMenuItem";
-            this.expectedReposConfigToolStripMenuItem.Size = new System.Drawing.Size(211, 24);
-            this.expectedReposConfigToolStripMenuItem.Text = "Expected repos config";
-            this.expectedReposConfigToolStripMenuItem.Click += new System.EventHandler(this.expectedReposConfigToolStripMenuItem_Click);
+            this.toolStripSeparator6.Name = "toolStripSeparator6";
+            this.toolStripSeparator6.Size = new System.Drawing.Size(208, 6);
             // 
             // exortConfigurationToolStripMenuItem
             // 
@@ -406,21 +423,21 @@
             // homeToolStripMenuItem
             // 
             this.homeToolStripMenuItem.Name = "homeToolStripMenuItem";
-            this.homeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.homeToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
             this.homeToolStripMenuItem.Text = "Home www";
             this.homeToolStripMenuItem.Click += new System.EventHandler(this.homeToolStripMenuItem_Click);
             // 
             // licenseToolStripMenuItem
             // 
             this.licenseToolStripMenuItem.Name = "licenseToolStripMenuItem";
-            this.licenseToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.licenseToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
             this.licenseToolStripMenuItem.Text = "License";
             this.licenseToolStripMenuItem.Click += new System.EventHandler(this.licenseToolStripMenuItem_Click);
             // 
             // reportAProblemToolStripMenuItem
             // 
             this.reportAProblemToolStripMenuItem.Name = "reportAProblemToolStripMenuItem";
-            this.reportAProblemToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.reportAProblemToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
             this.reportAProblemToolStripMenuItem.Text = "Report a problem";
             this.reportAProblemToolStripMenuItem.Click += new System.EventHandler(this.reportAProblemToolStripMenuItem_Click);
             // 
@@ -532,23 +549,6 @@
             this.reposCatalogs.SelectedIndex = 0;
             this.reposCatalogs.Size = new System.Drawing.Size(584, 732);
             this.reposCatalogs.TabIndex = 1;
-            // 
-            // editConfigurationToolStripMenuItem
-            // 
-            this.editConfigurationToolStripMenuItem.Name = "editConfigurationToolStripMenuItem";
-            this.editConfigurationToolStripMenuItem.Size = new System.Drawing.Size(211, 24);
-            this.editConfigurationToolStripMenuItem.Text = "Edit configuration";
-            this.editConfigurationToolStripMenuItem.Click += new System.EventHandler(this.editConfigurationToolStripMenuItem_Click);
-            // 
-            // toolStripSeparator5
-            // 
-            this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(208, 6);
-            // 
-            // toolStripSeparator6
-            // 
-            this.toolStripSeparator6.Name = "toolStripSeparator6";
-            this.toolStripSeparator6.Size = new System.Drawing.Size(208, 6);
             // 
             // MainForm
             // 

@@ -1,5 +1,4 @@
 ﻿using GitLooker.Core.Configuration;
-using System.Windows.Forms;
 using static GitLooker.Controls.RepoControl;
 
 namespace GitLooker.Controls

@@ -1,10 +1,7 @@
 ﻿using GitLooker.Core.Configuration;
 using GitLooker.Core.Validators;
 using Newtonsoft.Json;
-using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.IO;
 
 namespace GitLooker.Services.Configuration
 {
