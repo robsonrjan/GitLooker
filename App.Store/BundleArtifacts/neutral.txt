@@ -1,0 +1,2 @@
+MainPackage=E:\dokumenty\Projekty\GIT\GitLooker\App.Store\bin\AnyCPU\Release\App.Store_5.3.0.0_AnyCPU.msix
+SymbolPackage=E:\dokumenty\Projekty\GIT\GitLooker\App.Store\obj\Release\Symbols\App.Store_5.3.0.0_AnyCPU.appxsym

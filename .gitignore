@@ -149,3 +149,6 @@ dmypy.json
 /App.GitLooker
 /GitLooker Setup/Debug
 /GitLooker Setup/Release/setup.exe
+/App.Store/bin
+/App.Store/obj
+/App.Store/AppPackages
