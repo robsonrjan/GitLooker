@@ -4,6 +4,7 @@ using GitLooker.Core.Services;
 using GitLooker.Services.Configuration;
 using GitLooker.Services.Services;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using System.Diagnostics;
 
 namespace GitLooker
@@ -16,7 +17,7 @@ namespace GitLooker
         private readonly IAppSemaphoreSlim semaphore;
         private readonly ITabsRepoBuilder tabsRepoBuilder;
         private readonly IServiceProvider serviceProvider;
-        private readonly ILoggingService<MainForm> loggingService;
+        private readonly ILogger<MainForm> loggingService;
         private volatile bool isUpdating;
         private TabReposControl nextState;
         private bool noReposLoaded;
@@ -32,7 +33,7 @@ namespace GitLooker
             IAppSemaphoreSlim appSemaphoreSlim,
             IServiceProvider serviceProvider,
             IAppConfiguration appConfiguration,
-            ILoggingService<MainForm> loggingService)
+            ILogger<MainForm> loggingService)
         {
             InitializeComponent();
             semaphore = appSemaphoreSlim;
@@ -52,7 +53,7 @@ namespace GitLooker
             var newRepoList = repoSources.RepoList ?? Enumerable.Empty<string>();
 
             if (!newRepoList.Any()) return;
-            loggingService.Info($"[{nameof(SetWorkingPathToolStripMenuItem_Click)}] Add git repo directories: {string.Join(";", newRepoList.ToArray())}");
+            loggingService.LogInformation($"[{nameof(SetWorkingPathToolStripMenuItem_Click)}] Add git repo directories: {string.Join(";", newRepoList.ToArray())}");
 
             if (noReposLoaded)
                 SetMenuFunctionIfNoRepos(false);
@@ -71,7 +72,7 @@ namespace GitLooker
         {
             foreach (var tab in removedRepos)
             {
-                loggingService.Debug($"[{nameof(RemoveRepoTab)}] Removing tab: {tab.Name}");
+                loggingService.LogDebug($"[{nameof(RemoveRepoTab)}] Removing tab: {tab.Name}");
                 appConfiguration.Remove(tab.RepoConfiguration);
                 reposCatalogs.TabPages.Remove(tab);
                 tab.Dispose();
@@ -104,21 +105,21 @@ namespace GitLooker
                 MessageBox.Show("No repositories configured.");
             }
 
-            loggingService.Debug($"[{nameof(Form1_Load)}] Loading repos to App");
+            loggingService.LogDebug($"[{nameof(Form1_Load)}] Loading repos to App");
         }
 
         private void CheckGitSetup()
         {
             if (string.IsNullOrWhiteSpace(appConfiguration.GitVersion))
             {
-                loggingService.Debug($"[{nameof(CheckGitSetup)}] No git configured");
+                loggingService.LogDebug($"[{nameof(CheckGitSetup)}] No git configured");
                 MessageBox.Show($"There is no Git installed or not configured.{Environment.NewLine}From 'Configuration' choose 'Edit configuration' and fill 'GitLocation' section then restart application.", "Git configuration", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 checkToolStripMenuItem.Visible = false;
                 toolStripMenuItem2.Visible = false;
             }
             else
             {
-                loggingService.Debug($"[{nameof(CheckGitSetup)}] Git version: {appConfiguration.GitVersion}");
+                loggingService.LogDebug($"[{nameof(CheckGitSetup)}] Git version: {appConfiguration.GitVersion}");
                 Text = $"{Text}, Git ver.{appConfiguration.GitVersion}";
             }
         }
@@ -130,19 +131,19 @@ namespace GitLooker
             foreach (dynamic item in menuStrip1.Items)
             {
                 item.Enabled = disable ? (item.Text == "File") || (item.Text == "Configuration") : !disable;
-                loggingService.Trace($"[{nameof(SetMenuFunctionIfNoRepos)}] Set item: {item.Text}, isEnabled = {item.Enabled}");
+                loggingService.LogTrace($"[{nameof(SetMenuFunctionIfNoRepos)}] Set item: {item.Text}, isEnabled = {item.Enabled}");
             }
 
             foreach (dynamic item in fileToolStripMenuItem.DropDownItems)
             {
                 item.Visible = disable ? (item.Name == "setWorkingPathToolStripMenuItem") : !disable;
-                loggingService.Trace($"[{nameof(SetMenuFunctionIfNoRepos)}] Set item: {item.Text}, isVisible = {item.Visible}");
+                loggingService.LogTrace($"[{nameof(SetMenuFunctionIfNoRepos)}] Set item: {item.Text}, isVisible = {item.Visible}");
             }
 
             foreach (dynamic item in configurationToolStripMenuItem.DropDownItems)
             {
                 item.Visible = disable ? (item.Name == "importConfigurationToolStripMenuItem") : !disable;
-                loggingService.Trace($"[{nameof(SetMenuFunctionIfNoRepos)}] Set item: {item.Text}, isVisible = {item.Visible}");
+                loggingService.LogTrace($"[{nameof(SetMenuFunctionIfNoRepos)}] Set item: {item.Text}, isVisible = {item.Visible}");
             }
         }
 
@@ -301,7 +302,7 @@ namespace GitLooker
             repoList.repoText.Lines = currentTabControl.ReposAllControl
                 .Where(r => !string.IsNullOrWhiteSpace(r.RepoConfiguration))
                 .Select(r => r.RepoConfiguration).ToArray();
-            loggingService.Info($"[{nameof(remoteReposConfigToolStripMenuItem_Click)}] Editing remote repos");
+            loggingService.LogInformation($"[{nameof(remoteReposConfigToolStripMenuItem_Click)}] Editing remote repos");
             repoList.ShowDialog();
         }
 
@@ -313,7 +314,7 @@ namespace GitLooker
             repoList.repoText.Lines = currentTabControl.RepoConfiguration.ExpectedRemoteRepos.ToArray();
             repoList.ShowDialog();
 
-            loggingService.Info($"[{nameof(expectedReposConfigToolStripMenuItem_Click)}] Adding repos to clone");
+            loggingService.LogInformation($"[{nameof(expectedReposConfigToolStripMenuItem_Click)}] Adding repos to clone");
             currentTabControl.RepoConfiguration.ExpectedRemoteRepos = repoList.repoText.Lines.Select(ToLower).Distinct()
                 .Where(r => !string.IsNullOrWhiteSpace(r)).ToList();
             appConfiguration.Save();
@@ -433,7 +434,7 @@ namespace GitLooker
                 "4 hours" => 4,
                 _ => 0
             };
-            loggingService.Info($"[{nameof(toolStripComboBox1_Click)}] Change autocheck from: {oldValue} to: {currentTabControl.RepoConfiguration.IntervalUpdateCheckHour} hours");
+            loggingService.LogInformation($"[{nameof(toolStripComboBox1_Click)}] Change autocheck from: {oldValue} to: {currentTabControl.RepoConfiguration.IntervalUpdateCheckHour} hours");
             appConfiguration.Save();
             fileToolStripMenuItem.HideDropDown();
         }
@@ -461,7 +462,7 @@ namespace GitLooker
                 var oldValue = currentTabControl.RepoConfiguration.MainBranch;
                 if (currentTabControl.RepoConfiguration.MainBranch == toolStripTextBox1.Text) return;
                 currentTabControl.RepoConfiguration.MainBranch = toolStripTextBox1.Text;
-                loggingService.Info($"{nameof(toolStripTextBox1_KeyUp)} Default branch name changed from: {oldValue} to: {currentTabControl.RepoConfiguration.MainBranch}");
+                loggingService.LogInformation($"{nameof(toolStripTextBox1_KeyUp)} Default branch name changed from: {oldValue} to: {currentTabControl.RepoConfiguration.MainBranch}");
                 fileToolStripMenuItem.HideDropDown();
 
                 appConfiguration.Save();
@@ -488,35 +489,35 @@ namespace GitLooker
                 {
                     oldValue = currentTabControl.RepoConfiguration.Command;
                     currentTabControl.RepoConfiguration.Command = toolStripTextBox2.Text;
-                    loggingService.Info($"[{nameof(SaveConfiguration)}] Repo manage command changed from: {oldValue} to: {currentTabControl.RepoConfiguration.Command}");
+                    loggingService.LogInformation($"[{nameof(SaveConfiguration)}] Repo manage command changed from: {oldValue} to: {currentTabControl.RepoConfiguration.Command}");
                 }
 
                 if (currentTabControl.RepoConfiguration.Arguments != toolStripTextBox3.Text)
                 {
                     oldValue = currentTabControl.RepoConfiguration.Arguments;
                     currentTabControl.RepoConfiguration.Arguments = toolStripTextBox3.Text;
-                    loggingService.Info($"[{nameof(SaveConfiguration)}] Repo manage argument changed from: {oldValue} to: {currentTabControl.RepoConfiguration.Arguments}");
+                    loggingService.LogInformation($"[{nameof(SaveConfiguration)}] Repo manage argument changed from: {oldValue} to: {currentTabControl.RepoConfiguration.Arguments}");
                 }
 
                 if (currentTabControl.RepoConfiguration.ProjectCommand != toolStripTextBox5.Text)
                 {
                     oldValue = currentTabControl.RepoConfiguration.ProjectCommand;
                     currentTabControl.RepoConfiguration.ProjectCommand = toolStripTextBox5.Text;
-                    loggingService.Info($"[{nameof(SaveConfiguration)}] Project manage command changed from: {oldValue} to: {currentTabControl.RepoConfiguration.ProjectCommand}");
+                    loggingService.LogInformation($"[{nameof(SaveConfiguration)}] Project manage command changed from: {oldValue} to: {currentTabControl.RepoConfiguration.ProjectCommand}");
                 }
 
                 if (currentTabControl.RepoConfiguration.ProjectArguments != toolStripTextBox6.Text)
                 {
                     oldValue = currentTabControl.RepoConfiguration.ProjectArguments;
                     currentTabControl.RepoConfiguration.ProjectArguments = toolStripTextBox6.Text;
-                    loggingService.Info($"[{nameof(SaveConfiguration)}] Project manage argument changed from: {oldValue} to: {currentTabControl.RepoConfiguration.ProjectArguments}");
+                    loggingService.LogInformation($"[{nameof(SaveConfiguration)}] Project manage argument changed from: {oldValue} to: {currentTabControl.RepoConfiguration.ProjectArguments}");
                 }
 
                 if (currentTabControl.RepoConfiguration.ProjectExtension != toolStripTextBox7.Text)
                 {
                     oldValue = currentTabControl.RepoConfiguration.ProjectExtension;
                     currentTabControl.RepoConfiguration.ProjectExtension = toolStripTextBox7.Text;
-                    loggingService.Info($"[{nameof(SaveConfiguration)}] Project extensin changed from: {oldValue} to: {currentTabControl.RepoConfiguration.ProjectExtension}");
+                    loggingService.LogInformation($"[{nameof(SaveConfiguration)}] Project extensin changed from: {oldValue} to: {currentTabControl.RepoConfiguration.ProjectExtension}");
                 }
 
                 if (!string.IsNullOrWhiteSpace(oldValue))
@@ -615,7 +616,7 @@ namespace GitLooker
                 FileName = "GitLookerConfig.json"
             };
 
-            loggingService.Info($"[{nameof(exortConfigurationToolStripMenuItem_Click)}] Exporting config");
+            loggingService.LogInformation($"[{nameof(exortConfigurationToolStripMenuItem_Click)}] Exporting config");
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
                 appConfiguration.SaveAs(saveFileDialog.FileName);
         }
@@ -639,7 +640,7 @@ namespace GitLooker
                     tab.Dispose();
                 reposCatalogs.TabPages.Clear();
 
-                loggingService.Info($"[{nameof(importConfigurationToolStripMenuItem_Click)}] Importing config from: {openFileDialog.FileName}");
+                loggingService.LogInformation($"[{nameof(importConfigurationToolStripMenuItem_Click)}] Importing config from: {openFileDialog.FileName}");
                 Form1_Load(default, default);
             }
         }
@@ -759,7 +760,7 @@ namespace GitLooker
 
         private void StartProcess(string processInfo)
         {
-            loggingService.Debug($"[{nameof(StartProcess)}] Process: {processInfo}");
+            loggingService.LogDebug($"[{nameof(StartProcess)}] Process: {processInfo}");
             Process wwwProcess = new Process();
             wwwProcess.StartInfo = new ProcessStartInfo(processInfo);
             wwwProcess.Start();
@@ -770,7 +771,7 @@ namespace GitLooker
 
         private void editConfigurationToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            loggingService.Info($"[{nameof(editConfigurationToolStripMenuItem_Click)}] Edit configuration.");
+            loggingService.LogInformation($"[{nameof(editConfigurationToolStripMenuItem_Click)}] Edit configuration.");
             StartProcess(AppConfiguration.Location);
         }
     }

@@ -1,14 +1,15 @@
 ﻿using GitLooker.Core.Startup;
 using GitLooker.Services.Services;
+using Microsoft.Extensions.Logging;
 
 namespace GitLooker.Startup
 {
     public class Startup : IStartup
     {
         private readonly MainForm form;
-        private readonly ILoggingService<Startup> loggingService;
+        private readonly ILogger<Startup> loggingService;
 
-        public Startup(MainForm form, ILoggingService<Startup> loggingService)
+        public Startup(MainForm form, ILogger<Startup> loggingService)
         {
             this.form = form;
             this.loggingService = loggingService;
@@ -16,9 +17,9 @@ namespace GitLooker.Startup
 
         public void StartApp(string[] arg)
         {
-            loggingService.Info($"[{nameof(StartApp)}] Starting App");
+            loggingService.LogInformation($"[{nameof(StartApp)}] Starting App");
             Application.Run(form);
-            loggingService.Info($"[{nameof(StartApp)}] Ending App");
+            loggingService.LogInformation($"[{nameof(StartApp)}] Ending App");
         }
     }
 }

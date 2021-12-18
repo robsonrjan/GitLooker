@@ -11,6 +11,8 @@ using GitLooker.Services.interceptors;
 using GitLooker.Services.Repository;
 using GitLooker.Services.Services;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.EventLog;
 using ST = GitLooker.Startup;
 
 namespace GitLooker.CompositionRoot
@@ -29,8 +31,19 @@ namespace GitLooker.CompositionRoot
                 .AddSingleton<ITabsRepoBuilder, TabsRepoBuilder>()
                 .AddSingleton<IAppSemaphoreSlim, AppSemaphoreSlim>()
                 .AddSingleton<IGitVersion, RepoCommandProcessor>()
+                .AddSingleton<ILoggerFactory>(sp =>
+                {
+                    var eventSetting = new EventLogSettings
+                    {
+                        Filter = (msg, level) => level > LogLevel.Debug,
+                        SourceName = "GitLooker"
+                    };
+                    var provider = new EventLogLoggerProvider(eventSetting);
+                    return new LoggerFactory(new[] { provider });
+                })
+                .AddLogging()
+                .AddSingleton(typeof(ILogger<>), typeof(Logger<>))
                 .AddSingleton<IGitValidator, GitValidator>()
-                .AddSingleton(typeof(ILoggingService<>), typeof(LoggingService<>))
                 .AddTransient<IProcessShell, ProcessShell>()
                 .AddTransient<IRepoCommandProcessor, RepoCommandProcessor>()
                 .AddTransient<RepoCommandProcessorController>()
