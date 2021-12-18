@@ -8,13 +8,18 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="FluentAssertions" Version="6.2.0" />
-	  <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.0.0" />
-	  <PackageReference Include="Moq" Version="4.16.1" />
-	  <PackageReference Include="NUnit" Version="3.13.2" />
+		<PackageReference Include="FluentAssertions" Version="6.2.0" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="6.0.0" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="6.0.0" />
+		<PackageReference Include="Moq" Version="4.16.1" />
+		<PackageReference Include="nunit" Version="3.13.2" />
+		<PackageReference Include="NUnit3TestAdapter" Version="4.1.0" />
+		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.0.0" />
 	</ItemGroup>
 
 	<ItemGroup>
+	  <ProjectReference Include="..\GitLooker.Core\GitLooker.Core.csproj" />
 	  <ProjectReference Include="..\GitLooker.Services\GitLooker.Services.csproj" />
 	  <ProjectReference Include="..\GitLooker\GitLooker.csproj" />
 	</ItemGroup>
