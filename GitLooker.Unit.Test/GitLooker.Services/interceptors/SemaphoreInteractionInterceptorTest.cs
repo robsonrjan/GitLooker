@@ -3,24 +3,22 @@ using GitLooker.Core;
 using GitLooker.Core.Services;
 using GitLooker.Services.interceptors;
 using Moq;
-using NUnit.Framework;
 using System;
 using System.Collections.Generic;
+using Xunit;
 
 namespace GitLooker.Unit.Test.GitLooker.Services.interceptors
 {
-    [TestFixture]
     public class SemaphoreInteractionInterceptorTest
     {
-        private SemaphoreInteractionInterceptor semaphoreInteractionInterceptor;
-        private IAppSemaphoreSlim appSemaphoreSlim;
-        private Castle.DynamicProxy.IInvocation invocation1;
-        private Castle.DynamicProxy.IInvocation invocation2;
+        private readonly SemaphoreInteractionInterceptor semaphoreInteractionInterceptor;
+        private readonly IAppSemaphoreSlim appSemaphoreSlim;
+        private readonly Castle.DynamicProxy.IInvocation invocation1;
+        private readonly Castle.DynamicProxy.IInvocation invocation2;
         private bool hasExecuted;
 
 
-        [SetUp]
-        public void BeforeEach()
+        public SemaphoreInteractionInterceptorTest()
         {
             var methodInfo1 = GetType().GetMethod("Execute");
             var methodInfo2 = GetType().GetMethod("NoExecute");
@@ -37,7 +35,7 @@ namespace GitLooker.Unit.Test.GitLooker.Services.interceptors
             semaphoreInteractionInterceptor = new SemaphoreInteractionInterceptor(appSemaphoreSlim);
         }
 
-        [Test]
+        [Fact]
         public void Intercept_check_for_Execute_method_should_use_Semaphore()
         {
             semaphoreInteractionInterceptor.Intercept(invocation1);
@@ -49,7 +47,7 @@ namespace GitLooker.Unit.Test.GitLooker.Services.interceptors
             hasExecuted.Should().BeTrue();
         }
 
-        [Test]
+        [Fact]
         public void Intercept_check_for_Execute_methodWithException_should_use_Semaphore_and_ReturnValue()
         {
             Mock.Get(invocation1).Setup(i => i.Proceed()).Callback(() => throw new Exception());
@@ -67,7 +65,7 @@ namespace GitLooker.Unit.Test.GitLooker.Services.interceptors
             hasExecuted.Should().BeFalse();
         }
 
-        [Test]
+        [Fact]
         public void Intercept_check_for_NoExecute_method_should_not_use_Semaphore()
         {
             semaphoreInteractionInterceptor.Intercept(invocation2);

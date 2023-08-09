@@ -3,21 +3,19 @@ using GitLooker.Core;
 using GitLooker.Core.Services;
 using GitLooker.Services.CommandProcessor;
 using Moq;
-using NUnit.Framework;
 using System;
 using System.Collections.Generic;
+using Xunit;
 
 namespace GitLooker.Unit.Test.GitLooker.Services.CommandProcessor
 {
-    [TestFixture]
     public class RepoCommandProcessorTest
     {
-        private Command configRepo = new Command { Exec = "Exec", Args = "Args" };
-        private IRepoCommandProcessor repoCommandProcessor;
-        private IProcessShell processShell;
+        private readonly Command configRepo = new Command { Exec = "Exec", Args = "Args" };
+        private readonly IRepoCommandProcessor repoCommandProcessor;
+        private readonly IProcessShell processShell;
 
-        [SetUp]
-        public void BeforeEach()
+        public RepoCommandProcessorTest()
         {
             processShell = Mock.Of<IProcessShell>();
             Mock.Get(processShell).Setup(p => p.Execute(It.IsAny<IEnumerable<Command>>()))
@@ -25,7 +23,7 @@ namespace GitLooker.Unit.Test.GitLooker.Services.CommandProcessor
             repoCommandProcessor = new RepoCommandProcessor(processShell);
         }
 
-        [Test]
+        [Fact]
         public void Constructor_for_parameter_processsShell_isNull_throwException()
         {
             Action actionCheck = () => new RepoCommandProcessor(default);
@@ -34,7 +32,7 @@ namespace GitLooker.Unit.Test.GitLooker.Services.CommandProcessor
                 .Which.ParamName.Should().Be(nameof(processShell));
         }
 
-        [Test]
+        [Fact]
         public void CheckRepo_executes()
         {
             var result = repoCommandProcessor.CheckRepo(nameof(configRepo));
@@ -48,7 +46,7 @@ namespace GitLooker.Unit.Test.GitLooker.Services.CommandProcessor
             });
         }
 
-        [Test]
+        [Fact]
         public void ClonRepo_executes()
         {
             var result = repoCommandProcessor.ClonRepo(nameof(configRepo), nameof(configRepo));
@@ -62,7 +60,7 @@ namespace GitLooker.Unit.Test.GitLooker.Services.CommandProcessor
             });
         }
 
-        [Test]
+        [Fact]
         public void PullRepo_executes()
         {
             var result = repoCommandProcessor.PullRepo(nameof(configRepo));
@@ -76,8 +74,8 @@ namespace GitLooker.Unit.Test.GitLooker.Services.CommandProcessor
             });
         }
 
-        [TestCase("test", "")]
-        [TestCase("(push) 1 2 3 4", "3")]
+        [InlineData("test", "")]
+        [InlineData("(push) 1 2 3 4", "3")]
         public void RemoteConfig_executes(string executionResult, string expectedResult)
         {
             Mock.Get(processShell).Setup(p => p.Execute(It.IsAny<IEnumerable<Command>>()))
@@ -94,7 +92,7 @@ namespace GitLooker.Unit.Test.GitLooker.Services.CommandProcessor
             });
         }
 
-        [Test]
+        [Fact]
         public void ResetRepo_executes()
         {
             var result = repoCommandProcessor.ResetRepo(nameof(configRepo));
@@ -108,7 +106,7 @@ namespace GitLooker.Unit.Test.GitLooker.Services.CommandProcessor
             });
         }
 
-        [Test]
+        [Fact]
         public void CheckOutBranch_executes()
         {
             var result = repoCommandProcessor.CheckOutBranch(nameof(configRepo), nameof(configRepo));

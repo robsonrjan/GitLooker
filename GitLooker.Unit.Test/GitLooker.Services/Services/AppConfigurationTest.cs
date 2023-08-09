@@ -4,40 +4,29 @@ using GitLooker.Core.Validators;
 using GitLooker.Services.Configuration;
 using Moq;
 using Newtonsoft.Json;
-using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using Xunit;
 
 namespace GitLooker.Unit.Test.GitLooker.Services.Services
 {
-    [TestFixture]
-    public class AppConfigurationTest
+    public class AppConfigurationTest : IDisposable
     {
-        private AppConfiguration testedObj;
-        private string appConfigPileFullPath;
-        private IGitValidator gitValidator;
+        private  readonly AppConfiguration testedObj;
+        private readonly string appConfigPileFullPath;
+        private readonly IGitValidator gitValidator;
 
-        [SetUp]
-        public void BeforeEach()
+        public AppConfigurationTest()
         {
             gitValidator = Mock.Of<IGitValidator>();
             testedObj = new AppConfiguration(gitValidator, Environment.CurrentDirectory);
             appConfigPileFullPath = $"{Environment.CurrentDirectory}\\GitLooker\\GitLookerConfig.json";
         }
 
-        [TearDown]
-        public void AfterEach()
-        {
-            var tempConfigFilePath = $"{Environment.CurrentDirectory}\\GitLooker";
-
-            if (Directory.Exists(tempConfigFilePath))
-                Directory.Delete(tempConfigFilePath, true);
-        }
-
-        [Test]
+        [Fact]
         public void Constructor_creates_empty_config_if_not_exists()
         {
             var appConfig = testedObj.FirstOrDefault();
@@ -47,7 +36,7 @@ namespace GitLooker.Unit.Test.GitLooker.Services.Services
             testedObj.Version.Should().Be("1.0.2");
         }
 
-        [Test]
+        [Fact]
         public void OpenOldVersionAppConfigFileShouldBeToNewOne()
         {
             var appCustomConfigPileFullPath = $"{Environment.CurrentDirectory}\\GitLooker\\GitLookerConfigTest.json";
@@ -77,6 +66,14 @@ namespace GitLooker.Unit.Test.GitLooker.Services.Services
                 ProjectExtension = "xProjectExtension",
                 RepoProcessingCount = 99
             };
+
+        public void Dispose()
+        {
+            var tempConfigFilePath = $"{Environment.CurrentDirectory}\\GitLooker";
+
+            if (Directory.Exists(tempConfigFilePath))
+                Directory.Delete(tempConfigFilePath, true);
+        }
     }
 
     internal static class TestExtensions

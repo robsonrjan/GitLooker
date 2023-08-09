@@ -1,28 +1,23 @@
 ﻿using FluentAssertions;
 using GitLooker.Services.Repository;
-using NUnit.Framework;
 using System;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Xunit;
 
 namespace GitLooker.Unit.Test.GitLooker.Services.Repository
 {
-    [TestFixture]
-    public class ProjectFileRepoTest
+    public class ProjectFileRepoTest : IDisposable
     {
         private const string repoDir = "test-ProjectFileRepo";
-        private ProjectFileRepo projectFileRepo;
-        private string repoPath;
+        private readonly ProjectFileRepo projectFileRepo;
+        private string? repoPath;
 
-        [SetUp]
-        public void BeforeEach()
+        public ProjectFileRepoTest()
             => projectFileRepo = new ProjectFileRepo();
 
-        [TearDown]
-        public void AfterEach() => RemoveRepoData();
-
-        [Test]
+        [Fact]
         public async Task GetAsync_all_project_upToThirdLevelFolders_files()
         {
             const string projectExtension = "sln";
@@ -33,9 +28,9 @@ namespace GitLooker.Unit.Test.GitLooker.Services.Repository
             projectFiles.Should().NotContain($"abc.{projectExtension}").And.HaveCount(1);
         }
 
-        [TestCase(null)]
-        [TestCase("")]
-        [TestCase(" ")]
+        [InlineData(null)]
+        [InlineData("")]
+        [InlineData(" ")]
         public void GetAsync_parameter_path_NullOrWhiteSpace_throw_exception(string path)
         {
             Action testAction = () => _ = projectFileRepo.GetAsync(path, "test");
@@ -43,9 +38,9 @@ namespace GitLooker.Unit.Test.GitLooker.Services.Repository
             testAction.Should().Throw<ArgumentException>().Which.ParamName.Should().Be("path");
         }
 
-        [TestCase(null)]
-        [TestCase("")]
-        [TestCase(" ")]
+        [InlineData(null)]
+        [InlineData("")]
+        [InlineData(" ")]
         public void GetAsync_parameter_extension_NullOrWhiteSpace_throw_exception(string extension)
         {
             Action testAction = () => _ = projectFileRepo.GetAsync("test", extension);
@@ -94,5 +89,7 @@ namespace GitLooker.Unit.Test.GitLooker.Services.Repository
             if (Directory.Exists(dir))
                 Directory.Delete(dir, true);
         }
+
+        public void Dispose() => RemoveRepoData();
     }
 }
