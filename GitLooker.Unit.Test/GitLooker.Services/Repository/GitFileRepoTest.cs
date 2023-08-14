@@ -1,27 +1,23 @@
 ﻿using FluentAssertions;
 using GitLooker.Services.Repository;
-using NUnit.Framework;
+using System;
 using System.IO;
+using Xunit;
 
 namespace GitLooker.Unit.Test.GitLooker.Services.Repository
 {
-    [TestFixture]
-    public class GitFileRepoTest
+    public class GitFileRepoTest :IDisposable
     {
         private const string repoDir = "test1";
-        private GitFileRepo gitFileRepo;
+        private readonly GitFileRepo gitFileRepo;
 
-        [SetUp]
-        public void BeforeEach()
+        public GitFileRepoTest()
         {
             gitFileRepo = new GitFileRepo();
             PrepareDir();
         }
 
-        [TearDown]
-        public void AfterEach() => CleanDir();
-
-        [Test]
+        [Fact]
         public void Get_check_dir_return_proper_repo_location()
         {
             var expectedValue = $"{Directory.GetCurrentDirectory()}\\{repoDir}";
@@ -46,5 +42,7 @@ namespace GitLooker.Unit.Test.GitLooker.Services.Repository
             if (Directory.Exists(repoDir))
                 Directory.Delete(repoDir);
         }
+
+        public void Dispose() => CleanDir();
     }
 }

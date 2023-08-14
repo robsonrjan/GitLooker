@@ -2,21 +2,20 @@
 using GitLooker.Core.Configuration;
 using GitLooker.Services.Services;
 using Moq;
-using NUnit.Framework;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Xunit;
 
 namespace GitLooker.Unit.Test.GitLooker.Services.Services
 {
-    [TestFixture]
-    public class AppSemaphoreSlimTest
+    public class AppSemaphoreSlimTest : IDisposable
     {
         private const int maxRepoProcessingCount = 3;
-        private AppSemaphoreSlim appSemaphoreSlim;
-        private IAppConfiguration appConfiguration;
+        private readonly AppSemaphoreSlim appSemaphoreSlim;
+        private readonly IAppConfiguration appConfiguration;
 
-        [SetUp]
-        public void BeforeEach()
+        public AppSemaphoreSlimTest()
         {
             appConfiguration = Mock.Of<IAppConfiguration>();
             Mock.Get(appConfiguration).Setup(a => a.RepoProcessingCount)
@@ -24,13 +23,7 @@ namespace GitLooker.Unit.Test.GitLooker.Services.Services
             appSemaphoreSlim = new AppSemaphoreSlim(appConfiguration);
         }
 
-        [TearDown]
-        public void AfterEach()
-        {
-            appSemaphoreSlim.Dispose();
-        }
-
-        [Test]
+        [Fact]
         public async Task Wait_action_check_should_wait()
         {
             bool reachMax = default;
@@ -60,7 +53,7 @@ namespace GitLooker.Unit.Test.GitLooker.Services.Services
             appSemaphoreSlim.CurrentCount.Should().Be(maxRepoProcessingCount);
         }
 
-        [Test]
+        [Fact]
         public async Task Wait_action_check_should_waitAsync()
         {
             bool reachNone = default;
@@ -86,5 +79,8 @@ namespace GitLooker.Unit.Test.GitLooker.Services.Services
             reachNone.Should().BeTrue();
             appSemaphoreSlim.CurrentCount.Should().Be(maxRepoProcessingCount);
         }
+
+        public void Dispose()
+            => appSemaphoreSlim.Dispose();
     }
 }

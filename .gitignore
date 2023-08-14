@@ -153,3 +153,4 @@ dmypy.json
 /App.Store/obj
 /App.Store/AppPackages
 /App.Store/App.Store.wapproj.user
+/App.Store/App.Store.assets.cache

@@ -2,26 +2,24 @@
 using GitLooker.Core.Repository;
 using GitLooker.Services.Services;
 using Moq;
-using NUnit.Framework;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Xunit;
 
 namespace GitLooker.Unit.Test.GitLooker.Services.Services
 {
-    [TestFixture]
     public class RepoHolderTest
     {
-        private RepoHolder repoHolder;
-        private IProjectFileRepo projectFileRepo;
+        private readonly RepoHolder repoHolder;
+        private readonly IProjectFileRepo projectFileRepo;
 
-        [SetUp]
-        public void BeforeEach()
+        public RepoHolderTest()
         {
             projectFileRepo = Mock.Of<IProjectFileRepo>();
             repoHolder = new RepoHolder(projectFileRepo);
         }
 
-        [Test]
+        [Fact]
         public async Task FindRepoProjectFilesAsync_check_expected_results()
         {
             var expectedResult = new List<string>

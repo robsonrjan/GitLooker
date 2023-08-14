@@ -2,25 +2,23 @@
 using GitLooker.Core;
 using GitLooker.Core.Services;
 using GitLooker.Services.CommandProcessor;
-using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using Xunit;
 
 namespace GitLooker.Unit.Test.GitLooker.Services.CommandProcessor
 {
-    [TestFixture]
     public class RepoCommandProcessorControllerTest
     {
-        private RepoCommandProcessorController repoCommandProcessorController;
-        private IRepoCommandProcessor repoCommandProcessor;
+        private readonly RepoCommandProcessorController repoCommandProcessorController;
+        private readonly IRepoCommandProcessor repoCommandProcessor;
         private static bool hasBeenExecuted;
-        private IEnumerable<MethodInfo> commands;
+        private readonly IEnumerable<MethodInfo> commands;
         private static int executionCount;
 
-        [SetUp]
-        public void BeforeEach()
+        public RepoCommandProcessorControllerTest()
         {
             repoCommandProcessor = new RepoCommandProcessorForTest();
             repoCommandProcessorController = new RepoCommandProcessorController(repoCommandProcessor);
@@ -29,12 +27,12 @@ namespace GitLooker.Unit.Test.GitLooker.Services.CommandProcessor
             executionCount = default;
         }
 
-        [TestCase("CheckOutBranch", null)]
-        [TestCase("CheckRepo", null)]
-        [TestCase("ClonRepo", null)]
-        [TestCase("PullRepo", null)]
-        [TestCase("RemoteConfig", "RemoteConfig")]
-        [TestCase("ResetRepo", null)]
+        [InlineData("CheckOutBranch", null)]
+        [InlineData("CheckRepo", null)]
+        [InlineData("ClonRepo", null)]
+        [InlineData("PullRepo", null)]
+        [InlineData("RemoteConfig", "RemoteConfig")]
+        [InlineData("ResetRepo", null)]
         public void Execute_check_all_execution(string commandName, object specialValue)
         {
             bool hasInvoked = default;
@@ -53,7 +51,7 @@ namespace GitLooker.Unit.Test.GitLooker.Services.CommandProcessor
             hasInvoked.Should().BeTrue();
         }
 
-        [Test]
+        [Fact]
         public void Execute_check_fewAtOnce_execution()
         {
             var commamdNames = new[] { "CheckOutBranch", "RemoteConfig", "ClonRepo" };
@@ -78,7 +76,7 @@ namespace GitLooker.Unit.Test.GitLooker.Services.CommandProcessor
             hasInvoked.Should().BeTrue();
         }
 
-        [Test]
+        [Fact]
         public void Constructor_for_parameter_repoCommandProcessor_isNull_throwException()
         {
             Action actionCheck = () => new RepoCommandProcessorController(default);
@@ -87,7 +85,7 @@ namespace GitLooker.Unit.Test.GitLooker.Services.CommandProcessor
                 .Which.ParamName.Should().Be(nameof(repoCommandProcessor));
         }
 
-        [Test]
+        [Fact]
         public void Execute_for_parameter_commands_isNull_throwException()
         {
             var commands = default(IEnumerable<MethodInfo>);
@@ -97,7 +95,7 @@ namespace GitLooker.Unit.Test.GitLooker.Services.CommandProcessor
                 .Which.ParamName.Should().Be(nameof(commands));
         }
 
-        [Test]
+        [Fact]
         public void Execute_for_parameter_commands_isEmpty_throwException()
         {
             var commands = Enumerable.Empty<MethodInfo>();
@@ -107,7 +105,7 @@ namespace GitLooker.Unit.Test.GitLooker.Services.CommandProcessor
                 .Which.ParamName.Should().Be(nameof(commands));
         }
 
-        [Test]
+        [Fact]
         public void Execute_for_parameter_options_isNull_throwException()
         {
             var options = default(IEnumerable<string>);
@@ -117,7 +115,7 @@ namespace GitLooker.Unit.Test.GitLooker.Services.CommandProcessor
                 .Which.ParamName.Should().Be(nameof(options));
         }
 
-        [Test]
+        [Fact]
         public void Execute_for_parameter_options_isEmpty_throwException()
         {
             var options = Enumerable.Empty<string>();
