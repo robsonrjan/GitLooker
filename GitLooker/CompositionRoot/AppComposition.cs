@@ -51,8 +51,8 @@ namespace GitLooker.CompositionRoot
                 .AddTransient<TabReposControl>()
                 .AddTransient(service =>
                 {
-                    var myInterceptedClass = service.GetService<RepoCommandProcessorController>();
-                    var interceptor = service.GetService<SemaphoreInteractionInterceptor>();
+                    var myInterceptedClass = service.GetRequiredService<RepoCommandProcessorController>();
+                    var interceptor = service.GetRequiredService<SemaphoreInteractionInterceptor>();
                     var proxy = new ProxyGenerator();
                     return proxy.CreateInterfaceProxyWithTargetInterface<IRepoCommandProcessorController>(myInterceptedClass, interceptor);
                 })

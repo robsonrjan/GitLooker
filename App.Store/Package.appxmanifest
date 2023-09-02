@@ -9,7 +9,7 @@
   <Identity
     Name="33732RobS.GitLooker"
     Publisher="CN=4A32856A-2832-419C-80F1-C1BFC4FCF3C2"
-    Version="5.3.0.0" />
+    Version="7.0.1.0" />
 
   <Properties>
     <DisplayName>GitLooker</DisplayName>

@@ -242,7 +242,7 @@ namespace GitLooker
 
         private void CheckToolStripMenuItem_Click(object sender, EventArgs e) => UpdateAll();
 
-        private void UpdateAll(IEnumerable<string> cloneRepos = default)
+        private void UpdateAll(IEnumerable<string>? cloneRepos = default)
         {
             if (string.IsNullOrWhiteSpace(appConfiguration.GitVersion))
                 return;

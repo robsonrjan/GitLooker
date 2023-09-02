@@ -11,5 +11,5 @@
 
 public static class AppVersion
 {
-    public const string AssemblyVersion = "5.3.0";
+    public const string AssemblyVersion = "7.0.1";
 }

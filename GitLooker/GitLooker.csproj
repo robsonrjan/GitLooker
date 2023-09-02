@@ -6,7 +6,15 @@
 		<Nullable>enable</Nullable>
 		<UseWindowsForms>true</UseWindowsForms>
 		<ImplicitUsings>enable</ImplicitUsings>
-		<BaseOutputPath>E:\dokumenty\Projekty\GIT\GitLooker\GitLooker\bin\x86</BaseOutputPath>
+		<BaseOutputPath>E:\dokumenty\Projekty\GIT\GitLooker\GitLooker\bin</BaseOutputPath>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+	  <DebugType>none</DebugType>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+	  <DebugType>none</DebugType>
 	</PropertyGroup>
   
   <ItemGroup>
